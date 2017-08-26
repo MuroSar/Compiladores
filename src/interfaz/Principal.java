@@ -14,7 +14,11 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +32,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import compilador.Lexico;
+import java.awt.Font;
+import javax.swing.JTextArea;
 
 public class Principal extends JFrame {
 	
@@ -41,7 +47,9 @@ public class Principal extends JFrame {
 	private Lexico lexico;
 	private File archivoACargar;
 	private boolean archivoCargado = false;
-	private JLabel lblPizarra;
+	
+	JTextArea txtListaTokens;
+	JTextArea txtArchivoCodigo;
 	
 	public Principal() {
 		setResizable(false);
@@ -61,8 +69,9 @@ public class Principal extends JFrame {
 		mnArchivo.add(mntmNuevo);
 		mntmNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ACA LIMPIAMOS PANTALLA...
 				lexico.nuevo();
+				txtListaTokens.setText("");
+				txtArchivoCodigo.setText("");
 			}
 		});
 		
@@ -92,10 +101,6 @@ public class Principal extends JFrame {
 				JOptionPane.showMessageDialog(null, "TP Diseño de Compiladores 2017 \n\n  Cynthia Romina Marin - Mauro Sarti");
 			}
 		});
-		
-		lblPizarra = new JLabel("aca se va a ir cargandoooo");
-		lblPizarra.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		lblPizarra.setBackground(Color.WHITE);
 				
 		JButton btnCargarArchivo = new JButton("Cargar archivo");
 		btnCargarArchivo.addActionListener(new ActionListener() {
@@ -109,41 +114,78 @@ public class Principal extends JFrame {
             public void actionPerformed(ActionEvent evt) {
             	if(!archivoCargado)
             	{
-            		cargarArchivo();
+            		int resp = JOptionPane.showConfirmDialog(null, "No se ha cargado ningun archivo con un c\u00F3digo ¿Quiere cargar uno?", "Alerta!", JOptionPane.YES_NO_OPTION);
+            		//resp == 0 --> Puso que SI
+            		//resp == 1 --> Puso que NO
+            		if (resp == 0)
+            		{
+            			cargarArchivo();
+                    	mostrarToken();	
+            		}
             	}
-            	mostrarToken();
+            	else
+            	{
+                	mostrarToken();	
+            	}
             }
         });
+		
+		JLabel lblTituloCodigo = new JLabel("C\u00F3digo");
+		lblTituloCodigo.setFont(new Font("Tahoma", Font.BOLD, 17));
+		
+		JLabel lblTituloToken = new JLabel("Tokens");
+		lblTituloToken.setFont(new Font("Tahoma", Font.BOLD, 17));
+		
+		txtListaTokens = new JTextArea();
+		txtListaTokens.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		txtListaTokens.setEnabled(false);
+		
+		txtArchivoCodigo = new JTextArea();
+		txtArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		txtArchivoCodigo.setEnabled(false);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblPizarra, GroupLayout.PREFERRED_SIZE, 316, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 534, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(txtArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtListaTokens, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPizarra, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(229, Short.MAX_VALUE))
+							.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtArchivoCodigo, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtListaTokens, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(112, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 	}
 
 	private void cargarArchivo()
 	{
+		//ACA CARGAMOS EL ARCHIVO...
 		JFileChooser buscador = new JFileChooser();
 		buscador.setVisible(true);
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("txt", "txt");
@@ -154,13 +196,26 @@ public class Principal extends JFrame {
 			lexico.cargar(archivoACargar);
 			this.archivoCargado = true;
 		}
+		
+		//ACA LO MOSTRAMOS POR PANTALLA..
+		try {
+			BufferedReader leer = new BufferedReader(new FileReader(archivoACargar));
+			String line = leer.readLine();
+			while (line != null)
+			{
+				txtArchivoCodigo.append(line + "\n");
+				line = leer.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void mostrarToken()
 	{
 		String token;
 		token = lexico.getToken();
-		lblPizarra.setText(lblPizarra.getText() + "\n" + token);
+		txtListaTokens.append(token + "\n");
 	}
 
 	public static void main(String args[]) {
@@ -190,5 +245,4 @@ public class Principal extends JFrame {
             }
         });
     }
-
 }
