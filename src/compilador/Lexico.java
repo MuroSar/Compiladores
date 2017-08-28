@@ -1,7 +1,10 @@
 package compilador;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import interfaz.Principal;
 
@@ -33,7 +36,7 @@ public class Lexico {
 		this.palabrasReservas.put("MOVE", "MOVE");
 		
 		this.simbolos= new Hashtable<Integer, String>();
-		//ver como se van armando los simbolos.. hay que pregarcar algo??????
+		//ver como se van armando los simbolos.. hay que precargar algo??????
 		this.ppal = ppal;
 	}
 
@@ -50,9 +53,29 @@ public class Lexico {
 	}
 
 	public String getToken() {
-		String token = new String();
+		String token = new String("que se cuenta??");
+		marcarCodigo(this.fila, this.pos);
 		// ACA VA EL CASE DE LA MUEEERRTEEEEE
 		return token;
+	}
+
+	private void marcarCodigo(int fila, int pos) {
+		try {
+			List<String> lines = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
+//			for (int i=0; i < lines.size(); i++)
+//			{
+//				if(pos == i)
+//				{
+//					
+//				}
+//			}
+			this.ppal.resaltarCodigo(lines);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

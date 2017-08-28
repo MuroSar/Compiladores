@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,10 +31,17 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 
 import compilador.Lexico;
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.JScrollBar;
 
 public class Principal extends JFrame {
 	
@@ -48,8 +56,8 @@ public class Principal extends JFrame {
 	private File archivoACargar;
 	private boolean archivoCargado = false;
 	
-	JTextArea txtListaTokens;
-	JTextArea txtArchivoCodigo;
+	private JTextArea txtListaTokens;
+	private JTextArea txtArchivoCodigo;
 	
 	public Principal() {
 		setResizable(false);
@@ -138,11 +146,11 @@ public class Principal extends JFrame {
 		
 		txtListaTokens = new JTextArea();
 		txtListaTokens.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		txtListaTokens.setEnabled(false);
+		txtListaTokens.setEditable(false);
 		
 		txtArchivoCodigo = new JTextArea();
 		txtArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		txtArchivoCodigo.setEnabled(false);
+		txtArchivoCodigo.setEditable(false);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -150,13 +158,13 @@ public class Principal extends JFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(txtArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnCargarArchivo, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+								.addComponent(btnSeguiente, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
@@ -206,8 +214,22 @@ public class Principal extends JFrame {
 				txtArchivoCodigo.append(line + "\n");
 				line = leer.readLine();
 			}
+			leer.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void resaltarCodigo(List<String> lines)
+	{
+		txtArchivoCodigo.setText("");
+		txtArchivoCodigo.setForeground(Color.RED);
+		for (String loc : lines) {
+			if(loc.equals("estas bien??"))
+			{
+				txtArchivoCodigo.append(loc + "\n");
+			}
+
 		}
 	}
 	
