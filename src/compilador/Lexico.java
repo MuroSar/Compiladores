@@ -61,15 +61,17 @@ public class Lexico {
 
 	private void marcarCodigo(int fila, int pos) {
 		try {
+			int longitud = 0;
 			List<String> lines = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
-//			for (int i=0; i < lines.size(); i++)
-//			{
-//				if(pos == i)
-//				{
-//					
-//				}
-//			}
-			this.ppal.resaltarCodigo(lines);
+			for (int i=0; i < lines.size(); i++)
+			{
+				if(pos == i)
+				{
+					
+				}
+			}
+			this.ppal.resaltarCodigo(lines, fila, pos, longitud);
+//			this.ppal.resaltarCodigo(lines, 1, 2, 4);
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -5,6 +5,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
@@ -31,8 +32,12 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.AttributeSet;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 import compilador.Lexico;
 import java.awt.Font;
@@ -57,7 +62,7 @@ public class Principal extends JFrame {
 	private boolean archivoCargado = false;
 	
 	private JTextArea txtListaTokens;
-	private JTextArea txtArchivoCodigo;
+    private JTextPane tpArchivoCodigo;
 	
 	public Principal() {
 		setResizable(false);
@@ -79,7 +84,7 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				lexico.nuevo();
 				txtListaTokens.setText("");
-				txtArchivoCodigo.setText("");
+				tpArchivoCodigo.setText("");
 			}
 		});
 		
@@ -148,9 +153,9 @@ public class Principal extends JFrame {
 		txtListaTokens.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		txtListaTokens.setEditable(false);
 		
-		txtArchivoCodigo = new JTextArea();
-		txtArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		txtArchivoCodigo.setEditable(false);
+		tpArchivoCodigo = new JTextPane();
+		tpArchivoCodigo.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		tpArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -160,7 +165,7 @@ public class Principal extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tpArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnCargarArchivo, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
@@ -179,13 +184,13 @@ public class Principal extends JFrame {
 						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-						.addComponent(txtArchivoCodigo, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtListaTokens, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtListaTokens, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+						.addComponent(tpArchivoCodigo))
 					.addContainerGap(112, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
@@ -211,28 +216,75 @@ public class Principal extends JFrame {
 			String line = leer.readLine();
 			while (line != null)
 			{
-				txtArchivoCodigo.append(line + "\n");
+				tpArchivoCodigo.setText(tpArchivoCodigo.getText() + line + "\n");
 				line = leer.readLine();
 			}
 			leer.close();
+			tpArchivoCodigo.setEditable(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void resaltarCodigo(List<String> lines)
+	public void resaltarCodigo(List<String> lines, int fila, int pos, int longitud)
 	{
-		txtArchivoCodigo.setText("");
-		txtArchivoCodigo.setForeground(Color.RED);
-		for (String loc : lines) {
-			if(loc.equals("estas bien??"))
+		String previo = "";
+		String actual = "";
+		String resto = "";
+		tpArchivoCodigo.setText("");
+		for (int loc=0; loc<lines.size(); loc++) 
+		{
+			if(loc < fila)
 			{
-				txtArchivoCodigo.append(loc + "\n");
+				previo = previo + lines.get(loc) + "\n";
 			}
-
+			if(loc == fila)
+			{
+				int col = 0;
+				String linea = lines.get(loc);
+				String aux = "";
+				while(col < pos)
+				{
+					aux += linea.charAt(col);
+					col++;
+				}
+				previo = previo + aux;
+				if(col == pos)
+				{
+					actual = lines.get(loc).substring(pos, pos+longitud);
+				}
+				resto = lines.get(loc).substring(pos+longitud) + "\n";
+			}
+			if(loc > fila)
+			{
+				resto = resto + lines.get(loc) + "\n";
+			}
 		}
+
+		tpArchivoCodigo.setEditable(true);
+		
+		appendToPane(tpArchivoCodigo, previo, Color.BLUE);
+		appendToPane(tpArchivoCodigo, actual, Color.RED);
+		appendToPane(tpArchivoCodigo, resto, Color.BLACK);
+		
+		tpArchivoCodigo.setEditable(false);
 	}
 	
+	public void appendToPane(JTextPane tpArchivoCodigo, String msg, Color c)
+    {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
+
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tpArchivoCodigo.getDocument().getLength();
+        tpArchivoCodigo.setCaretPosition(len);
+        tpArchivoCodigo.setCharacterAttributes(aset, false);
+        tpArchivoCodigo.replaceSelection(msg);
+    }
+	
+
 	private void mostrarToken()
 	{
 		String token;
@@ -261,8 +313,6 @@ public class Principal extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
             	Principal ppal=new Principal();
-            	//ppal.setSize(200, 200);
-                //ppal.pack();
                 ppal.setVisible(true);
             }
         });
