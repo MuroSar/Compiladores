@@ -287,9 +287,10 @@ public class Principal extends JFrame {
 
 	private void mostrarToken()
 	{
-		String token;
+		int token;
 		token = lexico.getToken();
-		txtListaTokens.append(token + "\n");
+		String lexema = lexico.getLexema(token);
+		txtListaTokens.append(lexema + "\n");
 	}
 
 	public static void main(String args[]) {
