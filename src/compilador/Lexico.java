@@ -1,9 +1,7 @@
 package compilador;
 
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -22,9 +20,11 @@ public class Lexico {
 	private Hashtable<Integer, String> simbolos;
 	private int pos = 0;
 	private int fila = 0;
+	private MatrizTransicionEstados matriz;
 	
 	public Lexico(Principal ppal)
 	{
+		this.matriz = new MatrizTransicionEstados();
 		this.locs = new ArrayList<String>();
 		
 		this.palabrasReservas = new Hashtable<String, String>();
@@ -44,44 +44,7 @@ public class Lexico {
 		this.palabrasReservas.put("MOVE", "MOVE");
 		
 		this.simbolos= new Hashtable<Integer, String>();
-		this.simbolos.put(-1, "ERROR...");
-		this.simbolos.put(257, "Identificador");
-		this.simbolos.put(258, "Constante LONG");
-		this.simbolos.put(259, "Constante DOWBLE");
-		this.simbolos.put(260, "+");
-		this.simbolos.put(261, "-");
-		this.simbolos.put(262, "*");
-		this.simbolos.put(263, "/");
-		this.simbolos.put(264, "=");
-		this.simbolos.put(265, ">=");
-		this.simbolos.put(266, "<=");
-		this.simbolos.put(267, ">");
-		this.simbolos.put(268, "<");
-		this.simbolos.put(269, "==");
-		this.simbolos.put(270, "<>");
-		this.simbolos.put(271, "(");
-		this.simbolos.put(272, ")");
-		this.simbolos.put(273, ",");
-		this.simbolos.put(274, ":");
-		this.simbolos.put(275, ".");
-		this.simbolos.put(276, "cadena de caracteres???????");
-		this.simbolos.put(277, "IF");
-		this.simbolos.put(278, "THEN");
-		this.simbolos.put(279, "ELSE");
-		this.simbolos.put(280, "END_IF");
-		this.simbolos.put(281, "BEGIN");
-		this.simbolos.put(282, "END");
-		this.simbolos.put(283, "OUT");
-		this.simbolos.put(284, "LONG");
-		this.simbolos.put(285, "DOUBLE");
-		this.simbolos.put(286, "SWITCH");
-		this.simbolos.put(287, "CASE");
-		this.simbolos.put(288, "FUNCTION");
-		this.simbolos.put(289, "RETURN");
-		this.simbolos.put(290, "MOVE");
-		this.simbolos.put(291, "Comentario????????????");
-		this.simbolos.put(292, "Cadena multilinea????????????????");
-		
+				
 		this.ppal = ppal;
 	}
 
@@ -109,90 +72,15 @@ public class Lexico {
 		String token = new String(); //en esta variable voy armando lo que leo hasta encontrar un token
 		int longitud = 0; //la longitud del token (lo uso para resaltar el codigo)
 		boolean encontro = false;
+		int col;
+		int row = 0;
 		
 		// ACA VA EL CASE DE LA MUEEERRTEEEEE MUEJEJE MUEJEJE
 		while (!encontro)
 		{
 			char loQueLee = this.locs.get(fila).charAt(pos);
-	        switch (loQueLee) {
-	        	
-	        	//IDENTIFICADORES...
+	        col = matriz.getColumn(loQueLee);
 	        
-	        	//CONSTANTES...
-	        
-	        	//OPERADORES ARITMETICOS...
-	        	case '+':  
-	        		//en cada case tengo que revisar si estoy empezando o si vengo con algo ya..
-	        		//en base a eso.. voy cambiando las cosas.. 
-	        		if(token.isEmpty())
-	        		{
-	        			key = 260;
-	        			token = "+";
-	        			pos++;
-	        		}
-	        		else
-	        		{
-	        			//aca no se que carajo hacer...
-	        			//puedo ya ponerle la key equivalente y si tengo que cortar aca ya lo tiene cargadoo..
-	        			//entonces cada case ya pone una key
-	        		}
-	        		
-	        		break;
-	        	case '-':  
-	        		token = "OPERADOR ARITMETICO --> '-'";
-	        		break;
-	        	case '*':  
-	        		token = "OPERADOR ARITMETICO --> '*'";
-	        		break;
-	        	case '/':  
-	        		token = "OPERADOR ARITMETICO --> '/'";
-	        		break;
-	        	//OPERADORES DE ASIGNACION...
-	        	case '=':  
-	        		token = "OPERADOR ARITMETICO --> '+'";
-	        		break;
-	        	
-	        	//COMPARADORES...
-	               
-	        	//LITERALES...
-	            case '(':  
-	            	token = "LITERAL --> '('";
-	                break;
-	            case ')':  
-	            	token = "LITERAL --> '('";
-	                break;
-	            case ',':  
-	            	//revisar como hacerlo bien por los doubles
-	            	//token = "";
-	                break;
-	            case ':':  
-	            	token = "LITERAL --> ':'";
-	                break;
-	            case '.':  
-	            	token = "LITERAL --> '.'";
-	                break;
-	            
-	            //CADENAS DE CARACTERES...
-	            
-	            //PALABRAS RESERVADAS...
-	                
-	            case ' ':
-	        		if(token.isEmpty())
-	        		{
-	        			pos++;
-	        			return getToken();
-	        		}
-	        		else
-	        		{
-	        			token = "tenemos que revisar esto......";
-	        		}
-	        		break;
-	                
-	            default: 
-	            	encontro = true;
-	            	token = "ERROR..";
-	                break;
-	        }
 
 		}
 		//this.ppal.resaltarCodigo(locs, this.fila, this.pos, longitud);
