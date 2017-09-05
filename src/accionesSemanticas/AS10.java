@@ -1,11 +1,13 @@
 package accionesSemanticas;
 
+import compilador.Lexico;
+
 public class AS10 implements AccionSemantica {
 
 	@Override
-	public void ejecutar() {
+	public String ejecutar(Lexico lexico, char loQueLee) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
