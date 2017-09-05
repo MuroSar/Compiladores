@@ -9,6 +9,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import accionesSemanticas.AccionSemantica;
+import complementos.Pair;
 import interfaz.Principal;
 
 public class Lexico {
@@ -74,12 +76,16 @@ public class Lexico {
 		boolean encontro = false;
 		int col;
 		int row = 0;
+		char loQueLee = this.locs.get(fila).charAt(pos);
+		col = matriz.getColumn(loQueLee);
 		
 		// ACA VA EL CASE DE LA MUEEERRTEEEEE MUEJEJE MUEJEJE
 		while (!encontro)
 		{
-			char loQueLee = this.locs.get(fila).charAt(pos);
-	        col = matriz.getColumn(loQueLee);
+			Pair<Integer, AccionSemantica> actual = this.matriz.getPair(row, col);
+			int proxEstado = actual.getFirst();
+			AccionSemantica accion = actual.getSecond();
+	        
 	        
 
 		}
