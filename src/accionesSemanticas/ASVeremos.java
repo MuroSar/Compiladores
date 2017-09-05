@@ -6,9 +6,8 @@ import complementos.Token;
 public class ASVeremos implements AccionSemantica{
 
 	@Override
-	public Token ejecutar(Lexico lexico, char loQueLee) {
+	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

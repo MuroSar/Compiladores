@@ -1,0 +1,5 @@
+TO DO:
+
+Parte 1
+	--Revisar las AS que estan "repetidas"
+	--Revisar que en las AS cuando termina de leer hay que agregar los type del Token. Solo se hace en la AS-03

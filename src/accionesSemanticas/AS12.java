@@ -4,11 +4,27 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class AS12 implements AccionSemantica {
+//	1.	Si viene un salto de línea 
+//		a.	Se borran los últimos 3 caracteres que serán los ‘.’
+//	2.	Si no se agrega el carácter al string.
 
 	@Override
-	public Token ejecutar(Lexico lexico, char loQueLee) {
-		// TODO Auto-generated method stub
-		return null;
+	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
+		
+		if (loQueLee == '\n')
+		{
+			//borro los ultimos 3 caracteres que son los ...
+			String lexema = token.getLexema();
+			String aux = lexema.substring(0, lexema.length()-3);
+			token.setLexema(aux);
+			
+			lexico.setNuevaLinea();
+		}
+		else
+		{
+			token.setLexema(token.getLexema() + loQueLee);
+			lexico.aumentarLongitud();
+		}
 	}
 	
 	@Override

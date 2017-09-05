@@ -130,7 +130,7 @@ public class Lexico {
 	
 	public void setNuevaLinea() 
 	{
-		this.pos = 0;
+		this.pos = -1;
 		this.fila++;
 	}
 	
@@ -163,14 +163,22 @@ public class Lexico {
 	{
 		int max = 0;
 		ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
-		for(int key : keys)
+		
+		if(keys.isEmpty())
 		{
-			if(key > max)
-			{
-				max = key;
-			}
+			return 257; //si es el primer simbolo le asigno un 257 porque el YACC asigna a partir de ahi
 		}
-		return max;
+		else
+		{
+			for(int key : keys)
+			{
+				if(key > max)
+				{
+					max = key;
+				}
+			}
+			return max;
+		}
 	}
 	
 	public int getKeySimbolos(String value)

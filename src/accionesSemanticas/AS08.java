@@ -4,11 +4,21 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class AS08 implements AccionSemantica {
-
+//	1.	Agregar caracter al string
+//	2.	Descarto todo hasta el fin de línea.
+	
 	@Override
-	public Token ejecutar(Lexico lexico, char loQueLee) {
-		// TODO Auto-generated method stub
-		return null;
+	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
+		token.setLexema(token.getLexema() + loQueLee);
+		
+		char prox = loQueLee;
+		while (prox != '\n')
+		{
+			prox = lexico.getProxPos();
+			lexico.aumentarLongitud();
+			lexico.setPosMasUno();
+		}
+		lexico.setNuevaLinea();
 	}
 
 	@Override
