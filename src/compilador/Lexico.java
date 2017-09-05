@@ -11,9 +11,13 @@ import java.util.stream.Collectors;
 
 import accionesSemanticas.AccionSemantica;
 import complementos.Pair;
+import complementos.Token;
 import interfaz.Principal;
 
 public class Lexico {
+	
+	private final int FINAL = -1;
+	private final int ERROR = -2;
 	
 	private File archivoACargar;
 	private List<String> locs;
@@ -23,6 +27,7 @@ public class Lexico {
 	private int pos = 0;
 	private int fila = 0;
 	private MatrizTransicionEstados matriz;
+	int longitud = 0; //la longitud del token (lo uso para resaltar el codigo)
 	
 	public Lexico(Principal ppal)
 	{
@@ -69,33 +74,96 @@ public class Lexico {
 		}
 	}
 
-	public int getToken() {
-		int key = -1; //esto devuelvo.. con el valor asociado al token que encontro..
-		String token = new String(); //en esta variable voy armando lo que leo hasta encontrar un token
-		int longitud = 0; //la longitud del token (lo uso para resaltar el codigo)
-		boolean encontro = false;
+	public Token getToken() {
+		Token token = new Token();//en esta variable voy armando lo que leo hasta encontrar un token
 		int col;
-		int row = 0;
-		char loQueLee = this.locs.get(fila).charAt(pos);
-		col = matriz.getColumn(loQueLee);
-		
-		// ACA VA EL CASE DE LA MUEEERRTEEEEE MUEJEJE MUEJEJE
-		while (!encontro)
+		int estado = 0;
+				
+		//reviso que no haya terminado de leer el archivo.
+		if(fila < this.locs.size() && estado != this.FINAL)
 		{
-			Pair<Integer, AccionSemantica> actual = this.matriz.getPair(row, col);
-			int proxEstado = actual.getFirst();
-			AccionSemantica accion = actual.getSecond();
-	        
-	        
-
+			//reviso que no haya terminado la linea.
+			if(pos < this.locs.get(fila).length())
+			{
+				char loQueLee = this.locs.get(fila).charAt(pos);
+				col = matriz.getColumn(loQueLee);	
+				while (estado != this.FINAL)
+				{
+					Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
+					estado = actual.getFirst();
+					AccionSemantica as = actual.getSecond();
+			        token = as.ejecutar(this, loQueLee);
+				}
+			}
+			else
+			{
+				pos = 0;
+				fila++;
+				
+			}
 		}
-		//this.ppal.resaltarCodigo(locs, this.fila, this.pos, longitud);
+		
+		//this.ppal.resaltarCodigo(this.locs, this.fila, this.pos, this.longitud);
 		this.ppal.resaltarCodigo(locs, 1, 2, 4);
-		return key;
+		if (estado == this.FINAL)
+		{
+			return token;
+		}
+		
+		return new Token("Fin de archivo.", 0, "Fin de archivo");
 	}
 	
 	public String getLexema(int key)
 	{
 		return this.simbolos.get(key);
+	}
+	
+	public void setPos(int pos) 
+	{
+		this.pos = pos;
+	}
+	
+	public void setFila(int fila) 
+	{
+		this.fila = fila;
+	}
+	
+	public void aumentarLongitud() 
+	{
+		this.longitud++;
+	}
+	
+	public String getValueSimbolos(int key)
+	{	
+		return this.simbolos.get(key);
+	}
+	
+	public int getKeySimbolos(String value)
+	{
+		ArrayList<String> values = new ArrayList<String>(this.simbolos.values());
+		if(values.contains(value))
+		{
+			ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
+			for(int key : keys)
+			{
+				if(value.equals(this.simbolos.get(key)))
+				{
+					return key;
+				}
+			}
+		}
+	
+		return this.ERROR;
+	}
+	
+	public boolean getKeyPalabrasReservadas(String palabraReservada)
+	{
+		ArrayList<String> palabrasReservadas = new ArrayList<String>(this.palabrasReservas.keySet());
+		if(palabrasReservadas.contains(palabraReservada))
+		{
+			return true;
+		}
+	
+		return false;
 	}
 }

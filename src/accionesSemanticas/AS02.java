@@ -1,11 +1,12 @@
 package accionesSemanticas;
 
 import compilador.Lexico;
+import complementos.Token;
 
 public class AS02 implements AccionSemantica {
 
 	@Override
-	public String ejecutar(Lexico lexico, char loQueLee) {
+	public Token ejecutar(Lexico lexico, char loQueLee) {
 		// TODO Auto-generated method stub
 		return null;
 	}
