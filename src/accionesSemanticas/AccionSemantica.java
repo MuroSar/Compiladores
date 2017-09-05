@@ -5,7 +5,7 @@ import complementos.Token;
 
 public interface AccionSemantica {
 	
-	public abstract Token ejecutar(Lexico lexico, char loQueLee);
+	public abstract void ejecutar(Lexico lexico, char loQueLee, Token token);
 	
 	public abstract String toString();
 

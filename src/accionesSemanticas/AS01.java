@@ -4,11 +4,16 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class AS01 implements AccionSemantica{
+//	1.	Inicializar string (con la máxima logitud permitida --> 15)
+//	2.	Agregar letra al string
+
 
 	@Override
-	public Token ejecutar(Lexico lexico, char loQueLee) {
-		// TODO Auto-generated method stub
-		return null;
+	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
+		token = new Token();
+		token.setLexema(token.getLexema() + loQueLee);
+		
+		lexico.aumentarLongitud();
 	}
 
 	@Override

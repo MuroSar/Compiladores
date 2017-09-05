@@ -75,36 +75,41 @@ public class Lexico {
 	}
 
 	public Token getToken() {
-		Token token = new Token();//en esta variable voy armando lo que leo hasta encontrar un token
+		Token token = null;
 		int col;
 		int estado = 0;
+		this.longitud = 0;
 				
-		//reviso que no haya terminado de leer el archivo.
-		if(fila < this.locs.size() && estado != this.FINAL)
+		while (token == null || fila != this.locs.size())
 		{
-			//reviso que no haya terminado la linea.
-			if(pos < this.locs.get(fila).length())
+			//reviso que no haya terminado de leer el archivo.
+			if(fila < this.locs.size())
 			{
-				char loQueLee = this.locs.get(fila).charAt(pos);
-				col = matriz.getColumn(loQueLee);	
-				while (estado != this.FINAL)
+				//reviso que no haya terminado la linea.
+				if(pos < this.locs.get(fila).length())
 				{
-					Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
-					estado = actual.getFirst();
-					AccionSemantica as = actual.getSecond();
-			        token = as.ejecutar(this, loQueLee);
+					char loQueLee = this.locs.get(fila).charAt(pos);
+					col = matriz.getColumn(loQueLee);	
+					while (estado != this.FINAL)
+					{
+						Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
+						estado = actual.getFirst();
+						AccionSemantica as = actual.getSecond();
+				        as.ejecutar(this, loQueLee, token);
+				        pos++;
+					}
 				}
-			}
-			else
-			{
-				pos = 0;
-				fila++;
-				
+				else
+				{
+					pos = 0;
+					fila++;
+					
+				}
 			}
 		}
 		
-		//this.ppal.resaltarCodigo(this.locs, this.fila, this.pos, this.longitud);
-		this.ppal.resaltarCodigo(locs, 1, 2, 4);
+		this.ppal.resaltarCodigo(this.locs, this.fila, this.pos, this.longitud);
+		//this.ppal.resaltarCodigo(locs, 1, 2, 4);
 		if (estado == this.FINAL)
 		{
 			return token;
@@ -113,14 +118,30 @@ public class Lexico {
 		return new Token("Fin de archivo.", 0, "Fin de archivo");
 	}
 	
+	public char getProxPos()
+	{
+		return this.locs.get(fila).charAt(pos++);
+	}
+	
 	public String getLexema(int key)
 	{
 		return this.simbolos.get(key);
 	}
 	
-	public void setPos(int pos) 
+	public void setNuevaLinea() 
 	{
-		this.pos = pos;
+		this.pos = 0;
+		this.fila++;
+	}
+	
+	public void setPosMenosUno()
+	{
+		this.pos--;
+	}
+	
+	public void setPosMasUno()
+	{
+		this.pos++;
 	}
 	
 	public void setFila(int fila) 
@@ -133,9 +154,23 @@ public class Lexico {
 		this.longitud++;
 	}
 	
-	public String getValueSimbolos(int key)
-	{	
-		return this.simbolos.get(key);
+	public void putSimbolo(String value)
+	{
+		this.simbolos.put(this.getMaxKeySimbolos(), value);
+	}
+	
+	public int getMaxKeySimbolos()
+	{
+		int max = 0;
+		ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
+		for(int key : keys)
+		{
+			if(key > max)
+			{
+				max = key;
+			}
+		}
+		return max;
 	}
 	
 	public int getKeySimbolos(String value)
@@ -156,7 +191,7 @@ public class Lexico {
 		return this.ERROR;
 	}
 	
-	public boolean getKeyPalabrasReservadas(String palabraReservada)
+	public boolean existPalabrasReservadas(String palabraReservada)
 	{
 		ArrayList<String> palabrasReservadas = new ArrayList<String>(this.palabrasReservas.keySet());
 		if(palabrasReservadas.contains(palabraReservada))
