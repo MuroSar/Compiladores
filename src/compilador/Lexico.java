@@ -23,11 +23,10 @@ public class Lexico {
 	private List<String> locs;
 	private Principal ppal;
 	private Hashtable<String, String> palabrasReservas;
-	private Hashtable<Integer, String> simbolos;
+	private Hashtable<Integer, Token> simbolos;
 	private int pos = 0;
 	private int fila = 0;
 	private MatrizTransicionEstados matriz;
-	int longitud = 0; //la longitud del token (lo uso para resaltar el codigo)
 	
 	public Lexico(Principal ppal)
 	{
@@ -50,7 +49,7 @@ public class Lexico {
 		this.palabrasReservas.put("RETURN", "RETURN");
 		this.palabrasReservas.put("MOVE", "MOVE");
 		
-		this.simbolos= new Hashtable<Integer, String>();
+		this.simbolos= new Hashtable<Integer, Token>();
 				
 		this.ppal = ppal;
 	}
@@ -75,12 +74,12 @@ public class Lexico {
 	}
 
 	public Token getToken() {
-		Token token = null;
+		Token token = new Token();
 		int col;
 		int estado = 0;
-		this.longitud = 0;
+		int posInicial = pos;
 				
-		while (token == null || fila != this.locs.size())
+		while (estado != this.FINAL && fila != this.locs.size())
 		{
 			//reviso que no haya terminado de leer el archivo.
 			if(fila < this.locs.size())
@@ -89,26 +88,34 @@ public class Lexico {
 				if(pos < this.locs.get(fila).length())
 				{
 					char loQueLee = this.locs.get(fila).charAt(pos);
-					col = matriz.getColumn(loQueLee);	
 					while (estado != this.FINAL)
 					{
+						col = matriz.getColumn(loQueLee);
 						Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
 						estado = actual.getFirst();
 						AccionSemantica as = actual.getSecond();
 				        as.ejecutar(this, loQueLee, token);
 				        pos++;
+				        if(pos == this.locs.get(fila).length())
+				        {
+				        	loQueLee = '\n';
+				        }
+				        else
+				        {
+				        	loQueLee = this.locs.get(fila).charAt(pos);
+				        }
 					}
 				}
 				else
 				{
 					pos = 0;
 					fila++;
-					
+					posInicial = pos;
 				}
 			}
 		}
 		
-		this.ppal.resaltarCodigo(this.locs, this.fila, this.pos, this.longitud);
+		this.ppal.resaltarCodigo(this.locs, this.fila, posInicial, this.pos);
 		//this.ppal.resaltarCodigo(locs, 1, 2, 4);
 		if (estado == this.FINAL)
 		{
@@ -120,12 +127,25 @@ public class Lexico {
 	
 	public char getProxPos()
 	{
-		return this.locs.get(fila).charAt(pos++);
+		if(pos + 1 == this.locs.get(fila).length())
+        {
+        	return '\n';
+        }
+		pos++;
+		char result =this.locs.get(fila).charAt(pos);
+		pos--;
+		
+		return result;
 	}
 	
 	public String getLexema(int key)
 	{
-		return this.simbolos.get(key);
+		return this.simbolos.get(key).getLexema();
+	}
+	
+	public String getType(int key)
+	{
+		return this.simbolos.get(key).getType();
 	}
 	
 	public void setNuevaLinea() 
@@ -138,7 +158,7 @@ public class Lexico {
 	{
 		this.pos--;
 	}
-	
+
 	public void setPosMasUno()
 	{
 		this.pos++;
@@ -149,14 +169,9 @@ public class Lexico {
 		this.fila = fila;
 	}
 	
-	public void aumentarLongitud() 
+	public void putSimbolo(Token token)
 	{
-		this.longitud++;
-	}
-	
-	public void putSimbolo(String value)
-	{
-		this.simbolos.put(this.getMaxKeySimbolos(), value);
+		this.simbolos.put(this.getMaxKeySimbolos(), token);
 	}
 	
 	public int getMaxKeySimbolos()
@@ -177,25 +192,28 @@ public class Lexico {
 					max = key;
 				}
 			}
-			return max;
+			return max + 1;
 		}
 	}
 	
-	public int getKeySimbolos(String value)
+	public int getKeySimbolos(String lexema)
 	{
-		ArrayList<String> values = new ArrayList<String>(this.simbolos.values());
-		if(values.contains(value))
+		ArrayList<Token> values = new ArrayList<Token>(this.simbolos.values());
+		for(Token t : values)
 		{
-			ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
-			for(int key : keys)
+			if(t.getLexema().equals(lexema))
 			{
-				if(value.equals(this.simbolos.get(key)))
+				ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
+				for(int key : keys)
 				{
-					return key;
+					if(t.getLexema().equals(this.simbolos.get(key).getLexema()))
+					{
+						return key;
+					}
 				}
-			}
+			}	
 		}
-	
+			
 		return this.ERROR;
 	}
 	

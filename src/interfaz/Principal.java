@@ -226,7 +226,7 @@ public class Principal extends JFrame {
 		}
 	}
 	
-	public void resaltarCodigo(List<String> lines, int fila, int pos, int longitud)
+	public void resaltarCodigo(List<String> lines, int fila, int posInicial, int pos)
 	{
 		String previo = "";
 		String actual = "";
@@ -243,17 +243,17 @@ public class Principal extends JFrame {
 				int col = 0;
 				String linea = lines.get(loc);
 				String aux = "";
-				while(col < pos)
+				while(col < posInicial)
 				{
 					aux += linea.charAt(col);
 					col++;
 				}
 				previo = previo + aux;
-				if(col == pos)
+				if(col == posInicial)
 				{
-					actual = lines.get(loc).substring(pos, pos+longitud);
+					actual = lines.get(loc).substring(posInicial, pos);
 				}
-				resto = lines.get(loc).substring(pos+longitud) + "\n";
+				resto = lines.get(loc).substring(pos) + "\n";
 			}
 			if(loc > fila)
 			{
@@ -275,9 +275,6 @@ public class Principal extends JFrame {
         StyleContext sc = StyleContext.getDefaultStyleContext();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 
-//        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
-//        aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
-
         int len = tpArchivoCodigo.getDocument().getLength();
         tpArchivoCodigo.setCaretPosition(len);
         tpArchivoCodigo.setCharacterAttributes(aset, false);
@@ -287,9 +284,9 @@ public class Principal extends JFrame {
 
 	private void mostrarToken()
 	{
-		int token;
-		token = lexico.getToken().getKey();
-		String lexema = lexico.getLexema(token);
+		int key;
+		key = lexico.getToken().getKey();
+		String lexema = lexico.getType(key) + ": " + lexico.getLexema(key);
 		txtListaTokens.append(lexema + "\n");
 	}
 

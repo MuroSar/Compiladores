@@ -23,7 +23,6 @@ public class AS12 implements AccionSemantica {
 		else
 		{
 			token.setLexema(token.getLexema() + loQueLee);
-			lexico.aumentarLongitud();
 		}
 	}
 	

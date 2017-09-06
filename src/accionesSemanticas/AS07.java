@@ -23,25 +23,23 @@ public class AS07 implements AccionSemantica {
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		token = new Token();
 		token.setLexema(token.getLexema() + loQueLee);
-		
-		lexico.aumentarLongitud();
 		
 		char prox = lexico.getProxPos();
 		if (prox == '=' || prox == '>')
 		{
-			lexico.aumentarLongitud();
+			token.setLexema(token.getLexema() + prox);
 			lexico.setPosMasUno();
-		}
-		
-		int key = lexico.getKeySimbolos(token.getLexema());
-		if(key == -2)//significa que no existe en la tabla de simbolos todavia
-		{
-			lexico.putSimbolo(token.getLexema());
-			key = lexico.getKeySimbolos(token.getLexema());
-		}
-		token.setKey(key);
+			
+			int key = lexico.getKeySimbolos(token.getLexema());
+			if(key == -2)//significa que no existe en la tabla de simbolos todavia
+			{
+				lexico.putSimbolo(token);
+				key = lexico.getKeySimbolos(token.getLexema());
+			}
+			token.setType("Comparador");
+			token.setKey(key);
+		}		
 	}
 
 	@Override

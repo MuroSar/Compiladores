@@ -33,7 +33,7 @@ public class AS03 implements AccionSemantica {
 		int key = lexico.getKeySimbolos(token.getLexema());
 		if(key == -2)//significa que no existe en la tabla de simbolos todavia
 		{
-			lexico.putSimbolo(token.getLexema());
+			lexico.putSimbolo(token);
 			key = lexico.getKeySimbolos(token.getLexema());
 		}
 		

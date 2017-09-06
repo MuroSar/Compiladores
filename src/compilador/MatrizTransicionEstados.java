@@ -14,7 +14,7 @@ import accionesSemanticas.AS11;
 import accionesSemanticas.AS12;
 import accionesSemanticas.ASError;
 import accionesSemanticas.ASFinal;
-import accionesSemanticas.ASVeremos;
+import accionesSemanticas.ASDescarta;
 import accionesSemanticas.AccionSemantica;
 import complementos.Pair;
 
@@ -54,8 +54,8 @@ public class MatrizTransicionEstados {
 		matrix [0][15] = new Pair<Integer, AccionSemantica>(FINAL, new ASFinal());
 		matrix [0][16] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
 		matrix [0][17] = new Pair<Integer, AccionSemantica>(6, new AS09());
-		matrix [0][18] = new Pair<Integer, AccionSemantica>(0, new ASVeremos());
-		matrix [0][19] = new Pair<Integer, AccionSemantica>(0, new ASVeremos());
+		matrix [0][18] = new Pair<Integer, AccionSemantica>(0, new ASDescarta());
+		matrix [0][19] = new Pair<Integer, AccionSemantica>(0, new ASDescarta());
 		matrix [0][20] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
 		
 		matrix [1][0] = new Pair<Integer, AccionSemantica>(FINAL, new AS11());
@@ -146,27 +146,27 @@ public class MatrizTransicionEstados {
 		matrix [4][19] = new Pair<Integer, AccionSemantica>(FINAL, new AS11());
 		matrix [4][20] = new Pair<Integer, AccionSemantica>(FINAL, new AS11());
 		
-		matrix [5][0] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][1] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][2] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][3] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][4] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][5] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][6] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][7] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][8] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][9] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][10] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][11] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][12] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][13] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][14] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][15] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][16] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][17] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][18] = new Pair<Integer, AccionSemantica>(0, new ASVeremos());
-		matrix [5][19] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
-		matrix [5][20] = new Pair<Integer, AccionSemantica>(5, new ASVeremos());
+		matrix [5][0] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][1] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][2] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][3] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][4] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][5] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][6] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][7] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][8] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][9] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][10] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][11] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][12] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][13] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][14] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][15] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][16] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][17] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][18] = new Pair<Integer, AccionSemantica>(0, new ASDescarta());
+		matrix [5][19] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
+		matrix [5][20] = new Pair<Integer, AccionSemantica>(5, new ASDescarta());
 		
 		matrix [6][0] = new Pair<Integer, AccionSemantica>(6, new AS10());
 		matrix [6][1] = new Pair<Integer, AccionSemantica>(6, new AS10());

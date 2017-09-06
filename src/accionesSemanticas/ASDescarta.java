@@ -3,7 +3,7 @@ package accionesSemanticas;
 import compilador.Lexico;
 import complementos.Token;
 
-public class ASVeremos implements AccionSemantica{
+public class ASDescarta implements AccionSemantica{
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {

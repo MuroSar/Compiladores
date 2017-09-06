@@ -10,10 +10,7 @@ public class AS01 implements AccionSemantica{
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		token = new Token();
 		token.setLexema(token.getLexema() + loQueLee);
-		
-		lexico.aumentarLongitud();
 	}
 
 	@Override

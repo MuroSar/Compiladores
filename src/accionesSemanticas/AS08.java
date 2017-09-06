@@ -15,7 +15,6 @@ public class AS08 implements AccionSemantica {
 		while (prox != '\n')
 		{
 			prox = lexico.getProxPos();
-			lexico.aumentarLongitud();
 			lexico.setPosMasUno();
 		}
 		lexico.setNuevaLinea();

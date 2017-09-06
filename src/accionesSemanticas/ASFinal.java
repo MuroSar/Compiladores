@@ -13,16 +13,13 @@ public class ASFinal implements AccionSemantica {
 	
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		if(token == null)
-		{
-			token = new Token();
-		}
+
 		token.setLexema(token.getLexema() + loQueLee);
 		
 		int key = lexico.getKeySimbolos(token.getLexema());
 		if(key == -2)//significa que no existe en la tabla de simbolos todavia
 		{
-			lexico.putSimbolo(token.getLexema());
+			lexico.putSimbolo(token);
 			key = lexico.getKeySimbolos(token.getLexema());
 		}
 		
