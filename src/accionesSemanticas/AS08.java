@@ -9,14 +9,15 @@ public class AS08 implements AccionSemantica {
 	
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		token.setLexema(token.getLexema() + loQueLee);
-		
-		char prox = loQueLee;
-		while (prox != '\n')
-		{
-			prox = lexico.getProxPos();
-			lexico.setPosMasUno();
-		}
+//		token.setLexema(token.getLexema() + loQueLee);
+//		
+//		char prox = loQueLee;
+//		while (prox != '\n')
+//		{
+//			prox = lexico.getProxPos();
+//			lexico.setPosMasUno();
+//		}
+		token.setLexema("");
 		lexico.setNuevaLinea();
 	}
 

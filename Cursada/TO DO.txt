@@ -2,4 +2,5 @@ TO DO:
 
 Parte 1
 	--Revisar las AS que estan "repetidas"
-	--Revisar que en las AS cuando termina de leer hay que agregar los type del Token. Solo se hace en la AS-03
+	--Revisar que los identificadores no se pasen de 15 caracteres.
+	--Probar si reconoce numeros

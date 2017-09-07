@@ -40,6 +40,8 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import compilador.Lexico;
+import complementos.Token;
+
 import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
@@ -47,6 +49,9 @@ import javax.swing.JTextPane;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class Principal extends JFrame {
 	
@@ -156,6 +161,9 @@ public class Principal extends JFrame {
 		tpArchivoCodigo = new JTextPane();
 		tpArchivoCodigo.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		tpArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		tpArchivoCodigo.setEditable(false);
+		
+		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -211,7 +219,9 @@ public class Principal extends JFrame {
 		}
 		
 		//ACA LO MOSTRAMOS POR PANTALLA..
-		try {
+		try 
+		{
+			tpArchivoCodigo.setEditable(true);
 			BufferedReader leer = new BufferedReader(new FileReader(archivoACargar));
 			String line = leer.readLine();
 			while (line != null)
@@ -284,9 +294,17 @@ public class Principal extends JFrame {
 
 	private void mostrarToken()
 	{
-		int key;
-		key = lexico.getToken().getKey();
-		String lexema = lexico.getType(key) + ": " + lexico.getLexema(key);
+		String lexema = new String();
+		Token token = lexico.getToken();
+		
+		if(token != null)
+		{
+			int key = token.getKey();
+			lexema = lexico.getType(key) + ": " + lexico.getLexema(key);
+		}
+		else
+			lexema = "----------------- Fin del archivo -----------------";
+		
 		txtListaTokens.append(lexema + "\n");
 	}
 

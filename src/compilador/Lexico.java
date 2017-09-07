@@ -26,6 +26,7 @@ public class Lexico {
 	private Hashtable<Integer, Token> simbolos;
 	private int pos = 0;
 	private int fila = 0;
+	private int estado = 0;
 	private MatrizTransicionEstados matriz;
 	
 	public Lexico(Principal ppal)
@@ -58,6 +59,9 @@ public class Lexico {
 		// SE LIMPIA LA PANTALLA..
 		this.pos = 0;
 		this.fila = 0;
+		this.estado = 0;
+		this.simbolos= new Hashtable<Integer, Token>();
+		this.locs = new ArrayList<String>();
 	}
 
 	public void cargar(File archivoACargar) {		
@@ -75,11 +79,12 @@ public class Lexico {
 
 	public Token getToken() {
 		Token token = new Token();
+		boolean terminoArchivo = false;
 		int col;
-		int estado = 0;
+		estado = 0;
 		int posInicial = pos;
 				
-		while (estado != this.FINAL && fila != this.locs.size())
+		while (estado != this.FINAL && fila != this.locs.size() && !terminoArchivo)
 		{
 			//reviso que no haya terminado de leer el archivo.
 			if(fila < this.locs.size())
@@ -88,7 +93,7 @@ public class Lexico {
 				if(pos < this.locs.get(fila).length())
 				{
 					char loQueLee = this.locs.get(fila).charAt(pos);
-					while (estado != this.FINAL)
+					while (estado != this.FINAL && !terminoArchivo)
 					{
 						col = matriz.getColumn(loQueLee);
 						Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
@@ -96,13 +101,20 @@ public class Lexico {
 						AccionSemantica as = actual.getSecond();
 				        as.ejecutar(this, loQueLee, token);
 				        pos++;
-				        if(pos == this.locs.get(fila).length())
+				        if(fila < this.locs.size())
 				        {
-				        	loQueLee = '\n';
+				        	if(pos == this.locs.get(fila).length())
+					        {
+					        	loQueLee = '\n';
+					        }
+					        else
+					        {
+					        	loQueLee = this.locs.get(fila).charAt(pos);
+					        }
 				        }
-				        else
+				        else 
 				        {
-				        	loQueLee = this.locs.get(fila).charAt(pos);
+				        	terminoArchivo = true;	
 				        }
 					}
 				}
@@ -122,7 +134,7 @@ public class Lexico {
 			return token;
 		}
 		
-		return new Token("Fin de archivo.", 0, "Fin de archivo");
+		return null;
 	}
 	
 	public char getProxPos()
@@ -152,6 +164,7 @@ public class Lexico {
 	{
 		this.pos = -1;
 		this.fila++;
+		this.estado = 0;
 	}
 	
 	public void setPosMenosUno()

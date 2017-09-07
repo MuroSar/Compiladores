@@ -23,6 +23,19 @@ public class ASFinal implements AccionSemantica {
 			key = lexico.getKeySimbolos(token.getLexema());
 		}
 		
+		if(token.getLexema().equals("+") || token.getLexema().equals("-") || token.getLexema().equals("/"))
+		{
+			token.setType("Operador aritmetico");
+		}
+		else if(token.getLexema().equals("(") || token.getLexema().equals(")") || token.getLexema().equals(":") || token.getLexema().equals("."))
+		{
+			token.setType("Literal");
+		}
+		else if(token.getLexema().equals("{") || token.getLexema().equals("}"))
+		{
+			token.setType("Llave");
+		}
+		
 		token.setKey(key);
 	}
 
