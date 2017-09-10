@@ -95,7 +95,7 @@ public class Lexico {
 					char loQueLee = this.locs.get(fila).charAt(pos);
 					while (estado != this.FINAL && !terminoArchivo)
 					{
-						col = matriz.getColumn(loQueLee);
+						col = matriz.getColumn(loQueLee, token.getLexema());
 						Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
 						estado = actual.getFirst();
 						AccionSemantica as = actual.getSecond();

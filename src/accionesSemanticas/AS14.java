@@ -3,16 +3,17 @@ package accionesSemanticas;
 import compilador.Lexico;
 import complementos.Token;
 
-public class AS13 implements AccionSemantica {
+public class AS14 implements AccionSemantica {
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
 		lexico.setPosMenosUno(); //para no perder este char y volver a leerlo la prox
 		
-		int max = (int) (Math.pow(2, 31) - 1);
-		if (Integer.valueOf(token.getLexema()) <= max)
+		double max = Double.MAX_VALUE;
+		String lexema = token.getLexema().replaceAll(",", ".");
+		if (Double.valueOf(lexema) <= max)
 		{
-			token.setType("Entero largo (LONG)");
+			token.setType("Dobles (DOUBLE)");
 		}
 		else
 		{
@@ -31,6 +32,7 @@ public class AS13 implements AccionSemantica {
 
 	@Override
 	public String toString() {
-		return "AS-13";
+		return "AS-14";
 	}
+
 }

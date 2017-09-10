@@ -7,7 +7,7 @@ public class AS09 implements AccionSemantica {
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		token.setLexema(token.getLexema() + loQueLee);
+		token.setLexema(token.getLexema() + loQueLee);	
 	}
 	
 	@Override
