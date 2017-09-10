@@ -3,4 +3,5 @@ TO DO:
 Parte 1
 	--Revisar las AS que estan "repetidas"
 	--Revisar que los identificadores no se pasen de 15 caracteres.
+	--Revisar que los long no se pasen del limite.
 	--Probar si reconoce numeros

@@ -7,7 +7,6 @@ public class AS05 implements AccionSemantica {
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		// TODO Auto-generated method stub
 		token.setLexema(token.getLexema() + loQueLee);
 	}
 
