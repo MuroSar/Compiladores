@@ -35,6 +35,10 @@ public class ASFinal implements AccionSemantica {
 		{
 			token.setType("Llave");
 		}
+		else
+		{
+			token.setType("Cadena de caracteres");
+		}
 		
 		token.setKey(key);
 	}

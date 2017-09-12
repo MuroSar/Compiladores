@@ -4,6 +4,11 @@ Parte 1
 	--Revisar las AS que estan "repetidas"
 	--Mostrar errores cuando los long, float e identificadores no cumplen el rango..
 	
+	--Arreglar los cometarios ** AS9 AS8 ASDescarta
+	--Arreglar cadenas de caracteres de mas de una linea.  AS12
+	
+	
+	
 	--Agregar un objeto ERROR TOKEN que tenga
 		-como estaba antes 
 		-como quedo
@@ -13,5 +18,8 @@ Parte 1
 		-nro linea
 		
 		-armar un toStirng que explique todo bonito
+		
+		
+	
 	
 	

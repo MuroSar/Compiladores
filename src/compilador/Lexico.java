@@ -121,9 +121,7 @@ public class Lexico {
 					}
 					else
 					{
-						pos = 0;
-						fila++;
-						posInicial = pos;
+						pos++;
 					}
 				}
 				else
