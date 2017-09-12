@@ -127,7 +127,7 @@ public class Principal extends JFrame {
             }
         });
 		
-		JButton btnSeguiente = new JButton("Seguiente");
+		JButton btnSeguiente = new JButton("Siguiente");
 		btnSeguiente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	if(!archivoCargado)

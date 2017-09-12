@@ -20,7 +20,7 @@ public class Lexico {
 	private final int ERROR = -2;
 	
 	private File archivoACargar;
-	private List<String> locs;
+	private List<String> locs; //lines of code
 	private Principal ppal;
 	private Hashtable<String, String> palabrasReservas;
 	private Hashtable<Integer, Token> simbolos;
@@ -60,7 +60,7 @@ public class Lexico {
 		this.pos = 0;
 		this.fila = 0;
 		this.estado = 0;
-		this.simbolos= new Hashtable<Integer, Token>();
+		this.simbolos = new Hashtable<Integer, Token>();
 		this.locs = new ArrayList<String>();
 	}
 
@@ -72,7 +72,6 @@ public class Lexico {
 		try {
 			this.locs = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
 		} catch (IOException e) {
-
 			e.printStackTrace();
 		}
 	}
@@ -93,29 +92,38 @@ public class Lexico {
 				if(pos < this.locs.get(fila).length())
 				{
 					char loQueLee = this.locs.get(fila).charAt(pos);
-					while (estado != this.FINAL && !terminoArchivo)
+					if(loQueLee != ' ')
 					{
-						col = matriz.getColumn(loQueLee, token.getLexema());
-						Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
-						estado = actual.getFirst();
-						AccionSemantica as = actual.getSecond();
-				        as.ejecutar(this, loQueLee, token);
-				        pos++;
-				        if(fila < this.locs.size())
-				        {
-				        	if(pos == this.locs.get(fila).length())
+						while (estado != this.FINAL && !terminoArchivo)
+						{
+							col = matriz.getColumn(loQueLee, token.getLexema());
+							Pair<Integer, AccionSemantica> actual = this.matriz.getPair(estado, col);
+							estado = actual.getFirst();
+							AccionSemantica as = actual.getSecond();
+					        as.ejecutar(this, loQueLee, token);
+					        pos++;
+					        if(fila < this.locs.size())
 					        {
-					        	loQueLee = '\n';
+					        	if(pos == this.locs.get(fila).length())
+						        {
+						        	loQueLee = '\n';
+						        }
+						        else
+						        {
+						        	loQueLee = this.locs.get(fila).charAt(pos);
+						        }
 					        }
-					        else
+					        else 
 					        {
-					        	loQueLee = this.locs.get(fila).charAt(pos);
+					        	terminoArchivo = true;	
 					        }
-				        }
-				        else 
-				        {
-				        	terminoArchivo = true;	
-				        }
+						}
+					}
+					else
+					{
+						pos = 0;
+						fila++;
+						posInicial = pos;
 					}
 				}
 				else
@@ -128,7 +136,6 @@ public class Lexico {
 		}
 		
 		this.ppal.resaltarCodigo(this.locs, this.fila, posInicial, this.pos);
-		//this.ppal.resaltarCodigo(locs, 1, 2, 4);
 		if (estado == this.FINAL)
 		{
 			return token;

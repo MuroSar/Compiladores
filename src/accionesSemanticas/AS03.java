@@ -18,6 +18,10 @@ public class AS03 implements AccionSemantica {
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
 		lexico.setPosMenosUno(); //para no perder este char y volver a leerlo la prox
+		
+		String lexemaLower = token.getLexema().toLowerCase();
+		token.setLexema(lexemaLower);
+		
 		if(lexico.existPalabrasReservadas(token.getLexema()))
 		{
 			token.setType("Palabra reservada");

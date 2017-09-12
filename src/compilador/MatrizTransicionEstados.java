@@ -14,6 +14,7 @@ import accionesSemanticas.AS11;
 import accionesSemanticas.AS12;
 import accionesSemanticas.AS13;
 import accionesSemanticas.AS14;
+import accionesSemanticas.AS15;
 import accionesSemanticas.ASError;
 import accionesSemanticas.ASFinal;
 import accionesSemanticas.ASDescarta;
@@ -302,27 +303,27 @@ public class MatrizTransicionEstados {
 		matrix [11][19] = new Pair<Integer, AccionSemantica>(FINAL, new AS14());
 		matrix [11][20] = new Pair<Integer, AccionSemantica>(FINAL, new AS14());
 		
-		matrix [12][0] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
+		matrix [12][0] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
 		matrix [12][1] = new Pair<Integer, AccionSemantica>(14, new AS05());
 		matrix [12][2] = new Pair<Integer, AccionSemantica>(13, new AS10());
 		matrix [12][3] = new Pair<Integer, AccionSemantica>(13, new AS10());
-		matrix [12][4] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][5] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][6] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][7] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][8] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][9] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][10] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][11] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][12] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][13] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][14] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][15] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][16] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][17] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][18] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][19] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
-		matrix [12][20] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
+		matrix [12][4] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][5] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][6] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][7] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][8] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][9] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][10] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][11] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][12] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][13] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][14] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][15] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][16] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][17] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][18] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][19] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
+		matrix [12][20] = new Pair<Integer, AccionSemantica>(FINAL, new AS15());
 		
 		matrix [13][0] = new Pair<Integer, AccionSemantica>(ERROR, new ASError());
 		matrix [13][1] = new Pair<Integer, AccionSemantica>(14, new AS05());
@@ -457,8 +458,8 @@ public class MatrizTransicionEstados {
 			return 19;
 		else if (loQueLee == '_')
 			return 20;
-		//si no entro a ninguno.. retorna un -1 que seria un error.
-		return -1; 
+		//si no entro a ninguno.. retorna un -2 que seria un error.
+		return -2; 
 	}
 
 }
