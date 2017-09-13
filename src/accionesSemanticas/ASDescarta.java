@@ -7,7 +7,11 @@ public class ASDescarta implements AccionSemantica{
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
-		// TODO Auto-generated method stub
+		if(loQueLee == '\n')
+		{
+			lexico.setNuevaLinea();
+			lexico.setEstado(0);
+		}
 	}
 
 	@Override

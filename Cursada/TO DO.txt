@@ -3,11 +3,7 @@ TO DO:
 Parte 1
 	--Revisar las AS que estan "repetidas"
 	--Mostrar errores cuando los long, float e identificadores no cumplen el rango..
-	
-	--Arreglar los cometarios ** AS9 AS8 ASDescarta
-
-	
-	
+		
 	
 	--Agregar un objeto ERROR TOKEN que tenga
 		-como estaba antes 

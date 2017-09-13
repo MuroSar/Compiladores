@@ -165,6 +165,11 @@ public class Lexico {
 		return this.simbolos.get(key).getType();
 	}
 	
+	public void setEstado(int estado)
+	{
+		this.estado = estado;
+	}
+	
 	public void setNuevaLinea() 
 	{
 		this.pos = -1;

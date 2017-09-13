@@ -8,7 +8,8 @@ public class AS08 implements AccionSemantica {
 //	2.	Descarto todo hasta el fin de línea.
 	
 	@Override
-	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
+	public void ejecutar(Lexico lexico, char loQueLee, Token token) 
+	{
 //		token.setLexema(token.getLexema() + loQueLee);
 //		
 //		char prox = loQueLee;
@@ -19,6 +20,7 @@ public class AS08 implements AccionSemantica {
 //		}
 		token.setLexema("");
 		lexico.setNuevaLinea();
+		lexico.setEstado(0);
 	}
 
 	@Override
