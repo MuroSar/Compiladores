@@ -169,7 +169,8 @@ public class Lexico {
 	{
 		this.pos = -1;
 		this.fila++;
-		this.estado = 0;
+		//comento esto porque no anda para la cadena de caracteres si no..
+		//this.estado = 0;
 	}
 	
 	public void setPosMenosUno()

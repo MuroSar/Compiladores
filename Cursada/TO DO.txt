@@ -5,7 +5,7 @@ Parte 1
 	--Mostrar errores cuando los long, float e identificadores no cumplen el rango..
 	
 	--Arreglar los cometarios ** AS9 AS8 ASDescarta
-	--Arreglar cadenas de caracteres de mas de una linea.  AS12
+
 	
 	
 	
