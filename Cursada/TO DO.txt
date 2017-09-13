@@ -2,10 +2,6 @@ TO DO:
 
 Parte 1
 	--Revisar las AS que estan "repetidas"
-	--Mostrar errores cuando los long, float e identificadores no cumplen el rango..
-
-		
-		
-	
+	--Mostrar errores cuando los long y float no cumplen el rango..
 	
 	
