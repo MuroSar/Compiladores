@@ -1,6 +1,7 @@
 package accionesSemanticas;
 
 import compilador.Lexico;
+import complementos.ErrorToken;
 import complementos.Token;
 
 public class AS03 implements AccionSemantica {
@@ -29,9 +30,20 @@ public class AS03 implements AccionSemantica {
 		else
 		{
 			token.setType("Identificador");
-			if(token.getLexema().length() >= 15)
+			if(token.getLexema().length() > 15)
 			{
-				//ACA DEBE ROMPER O ALGO POR LA CANT DE CARACTERES POSIBLES.
+				//ACA CARGA EL ERROR..
+				ErrorToken error = new ErrorToken();
+				error.setOriginal(token.getLexema());
+				
+				token.setLexema(token.getLexema().substring(0, 14));
+				
+				error.setCorregido(token.getLexema());
+				error.setError("El tamaño del identificador excede el maximo permitido");
+				error.setAccionCorrectiva("Se corto el identificador a los 15 caracteres");
+				error.setNroLinea(lexico.getFila());
+				
+				lexico.addErrorToken(error);
 			}
 		}
 		int key = lexico.getKeySimbolos(token.getLexema());

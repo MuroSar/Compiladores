@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import accionesSemanticas.AccionSemantica;
+import complementos.ErrorToken;
 import complementos.Pair;
 import complementos.Token;
 import interfaz.Principal;
@@ -21,6 +22,7 @@ public class Lexico {
 	
 	private File archivoACargar;
 	private List<String> locs; //lines of code
+	private List<ErrorToken> errores;
 	private Principal ppal;
 	private Hashtable<String, String> palabrasReservas;
 	private Hashtable<Integer, Token> simbolos;
@@ -33,6 +35,7 @@ public class Lexico {
 	{
 		this.matriz = new MatrizTransicionEstados();
 		this.locs = new ArrayList<String>();
+		this.errores = new ArrayList<ErrorToken>();
 		
 		this.palabrasReservas = new Hashtable<String, String>();
 		this.palabrasReservas.put("IF", "IF");
@@ -178,6 +181,11 @@ public class Lexico {
 		//this.estado = 0;
 	}
 	
+	public int getFila()
+	{
+		return this.fila;
+	}
+	
 	public void setPosMenosUno()
 	{
 		this.pos--;
@@ -250,5 +258,15 @@ public class Lexico {
 		}
 	
 		return false;
+	}
+	
+	public void addErrorToken(ErrorToken error)
+	{
+		this.errores.add(error);
+	}
+	
+	public ArrayList<ErrorToken> getErrores()
+	{
+		return new ArrayList<ErrorToken>(this.errores);
 	}
 }

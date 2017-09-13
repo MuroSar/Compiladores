@@ -3,17 +3,7 @@ TO DO:
 Parte 1
 	--Revisar las AS que estan "repetidas"
 	--Mostrar errores cuando los long, float e identificadores no cumplen el rango..
-		
-	
-	--Agregar un objeto ERROR TOKEN que tenga
-		-como estaba antes 
-		-como quedo
-		-nro token
-		-mensjae de error
-		-accion correctiva
-		-nro linea
-		
-		-armar un toStirng que explique todo bonito
+
 		
 		
 	

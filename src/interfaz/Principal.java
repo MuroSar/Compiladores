@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import compilador.Lexico;
+import complementos.ErrorToken;
 import complementos.Token;
 
 import java.awt.Font;
@@ -304,7 +306,14 @@ public class Principal extends JFrame {
 			lexema = lexico.getType(key) + ": " + lexico.getLexema(key);
 		}
 		else
+		{
 			lexema = "----------------- Fin del archivo -----------------";
+			ArrayList<ErrorToken> errores = this.lexico.getErrores();
+			for(ErrorToken error : errores)
+			{
+				lexema = lexema + "\n" + error.toString();
+			}
+		}
 		
 		txtListaTokens.append(lexema + "\n");
 	}
