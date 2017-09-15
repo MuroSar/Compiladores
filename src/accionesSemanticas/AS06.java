@@ -30,14 +30,10 @@ public class AS06 implements AccionSemantica {
 			token.setLexema(token.getLexema() + prox);
 			lexico.setPosMasUno();
 			
-			int key = lexico.getKeySimbolos(token.getLexema());
-			if(key == -2)//significa que no existe en la tabla de simbolos todavia
-			{
-				lexico.putSimbolo(token);
-				key = lexico.getKeySimbolos(token.getLexema());
-			}
 			token.setType("Comparador");
-			token.setKey(key);
+			token.setKey(275);
+			
+			lexico.putSimbolo(token);
 		}
 	}
 

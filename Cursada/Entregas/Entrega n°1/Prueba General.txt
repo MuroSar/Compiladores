@@ -1,0 +1,24 @@
+hola
+
+"hola maurito"
+
+**esto es un comentario puto..
+
+y_este * *no
+
+== <= >= = <> < >,
+IF THEN ELSE END_IF BEGIN END OUT SWITCH FUNCTION CASE MOVE RETURN
+DOUBLE FLOAT :
+
+32.
+,5    1,e 2,E   4,3E+5 4,5e-8
+1,
+/ +-*
+"ghijk...
+lmn" jjj
+() {} 
+43,5
+,Esteban
+
+"lalala"
+holaEstoEsUnIdMuyLargo

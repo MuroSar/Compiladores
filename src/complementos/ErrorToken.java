@@ -4,7 +4,7 @@ public class ErrorToken {
 
 	private String original;
 	private String corregido;
-	//private int nroToken;
+	private int nroToken;
 	private String error;
 	private String accionCorrectiva;
 	private int nroLinea;
@@ -13,7 +13,7 @@ public class ErrorToken {
 	{
 		this.original = new String();
 		this.corregido = new String();
-		//this.nroToken = -2;
+		this.nroToken = -2;
 		this.error = new String();
 		this.accionCorrectiva = new String();
 		this.nroLinea = -2;
@@ -35,13 +35,13 @@ public class ErrorToken {
 		this.corregido = corregido;
 	}
 
-//	public int getNroToken() {
-//		return nroToken;
-//	}
-//
-//	public void setNroToken(int nroToken) {
-//		this.nroToken = nroToken;
-//	}
+	public int getNroToken() {
+		return nroToken;
+	}
+
+	public void setNroToken(int nroToken) {
+		this.nroToken = nroToken;
+	}
 
 	public String getError() {
 		return error;
@@ -72,7 +72,7 @@ public class ErrorToken {
 		return "ERROR: " + 
 				"	Original= " + original + "\n" +
 				"	Corregido= " + corregido + "\n" +
-				/*"	NroToken= " + nroToken + "\n" +*/ 
+				"	NroToken= " + nroToken + "\n" + 
 				"	Descripcion= " + error + "\n" +
 				"	AccionCorrectiva= " + accionCorrectiva + "\n" + 
 				"	NroLinea= " + nroLinea + "\n";

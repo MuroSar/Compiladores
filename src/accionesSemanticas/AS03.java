@@ -20,15 +20,20 @@ public class AS03 implements AccionSemantica {
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
 		lexico.setPosMenosUno(); //para no perder este char y volver a leerlo la prox
 		
-		String lexemaLower = token.getLexema().toLowerCase();
-		token.setLexema(lexemaLower);
+
+		int key = lexico.existPalabraReservada(token.getLexema());
 		
-		if(lexico.existPalabrasReservadas(token.getLexema()))
+		if(key != 257)
 		{
 			token.setType("Palabra reservada");
+			token.setKey(key);
 		}
 		else
 		{
+			String lexemaLower = token.getLexema().toLowerCase();
+			token.setLexema(lexemaLower);
+			token.setKey(key);
+			
 			token.setType("Identificador");
 			if(token.getLexema().length() > 15)
 			{
@@ -39,6 +44,7 @@ public class AS03 implements AccionSemantica {
 				token.setLexema(token.getLexema().substring(0, 14));
 				
 				error.setCorregido(token.getLexema());
+				error.setNroToken(key);
 				error.setError("El tamaño del identificador excede el maximo permitido");
 				error.setAccionCorrectiva("Se corto el identificador a los 15 caracteres");
 				error.setNroLinea(lexico.getFila());
@@ -46,14 +52,8 @@ public class AS03 implements AccionSemantica {
 				lexico.addErrorToken(error);
 			}
 		}
-		int key = lexico.getKeySimbolos(token.getLexema());
-		if(key == -2)//significa que no existe en la tabla de simbolos todavia
-		{
-			lexico.putSimbolo(token);
-			key = lexico.getKeySimbolos(token.getLexema());
-		}
 		
-		token.setKey(key);
+		lexico.putSimbolo(token);
 	}
 
 	@Override

@@ -24,8 +24,8 @@ public class Lexico {
 	private List<String> locs; //lines of code
 	private List<ErrorToken> errores;
 	private Principal ppal;
-	private Hashtable<String, String> palabrasReservas;
-	private Hashtable<Integer, Token> simbolos;
+	private Hashtable<Integer, String> Reservadas;
+	private Hashtable<Integer, ArrayList<Token>> tablaSimbolos;
 	private int pos = 0;
 	private int fila = 0;
 	private int estado = 0;
@@ -37,23 +37,51 @@ public class Lexico {
 		this.locs = new ArrayList<String>();
 		this.errores = new ArrayList<ErrorToken>();
 		
-		this.palabrasReservas = new Hashtable<String, String>();
-		this.palabrasReservas.put("IF", "IF");
-		this.palabrasReservas.put("THEN", "THEN");
-		this.palabrasReservas.put("ELSE", "ELSE");
-		this.palabrasReservas.put("END_IF", "END_IF");
-		this.palabrasReservas.put("BEGIN", "BEGIN");
-		this.palabrasReservas.put("END", "END");
-		this.palabrasReservas.put("OUT", "OUT");
-		this.palabrasReservas.put("LONG", "LONG");
-		this.palabrasReservas.put("DOUBLE", "DOUBLE");
-		this.palabrasReservas.put("SWITCH", "SWITCH");
-		this.palabrasReservas.put("CASE", "CASE");
-		this.palabrasReservas.put("FUNCTION", "FUNCTION");
-		this.palabrasReservas.put("RETURN", "RETURN");
-		this.palabrasReservas.put("MOVE", "MOVE");
+		this.Reservadas = new Hashtable<Integer, String>();
+		//this.Reservadas.put(257, "Identificador");
+		//this.Reservadas.put(258, "Constante");
+		this.Reservadas.put(259, "IF");
+		this.Reservadas.put(260, "THEN");
+		this.Reservadas.put(261, "ELSE");
+		this.Reservadas.put(262, "END_IF");
+		this.Reservadas.put(263, "BEGIN");
+		this.Reservadas.put(264, "END");
+		this.Reservadas.put(265, "OUT");
+		this.Reservadas.put(266, "LONG");
+		this.Reservadas.put(267, "DOUBLE");
+		this.Reservadas.put(268, "SWITCH");
+		this.Reservadas.put(269, "CASE");
+		this.Reservadas.put(270, "FUNCTION");
+		this.Reservadas.put(271, "RETURN");
+		this.Reservadas.put(272, "MOVE");
+		//this.Reservadas.put(273, "Cadena");
+		//this.Reservadas.put(274, "Literal");
+		//this.Reservadas.put(275, "Comparador");
+		//this.Reservadas.put(276, "OperadorAritmetico");
+		//this.Reservadas.put(277, "OperadorAsignacion");
 		
-		this.simbolos= new Hashtable<Integer, Token>();
+		this.tablaSimbolos= new Hashtable<Integer, ArrayList<Token>>();
+		this.tablaSimbolos.put(257, new ArrayList<Token>()); //Identificador
+		this.tablaSimbolos.put(258, new ArrayList<Token>()); //Constante
+		this.tablaSimbolos.put(259, new ArrayList<Token>());
+		this.tablaSimbolos.put(260, new ArrayList<Token>());
+		this.tablaSimbolos.put(261, new ArrayList<Token>());
+		this.tablaSimbolos.put(262, new ArrayList<Token>());
+		this.tablaSimbolos.put(263, new ArrayList<Token>());
+		this.tablaSimbolos.put(264, new ArrayList<Token>());
+		this.tablaSimbolos.put(265, new ArrayList<Token>());
+		this.tablaSimbolos.put(266, new ArrayList<Token>());
+		this.tablaSimbolos.put(267, new ArrayList<Token>());
+		this.tablaSimbolos.put(268, new ArrayList<Token>());
+		this.tablaSimbolos.put(269, new ArrayList<Token>());
+		this.tablaSimbolos.put(270, new ArrayList<Token>());
+		this.tablaSimbolos.put(271, new ArrayList<Token>());
+		this.tablaSimbolos.put(272, new ArrayList<Token>());
+		this.tablaSimbolos.put(273, new ArrayList<Token>()); //Cadena
+		this.tablaSimbolos.put(274, new ArrayList<Token>()); //Literal
+		this.tablaSimbolos.put(275, new ArrayList<Token>()); //Comparador
+		this.tablaSimbolos.put(276, new ArrayList<Token>()); //OperadorAritmetico
+		this.tablaSimbolos.put(277, new ArrayList<Token>()); //OperadorAsignacion
 				
 		this.ppal = ppal;
 	}
@@ -63,7 +91,6 @@ public class Lexico {
 		this.pos = 0;
 		this.fila = 0;
 		this.estado = 0;
-		this.simbolos = new Hashtable<Integer, Token>();
 		this.locs = new ArrayList<String>();
 	}
 
@@ -160,12 +187,12 @@ public class Lexico {
 	
 	public String getLexema(int key)
 	{
-		return this.simbolos.get(key).getLexema();
+		return this.tablaSimbolos.get(key).get(this.tablaSimbolos.get(key).size()-1).getLexema();
 	}
 	
 	public String getType(int key)
 	{
-		return this.simbolos.get(key).getType();
+		return this.tablaSimbolos.get(key).get(this.tablaSimbolos.get(key).size()-1).getType();
 	}
 	
 	public void setEstado(int estado)
@@ -177,8 +204,6 @@ public class Lexico {
 	{
 		this.pos = -1;
 		this.fila++;
-		//comento esto porque no anda para la cadena de caracteres si no..
-		//this.estado = 0;
 	}
 	
 	public int getFila()
@@ -203,61 +228,63 @@ public class Lexico {
 	
 	public void putSimbolo(Token token)
 	{
-		this.simbolos.put(this.getMaxKeySimbolos(), token);
+		ArrayList<Token> aux = new ArrayList<Token>(this.tablaSimbolos.get(token.getKey()));
+		aux.add(token);
+		this.tablaSimbolos.put(token.getKey(), aux);
 	}
 	
-	public int getMaxKeySimbolos()
-	{
-		int max = 0;
-		ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
-		
-		if(keys.isEmpty())
-		{
-			return 257; //si es el primer simbolo le asigno un 257 porque el YACC asigna a partir de ahi
-		}
-		else
-		{
-			for(int key : keys)
-			{
-				if(key > max)
-				{
-					max = key;
-				}
-			}
-			return max + 1;
-		}
-	}
+//	public int getMaxKeytablaSimbolos()
+//	{
+//		int max = 0;
+//		ArrayList<Integer> keys = new ArrayList<Integer>(this.tablaSimbolos.keySet());
+//		
+//		if(keys.isEmpty())
+//		{
+//			return 257; //si es el primer simbolo le asigno un 257 porque el YACC asigna a partir de ahi
+//		}
+//		else
+//		{
+//			for(int key : keys)
+//			{
+//				if(key > max)
+//				{
+//					max = key;
+//				}
+//			}
+//			return max + 1;
+//		}
+//	}
 	
-	public int getKeySimbolos(String lexema)
-	{
-		ArrayList<Token> values = new ArrayList<Token>(this.simbolos.values());
-		for(Token t : values)
-		{
-			if(t.getLexema().equals(lexema))
-			{
-				ArrayList<Integer> keys = new ArrayList<Integer>(this.simbolos.keySet());
-				for(int key : keys)
-				{
-					if(t.getLexema().equals(this.simbolos.get(key).getLexema()))
-					{
-						return key;
-					}
-				}
-			}	
-		}
-			
-		return this.ERROR;
-	}
+//NO SE DONDE SE USA.. SE COMENTA POR LAS DUDAS.. 
+//	public int getKeytablaSimbolos(String lexema)
+//	{
+//		ArrayList<Token> values = new ArrayList<Token>(this.tablaSimbolos.values());
+//		for(Token t : values)
+//		{
+//			if(t.getLexema().equals(lexema))
+//			{
+//				ArrayList<Integer> keys = new ArrayList<Integer>(this.tablaSimbolos.keySet());
+//				for(int key : keys)
+//				{
+//					if(t.getLexema().equals(this.tablaSimbolos.get(key).getLexema()))
+//					{
+//						return key;
+//					}
+//				}
+//			}	
+//		}
+//		return this.ERROR;
+//	}
 	
-	public boolean existPalabrasReservadas(String palabraReservada)
+	public int existPalabraReservada(String palabraReservada)
 	{
-		ArrayList<String> palabrasReservadas = new ArrayList<String>(this.palabrasReservas.keySet());
-		if(palabrasReservadas.contains(palabraReservada))
+		ArrayList<Integer> keys = new ArrayList<Integer>(this.Reservadas.keySet());
+		for(Integer k : keys)
 		{
-			return true;
+			if(this.Reservadas.get(k).equals(palabraReservada))
+				return k;
 		}
-	
-		return false;
+		return 257;//el Id del identificador.
 	}
 	
 	public void addErrorToken(ErrorToken error)

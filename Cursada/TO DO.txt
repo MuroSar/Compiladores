@@ -1,7 +1,8 @@
 TO DO:
 
 Parte 1
-	--Revisar las AS que estan "repetidas"
-	--Mostrar errores cuando los long y float no cumplen el rango..
+	--REVISAR DOUBLES..
 	
 	
+Parte 2
+	--todo..

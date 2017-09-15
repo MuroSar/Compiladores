@@ -16,31 +16,23 @@ public class ASFinal implements AccionSemantica {
 
 		token.setLexema(token.getLexema() + loQueLee);
 		
-		int key = lexico.getKeySimbolos(token.getLexema());
-		if(key == -2)//significa que no existe en la tabla de simbolos todavia
-		{
-			lexico.putSimbolo(token);
-			key = lexico.getKeySimbolos(token.getLexema());
-		}
-		
 		if(token.getLexema().equals("+") || token.getLexema().equals("-") || token.getLexema().equals("/"))
 		{
 			token.setType("Operador aritmetico");
+			token.setKey(276);
 		}
-		else if(token.getLexema().equals("(") || token.getLexema().equals(")") || token.getLexema().equals(":") || token.getLexema().equals("."))
+		else if(token.getLexema().equals("(") || token.getLexema().equals(")") || token.getLexema().equals(":") || token.getLexema().equals(".") || token.getLexema().equals("{") || token.getLexema().equals("}"))
 		{
 			token.setType("Literal");
-		}
-		else if(token.getLexema().equals("{") || token.getLexema().equals("}"))
-		{
-			token.setType("Llave");
+			token.setKey(274);
 		}
 		else
 		{
 			token.setType("Cadena de caracteres");
+			token.setKey(273);
 		}
 		
-		token.setKey(key);
+		lexico.putSimbolo(token);
 	}
 
 	@Override
