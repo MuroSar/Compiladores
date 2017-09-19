@@ -41,6 +41,7 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import compilador.Lexico;
+import compilador.Parser;
 import complementos.ErrorToken;
 import complementos.Token;
 
@@ -65,6 +66,7 @@ public class Principal extends JFrame {
 	//TAMAÑO DE PANTALLA..
 	
 	private Lexico lexico;
+	private Parser parser;
 	private File archivoACargar;
 	private boolean archivoCargado = false;
 	
@@ -77,6 +79,8 @@ public class Principal extends JFrame {
     	setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/logo.png"));
         setTitle("Compilador Marin-Sarti");
         lexico = new Lexico(this);
+        parser = new Parser();
+        parser.setLexico(lexico);
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -129,8 +133,8 @@ public class Principal extends JFrame {
             }
         });
 		
-		JButton btnSeguiente = new JButton("Siguiente");
-		btnSeguiente.addActionListener(new ActionListener() {
+		JButton btnGetToken = new JButton("getToken()");
+		btnGetToken.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	if(!archivoCargado)
             	{
@@ -168,6 +172,27 @@ public class Principal extends JFrame {
 		JScrollPane scrollArchivoCodigo = new JScrollPane(tpArchivoCodigo, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane scrollListaTokens= new JScrollPane(txtListaTokens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
+		JButton btnRun = new JButton("run()");
+		btnRun.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(!archivoCargado)
+            	{
+            		int resp = JOptionPane.showConfirmDialog(null, "No se ha cargado ningun archivo con un c\u00F3digo ¿Quiere cargar uno?", "Alerta!", JOptionPane.YES_NO_OPTION);
+            		//resp == 0 --> Puso que SI
+            		//resp == 1 --> Puso que NO
+            		if (resp == 0)
+            		{
+            			cargarArchivo();
+                    	runParser();
+            		}
+            	}
+            	else
+            	{
+            		runParser();	
+            	}
+			}
+		});
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -180,7 +205,8 @@ public class Principal extends JFrame {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnCargarArchivo, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-								.addComponent(btnSeguiente, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))))
+								.addComponent(btnGetToken, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+								.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
@@ -199,7 +225,9 @@ public class Principal extends JFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSeguiente, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnGetToken, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
 						.addComponent(scrollListaTokens, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
 						.addComponent(scrollArchivoCodigo))
 					.addContainerGap(112, Short.MAX_VALUE))
@@ -316,6 +344,11 @@ public class Principal extends JFrame {
 		}
 		
 		txtListaTokens.append(lexema + "\n");
+	}
+	
+	private void runParser()
+	{
+		this.parser.run();
 	}
 
 	public static void main(String args[]) {
