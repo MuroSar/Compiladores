@@ -6,3 +6,34 @@ Parte 1
 	
 Parte 2
 	--todo..
+	
+	
+	
+	
+COSAS A AGREGAR EN EL PARSER CUANDO COMPILAMOS..	
+	
+package compilador;
+
+import compilador.Lexico;
+
+
+
+Lexico lexico;
+
+
+
+
+public void setLexico(Lexico lexico)
+{
+	this.lexico = lexico;
+}
+private int yylex() {
+	return lexico.getToken().getKey();
+}
+private void yyerror(String string) {
+	//metodo de muestra de errores
+	System.out.println(string);
+}
+
+
+	
