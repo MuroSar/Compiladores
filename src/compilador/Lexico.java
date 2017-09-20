@@ -169,7 +169,9 @@ public class Lexico {
 			return token;
 		}
 		
-		return null;
+		token.setKey(0);
+		token.setType("FINAL");
+		return token;
 	}
 	
 	public char getProxPos()

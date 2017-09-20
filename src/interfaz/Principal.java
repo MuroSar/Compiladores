@@ -320,7 +320,7 @@ public class Principal extends JFrame {
 		String lexema = new String();
 		Token token = lexico.getToken();
 		
-		if(token != null)
+		if(token.getKey() != 0)
 		{
 			int key = token.getKey();
 			lexema = lexico.getType(key) + ": " + lexico.getLexema(key);
