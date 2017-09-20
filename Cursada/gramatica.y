@@ -19,6 +19,9 @@ bloque_para_funcion :  IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun 
 sentencias : declaracion sentencias
 		| asignacion sentencias
 		| salida sentencias
+		| declaracion 
+		| asignacion
+		| salida
 		;
 		
 llamado_funcion : funcion 
