@@ -1,6 +1,7 @@
 package compilador;
 
 import compilador.Lexico;
+import complementos.Token;
 
 //### This file created by BYACC 1.8(/Java extension  1.15)
 //### Java capabilities added 7 Jan 97, Bob Jamison
@@ -557,7 +558,17 @@ public void setLexico(Lexico lexico)
 	this.lexico = lexico;
 }
 private int yylex() {
-	return lexico.getToken().getKey();
+	Token token = lexico.getToken();
+	if (token.getType().equals("Identificador") || token.getType().equals("Constante") || token.getType().equals("Cadena"))	
+	{
+		return token.getKey();
+	}
+	else if (token.getType().equals("Literal") || token.getType().equals("OperadorAritmetico") || token.getType().equals("OperadorAsignacion")) 
+	{
+		return (int)token.getLexema().charAt(0);
+	}
+	
+	return token.getKey();	
 }
 private void yyerror(String string) {
 	//metodo de muestra de errores

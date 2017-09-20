@@ -1,0 +1,7 @@
+suma : LONG.
+
+
+
+IF ( 5 > 3 ) THEN
+	suma : LONG.
+END_IF.
