@@ -16,6 +16,7 @@ public class AS02 implements AccionSemantica {
 		{
 			token.setType("Literal");
 			token.setKey(274);
+			token.setLinea(lexico.getFila());
 		}
 
 		lexico.putSimbolo(token);	

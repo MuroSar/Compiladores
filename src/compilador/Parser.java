@@ -1,6 +1,7 @@
 package compilador;
 
 import compilador.Lexico;
+import compilador.Sintactico;
 import complementos.Token;
 
 //### This file created by BYACC 1.8(/Java extension  1.15)
@@ -27,8 +28,8 @@ import complementos.Token;
 
 public class Parser
 {
-
-Lexico lexico;
+	Lexico lexico;
+	Sintactico sintactico;
 boolean yydebug;        //do I want debug output?
 int yynerrs;            //number of errors so far
 int yyerrflag;          //was there an error?
@@ -159,8 +160,8 @@ final ParserVal dup_yyval(ParserVal val)
   return dup;
 }
 //#### end semantic value section ####
-public final static short Identificador=257;
-public final static short Constante=258;
+public final static short IDENTIFICADOR=257;
+public final static short CONSTANTE=258;
 public final static short IF=259;
 public final static short THEN=260;
 public final static short ELSE=261;
@@ -175,7 +176,7 @@ public final static short CASE=269;
 public final static short FUNCTION=270;
 public final static short RETURN=271;
 public final static short MOVE=272;
-public final static short Cadena=273;
+public final static short CADENA=273;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
     0,    1,    1,    1,    1,    1,    4,    4,    4,    4,
@@ -315,29 +316,29 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,"Identificador","Constante","IF","THEN",
+null,null,null,null,null,null,null,"IDENTIFICADOR","CONSTANTE","IF","THEN",
 "ELSE","END_IF","BEGIN","END","OUT","LONG","DOUBLE","SWITCH","CASE","FUNCTION",
-"RETURN","MOVE","Cadena","\"<=\"","\">=\"","\"<>\"","\"==\"",
+"RETURN","MOVE","CADENA","\"<=\"","\">=\"","\"<>\"","\"==\"",
 };
 final static String yyrule[] = {
 "$accept : programa",
 "programa : bloque",
 "bloque : IF '(' condicion ')' THEN bloque ELSE bloque END_IF '.'",
 "bloque : IF '(' condicion ')' THEN bloque END_IF '.'",
-"bloque : SWITCH '(' Identificador ')' '{' rep_switch '}' '.'",
+"bloque : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' '.'",
 "bloque : BEGIN sentencias END '.'",
 "bloque : sentencias",
 "sentencias : declaracion",
 "sentencias : asignacion",
 "sentencias : funcion",
 "sentencias : salida",
-"funcion : tipo FUNCTION Identificador '{' bloque '(' expresion ')' '.' '}'",
-"funcion : tipo MOVE FUNCTION Identificador '{' bloque '(' expresion ')' '.' '}'",
-"asignacion : Identificador '=' expresion '.'",
-"declaracion : Identificador ':' tipo '.'",
-"declaracion : Identificador ',' declaracion",
-"rep_switch : CASE Constante ':' bloque '.'",
-"rep_switch : CASE Constante ':' bloque '.' rep_switch",
+"funcion : tipo FUNCTION IDENTIFICADOR '{' bloque '(' expresion ')' '.' '}'",
+"funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque '(' expresion ')' '.' '}'",
+"asignacion : IDENTIFICADOR '=' expresion '.'",
+"declaracion : IDENTIFICADOR ':' tipo '.'",
+"declaracion : IDENTIFICADOR ',' declaracion",
+"rep_switch : CASE CONSTANTE ':' bloque '.'",
+"rep_switch : CASE CONSTANTE ':' bloque '.' rep_switch",
 "condicion : expresion operador condicion",
 "condicion : expresion operador termino",
 "operador : '<'",
@@ -352,9 +353,9 @@ final static String yyrule[] = {
 "termino : factor '*' termino",
 "termino : factor '/' termino",
 "termino : factor",
-"factor : Identificador",
-"factor : Constante",
-"salida : OUT '(' Cadena ')' '.'",
+"factor : IDENTIFICADOR",
+"factor : CONSTANTE",
+"salida : OUT '(' CADENA ')' '.'",
 "tipo : LONG",
 "tipo : DOUBLE",
 };
@@ -557,6 +558,9 @@ public void setLexico(Lexico lexico)
 {
 	this.lexico = lexico;
 }
+public void setSintactico(Sintactico sintactico) {
+	this.sintactico = sintactico;	
+}
 private int yylex() {
 	Token token = lexico.getToken();
 	if (token.getType().equals("Identificador") || token.getType().equals("Constante") || token.getType().equals("Cadena"))	
@@ -572,6 +576,7 @@ private int yylex() {
 }
 private void yyerror(String string) {
 	//metodo de muestra de errores
+	this.sintactico.showError(string);
 	System.out.println(string);
 }
 

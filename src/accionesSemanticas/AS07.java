@@ -33,6 +33,7 @@ public class AS07 implements AccionSemantica {
 
 			token.setType("Comparador");
 			token.setKey(275);
+			token.setLinea(lexico.getFila());
 			
 			lexico.putSimbolo(token);
 

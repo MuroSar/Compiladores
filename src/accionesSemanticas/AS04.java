@@ -15,6 +15,7 @@ public class AS04 implements AccionSemantica {
 		{
 			token.setType("Entero largo (LONG)");
 			token.setKey(258);
+			token.setLinea(lexico.getFila());
 		}
 		else
 		{

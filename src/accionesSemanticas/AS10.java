@@ -28,6 +28,6 @@ public class AS10 implements AccionSemantica {
 	
 	@Override
 	public String toString() {
-		return "AS-12";
+		return "AS-10";
 	}
 }

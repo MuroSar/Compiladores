@@ -14,6 +14,7 @@ public class AS05 implements AccionSemantica {
 		{
 			token.setType("Literal");
 			token.setKey(274);
+			token.setLinea(lexico.getFila());
 		}
 		else
 		{
@@ -23,6 +24,7 @@ public class AS05 implements AccionSemantica {
 			{
 				token.setType("Dobles (DOUBLE)");
 				token.setKey(258);
+				token.setLinea(lexico.getFila());
 			}
 			else
 			{
@@ -41,11 +43,8 @@ public class AS05 implements AccionSemantica {
 				lexico.addErrorToken(error);
 			}
 		}
-			
 		lexico.putSimbolo(token);
 
-		
-		
 	}
 
 	@Override

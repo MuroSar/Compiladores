@@ -5,12 +5,14 @@ public class Token {
 	private String lexema;
 	private int key;
 	private String type; // tipo de token IDENTIFICADOR LITERAL ANOTACION etc
+	private int linea;
 	
-	public Token(String lexema, int key, String type)
+	public Token(String lexema, int key, String type, int linea)
 	{
 		this.lexema = lexema;
 		this.key = key;
 		this.type = type;
+		this.linea = linea;
 	}
 	
 	public Token ()
@@ -18,6 +20,7 @@ public class Token {
 		this.lexema = new String();
 		this.key = -2;
 		this.type = new String();
+		this.linea = -2;
 	}
 	
 	public String getLexema() {
@@ -38,6 +41,11 @@ public class Token {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-
+	public int getLinea() {
+		return linea;
+	}
+	public void setLinea(int linea) {
+		this.linea = linea;
+	}
+	
 }

@@ -15,18 +15,22 @@ COSAS A AGREGAR EN EL PARSER CUANDO COMPILAMOS..
 package compilador;
 
 import compilador.Lexico;
+import compilador.Sintactico;
 import complementos.Token;
 
 
 
 Lexico lexico;
-
+Sintactico sintactico;
 
 
 
 public void setLexico(Lexico lexico)
 {
 	this.lexico = lexico;
+}
+public void setSintactico(Sintactico sintactico) {
+	this.sintactico = sintactico;	
 }
 private int yylex() {
 	Token token = lexico.getToken();
@@ -43,6 +47,7 @@ private int yylex() {
 }
 private void yyerror(String string) {
 	//metodo de muestra de errores
+	this.sintactico.showError(string);
 	System.out.println(string);
 }
 

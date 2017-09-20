@@ -25,14 +25,16 @@ public class AS03 implements AccionSemantica {
 		
 		if(key != 257)
 		{
-			token.setType("Palabra reservada");
+			token.setType("PalabraReservada");
 			token.setKey(key);
+			token.setLinea(lexico.getFila());
 		}
 		else
 		{
 			String lexemaLower = token.getLexema().toLowerCase();
 			token.setLexema(lexemaLower);
 			token.setKey(key);
+			token.setLinea(lexico.getFila());
 			
 			token.setType("Identificador");
 			if(token.getLexema().length() > 15)

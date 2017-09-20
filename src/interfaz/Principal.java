@@ -5,10 +5,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -17,9 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,27 +30,20 @@ import javax.swing.JFileChooser;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import compilador.Lexico;
 import compilador.Parser;
+import compilador.Sintactico;
 import complementos.ErrorToken;
 import complementos.Token;
 
 import java.awt.Font;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class Principal extends JFrame {
 	
@@ -67,6 +56,7 @@ public class Principal extends JFrame {
 	
 	private Lexico lexico;
 	private Parser parser;
+	private Sintactico sintactico;
 	private File archivoACargar;
 	private boolean archivoCargado = false;
 	
@@ -81,6 +71,8 @@ public class Principal extends JFrame {
         lexico = new Lexico(this);
         parser = new Parser();
         parser.setLexico(lexico);
+        this.sintactico = new Sintactico(this, this.lexico, this.parser);
+        parser.setSintactico(this.sintactico);
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -346,9 +338,14 @@ public class Principal extends JFrame {
 		txtListaTokens.append(lexema + "\n");
 	}
 	
+	public void mostrarErrorSintactico(String error)
+	{
+		txtListaTokens.append(error + "\n");
+	}
+	
 	private void runParser()
 	{
-		this.parser.run();
+		this.sintactico.start();
 	}
 
 	public static void main(String args[]) {

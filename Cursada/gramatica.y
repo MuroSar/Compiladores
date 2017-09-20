@@ -1,4 +1,4 @@
-%token Identificador Constante IF THEN ELSE END_IF BEGIN END OUT LONG DOUBLE SWITCH CASE FUNCTION RETURN MOVE Cadena
+%token IDENTIFICADOR CONSTANTE IF THEN ELSE END_IF BEGIN END OUT LONG DOUBLE SWITCH CASE FUNCTION RETURN MOVE CADENA
 %start programa
 
 %%
@@ -8,7 +8,7 @@ programa : bloque
 
 bloque : IF '(' condicion ')' THEN bloque ELSE bloque END_IF'.'
 		| IF '(' condicion ')' THEN bloque END_IF'.'
-		| SWITCH '(' Identificador ')' '{' rep_switch '}''.'
+		| SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.'
 		| BEGIN sentencias END'.'
 		| sentencias
 		;
@@ -19,19 +19,19 @@ sentencias : declaracion
 		| salida
 		;
 
-funcion : tipo FUNCTION Identificador '{' bloque '(' expresion ')''.' '}'
-		| tipo MOVE FUNCTION Identificador '{' bloque '(' expresion ')''.' '}'
+funcion : tipo FUNCTION IDENTIFICADOR '{' bloque '(' expresion ')''.' '}'
+		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloque '(' expresion ')''.' '}'
 		;
 
-asignacion : Identificador '=' expresion'.'
+asignacion : IDENTIFICADOR '=' expresion'.'
 		;
 
-declaracion : Identificador ':' tipo'.'
-		| Identificador',' declaracion
+declaracion : IDENTIFICADOR ':' tipo'.'
+		| IDENTIFICADOR',' declaracion
 		;
 
-rep_switch : CASE Constante ':' bloque'.'
-		| CASE Constante ':' bloque'.' rep_switch
+rep_switch : CASE CONSTANTE ':' bloque'.'
+		| CASE CONSTANTE ':' bloque'.' rep_switch
 		;
 
 condicion : expresion operador condicion
@@ -56,11 +56,11 @@ termino : factor '*' termino
 		| factor
 		;
 
-factor : Identificador
-		| Constante
+factor : IDENTIFICADOR
+		| CONSTANTE
 		;
 
-salida : OUT '(' Cadena ')''.'
+salida : OUT '(' CADENA ')''.'
 		;
 
 tipo : LONG

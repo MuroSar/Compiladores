@@ -20,11 +20,13 @@ public class AS09 implements AccionSemantica {
 		{
 			token.setType("Operador Aritmetico");
 			token.setKey(276);
+			token.setLinea(lexico.getFila());
 		}
 		else if(token.getLexema().equals("=") || token.getLexema().equals("<") || token.getLexema().equals(">"))
 		{
 			token.setType("Comparadores");
 			token.setKey(275);
+			token.setLinea(lexico.getFila());
 		}
 		
 		lexico.putSimbolo(token);
