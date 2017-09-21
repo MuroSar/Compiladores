@@ -3,7 +3,7 @@
    1  programa : bloque_comun
 
    2  bloque_comun : bloque_para_funcion
-   3               | llamado_funcion
+   3               | declaracion_funcion
 
    4  bloque_para_funcion : IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun END_IF '.'
    5                      | IF '(' condicion ')' THEN bloque_comun END_IF '.'
@@ -18,8 +18,8 @@
   13             | asignacion
   14             | salida
 
-  15  llamado_funcion : funcion
-  16                  | funcion sentencias
+  15  declaracion_funcion : funcion
+  16                      | funcion sentencias
 
   17  funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')' '.' '}'
   18          | tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')' '.' '}'
@@ -73,7 +73,7 @@ state 0
 	programa  goto 8
 	bloque_comun  goto 9
 	bloque_para_funcion  goto 10
-	llamado_funcion  goto 11
+	declaracion_funcion  goto 11
 	sentencias  goto 12
 	declaracion  goto 13
 	asignacion  goto 14
@@ -159,7 +159,7 @@ state 10
 
 
 state 11
-	bloque_comun : llamado_funcion .  (3)
+	bloque_comun : declaracion_funcion .  (3)
 
 	.  reduce 3
 
@@ -228,8 +228,8 @@ state 15
 
 
 state 16
-	llamado_funcion : funcion .  (15)
-	llamado_funcion : funcion . sentencias  (16)
+	declaracion_funcion : funcion .  (15)
+	declaracion_funcion : funcion . sentencias  (16)
 
 	IDENTIFICADOR  shift 1
 	OUT  shift 4
@@ -338,7 +338,7 @@ state 27
 
 
 state 28
-	llamado_funcion : funcion sentencias .  (16)
+	declaracion_funcion : funcion sentencias .  (16)
 
 	.  reduce 16
 
@@ -691,7 +691,7 @@ state 69
 
 	bloque_comun  goto 76
 	bloque_para_funcion  goto 10
-	llamado_funcion  goto 11
+	declaracion_funcion  goto 11
 	sentencias  goto 12
 	declaracion  goto 13
 	asignacion  goto 14
@@ -819,7 +819,7 @@ state 81
 
 	bloque_comun  goto 87
 	bloque_para_funcion  goto 10
-	llamado_funcion  goto 11
+	declaracion_funcion  goto 11
 	sentencias  goto 12
 	declaracion  goto 13
 	asignacion  goto 14
@@ -897,7 +897,7 @@ state 89
 
 	bloque_comun  goto 94
 	bloque_para_funcion  goto 10
-	llamado_funcion  goto 11
+	declaracion_funcion  goto 11
 	sentencias  goto 12
 	declaracion  goto 13
 	asignacion  goto 14

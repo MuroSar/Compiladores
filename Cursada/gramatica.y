@@ -15,13 +15,13 @@ programa : bloque_comun
 		;
 
 bloque_comun : bloque_para_funcion
-		|llamado_funcion
+		|declaracion_funcion
 		;
 		
-bloque_para_funcion :  IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun END_IF'.'
-		| IF '(' condicion ')' THEN bloque_comun END_IF'.' {his.sintactico.showMessage("Sentencia: IF");}
-		| SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.'
-		| BEGIN sentencias END'.'
+bloque_para_funcion :  IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}
+		| IF '(' condicion ')' THEN bloque_comun END_IF'.' {this.sintactico.showMessage("Sentencia: IF");}
+		| SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.' {this.sintactico.showMessage("Sentencia: SWITCH");}
+		| BEGIN sentencias END'.' {this.sintactico.showMessage("Bloque: BEGIN - END");}
 		| sentencias
 		;
 
@@ -33,30 +33,30 @@ sentencias : declaracion sentencias
 		| salida
 		;
 		
-llamado_funcion : funcion 
+declaracion_funcion : funcion 
 		|funcion sentencias
 		;
 
-funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')''.' '}'
-		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')''.' '}'
+funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion");}
+		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion con MOVE");}
 		;
 
-asignacion : IDENTIFICADOR '=' expresion'.'
+asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignación");}
 		;
 
-declaracion : IDENTIFICADOR ':' tipo'.'
-		| IDENTIFICADOR',' declaracion
+declaracion : IDENTIFICADOR ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}
+		| IDENTIFICADOR',' declaracion  {this.sintactico.showMessage("Declaracion de variable multiple");}
 		;
 
-rep_switch : CASE CONSTANTE ':' bloque_comun'.'
+rep_switch : CASE CONSTANTE ':' bloque_comun'.' {this.sintactico.showMessage("Sentencia: CASE");}
 		| CASE CONSTANTE ':' bloque_comun'.' rep_switch
 		;
 
-condicion : expresion operador condicion
-		| expresion operador termino
+condicion : expresion operador condicion 
+		| expresion operador termino {this.sintactico.showMessage("Condición");}
 		;
 
-operador : '<'
+operador : '<' 
 		| '>'
 		| '<='
 		| '>='
@@ -64,21 +64,21 @@ operador : '<'
 		| '=='
 		;
 
-expresion : termino '+' expresion
-		| termino '-' expresion
+expresion : termino '+' expresion {this.sintactico.showMessage("Expresión");}
+		| termino '-' expresion {this.sintactico.showMessage("Expresión");}
 		| termino
 		;
 
-termino : factor '*' termino
-		| factor '/' termino
+termino : factor '*' termino {this.sintactico.showMessage("Término");}
+		| factor '/' termino {this.sintactico.showMessage("Término");}
 		| factor
 		;
 
-factor : IDENTIFICADOR
+factor : IDENTIFICADOR 
 		| CONSTANTE
 		;
 
-salida : OUT '(' CADENA ')''.'
+salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}
 		;
 
 tipo : LONG

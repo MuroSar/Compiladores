@@ -1,9 +1,3 @@
-package compilador;
-
-import compilador.Lexico;
-import compilador.Sintactico;
-import complementos.Token;
-
 //### This file created by BYACC 1.8(/Java extension  1.15)
 //### Java capabilities added 7 Jan 97, Bob Jamison
 //### Updated : 27 Nov 97  -- Bob Jamison, Joe Nieten
@@ -22,14 +16,20 @@ import complementos.Token;
 
 
 
+//#line 2 "gramatica.y"
+package compilador;
+
+import compilador.Lexico;
+import compilador.Sintactico;
+import complementos.Token;
+//#line 23 "Parser.java"
 
 
 
 
 public class Parser
 {
-	Lexico lexico;
-	Sintactico sintactico;
+
 boolean yydebug;        //do I want debug output?
 int yynerrs;            //number of errors so far
 int yyerrflag;          //was there an error?
@@ -335,7 +335,7 @@ final static String yyrule[] = {
 "$accept : programa",
 "programa : bloque_comun",
 "bloque_comun : bloque_para_funcion",
-"bloque_comun : llamado_funcion",
+"bloque_comun : declaracion_funcion",
 "bloque_para_funcion : IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun END_IF '.'",
 "bloque_para_funcion : IF '(' condicion ')' THEN bloque_comun END_IF '.'",
 "bloque_para_funcion : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' '.'",
@@ -347,8 +347,8 @@ final static String yyrule[] = {
 "sentencias : declaracion",
 "sentencias : asignacion",
 "sentencias : salida",
-"llamado_funcion : funcion",
-"llamado_funcion : funcion sentencias",
+"declaracion_funcion : funcion",
+"declaracion_funcion : funcion sentencias",
 "funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')' '.' '}'",
 "funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')' '.' '}'",
 "asignacion : IDENTIFICADOR '=' expresion '.'",
@@ -377,6 +377,39 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
+//#line 89 "gramatica.y"
+
+private Lexico lexico;
+private Sintactico sintactico;
+
+
+
+public void setLexico(Lexico lexico)
+{
+	this.lexico = lexico;
+}
+public void setSintactico(Sintactico sintactico) {
+	this.sintactico = sintactico;	
+}
+private int yylex() {
+	Token token = lexico.getToken();
+	if (token.getType().equals("Identificador") || token.getType().equals("Constante") || token.getType().equals("Cadena"))	
+	{
+		return token.getKey();
+	}
+	else if (token.getType().equals("Literal") || token.getType().equals("OperadorAritmetico") || token.getType().equals("OperadorAsignacion")) 
+	{
+		return (int)token.getLexema().charAt(0);
+	}
+	
+	return token.getKey();	
+}
+private void yyerror(String string) {
+	//metodo de muestra de errores
+	this.sintactico.showMessage(string);
+	System.out.println(string);
+}
+//#line 341 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -530,6 +563,71 @@ boolean doaction;
     switch(yyn)
       {
 //########## USER-SUPPLIED ACTIONS ##########
+case 4:
+//#line 21 "gramatica.y"
+{this.sintactico.showMessage("Sentencia: IF - ELSE");}
+break;
+case 5:
+//#line 22 "gramatica.y"
+{this.sintactico.showMessage("Sentencia: IF");}
+break;
+case 6:
+//#line 23 "gramatica.y"
+{this.sintactico.showMessage("Sentencia: SWITCH");}
+break;
+case 7:
+//#line 24 "gramatica.y"
+{this.sintactico.showMessage("Bloque: BEGIN - END");}
+break;
+case 17:
+//#line 40 "gramatica.y"
+{this.sintactico.showMessage("Declaracion de Funcion");}
+break;
+case 18:
+//#line 41 "gramatica.y"
+{this.sintactico.showMessage("Declaracion de Funcion con MOVE");}
+break;
+case 19:
+//#line 44 "gramatica.y"
+{this.sintactico.showMessage("Asignación");}
+break;
+case 20:
+//#line 47 "gramatica.y"
+{this.sintactico.showMessage("Declaracion de variable");}
+break;
+case 21:
+//#line 48 "gramatica.y"
+{this.sintactico.showMessage("Declaracion de variable multiple");}
+break;
+case 22:
+//#line 51 "gramatica.y"
+{this.sintactico.showMessage("Sentencia: CASE");}
+break;
+case 25:
+//#line 56 "gramatica.y"
+{this.sintactico.showMessage("Condición");}
+break;
+case 32:
+//#line 67 "gramatica.y"
+{this.sintactico.showMessage("Expresión");}
+break;
+case 33:
+//#line 68 "gramatica.y"
+{this.sintactico.showMessage("Expresión");}
+break;
+case 35:
+//#line 72 "gramatica.y"
+{this.sintactico.showMessage("Término");}
+break;
+case 36:
+//#line 73 "gramatica.y"
+{this.sintactico.showMessage("Término");}
+break;
+case 40:
+//#line 81 "gramatica.y"
+{this.sintactico.showMessage("Sentencia: OUT");}
+break;
+//#line 554 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
@@ -571,31 +669,7 @@ boolean doaction;
 }
 //## end of method parse() ######################################
 
-public void setLexico(Lexico lexico)
-{
-	this.lexico = lexico;
-}
-public void setSintactico(Sintactico sintactico) {
-	this.sintactico = sintactico;	
-}
-private int yylex() {
-	Token token = lexico.getToken();
-	if (token.getType().equals("Identificador") || token.getType().equals("Constante") || token.getType().equals("Cadena"))	
-	{
-		return token.getKey();
-	}
-	else if (token.getType().equals("Literal") || token.getType().equals("OperadorAritmetico") || token.getType().equals("OperadorAsignacion")) 
-	{
-		return (int)token.getLexema().charAt(0);
-	}
-	
-	return token.getKey();	
-}
-private void yyerror(String string) {
-	//metodo de muestra de errores
-	this.sintactico.showMessage(string);
-	System.out.println(string);
-}
+
 
 //## run() --- for Thread #######################################
 /**
