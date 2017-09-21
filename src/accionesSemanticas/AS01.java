@@ -4,8 +4,7 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class AS01 implements AccionSemantica{
-//	1.	Inicializar string (con la máxima logitud permitida --> 15)
-//	2.	Agregar letra al string
+//	1.	Agregar letra al string
 
 
 	@Override

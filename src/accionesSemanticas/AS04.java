@@ -5,7 +5,11 @@ import complementos.ErrorToken;
 import complementos.Token;
 
 public class AS04 implements AccionSemantica {
-
+//	1. Devolver a la entrada el último carácter leído
+//	2. Revisa que no se pase del rango
+//		a. Si se pasa, corrige y genera el error
+//	3. Devuelve el Token armado
+	
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {
 		lexico.setPosMenosUno(); //para no perder este char y volver a leerlo la prox

@@ -5,6 +5,13 @@ import complementos.ErrorToken;
 import complementos.Token;
 
 public class AS05 implements AccionSemantica {
+//	1. Devolver a la entrada el último carácter leído
+//	2. Si el lexema es una ","
+//		a. Genera el literal
+//	3. Si no, 
+//		a. Revisa que no se pase del rango
+//		b. Si se pasa, corrige y genera el error
+//	4. Devuelve el Token armado
 
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {

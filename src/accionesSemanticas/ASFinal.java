@@ -4,12 +4,10 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class ASFinal implements AccionSemantica {
-//	1.	Agregar el carácter al string
-//	2.	Buscar en la TS
-//		a.	Si está, devolver ID + PuntTS
-//		b.	Si no está,
-//			i.	Alta en la TS
-//			ii.	Devolver ID + PuntTS
+//	1. Devolver a la entrada el último carácter leído
+//	2. Pregunta por el contenido del lexema
+//	3. Arma el Token correspondiente
+// 	4. Devuelve el Token
 	
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) {

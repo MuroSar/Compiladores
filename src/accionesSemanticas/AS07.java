@@ -4,21 +4,10 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class AS07 implements AccionSemantica {
-//	1.	Inicializar string 
-//	2.	Agregar caracter al string
-//	3.	Si la posición que sigue es un carácter ‘=’ o un ‘>’
-//		a.	Leo ese carácter (pos++)
-//		b.	Buscar en la TS
-//			i.	Si está, devolver ID + PuntTS
-//			ii.	Si no está,
-//				1.	Alta en la TS
-//				2.	Devolver ID + PuntTS
-//	4.	Si no es ese carácter 
-//		a.	Buscar en la TS
-//			i.	Si está, devolver ID + PuntTS
-//			ii.	Si no está,
-//				1.	Alta en la TS
-//				2.	Devolver ID + PuntTS
+//	1. Si el proximo caracter es un "=" o un ">"
+//		a. avanza la posicion para no leer dos veces lo mismo
+//		b. Genera el token Comparador
+//		c. Devuelve el Token armado
 
 
 	@Override

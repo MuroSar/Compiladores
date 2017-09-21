@@ -4,20 +4,13 @@ import compilador.Lexico;
 import complementos.Token;
 
 public class AS08 implements AccionSemantica {
-//	1.	Agregar caracter al string
-//	2.	Descarto todo hasta el fin de línea.
+//	1. Borra el lexema leido
+//	2. Aumenta la linea donde esta leyendo
+//	3. Pone el estado en 0
 	
 	@Override
 	public void ejecutar(Lexico lexico, char loQueLee, Token token) 
 	{
-//		token.setLexema(token.getLexema() + loQueLee);
-//		
-//		char prox = loQueLee;
-//		while (prox != '\n')
-//		{
-//			prox = lexico.getProxPos();
-//			lexico.setPosMasUno();
-//		}
 		token.setLexema("");
 		lexico.setNuevaLinea();
 		lexico.setEstado(0);

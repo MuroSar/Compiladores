@@ -6,14 +6,13 @@ import complementos.Token;
 
 public class AS03 implements AccionSemantica {
 //	1.	Devolver a la entrada el último carácter leído
-//	2.	Buscar en la TPR
-//		a.	Si está, devolver la Palabra Reservada
-//		b.	Si no está,
-//	3.	Buscar en la TS
-//		a.	Si está, devolver ID + PuntTS
-//		b.	Si no está,
-//			i.	Alta en la TS
-//			ii.	Devolver ID + PuntTS
+//	2.	Obtiene el ID de token
+//		a.	Si corresponde a una palabra reservada
+//			i. Completa datos y devuelve
+//		b. Si no, completa datos para un identificador
+//			i. Revisa que no se pase del limite de caracteres
+//				1.Si se pasa corrige y genera el error
+//	3. Devuelve el token generado
 
 
 	@Override
