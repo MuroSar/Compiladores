@@ -15,7 +15,7 @@ programa : bloque_comun
 		;
 
 bloque_comun : bloque_para_funcion
-		|declaracion_funcion
+		| declaracion_funcion
 		;
 		
 bloque_para_funcion :  IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}
@@ -31,14 +31,19 @@ sentencias : declaracion sentencias
 		| declaracion 
 		| asignacion
 		| salida
+		| llamado_funcion
+		| llamado_funcion sentencias
 		;
 		
 declaracion_funcion : funcion 
 		|funcion sentencias
 		;
 
-funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion");}
-		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_para_funcion '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion con MOVE");}
+funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion");}
+		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_para_funcion RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion con MOVE");}
+		;
+
+llamado_funcion : IDENTIFICADOR '('')''.' {this.sintactico.showMessage("Llamado a función");}
 		;
 
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignación");}
