@@ -16,19 +16,19 @@ public class Sintactico {
 		this.parser = parser;
 	}
 
-	public void showError(String error)
+	public void showMessage(String mensaje)
 	{
-		this.ppal.mostrarErrorSintactico(error);
+		this.ppal.mostrarMensajeSintactico(mensaje);
 	}
 	
 	public void start() {
 		int result = parser.yyparse();
 		switch (result) {
 		case 0:
-			ppal.mostrarErrorSintactico("Gramatica: OK");
+			this.ppal.mostrarMensajeSintactico("Gramatica: OK");
 			break;
 		default:
-			ppal.mostrarErrorSintactico("Gramatica: ERROR");
+			this.ppal.mostrarMensajeSintactico("Gramatica: ERROR");
 		}
 	}
 }

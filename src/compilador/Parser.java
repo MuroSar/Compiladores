@@ -593,7 +593,7 @@ private int yylex() {
 }
 private void yyerror(String string) {
 	//metodo de muestra de errores
-	this.sintactico.showError(string);
+	this.sintactico.showMessage(string);
 	System.out.println(string);
 }
 

@@ -338,9 +338,9 @@ public class Principal extends JFrame {
 		txtListaTokens.append(lexema + "\n");
 	}
 	
-	public void mostrarErrorSintactico(String error)
+	public void mostrarMensajeSintactico(String mensaje)
 	{
-		txtListaTokens.append(error + "\n");
+		txtListaTokens.append(mensaje + "\n");
 	}
 	
 	private void runParser()

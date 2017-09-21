@@ -20,8 +20,8 @@ import complementos.Token;
 
 
 
-Lexico lexico;
-Sintactico sintactico;
+private Lexico lexico;
+private Sintactico sintactico;
 
 
 
