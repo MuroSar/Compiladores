@@ -16,10 +16,12 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -50,7 +52,7 @@ public class Principal extends JFrame {
 	//TAMAÑO DE PANTALLA..
 	private int comienzaX = 0;
 	private int comienzaY = 0;
-	private int ancho = 1000;
+	private int ancho = 1050;
 	private int alto = 800;
 	//TAMAÑO DE PANTALLA..
 	
@@ -62,6 +64,7 @@ public class Principal extends JFrame {
 	
 	private JTextArea txtListaTokens;
     private JTextPane tpArchivoCodigo;
+    private JTextPane tpNumeracion;
 	
 	public Principal() {
 		setResizable(false);
@@ -88,6 +91,7 @@ public class Principal extends JFrame {
 				lexico.nuevo();
 				txtListaTokens.setText("");
 				tpArchivoCodigo.setText("");
+				tpNumeracion.setText("");
 			}
 		});
 		
@@ -161,6 +165,12 @@ public class Principal extends JFrame {
 		tpArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		tpArchivoCodigo.setEditable(false);
 		
+		tpNumeracion = new JTextPane();
+		tpNumeracion.setFont(new Font("Monospaced", Font.PLAIN, 13));
+		tpNumeracion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		tpNumeracion.setEditable(false);
+		
+		JScrollPane scrollNumeracion = new JScrollPane(tpNumeracion, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane scrollArchivoCodigo = new JScrollPane(tpArchivoCodigo, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane scrollListaTokens= new JScrollPane(txtListaTokens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
@@ -193,6 +203,7 @@ public class Principal extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(scrollNumeracion, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 							.addComponent(scrollArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
@@ -221,6 +232,7 @@ public class Principal extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
 						.addComponent(scrollListaTokens, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
+						.addComponent(scrollNumeracion)
 						.addComponent(scrollArchivoCodigo))
 					.addContainerGap(112, Short.MAX_VALUE))
 		);
@@ -244,13 +256,16 @@ public class Principal extends JFrame {
 		//ACA LO MOSTRAMOS POR PANTALLA..
 		try 
 		{
+			int nroLinea = 1;			
 			tpArchivoCodigo.setEditable(true);
 			BufferedReader leer = new BufferedReader(new FileReader(archivoACargar));
 			String line = leer.readLine();
 			while (line != null)
 			{
+				tpNumeracion.setText(tpNumeracion.getText() + nroLinea + "->" + "\n");
 				tpArchivoCodigo.setText(tpArchivoCodigo.getText() + line + "\n");
 				line = leer.readLine();
+				nroLinea++;
 			}
 			leer.close();
 			tpArchivoCodigo.setEditable(false);

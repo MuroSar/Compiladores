@@ -16,7 +16,7 @@ public class ASFinal implements AccionSemantica {
 		
 		if(token.getLexema().equals("+") || token.getLexema().equals("-") || token.getLexema().equals("/"))
 		{
-			token.setType("Operador aritmetico");
+			token.setType("OperadorAritmetico");
 			token.setKey(276);
 			token.setLinea(lexico.getFila());
 		}
@@ -28,7 +28,7 @@ public class ASFinal implements AccionSemantica {
 		}
 		else
 		{
-			token.setType("Cadena de caracteres");
+			token.setType("Cadena");
 			token.setKey(273);
 			token.setLinea(lexico.getFila());
 		}

@@ -17,17 +17,23 @@ public class AS09 implements AccionSemantica {
 		
 		if(token.getLexema().equals("*"))
 		{
-			token.setType("Operador Aritmetico");
+			token.setType("OperadorAritmetico");
 			token.setKey(276);
 			token.setLinea(lexico.getFila());
 		}
-		else if(token.getLexema().equals("=") || token.getLexema().equals("<") || token.getLexema().equals(">"))
+		else if(token.getLexema().equals("<") || token.getLexema().equals(">"))
 		{
 			token.setType("Comparadores");
 			token.setKey(275);
 			token.setLinea(lexico.getFila());
 		}
-		
+		else if(token.getLexema().equals("="))
+		{
+			token.setType("OperadorAsignacion");
+			token.setKey(277);
+			token.setLinea(lexico.getFila());
+		}
+			
 		lexico.putSimbolo(token);
 	}
 

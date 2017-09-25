@@ -14,29 +14,51 @@ import complementos.Token;
 programa : bloque_comun
 		;
 
-bloque_comun : bloque_para_funcion
+bloque_comun : bloque_comun bloque_para_funcion
+		| bloque_comun declaracion_funcion
+		| bloque_para_funcion
 		| declaracion_funcion
 		;
 		
-bloque_para_funcion :  IF '(' condicion ')' THEN bloque_comun ELSE bloque_comun END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}
-		| IF '(' condicion ')' THEN bloque_comun END_IF'.' {this.sintactico.showMessage("Sentencia: IF");}
+bloque_para_funcion :  IF '(' condicion ')' THEN bloque_para_funcion ELSE bloque_para_funcion END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}
+		| IF '(' condicion ')' THEN bloque_para_funcion END_IF'.' {this.sintactico.showMessage("Sentencia: IF");}
 		| SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.' {this.sintactico.showMessage("Sentencia: SWITCH");}
 		| BEGIN sentencias END'.' {this.sintactico.showMessage("Bloque: BEGIN - END");}
 		| sentencias
+	/* Errores de BEGIN - END */
+		| BEGIN sentencias END {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en bloque BEGIN - END");}
+		| BEGIN sentencias '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'END' en bloque BEGIN - END");}
+		| sentencias END'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'BEGIN' en bloque BEGIN - END");}
+	/* Errores de BEGIN - END */
+	/* Errores de IF - ELSE */
+		| IF condicion ')' THEN bloque_para_funcion ELSE bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en sentencia IF - ELSE");}
+		| IF '(' condicion THEN bloque_para_funcion ELSE bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en sentencia IF - ELSE");}
+		| IF '(' condicion ')' THEN bloque_para_funcion ELSE bloque_para_funcion END_IF {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en sentencia IF - ELSE");}
+		| IF '(' condicion ')' bloque_para_funcion ELSE bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'THEN' en sentencia IF - ELSE");}
+		| IF '(' condicion ')' THEN bloque_para_funcion ELSE bloque_para_funcion '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'END_IF' en sentencia IF - ELSE");}
+		| IF '(' condicion ')' THEN bloque_para_funcion bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'ELSE' en sentencia IF - ELSE");}
+	/* Errores de IF - ELSE */
+	/* Errores de IF */
+		| IF condicion ')' THEN bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en sentencia IF");}
+		| IF '(' condicion THEN bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en sentencia IF");}
+		| IF '(' condicion ')' THEN bloque_para_funcion END_IF {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en sentencia IF");}
+		| IF '(' condicion ')' bloque_para_funcion END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'THEN' en sentencia IF");}
+		| IF '(' condicion ')' THEN bloque_para_funcion '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'END_IF' en sentencia IF");}
+	/* Errores de IF */
 		;
 
-sentencias : declaracion sentencias
-		| asignacion sentencias
-		| salida sentencias
+sentencias : sentencias declaracion 
+		| sentencias asignacion 
+		| sentencias salida 		
+		| sentencias llamado_funcion 
 		| declaracion 
 		| asignacion
 		| salida
 		| llamado_funcion
-		| llamado_funcion sentencias
 		;
 		
 declaracion_funcion : funcion 
-		|funcion sentencias
+		|sentencias funcion 
 		;
 
 funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_para_funcion RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion");}
@@ -47,17 +69,23 @@ llamado_funcion : IDENTIFICADOR '('')''.' {this.sintactico.showMessage("Llamado 
 		;
 
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignación");}
+		| IDENTIFICADOR '=' expresion {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en asignación");}
+		| IDENTIFICADOR  expresion'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '=' en asignación");}
 		;
 
-declaracion : IDENTIFICADOR ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}
-		| IDENTIFICADOR',' declaracion  {this.sintactico.showMessage("Declaracion de variable multiple");}
+declaracion : IDENTIFICADOR',' declaracion  {this.sintactico.showMessage("Declaracion de variable multiple");}
+		| IDENTIFICADOR ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}
+		| IDENTIFICADOR declaracion  {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ',' en asignación múltiple");}
+		| IDENTIFICADOR ':' tipo {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en asignación");}
+		| IDENTIFICADOR tipo'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ':' en asignación");}
+		| IDENTIFICADOR ':' '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta tipo en asignación");}
 		;
 
 rep_switch : CASE CONSTANTE ':' bloque_comun'.' {this.sintactico.showMessage("Sentencia: CASE");}
-		| CASE CONSTANTE ':' bloque_comun'.' rep_switch
+		| rep_switch CASE CONSTANTE ':' bloque_comun'.'  
 		;
 
-condicion : expresion operador condicion 
+condicion : condicion operador expresion
 		| expresion operador termino {this.sintactico.showMessage("Condición");}
 		;
 
@@ -69,13 +97,13 @@ operador : '<'
 		| '=='
 		;
 
-expresion : termino '+' expresion {this.sintactico.showMessage("Expresión");}
-		| termino '-' expresion {this.sintactico.showMessage("Expresión");}
+expresion : expresion '+' termino {this.sintactico.showMessage("Expresión");}
+		| expresion '-' termino {this.sintactico.showMessage("Expresión");}
 		| termino
 		;
 
-termino : factor '*' termino {this.sintactico.showMessage("Término");}
-		| factor '/' termino {this.sintactico.showMessage("Término");}
+termino : termino '*' factor {this.sintactico.showMessage("Término");}
+		| termino '/' factor {this.sintactico.showMessage("Término");}
 		| factor
 		;
 
@@ -94,7 +122,7 @@ tipo : LONG
 
 private Lexico lexico;
 private Sintactico sintactico;
-
+private Token token;
 
 
 public void setLexico(Lexico lexico)
@@ -105,7 +133,7 @@ public void setSintactico(Sintactico sintactico) {
 	this.sintactico = sintactico;	
 }
 private int yylex() {
-	Token token = lexico.getToken();
+	this.token = lexico.getToken();
 	if (token.getType().equals("Identificador") || token.getType().equals("Constante") || token.getType().equals("Cadena"))	
 	{
 		return token.getKey();

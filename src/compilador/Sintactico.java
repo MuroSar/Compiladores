@@ -21,6 +21,13 @@ public class Sintactico {
 		this.ppal.mostrarMensajeSintactico(mensaje);
 	}
 	
+	public void showError(String error)
+	{
+		this.ppal.mostrarMensajeSintactico("-----------------------------------");
+		this.ppal.mostrarMensajeSintactico(error);
+		this.ppal.mostrarMensajeSintactico("-----------------------------------");
+	}
+	
 	public void start() {
 		int result = parser.yyparse();
 		switch (result) {
