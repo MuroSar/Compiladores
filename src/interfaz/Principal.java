@@ -108,6 +108,7 @@ public class Principal extends JFrame {
 		mntmSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//ACA SALIMOS..
+				System.exit(0);
 			}
 		});
 		
@@ -129,7 +130,7 @@ public class Principal extends JFrame {
             }
         });
 		
-		JButton btnGetToken = new JButton("getToken()");
+		JButton btnGetToken = new JButton("Lexico");
 		btnGetToken.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
             	if(!archivoCargado)
@@ -174,7 +175,7 @@ public class Principal extends JFrame {
 		JScrollPane scrollArchivoCodigo = new JScrollPane(tpArchivoCodigo, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane scrollListaTokens= new JScrollPane(txtListaTokens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
-		JButton btnRun = new JButton("run()");
+		JButton btnRun = new JButton("Parser");
 		btnRun.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!archivoCargado)
@@ -203,7 +204,7 @@ public class Principal extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollNumeracion, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+							.addComponent(scrollNumeracion, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 							.addComponent(scrollArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)

@@ -81,8 +81,8 @@ declaracion : IDENTIFICADOR',' declaracion  {this.sintactico.showMessage("Declar
 		| IDENTIFICADOR ':' '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta tipo en asignación");}
 		;
 
-rep_switch : CASE CONSTANTE ':' bloque_comun'.' {this.sintactico.showMessage("Sentencia: CASE");}
-		| rep_switch CASE CONSTANTE ':' bloque_comun'.'  
+rep_switch : CASE CONSTANTE ':' bloque_comun {this.sintactico.showMessage("Sentencia: CASE");}
+		| rep_switch CASE CONSTANTE ':' bloque_comun  
 		;
 
 condicion : condicion operador expresion
