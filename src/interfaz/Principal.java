@@ -359,6 +359,12 @@ public class Principal extends JFrame {
 			{
 				lexema = lexema + "\n" + error.toString();
 			}
+			
+			lexema = lexema + "\n";
+			lexema = "--------------- Tabla de Simbolos ---------------";
+			lexema = lexema + "\n";
+			
+			lexema = lexema + this.lexico.printTSimbolos();
 		}
 		
 		txtListaTokens.append(lexema + "\n");

@@ -230,8 +230,19 @@ public class Lexico {
 	
 	public void putSimbolo(Token token)
 	{
+		boolean esta = false;
 		ArrayList<Token> aux = new ArrayList<Token>(this.tablaSimbolos.get(token.getKey()));
-		aux.add(token);
+		for(Token t : aux)
+		{
+			if(t.getLexema().equals(token.getLexema()))
+			{
+				esta = true;
+			}
+		}
+		if(!esta)
+		{
+			aux.add(token);
+		}
 		this.tablaSimbolos.put(token.getKey(), aux);
 	}
 	
@@ -269,5 +280,21 @@ public class Lexico {
 			this.ppal.mostrarToken();
 		}
 		this.empiezaDeNuevo();
+	}
+
+	public String printTSimbolos() {
+		String result = "";
+		ArrayList<Integer> keys = new ArrayList<Integer>(this.tablaSimbolos.keySet());
+		for(Integer k : keys)
+		{
+			result = result + k + " -> "; 
+			ArrayList<Token> aux = this.tablaSimbolos.get(k);
+			for(Token t : aux)
+			{
+				result = result + t.toString() + " - "; 
+			}
+			result = result + "\n";
+		}
+		return result;
 	}
 }

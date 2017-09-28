@@ -47,5 +47,12 @@ public class Token {
 	public void setLinea(int linea) {
 		this.linea = linea;
 	}
+
+	@Override
+	public String toString() {
+		return "Token [lexema=" + lexema + ", key=" + key + ", type=" + type + ", linea=" + linea + "]";
+	}
+	
+	
 	
 }
