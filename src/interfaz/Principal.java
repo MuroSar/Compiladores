@@ -377,6 +377,8 @@ public class Principal extends JFrame {
 	
 	private void runParser()
 	{
+		this.txtListaTokens.setText("");
+		this.lexico.empiezaDeNuevo();
 		this.sintactico.start();
 	}
 
