@@ -88,10 +88,7 @@ public class Principal extends JFrame {
 		mnArchivo.add(mntmNuevo);
 		mntmNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lexico.nuevo();
-				txtListaTokens.setText("");
-				tpArchivoCodigo.setText("");
-				tpNumeracion.setText("");
+				nuevo();
 			}
 		});
 		
@@ -240,8 +237,21 @@ public class Principal extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 
+	private void nuevo() {
+		lexico.nuevoArchivo();
+		txtListaTokens.setText("");
+		tpArchivoCodigo.setText("");
+		tpNumeracion.setText("");
+		archivoCargado = false;
+	}
+	
 	private void cargarArchivo()
 	{
+		if(this.archivoCargado)
+		{
+			this.nuevo();
+		}
+		
 		//ACA CARGAMOS EL ARCHIVO...
 		JFileChooser buscador = new JFileChooser();
 		buscador.setVisible(true);
@@ -331,7 +341,7 @@ public class Principal extends JFrame {
     }
 	
 
-	private void mostrarToken()
+	public void mostrarToken()
 	{
 		String lexema = new String();
 		Token token = lexico.getToken();
@@ -343,7 +353,7 @@ public class Principal extends JFrame {
 		}
 		else
 		{
-			lexema = "----------------- Fin del archivo -----------------";
+			lexema = "---------------- Fin del archivo ----------------";
 			ArrayList<ErrorToken> errores = this.lexico.getErrores();
 			for(ErrorToken error : errores)
 			{

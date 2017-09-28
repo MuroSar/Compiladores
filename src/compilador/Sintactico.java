@@ -23,19 +23,26 @@ public class Sintactico {
 	
 	public void showError(String error)
 	{
-		this.ppal.mostrarMensajeSintactico("-----------------------------------");
+		this.ppal.mostrarMensajeSintactico("-------------------------------------------------");
 		this.ppal.mostrarMensajeSintactico(error);
-		this.ppal.mostrarMensajeSintactico("-----------------------------------");
+		this.ppal.mostrarMensajeSintactico("-------------------------------------------------");
 	}
 	
 	public void start() {
+		this.ppal.mostrarMensajeSintactico("----------------LISTADO DE TOKENS----------------");
+		this.ppal.mostrarMensajeSintactico("");
+		this.lexico.showAllTokens();
+		this.ppal.mostrarMensajeSintactico("");
+		this.ppal.mostrarMensajeSintactico("--------------------GRAMATICA--------------------");
+		this.ppal.mostrarMensajeSintactico("");
+		
 		int result = parser.yyparse();
 		switch (result) {
 		case 0:
-			this.ppal.mostrarMensajeSintactico("Gramatica: OK");
+			this.ppal.mostrarMensajeSintactico("------------------Gramatica: OK------------------");
 			break;
 		default:
-			this.ppal.mostrarMensajeSintactico("Gramatica: ERROR");
+			this.ppal.mostrarMensajeSintactico("-----------------Gramatica: ERROR----------------");
 		}
 	}
 }

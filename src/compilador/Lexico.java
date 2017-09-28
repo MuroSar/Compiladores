@@ -86,14 +86,14 @@ public class Lexico {
 		this.ppal = ppal;
 	}
 
-	public void nuevo() {
-		// SE LIMPIA LA PANTALLA..
+	public void nuevoArchivo() {
+		//SE USA CUANDO CARGO UN ARCHIVO NUEVO..
 		this.pos = 0;
 		this.fila = 0;
 		this.estado = 0;
 		this.locs = new ArrayList<String>();
 	}
-
+	
 	public void cargar(File archivoACargar) {		
 		this.archivoACargar = archivoACargar;
 		this.fila = 0;
@@ -235,49 +235,6 @@ public class Lexico {
 		this.tablaSimbolos.put(token.getKey(), aux);
 	}
 	
-//	public int getMaxKeytablaSimbolos()
-//	{
-//		int max = 0;
-//		ArrayList<Integer> keys = new ArrayList<Integer>(this.tablaSimbolos.keySet());
-//		
-//		if(keys.isEmpty())
-//		{
-//			return 257; //si es el primer simbolo le asigno un 257 porque el YACC asigna a partir de ahi
-//		}
-//		else
-//		{
-//			for(int key : keys)
-//			{
-//				if(key > max)
-//				{
-//					max = key;
-//				}
-//			}
-//			return max + 1;
-//		}
-//	}
-	
-//NO SE DONDE SE USA.. SE COMENTA POR LAS DUDAS.. 
-//	public int getKeytablaSimbolos(String lexema)
-//	{
-//		ArrayList<Token> values = new ArrayList<Token>(this.tablaSimbolos.values());
-//		for(Token t : values)
-//		{
-//			if(t.getLexema().equals(lexema))
-//			{
-//				ArrayList<Integer> keys = new ArrayList<Integer>(this.tablaSimbolos.keySet());
-//				for(int key : keys)
-//				{
-//					if(t.getLexema().equals(this.tablaSimbolos.get(key).getLexema()))
-//					{
-//						return key;
-//					}
-//				}
-//			}	
-//		}
-//		return this.ERROR;
-//	}
-	
 	public int existPalabraReservada(String palabraReservada)
 	{
 		ArrayList<Integer> keys = new ArrayList<Integer>(this.Reservadas.keySet());
@@ -297,5 +254,20 @@ public class Lexico {
 	public ArrayList<ErrorToken> getErrores()
 	{
 		return new ArrayList<ErrorToken>(this.errores);
+	}
+
+	public void empiezaDeNuevo() {
+		//SE USA PARA POSICIONARSE DE NUEVO EN EL PRIMER TOKEN
+		this.pos = 0;
+		this.fila = 0;
+		this.estado = 0;
+	}
+	
+	public void showAllTokens() {
+		while(fila != this.locs.size())
+		{
+			this.ppal.mostrarToken();
+		}
+		this.empiezaDeNuevo();
 	}
 }
