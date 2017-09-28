@@ -361,7 +361,7 @@ public class Principal extends JFrame {
 			}
 			
 			lexema = lexema + "\n";
-			lexema = "--------------- Tabla de Simbolos ---------------";
+			lexema = lexema + "--------------- Tabla de Simbolos ---------------";
 			lexema = lexema + "\n";
 			
 			lexema = lexema + this.lexico.printTSimbolos();

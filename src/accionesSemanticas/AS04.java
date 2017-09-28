@@ -28,12 +28,16 @@ public class AS04 implements AccionSemantica {
 			error.setOriginal(token.getLexema());
 			
 			token.setLexema(String.valueOf(max));
+			token.setType("Entero largo (LONG)");
+			token.setKey(258);
+			token.setLinea(lexico.getFila());
 			
 			error.setCorregido(token.getLexema());
 			error.setNroToken(258);
 			error.setError("El tamaño del LONG excede el máximo permitido");
 			error.setAccionCorrectiva("Se acotó al máximo permitido");
 			error.setNroLinea(lexico.getFila());
+			
 			
 			lexico.addErrorToken(error);
 		}

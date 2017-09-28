@@ -40,6 +40,9 @@ public class AS05 implements AccionSemantica {
 				error.setOriginal(token.getLexema());
 				
 				token.setLexema(String.valueOf(max));
+				token.setType("Dobles (DOUBLE)");
+				token.setKey(258);
+				token.setLinea(lexico.getFila());
 				
 				error.setCorregido(token.getLexema());
 				error.setNroToken(258);
