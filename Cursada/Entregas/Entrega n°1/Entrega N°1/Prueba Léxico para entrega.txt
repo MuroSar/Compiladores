@@ -1,0 +1,22 @@
+BEGIN
+var_a : -2147483648.
+var_b : 2147483647.
+var_c : 2,2250738585072014E-308.
+este_es_un_identificador_demasiado_largo : 1,7976931348623157E308. 
+id_corto : 0,0.
+id1 : 12.
+identif_3 : 3.
+1id : 9. 
+**este es un id mal definido
+IF ( var_a == id_corto ) THEN 
+**este anda bien
+OUT ( "Son iguales" ). 
+END_IF.
+If ( var_a == id_corto ) THEN 
+OUT ( "Son iguales" ).
+END_IF.
+IF ( var_a == id_corto ) TheN
+OUT ( "Son iguales" ).
+END_IF.
+*el ultimo anda mal
+END.

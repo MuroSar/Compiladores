@@ -1,0 +1,59 @@
+variable : DOUBLE.
+variable = 6.
+suma = 6 + 2.
+
+SWITCH (variable) {
+CASE 3 : OUT ( "Es un 3" ).
+CASE 6 : OUT ( "Es un 6" ).
+}.
+
+IF (suma > variable) THEN
+	suma = variable.
+END_IF.
+
+DOUBLE FUNCTION salida {
+BEGIN
+	aB : DOUBLE.
+	
+	aB = 6.
+END.
+RETURN ( aB ).
+}
+
+IF (suma == variable) THEN 
+BEGIN
+	suma = variable + 1.
+	suma = variable + 1.
+END.
+END_IF.
+
+salida ().
+
+IF (5==3) THEN 
+	OUT("hola mundo").
+ELSE
+	OUT("Hola MUNDO").
+END_IF.
+
+LONG FUNCTION suma {
+BEGIN
+	a : LONG.
+	b : DOUBLE.
+	c : LONG.
+	a = 3.
+	b = 6.
+	c = a + b.
+END.
+RETURN ( c ).
+}
+
+suma().
+suma().
+
+variable : DOUBLE.
+variable = 6.
+
+SWITCH (variable) {
+	CASE 4 : OUT ( "Es un 4" ).
+	CASE 5 : OUT ( "Es un 5" ).
+}.

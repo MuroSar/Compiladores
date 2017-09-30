@@ -1,0 +1,8 @@
+Al presionar el botón Cargar archivo, se puede elegir el archivo con el codigo que se desee probar. 
+
+Al seleccionar el botón Lexico, se observara sobre la derecha de la pantalla Token por Token, mientras que en la izquierda, se observa en azul lo que ya hemos leido del codigo, y en rojo lo que estamos leyendo actualmente. 
+	Cuando se lee la totalidad del codigo, se imprimira una tabla de simbolos y todos los errores (en caso que los hubiere).
+
+Al presionar el botón Parser, tendremos la misma actividad que con el botón anterior (Lexico), y al finalizar esto se mostraran todas las sentencias a las que hace referencia la gramatica.
+
+En caso de querer cargar un nuevo archivo, debemos ir a Archivo y seleccionar Nuevo.
