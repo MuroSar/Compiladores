@@ -36,6 +36,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
+import compilador.GenCodigo;
 import compilador.Lexico;
 import compilador.Parser;
 import compilador.Sintactico;
@@ -59,6 +60,7 @@ public class Principal extends JFrame {
 	private Lexico lexico;
 	private Parser parser;
 	private Sintactico sintactico;
+	private GenCodigo generador;
 	private File archivoACargar;
 	private boolean archivoCargado = false;
 	
@@ -71,11 +73,13 @@ public class Principal extends JFrame {
 		setBounds(comienzaX, comienzaY, ancho, alto);
     	setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/logo.png"));
         setTitle("Compilador Marin-Sarti");
-        lexico = new Lexico(this);
-        parser = new Parser();
-        parser.setLexico(lexico);
-        this.sintactico = new Sintactico(this, this.lexico, this.parser);
-        parser.setSintactico(this.sintactico);
+        this.lexico = new Lexico(this);
+        this.parser = new Parser();
+        this.parser.setLexico(lexico);
+        this.generador = new GenCodigo();
+        this.sintactico = new Sintactico(this, this.lexico, this.parser, this.generador);
+        this.parser.setSintactico(this.sintactico);
+        
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -370,7 +374,7 @@ public class Principal extends JFrame {
 		txtListaTokens.append(lexema + "\n");
 	}
 	
-	public void mostrarMensajeSintactico(String mensaje)
+	public void mostrarMensaje(String mensaje)
 	{
 		txtListaTokens.append(mensaje + "\n");
 	}
@@ -383,7 +387,7 @@ public class Principal extends JFrame {
 	}
 
 	public static void main(String args[]) {
-        try {
+		try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) { 
                 if ("Windows".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
