@@ -70,6 +70,7 @@ public class Principal extends JFrame {
 	
 	public Principal() {
 		setResizable(false);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(comienzaX, comienzaY, ancho, alto);
     	setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/logo.png"));
         setTitle("Compilador Marin-Sarti");
@@ -347,13 +348,12 @@ public class Principal extends JFrame {
 
 	public void mostrarToken()
 	{
-		String lexema = new String();
+		String lexema = "";
 		Token token = lexico.getToken();
 		
 		if(token.getKey() != 0)
 		{
-			int key = token.getKey();
-			lexema = lexico.getType(key) + ": " + lexico.getLexema(key);
+			lexema = token.getType() + ": " + token.getLexema();
 		}
 		else
 		{

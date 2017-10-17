@@ -17,9 +17,9 @@ public class Token {
 	
 	public Token ()
 	{
-		this.lexema = new String();
+		this.lexema = "";
 		this.key = -2;
-		this.type = new String();
+		this.type = "";
 		this.linea = -2;
 	}
 	

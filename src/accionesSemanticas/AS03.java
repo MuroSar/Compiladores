@@ -26,14 +26,14 @@ public class AS03 implements AccionSemantica {
 		{
 			token.setType("PalabraReservada");
 			token.setKey(key);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else
 		{
 			String lexemaLower = token.getLexema().toLowerCase();
 			token.setLexema(lexemaLower);
 			token.setKey(key);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 			
 			token.setType("Identificador");
 			if(token.getLexema().length() > 15)
@@ -48,7 +48,7 @@ public class AS03 implements AccionSemantica {
 				error.setNroToken(key);
 				error.setError("El tamaño del identificador excede el maximo permitido");
 				error.setAccionCorrectiva("Se corto el identificador a los 15 caracteres");
-				error.setNroLinea(lexico.getFila());
+				error.setNroLinea(lexico.getFila()+1);
 				
 				lexico.addErrorToken(error);
 			}

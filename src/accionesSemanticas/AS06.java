@@ -21,7 +21,7 @@ public class AS06 implements AccionSemantica {
 			
 			token.setType("Comparador");
 			token.setKey(275);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 			
 			lexico.putSimbolo(token);
 		}

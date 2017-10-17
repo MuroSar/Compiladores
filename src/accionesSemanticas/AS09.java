@@ -19,19 +19,19 @@ public class AS09 implements AccionSemantica {
 		{
 			token.setType("OperadorAritmetico");
 			token.setKey(276);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else if(token.getLexema().equals("<") || token.getLexema().equals(">"))
 		{
 			token.setType("Comparadores");
 			token.setKey(275);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else if(token.getLexema().equals("="))
 		{
 			token.setType("OperadorAsignacion");
 			token.setKey(277);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 			
 		lexico.putSimbolo(token);

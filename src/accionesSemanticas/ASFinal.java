@@ -18,19 +18,19 @@ public class ASFinal implements AccionSemantica {
 		{
 			token.setType("OperadorAritmetico");
 			token.setKey(276);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else if(token.getLexema().equals("(") || token.getLexema().equals(")") || token.getLexema().equals(":") || token.getLexema().equals(".") || token.getLexema().equals("{") || token.getLexema().equals("}"))
 		{
 			token.setType("Literal");
 			token.setKey(274);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else
 		{
 			token.setType("Cadena");
 			token.setKey(273);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		
 		lexico.putSimbolo(token);

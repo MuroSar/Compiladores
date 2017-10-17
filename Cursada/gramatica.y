@@ -93,12 +93,13 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 	/* ERRORES */
 		;
 
-declaracion : IDENTIFICADOR',' declaracion  {this.sintactico.showMessage("Declaracion de variable multiple");}
+declaracion : IDENTIFICADOR',' declaracion'.' {this.sintactico.showMessage("Declaracion de variable multiple");}
 		| IDENTIFICADOR ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}	
 	/* ERRORES */
 		| IDENTIFICADOR error tipo'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ':' en declaracion de variable");}
 		| IDENTIFICADOR ':' error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'tipo' en declaracion de variable");}
-	/* ERRORES */	
+		| IDENTIFICADOR ':' tipo error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en declaracion de variable");}
+	/* ERRORES */
 		;
 
 rep_switch : CASE CONSTANTE ':' bloques {this.sintactico.showMessage("Sentencia: CASE");}
@@ -130,7 +131,7 @@ termino : termino '*' factor {this.sintactico.showMessage("Término");}
 		| factor
 		;
 
-factor : IDENTIFICADOR 
+factor : IDENTIFICADOR
 		| CONSTANTE
 		;
 

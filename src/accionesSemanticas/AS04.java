@@ -19,7 +19,7 @@ public class AS04 implements AccionSemantica {
 		{
 			token.setType("Entero largo (LONG)");
 			token.setKey(258);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else
 		{
@@ -30,13 +30,13 @@ public class AS04 implements AccionSemantica {
 			token.setLexema(String.valueOf(max));
 			token.setType("Entero largo (LONG)");
 			token.setKey(258);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 			
 			error.setCorregido(token.getLexema());
 			error.setNroToken(258);
 			error.setError("El tamaño del LONG excede el máximo permitido");
 			error.setAccionCorrectiva("Se acotó al máximo permitido");
-			error.setNroLinea(lexico.getFila());
+			error.setNroLinea(lexico.getFila()+1);
 			
 			
 			lexico.addErrorToken(error);

@@ -11,11 +11,11 @@ public class ErrorToken {
 	
 	public ErrorToken()
 	{
-		this.original = new String();
-		this.corregido = new String();
+		this.original = "";
+		this.corregido = "";
 		this.nroToken = -2;
-		this.error = new String();
-		this.accionCorrectiva = new String();
+		this.error = "";
+		this.accionCorrectiva = "";
 		this.nroLinea = -2;
 	}
 

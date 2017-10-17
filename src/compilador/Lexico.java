@@ -92,6 +92,8 @@ public class Lexico {
 		this.fila = 0;
 		this.estado = 0;
 		this.locs = new ArrayList<String>();
+		this.tablaSimbolos = new Hashtable<Integer, ArrayList<Token>>();
+		this.Reservadas = new Hashtable<Integer, String>();
 	}
 	
 	public void cargar(File archivoACargar) {		

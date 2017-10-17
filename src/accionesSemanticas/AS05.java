@@ -21,7 +21,7 @@ public class AS05 implements AccionSemantica {
 		{
 			token.setType("Literal");
 			token.setKey(274);
-			token.setLinea(lexico.getFila());
+			token.setLinea(lexico.getFila()+1);
 		}
 		else
 		{
@@ -31,7 +31,7 @@ public class AS05 implements AccionSemantica {
 			{
 				token.setType("Dobles (DOUBLE)");
 				token.setKey(258);
-				token.setLinea(lexico.getFila());
+				token.setLinea(lexico.getFila()+1);
 			}
 			else
 			{
@@ -42,13 +42,13 @@ public class AS05 implements AccionSemantica {
 				token.setLexema(String.valueOf(max));
 				token.setType("Dobles (DOUBLE)");
 				token.setKey(258);
-				token.setLinea(lexico.getFila());
+				token.setLinea(lexico.getFila()+1);
 				
 				error.setCorregido(token.getLexema());
 				error.setNroToken(258);
 				error.setError("El tamaño del DOUBLE excede el máximo permitido");
 				error.setAccionCorrectiva("Se acotó al máximo permitido");
-				error.setNroLinea(lexico.getFila());
+				error.setNroLinea(lexico.getFila()+1);
 				
 				lexico.addErrorToken(error);
 			}

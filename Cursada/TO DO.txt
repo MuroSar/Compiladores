@@ -1,14 +1,15 @@
 TO DO:
 
-Parte 1
-	--REVISAR DOUBLES..
+------------------------------------------------------------------------------------------------------------------------
+
+--Como pasar de Java 8 a Java 7.. 
+--Como pasamos todo a la maquina virtual para probarlo..
+--Que hacer con la tabla de simbolos.. respecto al comentario que nos hizo..
+--"muestra ( en lugar de , y ULONG en lugar de nombre de identificadores" no podemos reproducir este error..
+--En la declaracion hay recursion a derecha.. pero no lo podemos limpiar eso..
+--Si agregamos errores por falta del . final no los toma..
 	
-	
-Parte 2
-	--todo..
-	
-	
-	
+------------------------------------------------------------------------------------------------------------------------
 	
 COSAS A AGREGAR EN EL PARSER CUANDO COMPILAMOS..	
 	
