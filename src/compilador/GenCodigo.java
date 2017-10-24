@@ -1,16 +1,17 @@
 package compilador;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 import Tercetos.Terceto;
 
 public class GenCodigo {
 
-	private Hashtable<Integer, Terceto> tercetos;
+	private Map<Integer, Terceto> tercetos;
 	
 	public GenCodigo() {
-		this.tercetos = new Hashtable<Integer, Terceto>();
+		this.tercetos = new HashMap<Integer, Terceto>();
 	}
 	
 	public void addTerceto(Terceto t) {

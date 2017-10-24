@@ -23,7 +23,7 @@ bloque_comun : bloques
 		;
 		
 bloques : bloque_para_funcion
-		| BEGIN bloques END'.' {this.sintactico.showMessage("Bloque: BEGIN - END");}	
+		| BEGIN bloque_para_funcion END'.' {this.sintactico.showMessage("Bloque: BEGIN - END");}	
 		;
 		
 bloque_para_funcion : sentencia_if_else
@@ -33,31 +33,31 @@ bloque_para_funcion : sentencia_if_else
 		;
 
 sentencia_if_else : IF '(' condicion ')' THEN bloques ELSE bloques END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}	
-	/* ERRORES */
+	/* ERRORES
 		| IF error ELSE bloques END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en sentencia IF - ELSE");}
 		| IF '(' error ELSE bloques  END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'condicion' en sentencia IF - ELSE");}
 		| IF '(' condicion error ELSE bloques  END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en sentencia IF - ELSE");}
 		| IF '(' condicion ')' error ELSE bloques  END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'THEN' en sentencia IF - ELSE");}
 		| IF '(' condicion ')' THEN error bloques  END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'ELSE' en sentencia IF - ELSE");}
-	/* ERRORES */
+	ERRORES */
 		;
 		
 sentencia_if : IF '(' condicion ')' THEN bloques END_IF'.' {this.sintactico.showMessage("Sentencia: IF");}
-	/* ERRORES */
+	/* ERRORES
 		| IF error END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en sentencia IF");}
 		| IF '(' error END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'condicion' en sentencia IF");}
 		| IF '(' condicion error END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en sentencia IF");}
 		| IF '(' condicion ')' error END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'THEN' en sentencia IF");}
-	/* ERRORES */
+	 ERRORES */
 		;
 		
 sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.' {this.sintactico.showMessage("Sentencia: SWITCH");}
-	/* ERRORES */
+	/* ERRORES
 		| SWITCH error rep_switch '}''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en sentencia SWITCH");}
 		| SWITCH '(' error rep_switch '}''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'IDENTIFICADOR' en sentencia SWITCH");}
 		| SWITCH '(' IDENTIFICADOR error rep_switch '}''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en sentencia SWITCH");}
 		| SWITCH '(' IDENTIFICADOR ')' error rep_switch '}''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '{' en sentencia SWITCH");}
-	/* ERRORES */
+	ERRORES */
 		;
 		
 sentencias : sentencia_unica
@@ -72,41 +72,43 @@ sentencia_unica : declaracion
 
 declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloques RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion");}
 		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloques RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion con MOVE");} 
-	/* ERRORES */
+	/* ERRORES 
 		| error FUNCTION IDENTIFICADOR '{' bloques RETURN '(' expresion ')''.' '}' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'tipo' en declaracion de Funcion");}
 		| tipo error IDENTIFICADOR '{' bloques RETURN '(' expresion ')''.' '}' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'FUNCTION' en declaracion de Funcion");}
 		| tipo FUNCTION error '{' bloques RETURN '(' expresion ')''.' '}' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'IDENTIFICADOR' en declaracion de Funcion");}
 		| tipo FUNCTION IDENTIFICADOR error bloques RETURN '(' expresion ')''.' '}' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '{' en declaracion de Funcion");}
-	/* ERRORES */
+	ERRORES */
 		;
 
 llamado_funcion : IDENTIFICADOR '('')''.' {this.sintactico.showMessage("Llamado a función");}
-	/* ERRORES */
+	/* ERRORES 
 		| IDENTIFICADOR error ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en llamado a Funcion");}
 		| IDENTIFICADOR '('error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
-	/* ERRORES */
+	 ERRORES */
 		;
 
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignación");}
-	/* ERRORES */
+	/* ERRORES 
 		| IDENTIFICADOR error expresion'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '=' en asignacion");}
-	/* ERRORES */
+	 ERRORES */
 		;
 
-declaracion : IDENTIFICADOR',' declaracion'.' {this.sintactico.showMessage("Declaracion de variable multiple");}
-		| IDENTIFICADOR ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}	
-	/* ERRORES */
-		| IDENTIFICADOR error tipo'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ':' en declaracion de variable");}
-		| IDENTIFICADOR ':' error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'tipo' en declaracion de variable");}
-		| IDENTIFICADOR ':' tipo error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en declaracion de variable");}
-	/* ERRORES */
+
+declaracion : lista_variables ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}
+	/* ERRORES
+		| lista_variables ':' error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'tipo' en declaracion de variable");}
+	ERRORES */
+		;
+
+lista_variables : IDENTIFICADOR
+		| lista_variables ',' IDENTIFICADOR
 		;
 
 rep_switch : CASE CONSTANTE ':' bloques {this.sintactico.showMessage("Sentencia: CASE");}
 		| rep_switch CASE CONSTANTE ':' bloques  
-	/* ERRORES */
+	/* ERRORES
 		| CASE CONSTANTE error bloques {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ':' en sentencia CASE");}
-	/* ERRORES */
+	ERRORES */
 		;
 
 condicion : condicion operador expresion

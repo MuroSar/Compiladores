@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import accionesSemanticas.AccionSemantica;
@@ -24,8 +26,8 @@ public class Lexico {
 	private List<String> locs; //lines of code
 	private List<ErrorToken> errores;
 	private Principal ppal;
-	private Hashtable<Integer, String> Reservadas;
-	private Hashtable<Integer, ArrayList<Token>> tablaSimbolos;
+	private Map<Integer, String> Reservadas;
+	private Map<Integer, ArrayList<Token>> tablaSimbolos;
 	private int pos = 0;
 	private int fila = 0;
 	private int estado = 0;
@@ -37,7 +39,7 @@ public class Lexico {
 		this.locs = new ArrayList<String>();
 		this.errores = new ArrayList<ErrorToken>();
 		
-		this.Reservadas = new Hashtable<Integer, String>();
+		this.Reservadas = new HashMap<Integer, String>();
 		//this.Reservadas.put(257, "Identificador");
 		//this.Reservadas.put(258, "Constante");
 		this.Reservadas.put(259, "IF");
@@ -60,7 +62,7 @@ public class Lexico {
 		//this.Reservadas.put(276, "OperadorAritmetico");
 		//this.Reservadas.put(277, "OperadorAsignacion");
 		
-		this.tablaSimbolos= new Hashtable<Integer, ArrayList<Token>>();
+		this.tablaSimbolos= new HashMap<Integer, ArrayList<Token>>();
 		this.tablaSimbolos.put(257, new ArrayList<Token>()); //Identificador
 		this.tablaSimbolos.put(258, new ArrayList<Token>()); //Constante
 		this.tablaSimbolos.put(259, new ArrayList<Token>());
@@ -92,8 +94,9 @@ public class Lexico {
 		this.fila = 0;
 		this.estado = 0;
 		this.locs = new ArrayList<String>();
-		this.tablaSimbolos = new Hashtable<Integer, ArrayList<Token>>();
-		this.Reservadas = new Hashtable<Integer, String>();
+		this.tablaSimbolos = new HashMap<Integer, ArrayList<Token>>();
+		this.Reservadas = new HashMap<Integer, String>();
+		this.errores = new ArrayList<ErrorToken>();
 	}
 	
 	public void cargar(File archivoACargar) {		
@@ -102,7 +105,10 @@ public class Lexico {
 		this.pos = 0;
 		
 		try {
-			this.locs = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
+			List<Object> aux = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
+			for (Object object : aux) {
+			    this.locs.add(Objects.toString(object, null));
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
