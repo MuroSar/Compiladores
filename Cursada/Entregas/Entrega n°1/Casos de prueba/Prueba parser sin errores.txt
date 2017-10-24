@@ -12,11 +12,8 @@ IF (suma > variable) THEN
 END_IF.
 
 DOUBLE FUNCTION salida {
-BEGIN
 	aB : DOUBLE.
-	
 	aB = 6.
-END.
 RETURN ( aB ).
 }
 
@@ -36,14 +33,12 @@ ELSE
 END_IF.
 
 LONG FUNCTION suma {
-BEGIN
 	a : LONG.
 	b : DOUBLE.
 	c : LONG.
 	a = 3.
 	b = 6.
 	c = a + b.
-END.
 RETURN ( c ).
 }
 
