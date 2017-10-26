@@ -1,81 +1,85 @@
    0  $accept : programa $end
 
-   1  programa : bloque_main
+   1  programa : bloque
 
-   2  bloque_main : bloque
-   3              | bloque_main bloque
-
-   4  bloque : bloque_comun
-   5         | declaracion_funcion
+   2  bloque : bloque_comun
+   3         | declaracion_funcion
+   4         | bloque bloque_comun
+   5         | bloque declaracion_funcion
 
    6  bloque_comun : bloque_control
    7               | declaracion
 
-   8  bloque_control : bloque_sentencias
-   9                 | BEGIN cjto_sentencias_control END '.'
+   8  bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')' '.' '}'
 
-  10  bloque_sentencias : sentencia_unica_control
-  11                    | sentencia_unica_ejecutable
+   9  bloque_sentencias_funcion : cjto_sentencias_control
+  10                            | declaracion
+  11                            | bloque_sentencias_funcion cjto_sentencias_control
+  12                            | bloque_sentencias_funcion declaracion
 
-  12  sentencia_unica_control : sentencia_if_else
-  13                          | sentencia_if
-  14                          | sentencia_switch
+  13  bloque_control : bloque_sentencias
+  14                 | BEGIN cjto_sentencias_control END '.'
 
-  15  sentencia_unica_ejecutable : asignacion
-  16                             | salida
-  17                             | llamado_funcion
+  15  bloque_sentencias : sentencia_unica_control
+  16                    | sentencia_unica_ejecutable
 
-  18  cjto_sentencias_control : sentencia_unica_ejecutable
-  19                          | sentencia_unica_control
-  20                          | cjto_sentencias_control sentencia_unica_ejecutable
-  21                          | cjto_sentencias_control sentencia_unica_control
+  17  sentencia_unica_control : sentencia_if_else
+  18                          | sentencia_if
+  19                          | sentencia_switch
 
-  22  declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'
-  23                      | tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'
+  20  sentencia_unica_ejecutable : asignacion
+  21                             | salida
+  22                             | llamado_funcion
 
-  24  declaracion : lista_variables ':' tipo '.'
+  23  cjto_sentencias_control : bloque_sentencias
+  24                          | cjto_sentencias_control bloque_sentencias
 
-  25  sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF '.'
+  25  declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion
+  26                      | tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion
 
-  26  sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF '.'
+  27  declaracion : lista_variables ':' tipo '.'
 
-  27  sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' '.'
+  28  sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF '.'
 
-  28  rep_switch : CASE CONSTANTE ':' bloque_control
-  29             | rep_switch CASE CONSTANTE ':' bloque_control
+  29  sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF '.'
 
-  30  asignacion : IDENTIFICADOR '=' expresion '.'
+  30  sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' '.'
 
-  31  salida : OUT '(' CADENA ')' '.'
+  31  rep_switch : CASE CONSTANTE ':' bloque_control
+  32             | rep_switch CASE CONSTANTE ':' bloque_control
 
-  32  llamado_funcion : IDENTIFICADOR '(' ')' '.'
+  33  asignacion : IDENTIFICADOR '=' expresion '.'
 
-  33  lista_variables : IDENTIFICADOR
-  34                  | lista_variables ',' IDENTIFICADOR
+  34  salida : OUT '(' CADENA ')' '.'
 
-  35  condicion : condicion operador expresion
-  36            | expresion operador termino
+  35  llamado_funcion : IDENTIFICADOR '(' ')' '.'
 
-  37  operador : '<'
-  38           | '>'
-  39           | "<="
-  40           | ">="
-  41           | "<>"
-  42           | "=="
+  36  lista_variables : IDENTIFICADOR
+  37                  | lista_variables ',' IDENTIFICADOR
 
-  43  expresion : expresion '+' termino
-  44            | expresion '-' termino
-  45            | termino
+  38  condicion : condicion operador expresion
+  39            | expresion operador termino
 
-  46  termino : termino '*' factor
-  47          | termino '/' factor
-  48          | factor
+  40  operador : '<'
+  41           | '>'
+  42           | "<="
+  43           | ">="
+  44           | "<>"
+  45           | "=="
 
-  49  factor : IDENTIFICADOR
-  50         | CONSTANTE
+  46  expresion : expresion '+' termino
+  47            | expresion '-' termino
+  48            | termino
 
-  51  tipo : LONG
-  52       | DOUBLE
+  49  termino : termino '*' factor
+  50          | termino '/' factor
+  51          | factor
+
+  52  factor : IDENTIFICADOR
+  53         | CONSTANTE
+
+  54  tipo : LONG
+  55       | DOUBLE
 
 state 0
 	$accept : . programa $end  (0)
@@ -90,87 +94,87 @@ state 0
 	.  error
 
 	programa  goto 8
-	bloque_main  goto 9
-	bloque  goto 10
-	bloque_comun  goto 11
-	declaracion_funcion  goto 12
-	bloque_control  goto 13
-	declaracion  goto 14
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
-	tipo  goto 24
-	lista_variables  goto 25
+	bloque  goto 9
+	bloque_comun  goto 10
+	declaracion_funcion  goto 11
+	bloque_control  goto 12
+	declaracion  goto 13
+	bloque_sentencias  goto 14
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
+	tipo  goto 23
+	lista_variables  goto 24
 
 
 state 1
-	asignacion : IDENTIFICADOR . '=' expresion '.'  (30)
-	llamado_funcion : IDENTIFICADOR . '(' ')' '.'  (32)
-	lista_variables : IDENTIFICADOR .  (33)
+	asignacion : IDENTIFICADOR . '=' expresion '.'  (33)
+	llamado_funcion : IDENTIFICADOR . '(' ')' '.'  (35)
+	lista_variables : IDENTIFICADOR .  (36)
 
-	'('  shift 26
-	'='  shift 27
-	':'  reduce 33
-	','  reduce 33
+	'('  shift 25
+	'='  shift 26
+	':'  reduce 36
+	','  reduce 36
 
 
 state 2
-	sentencia_if_else : IF . '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF '.'  (25)
-	sentencia_if : IF . '(' condicion ')' THEN bloque_control END_IF '.'  (26)
+	sentencia_if_else : IF . '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF '.'  (28)
+	sentencia_if : IF . '(' condicion ')' THEN bloque_control END_IF '.'  (29)
 
-	'('  shift 28
+	'('  shift 27
 	.  error
 
 
 state 3
-	bloque_control : BEGIN . cjto_sentencias_control END '.'  (9)
+	bloque_control : BEGIN . cjto_sentencias_control END '.'  (14)
 
-	IDENTIFICADOR  shift 29
+	IDENTIFICADOR  shift 28
 	IF  shift 2
 	OUT  shift 4
 	SWITCH  shift 7
 	.  error
 
-	cjto_sentencias_control  goto 30
-	sentencia_unica_control  goto 31
-	sentencia_unica_ejecutable  goto 32
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
+	cjto_sentencias_control  goto 29
+	bloque_sentencias  goto 30
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
 
 
 state 4
-	salida : OUT . '(' CADENA ')' '.'  (31)
+	salida : OUT . '(' CADENA ')' '.'  (34)
 
-	'('  shift 33
+	'('  shift 31
 	.  error
 
 
 state 5
-	tipo : LONG .  (51)
+	tipo : LONG .  (54)
 
-	.  reduce 51
+	.  reduce 54
 
 
 state 6
-	tipo : DOUBLE .  (52)
+	tipo : DOUBLE .  (55)
 
-	.  reduce 52
+	.  reduce 55
 
 
 state 7
-	sentencia_switch : SWITCH . '(' IDENTIFICADOR ')' '{' rep_switch '}' '.'  (27)
+	sentencia_switch : SWITCH . '(' IDENTIFICADOR ')' '{' rep_switch '}' '.'  (30)
 
-	'('  shift 34
+	'('  shift 32
 	.  error
 
 
@@ -181,8 +185,9 @@ state 8
 
 
 state 9
-	programa : bloque_main .  (1)
-	bloque_main : bloque_main . bloque  (3)
+	programa : bloque .  (1)
+	bloque : bloque . bloque_comun  (4)
+	bloque : bloque . declaracion_funcion  (5)
 
 	IDENTIFICADOR  shift 1
 	IF  shift 2
@@ -193,859 +198,903 @@ state 9
 	SWITCH  shift 7
 	$end  reduce 1
 
-	bloque  goto 35
-	bloque_comun  goto 11
-	declaracion_funcion  goto 12
-	bloque_control  goto 13
-	declaracion  goto 14
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
-	tipo  goto 24
-	lista_variables  goto 25
+	bloque_comun  goto 33
+	declaracion_funcion  goto 34
+	bloque_control  goto 12
+	declaracion  goto 13
+	bloque_sentencias  goto 14
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
+	tipo  goto 23
+	lista_variables  goto 24
 
 
 state 10
-	bloque_main : bloque .  (2)
+	bloque : bloque_comun .  (2)
 
 	.  reduce 2
 
 
 state 11
-	bloque : bloque_comun .  (4)
+	bloque : declaracion_funcion .  (3)
 
-	.  reduce 4
+	.  reduce 3
 
 
 state 12
-	bloque : declaracion_funcion .  (5)
-
-	.  reduce 5
-
-
-state 13
 	bloque_comun : bloque_control .  (6)
 
 	.  reduce 6
 
 
-state 14
+state 13
 	bloque_comun : declaracion .  (7)
 
 	.  reduce 7
 
 
-state 15
-	bloque_control : bloque_sentencias .  (8)
-
-	.  reduce 8
-
-
-state 16
-	bloque_sentencias : sentencia_unica_control .  (10)
-
-	.  reduce 10
-
-
-state 17
-	bloque_sentencias : sentencia_unica_ejecutable .  (11)
-
-	.  reduce 11
-
-
-state 18
-	sentencia_unica_control : sentencia_if_else .  (12)
-
-	.  reduce 12
-
-
-state 19
-	sentencia_unica_control : sentencia_if .  (13)
+state 14
+	bloque_control : bloque_sentencias .  (13)
 
 	.  reduce 13
 
 
-state 20
-	sentencia_unica_control : sentencia_switch .  (14)
-
-	.  reduce 14
-
-
-state 21
-	sentencia_unica_ejecutable : asignacion .  (15)
+state 15
+	bloque_sentencias : sentencia_unica_control .  (15)
 
 	.  reduce 15
 
 
-state 22
-	sentencia_unica_ejecutable : salida .  (16)
+state 16
+	bloque_sentencias : sentencia_unica_ejecutable .  (16)
 
 	.  reduce 16
 
 
-state 23
-	sentencia_unica_ejecutable : llamado_funcion .  (17)
+state 17
+	sentencia_unica_control : sentencia_if_else .  (17)
 
 	.  reduce 17
 
 
-state 24
-	declaracion_funcion : tipo . FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (22)
-	declaracion_funcion : tipo . MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (23)
-
-	FUNCTION  shift 36
-	MOVE  shift 37
-	.  error
-
-
-state 25
-	declaracion : lista_variables . ':' tipo '.'  (24)
-	lista_variables : lista_variables . ',' IDENTIFICADOR  (34)
-
-	':'  shift 38
-	','  shift 39
-	.  error
-
-
-state 26
-	llamado_funcion : IDENTIFICADOR '(' . ')' '.'  (32)
-
-	')'  shift 40
-	.  error
-
-
-state 27
-	asignacion : IDENTIFICADOR '=' . expresion '.'  (30)
-
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
-	.  error
-
-	expresion  goto 43
-	termino  goto 44
-	factor  goto 45
-
-
-state 28
-	sentencia_if_else : IF '(' . condicion ')' THEN bloque_control ELSE bloque_control END_IF '.'  (25)
-	sentencia_if : IF '(' . condicion ')' THEN bloque_control END_IF '.'  (26)
-
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
-	.  error
-
-	expresion  goto 46
-	condicion  goto 47
-	termino  goto 44
-	factor  goto 45
-
-
-state 29
-	asignacion : IDENTIFICADOR . '=' expresion '.'  (30)
-	llamado_funcion : IDENTIFICADOR . '(' ')' '.'  (32)
-
-	'('  shift 26
-	'='  shift 27
-	.  error
-
-
-state 30
-	bloque_control : BEGIN cjto_sentencias_control . END '.'  (9)
-	cjto_sentencias_control : cjto_sentencias_control . sentencia_unica_ejecutable  (20)
-	cjto_sentencias_control : cjto_sentencias_control . sentencia_unica_control  (21)
-
-	IDENTIFICADOR  shift 29
-	IF  shift 2
-	END  shift 48
-	OUT  shift 4
-	SWITCH  shift 7
-	.  error
-
-	sentencia_unica_control  goto 49
-	sentencia_unica_ejecutable  goto 50
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
-
-
-state 31
-	cjto_sentencias_control : sentencia_unica_control .  (19)
-
-	.  reduce 19
-
-
-state 32
-	cjto_sentencias_control : sentencia_unica_ejecutable .  (18)
+state 18
+	sentencia_unica_control : sentencia_if .  (18)
 
 	.  reduce 18
 
 
-state 33
-	salida : OUT '(' . CADENA ')' '.'  (31)
+state 19
+	sentencia_unica_control : sentencia_switch .  (19)
 
-	CADENA  shift 51
+	.  reduce 19
+
+
+state 20
+	sentencia_unica_ejecutable : asignacion .  (20)
+
+	.  reduce 20
+
+
+state 21
+	sentencia_unica_ejecutable : salida .  (21)
+
+	.  reduce 21
+
+
+state 22
+	sentencia_unica_ejecutable : llamado_funcion .  (22)
+
+	.  reduce 22
+
+
+state 23
+	declaracion_funcion : tipo . FUNCTION IDENTIFICADOR bloque_funcion  (25)
+	declaracion_funcion : tipo . MOVE FUNCTION IDENTIFICADOR bloque_funcion  (26)
+
+	FUNCTION  shift 35
+	MOVE  shift 36
 	.  error
+
+
+state 24
+	declaracion : lista_variables . ':' tipo '.'  (27)
+	lista_variables : lista_variables . ',' IDENTIFICADOR  (37)
+
+	':'  shift 37
+	','  shift 38
+	.  error
+
+
+state 25
+	llamado_funcion : IDENTIFICADOR '(' . ')' '.'  (35)
+
+	')'  shift 39
+	.  error
+
+
+state 26
+	asignacion : IDENTIFICADOR '=' . expresion '.'  (33)
+
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
+	.  error
+
+	expresion  goto 42
+	termino  goto 43
+	factor  goto 44
+
+
+state 27
+	sentencia_if_else : IF '(' . condicion ')' THEN bloque_control ELSE bloque_control END_IF '.'  (28)
+	sentencia_if : IF '(' . condicion ')' THEN bloque_control END_IF '.'  (29)
+
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
+	.  error
+
+	expresion  goto 45
+	condicion  goto 46
+	termino  goto 43
+	factor  goto 44
+
+
+state 28
+	asignacion : IDENTIFICADOR . '=' expresion '.'  (33)
+	llamado_funcion : IDENTIFICADOR . '(' ')' '.'  (35)
+
+	'('  shift 25
+	'='  shift 26
+	.  error
+
+
+state 29
+	bloque_control : BEGIN cjto_sentencias_control . END '.'  (14)
+	cjto_sentencias_control : cjto_sentencias_control . bloque_sentencias  (24)
+
+	IDENTIFICADOR  shift 28
+	IF  shift 2
+	END  shift 47
+	OUT  shift 4
+	SWITCH  shift 7
+	.  error
+
+	bloque_sentencias  goto 48
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
+
+
+state 30
+	cjto_sentencias_control : bloque_sentencias .  (23)
+
+	.  reduce 23
+
+
+state 31
+	salida : OUT '(' . CADENA ')' '.'  (34)
+
+	CADENA  shift 49
+	.  error
+
+
+state 32
+	sentencia_switch : SWITCH '(' . IDENTIFICADOR ')' '{' rep_switch '}' '.'  (30)
+
+	IDENTIFICADOR  shift 50
+	.  error
+
+
+state 33
+	bloque : bloque bloque_comun .  (4)
+
+	.  reduce 4
 
 
 state 34
-	sentencia_switch : SWITCH '(' . IDENTIFICADOR ')' '{' rep_switch '}' '.'  (27)
+	bloque : bloque declaracion_funcion .  (5)
 
-	IDENTIFICADOR  shift 52
-	.  error
+	.  reduce 5
 
 
 state 35
-	bloque_main : bloque_main bloque .  (3)
+	declaracion_funcion : tipo FUNCTION . IDENTIFICADOR bloque_funcion  (25)
 
-	.  reduce 3
+	IDENTIFICADOR  shift 51
+	.  error
 
 
 state 36
-	declaracion_funcion : tipo FUNCTION . IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (22)
+	declaracion_funcion : tipo MOVE . FUNCTION IDENTIFICADOR bloque_funcion  (26)
 
-	IDENTIFICADOR  shift 53
+	FUNCTION  shift 52
 	.  error
 
 
 state 37
-	declaracion_funcion : tipo MOVE . FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (23)
-
-	FUNCTION  shift 54
-	.  error
-
-
-state 38
-	declaracion : lista_variables ':' . tipo '.'  (24)
+	declaracion : lista_variables ':' . tipo '.'  (27)
 
 	LONG  shift 5
 	DOUBLE  shift 6
 	.  error
 
-	tipo  goto 55
+	tipo  goto 53
+
+
+state 38
+	lista_variables : lista_variables ',' . IDENTIFICADOR  (37)
+
+	IDENTIFICADOR  shift 54
+	.  error
 
 
 state 39
-	lista_variables : lista_variables ',' . IDENTIFICADOR  (34)
+	llamado_funcion : IDENTIFICADOR '(' ')' . '.'  (35)
 
-	IDENTIFICADOR  shift 56
+	'.'  shift 55
 	.  error
 
 
 state 40
-	llamado_funcion : IDENTIFICADOR '(' ')' . '.'  (32)
+	factor : IDENTIFICADOR .  (52)
 
-	'.'  shift 57
-	.  error
+	.  reduce 52
 
 
 state 41
-	factor : IDENTIFICADOR .  (49)
+	factor : CONSTANTE .  (53)
 
-	.  reduce 49
+	.  reduce 53
 
 
 state 42
-	factor : CONSTANTE .  (50)
+	asignacion : IDENTIFICADOR '=' expresion . '.'  (33)
+	expresion : expresion . '+' termino  (46)
+	expresion : expresion . '-' termino  (47)
 
-	.  reduce 50
-
-
-state 43
-	asignacion : IDENTIFICADOR '=' expresion . '.'  (30)
-	expresion : expresion . '+' termino  (43)
-	expresion : expresion . '-' termino  (44)
-
-	'.'  shift 58
-	'+'  shift 59
-	'-'  shift 60
+	'.'  shift 56
+	'+'  shift 57
+	'-'  shift 58
 	.  error
 
 
-state 44
-	expresion : termino .  (45)
-	termino : termino . '*' factor  (46)
-	termino : termino . '/' factor  (47)
+state 43
+	expresion : termino .  (48)
+	termino : termino . '*' factor  (49)
+	termino : termino . '/' factor  (50)
 
-	'*'  shift 61
-	'/'  shift 62
-	'.'  reduce 45
-	')'  reduce 45
-	'<'  reduce 45
-	'>'  reduce 45
-	"<="  reduce 45
-	">="  reduce 45
-	"<>"  reduce 45
-	"=="  reduce 45
-	'+'  reduce 45
-	'-'  reduce 45
+	'*'  shift 59
+	'/'  shift 60
+	')'  reduce 48
+	'.'  reduce 48
+	'<'  reduce 48
+	'>'  reduce 48
+	"<="  reduce 48
+	">="  reduce 48
+	"<>"  reduce 48
+	"=="  reduce 48
+	'+'  reduce 48
+	'-'  reduce 48
+
+
+state 44
+	termino : factor .  (51)
+
+	.  reduce 51
 
 
 state 45
-	termino : factor .  (48)
+	condicion : expresion . operador termino  (39)
+	expresion : expresion . '+' termino  (46)
+	expresion : expresion . '-' termino  (47)
 
-	.  reduce 48
+	'<'  shift 61
+	'>'  shift 62
+	"<="  shift 63
+	">="  shift 64
+	"<>"  shift 65
+	"=="  shift 66
+	'+'  shift 57
+	'-'  shift 58
+	.  error
+
+	operador  goto 67
 
 
 state 46
-	condicion : expresion . operador termino  (36)
-	expresion : expresion . '+' termino  (43)
-	expresion : expresion . '-' termino  (44)
+	sentencia_if_else : IF '(' condicion . ')' THEN bloque_control ELSE bloque_control END_IF '.'  (28)
+	sentencia_if : IF '(' condicion . ')' THEN bloque_control END_IF '.'  (29)
+	condicion : condicion . operador expresion  (38)
 
-	'<'  shift 63
-	'>'  shift 64
-	"<="  shift 65
-	">="  shift 66
-	"<>"  shift 67
-	"=="  shift 68
-	'+'  shift 59
-	'-'  shift 60
+	')'  shift 68
+	'<'  shift 61
+	'>'  shift 62
+	"<="  shift 63
+	">="  shift 64
+	"<>"  shift 65
+	"=="  shift 66
 	.  error
 
 	operador  goto 69
 
 
 state 47
-	sentencia_if_else : IF '(' condicion . ')' THEN bloque_control ELSE bloque_control END_IF '.'  (25)
-	sentencia_if : IF '(' condicion . ')' THEN bloque_control END_IF '.'  (26)
-	condicion : condicion . operador expresion  (35)
+	bloque_control : BEGIN cjto_sentencias_control END . '.'  (14)
 
-	')'  shift 70
-	'<'  shift 63
-	'>'  shift 64
-	"<="  shift 65
-	">="  shift 66
-	"<>"  shift 67
-	"=="  shift 68
+	'.'  shift 70
 	.  error
-
-	operador  goto 71
 
 
 state 48
-	bloque_control : BEGIN cjto_sentencias_control END . '.'  (9)
+	cjto_sentencias_control : cjto_sentencias_control bloque_sentencias .  (24)
 
-	'.'  shift 72
-	.  error
+	.  reduce 24
 
 
 state 49
-	cjto_sentencias_control : cjto_sentencias_control sentencia_unica_control .  (21)
+	salida : OUT '(' CADENA . ')' '.'  (34)
 
-	.  reduce 21
-
-
-state 50
-	cjto_sentencias_control : cjto_sentencias_control sentencia_unica_ejecutable .  (20)
-
-	.  reduce 20
-
-
-state 51
-	salida : OUT '(' CADENA . ')' '.'  (31)
-
-	')'  shift 73
+	')'  shift 71
 	.  error
 
 
-state 52
-	sentencia_switch : SWITCH '(' IDENTIFICADOR . ')' '{' rep_switch '}' '.'  (27)
+state 50
+	sentencia_switch : SWITCH '(' IDENTIFICADOR . ')' '{' rep_switch '}' '.'  (30)
 
-	')'  shift 74
+	')'  shift 72
+	.  error
+
+
+state 51
+	declaracion_funcion : tipo FUNCTION IDENTIFICADOR . bloque_funcion  (25)
+
+	'{'  shift 73
+	.  error
+
+	bloque_funcion  goto 74
+
+
+state 52
+	declaracion_funcion : tipo MOVE FUNCTION . IDENTIFICADOR bloque_funcion  (26)
+
+	IDENTIFICADOR  shift 75
 	.  error
 
 
 state 53
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR . '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (22)
+	declaracion : lista_variables ':' tipo . '.'  (27)
 
-	'{'  shift 75
+	'.'  shift 76
 	.  error
 
 
 state 54
-	declaracion_funcion : tipo MOVE FUNCTION . IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (23)
+	lista_variables : lista_variables ',' IDENTIFICADOR .  (37)
 
-	IDENTIFICADOR  shift 76
-	.  error
+	.  reduce 37
 
 
 state 55
-	declaracion : lista_variables ':' tipo . '.'  (24)
+	llamado_funcion : IDENTIFICADOR '(' ')' '.' .  (35)
 
-	'.'  shift 77
-	.  error
+	.  reduce 35
 
 
 state 56
-	lista_variables : lista_variables ',' IDENTIFICADOR .  (34)
+	asignacion : IDENTIFICADOR '=' expresion '.' .  (33)
 
-	.  reduce 34
+	.  reduce 33
 
 
 state 57
-	llamado_funcion : IDENTIFICADOR '(' ')' '.' .  (32)
+	expresion : expresion '+' . termino  (46)
 
-	.  reduce 32
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
+	.  error
+
+	termino  goto 77
+	factor  goto 44
 
 
 state 58
-	asignacion : IDENTIFICADOR '=' expresion '.' .  (30)
+	expresion : expresion '-' . termino  (47)
 
-	.  reduce 30
-
-
-state 59
-	expresion : expresion '+' . termino  (43)
-
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
 	.  error
 
 	termino  goto 78
-	factor  goto 45
+	factor  goto 44
+
+
+state 59
+	termino : termino '*' . factor  (49)
+
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
+	.  error
+
+	factor  goto 79
 
 
 state 60
-	expresion : expresion '-' . termino  (44)
+	termino : termino '/' . factor  (50)
 
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
-	.  error
-
-	termino  goto 79
-	factor  goto 45
-
-
-state 61
-	termino : termino '*' . factor  (46)
-
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
 	.  error
 
 	factor  goto 80
 
 
-state 62
-	termino : termino '/' . factor  (47)
-
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
-	.  error
-
-	factor  goto 81
-
-
-state 63
-	operador : '<' .  (37)
-
-	.  reduce 37
-
-
-state 64
-	operador : '>' .  (38)
-
-	.  reduce 38
-
-
-state 65
-	operador : "<=" .  (39)
-
-	.  reduce 39
-
-
-state 66
-	operador : ">=" .  (40)
+state 61
+	operador : '<' .  (40)
 
 	.  reduce 40
 
 
-state 67
-	operador : "<>" .  (41)
+state 62
+	operador : '>' .  (41)
 
 	.  reduce 41
 
 
-state 68
-	operador : "==" .  (42)
+state 63
+	operador : "<=" .  (42)
 
 	.  reduce 42
 
 
-state 69
-	condicion : expresion operador . termino  (36)
+state 64
+	operador : ">=" .  (43)
 
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
+	.  reduce 43
+
+
+state 65
+	operador : "<>" .  (44)
+
+	.  reduce 44
+
+
+state 66
+	operador : "==" .  (45)
+
+	.  reduce 45
+
+
+state 67
+	condicion : expresion operador . termino  (39)
+
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
 	.  error
 
-	termino  goto 82
-	factor  goto 45
+	termino  goto 81
+	factor  goto 44
+
+
+state 68
+	sentencia_if_else : IF '(' condicion ')' . THEN bloque_control ELSE bloque_control END_IF '.'  (28)
+	sentencia_if : IF '(' condicion ')' . THEN bloque_control END_IF '.'  (29)
+
+	THEN  shift 82
+	.  error
+
+
+state 69
+	condicion : condicion operador . expresion  (38)
+
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
+	.  error
+
+	expresion  goto 83
+	termino  goto 43
+	factor  goto 44
 
 
 state 70
-	sentencia_if_else : IF '(' condicion ')' . THEN bloque_control ELSE bloque_control END_IF '.'  (25)
-	sentencia_if : IF '(' condicion ')' . THEN bloque_control END_IF '.'  (26)
+	bloque_control : BEGIN cjto_sentencias_control END '.' .  (14)
 
-	THEN  shift 83
-	.  error
+	.  reduce 14
 
 
 state 71
-	condicion : condicion operador . expresion  (35)
+	salida : OUT '(' CADENA ')' . '.'  (34)
 
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
+	'.'  shift 84
 	.  error
-
-	expresion  goto 84
-	termino  goto 44
-	factor  goto 45
 
 
 state 72
-	bloque_control : BEGIN cjto_sentencias_control END '.' .  (9)
+	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' . '{' rep_switch '}' '.'  (30)
 
-	.  reduce 9
+	'{'  shift 85
+	.  error
 
 
 state 73
-	salida : OUT '(' CADENA ')' . '.'  (31)
+	bloque_funcion : '{' . bloque_sentencias_funcion RETURN '(' expresion ')' '.' '}'  (8)
 
-	'.'  shift 85
+	IDENTIFICADOR  shift 1
+	IF  shift 2
+	OUT  shift 4
+	SWITCH  shift 7
 	.  error
+
+	declaracion  goto 86
+	bloque_sentencias_funcion  goto 87
+	cjto_sentencias_control  goto 88
+	bloque_sentencias  goto 30
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
+	lista_variables  goto 24
 
 
 state 74
-	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' . '{' rep_switch '}' '.'  (27)
+	declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion .  (25)
 
-	'{'  shift 86
-	.  error
+	.  reduce 25
 
 
 state 75
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' . bloque_comun RETURN '(' expresion ')' '.' '}'  (22)
+	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR . bloque_funcion  (26)
 
-	IDENTIFICADOR  shift 1
-	IF  shift 2
-	BEGIN  shift 3
-	OUT  shift 4
-	SWITCH  shift 7
+	'{'  shift 73
 	.  error
 
-	bloque_comun  goto 87
-	bloque_control  goto 13
-	declaracion  goto 14
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
-	lista_variables  goto 25
+	bloque_funcion  goto 89
 
 
 state 76
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR . '{' bloque_comun RETURN '(' expresion ')' '.' '}'  (23)
+	declaracion : lista_variables ':' tipo '.' .  (27)
 
-	'{'  shift 88
-	.  error
+	.  reduce 27
 
 
 state 77
-	declaracion : lista_variables ':' tipo '.' .  (24)
+	expresion : expresion '+' termino .  (46)
+	termino : termino . '*' factor  (49)
+	termino : termino . '/' factor  (50)
 
-	.  reduce 24
+	'*'  shift 59
+	'/'  shift 60
+	')'  reduce 46
+	'.'  reduce 46
+	'<'  reduce 46
+	'>'  reduce 46
+	"<="  reduce 46
+	">="  reduce 46
+	"<>"  reduce 46
+	"=="  reduce 46
+	'+'  reduce 46
+	'-'  reduce 46
 
 
 state 78
-	expresion : expresion '+' termino .  (43)
-	termino : termino . '*' factor  (46)
-	termino : termino . '/' factor  (47)
+	expresion : expresion '-' termino .  (47)
+	termino : termino . '*' factor  (49)
+	termino : termino . '/' factor  (50)
 
-	'*'  shift 61
-	'/'  shift 62
-	'.'  reduce 43
-	')'  reduce 43
-	'<'  reduce 43
-	'>'  reduce 43
-	"<="  reduce 43
-	">="  reduce 43
-	"<>"  reduce 43
-	"=="  reduce 43
-	'+'  reduce 43
-	'-'  reduce 43
+	'*'  shift 59
+	'/'  shift 60
+	')'  reduce 47
+	'.'  reduce 47
+	'<'  reduce 47
+	'>'  reduce 47
+	"<="  reduce 47
+	">="  reduce 47
+	"<>"  reduce 47
+	"=="  reduce 47
+	'+'  reduce 47
+	'-'  reduce 47
 
 
 state 79
-	expresion : expresion '-' termino .  (44)
-	termino : termino . '*' factor  (46)
-	termino : termino . '/' factor  (47)
+	termino : termino '*' factor .  (49)
 
-	'*'  shift 61
-	'/'  shift 62
-	'.'  reduce 44
-	')'  reduce 44
-	'<'  reduce 44
-	'>'  reduce 44
-	"<="  reduce 44
-	">="  reduce 44
-	"<>"  reduce 44
-	"=="  reduce 44
-	'+'  reduce 44
-	'-'  reduce 44
+	.  reduce 49
 
 
 state 80
-	termino : termino '*' factor .  (46)
+	termino : termino '/' factor .  (50)
 
-	.  reduce 46
+	.  reduce 50
 
 
 state 81
-	termino : termino '/' factor .  (47)
+	condicion : expresion operador termino .  (39)
+	termino : termino . '*' factor  (49)
+	termino : termino . '/' factor  (50)
 
-	.  reduce 47
+	'*'  shift 59
+	'/'  shift 60
+	')'  reduce 39
+	'<'  reduce 39
+	'>'  reduce 39
+	"<="  reduce 39
+	">="  reduce 39
+	"<>"  reduce 39
+	"=="  reduce 39
 
 
 state 82
-	condicion : expresion operador termino .  (36)
-	termino : termino . '*' factor  (46)
-	termino : termino . '/' factor  (47)
+	sentencia_if_else : IF '(' condicion ')' THEN . bloque_control ELSE bloque_control END_IF '.'  (28)
+	sentencia_if : IF '(' condicion ')' THEN . bloque_control END_IF '.'  (29)
 
-	'*'  shift 61
-	'/'  shift 62
-	')'  reduce 36
-	'<'  reduce 36
-	'>'  reduce 36
-	"<="  reduce 36
-	">="  reduce 36
-	"<>"  reduce 36
-	"=="  reduce 36
+	IDENTIFICADOR  shift 28
+	IF  shift 2
+	BEGIN  shift 3
+	OUT  shift 4
+	SWITCH  shift 7
+	.  error
+
+	bloque_control  goto 90
+	bloque_sentencias  goto 14
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
 
 
 state 83
-	sentencia_if_else : IF '(' condicion ')' THEN . bloque_control ELSE bloque_control END_IF '.'  (25)
-	sentencia_if : IF '(' condicion ')' THEN . bloque_control END_IF '.'  (26)
+	condicion : condicion operador expresion .  (38)
+	expresion : expresion . '+' termino  (46)
+	expresion : expresion . '-' termino  (47)
 
-	IDENTIFICADOR  shift 29
-	IF  shift 2
-	BEGIN  shift 3
-	OUT  shift 4
-	SWITCH  shift 7
-	.  error
-
-	bloque_control  goto 89
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
+	'+'  shift 57
+	'-'  shift 58
+	')'  reduce 38
+	'<'  reduce 38
+	'>'  reduce 38
+	"<="  reduce 38
+	">="  reduce 38
+	"<>"  reduce 38
+	"=="  reduce 38
 
 
 state 84
-	condicion : condicion operador expresion .  (35)
-	expresion : expresion . '+' termino  (43)
-	expresion : expresion . '-' termino  (44)
+	salida : OUT '(' CADENA ')' '.' .  (34)
 
-	'+'  shift 59
-	'-'  shift 60
-	')'  reduce 35
-	'<'  reduce 35
-	'>'  reduce 35
-	"<="  reduce 35
-	">="  reduce 35
-	"<>"  reduce 35
-	"=="  reduce 35
+	.  reduce 34
 
 
 state 85
-	salida : OUT '(' CADENA ')' '.' .  (31)
+	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' . rep_switch '}' '.'  (30)
 
-	.  reduce 31
+	CASE  shift 91
+	.  error
+
+	rep_switch  goto 92
 
 
 state 86
-	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' . rep_switch '}' '.'  (27)
+	bloque_sentencias_funcion : declaracion .  (10)
 
-	CASE  shift 90
-	.  error
-
-	rep_switch  goto 91
+	.  reduce 10
 
 
 state 87
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun . RETURN '(' expresion ')' '.' '}'  (22)
-
-	RETURN  shift 92
-	.  error
-
-
-state 88
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' . bloque_comun RETURN '(' expresion ')' '.' '}'  (23)
+	bloque_funcion : '{' bloque_sentencias_funcion . RETURN '(' expresion ')' '.' '}'  (8)
+	bloque_sentencias_funcion : bloque_sentencias_funcion . cjto_sentencias_control  (11)
+	bloque_sentencias_funcion : bloque_sentencias_funcion . declaracion  (12)
 
 	IDENTIFICADOR  shift 1
 	IF  shift 2
-	BEGIN  shift 3
 	OUT  shift 4
 	SWITCH  shift 7
+	RETURN  shift 93
 	.  error
 
-	bloque_comun  goto 93
-	bloque_control  goto 13
-	declaracion  goto 14
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
-	lista_variables  goto 25
+	declaracion  goto 94
+	cjto_sentencias_control  goto 95
+	bloque_sentencias  goto 30
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
+	lista_variables  goto 24
+
+
+88: shift/reduce conflict (shift 28, reduce 9) on IDENTIFICADOR
+88: shift/reduce conflict (shift 2, reduce 9) on IF
+88: shift/reduce conflict (shift 4, reduce 9) on OUT
+88: shift/reduce conflict (shift 7, reduce 9) on SWITCH
+state 88
+	bloque_sentencias_funcion : cjto_sentencias_control .  (9)
+	cjto_sentencias_control : cjto_sentencias_control . bloque_sentencias  (24)
+
+	IDENTIFICADOR  shift 28
+	IF  shift 2
+	OUT  shift 4
+	SWITCH  shift 7
+	RETURN  reduce 9
+
+	bloque_sentencias  goto 48
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
 
 
 state 89
-	sentencia_if_else : IF '(' condicion ')' THEN bloque_control . ELSE bloque_control END_IF '.'  (25)
-	sentencia_if : IF '(' condicion ')' THEN bloque_control . END_IF '.'  (26)
+	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion .  (26)
 
-	ELSE  shift 94
-	END_IF  shift 95
-	.  error
+	.  reduce 26
 
 
 state 90
-	rep_switch : CASE . CONSTANTE ':' bloque_control  (28)
+	sentencia_if_else : IF '(' condicion ')' THEN bloque_control . ELSE bloque_control END_IF '.'  (28)
+	sentencia_if : IF '(' condicion ')' THEN bloque_control . END_IF '.'  (29)
 
-	CONSTANTE  shift 96
+	ELSE  shift 96
+	END_IF  shift 97
 	.  error
 
 
 state 91
-	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch . '}' '.'  (27)
-	rep_switch : rep_switch . CASE CONSTANTE ':' bloque_control  (29)
+	rep_switch : CASE . CONSTANTE ':' bloque_control  (31)
 
-	CASE  shift 97
-	'}'  shift 98
+	CONSTANTE  shift 98
 	.  error
 
 
 state 92
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN . '(' expresion ')' '.' '}'  (22)
+	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch . '}' '.'  (30)
+	rep_switch : rep_switch . CASE CONSTANTE ':' bloque_control  (32)
 
-	'('  shift 99
+	CASE  shift 99
+	'}'  shift 100
 	.  error
 
 
 state 93
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun . RETURN '(' expresion ')' '.' '}'  (23)
+	bloque_funcion : '{' bloque_sentencias_funcion RETURN . '(' expresion ')' '.' '}'  (8)
 
-	RETURN  shift 100
+	'('  shift 101
 	.  error
 
 
 state 94
-	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE . bloque_control END_IF '.'  (25)
+	bloque_sentencias_funcion : bloque_sentencias_funcion declaracion .  (12)
 
-	IDENTIFICADOR  shift 29
+	.  reduce 12
+
+
+95: shift/reduce conflict (shift 28, reduce 11) on IDENTIFICADOR
+95: shift/reduce conflict (shift 2, reduce 11) on IF
+95: shift/reduce conflict (shift 4, reduce 11) on OUT
+95: shift/reduce conflict (shift 7, reduce 11) on SWITCH
+state 95
+	bloque_sentencias_funcion : bloque_sentencias_funcion cjto_sentencias_control .  (11)
+	cjto_sentencias_control : cjto_sentencias_control . bloque_sentencias  (24)
+
+	IDENTIFICADOR  shift 28
+	IF  shift 2
+	OUT  shift 4
+	SWITCH  shift 7
+	RETURN  reduce 11
+
+	bloque_sentencias  goto 48
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
+
+
+state 96
+	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE . bloque_control END_IF '.'  (28)
+
+	IDENTIFICADOR  shift 28
 	IF  shift 2
 	BEGIN  shift 3
 	OUT  shift 4
 	SWITCH  shift 7
 	.  error
 
-	bloque_control  goto 101
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
-
-
-state 95
-	sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF . '.'  (26)
-
-	'.'  shift 102
-	.  error
-
-
-state 96
-	rep_switch : CASE CONSTANTE . ':' bloque_control  (28)
-
-	':'  shift 103
-	.  error
+	bloque_control  goto 102
+	bloque_sentencias  goto 14
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
 
 
 state 97
-	rep_switch : rep_switch CASE . CONSTANTE ':' bloque_control  (29)
+	sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF . '.'  (29)
 
-	CONSTANTE  shift 104
+	'.'  shift 103
 	.  error
 
 
 state 98
-	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' . '.'  (27)
+	rep_switch : CASE CONSTANTE . ':' bloque_control  (31)
 
-	'.'  shift 105
+	':'  shift 104
 	.  error
 
 
 state 99
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' . expresion ')' '.' '}'  (22)
+	rep_switch : rep_switch CASE . CONSTANTE ':' bloque_control  (32)
 
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
+	CONSTANTE  shift 105
 	.  error
-
-	expresion  goto 106
-	termino  goto 44
-	factor  goto 45
 
 
 state 100
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN . '(' expresion ')' '.' '}'  (23)
+	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' . '.'  (30)
 
-	'('  shift 107
+	'.'  shift 106
 	.  error
 
 
 state 101
-	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control . END_IF '.'  (25)
+	bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' . expresion ')' '.' '}'  (8)
+
+	IDENTIFICADOR  shift 40
+	CONSTANTE  shift 41
+	.  error
+
+	expresion  goto 107
+	termino  goto 43
+	factor  goto 44
+
+
+state 102
+	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control . END_IF '.'  (28)
 
 	END_IF  shift 108
 	.  error
 
 
-state 102
-	sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF '.' .  (26)
-
-	.  reduce 26
-
-
 state 103
-	rep_switch : CASE CONSTANTE ':' . bloque_control  (28)
+	sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF '.' .  (29)
 
-	IDENTIFICADOR  shift 29
+	.  reduce 29
+
+
+state 104
+	rep_switch : CASE CONSTANTE ':' . bloque_control  (31)
+
+	IDENTIFICADOR  shift 28
 	IF  shift 2
 	BEGIN  shift 3
 	OUT  shift 4
@@ -1053,150 +1102,111 @@ state 103
 	.  error
 
 	bloque_control  goto 109
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
+	bloque_sentencias  goto 14
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
 
 
-state 104
-	rep_switch : rep_switch CASE CONSTANTE . ':' bloque_control  (29)
+state 105
+	rep_switch : rep_switch CASE CONSTANTE . ':' bloque_control  (32)
 
 	':'  shift 110
 	.  error
 
 
-state 105
-	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' '.' .  (27)
-
-	.  reduce 27
-
-
 state 106
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion . ')' '.' '}'  (22)
-	expresion : expresion . '+' termino  (43)
-	expresion : expresion . '-' termino  (44)
+	sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}' '.' .  (30)
 
-	')'  shift 111
-	'+'  shift 59
-	'-'  shift 60
-	.  error
+	.  reduce 30
 
 
 state 107
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' . expresion ')' '.' '}'  (23)
+	bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion . ')' '.' '}'  (8)
+	expresion : expresion . '+' termino  (46)
+	expresion : expresion . '-' termino  (47)
 
-	IDENTIFICADOR  shift 41
-	CONSTANTE  shift 42
+	')'  shift 111
+	'+'  shift 57
+	'-'  shift 58
 	.  error
-
-	expresion  goto 112
-	termino  goto 44
-	factor  goto 45
 
 
 state 108
-	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF . '.'  (25)
+	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF . '.'  (28)
 
-	'.'  shift 113
+	'.'  shift 112
 	.  error
 
 
 state 109
-	rep_switch : CASE CONSTANTE ':' bloque_control .  (28)
+	rep_switch : CASE CONSTANTE ':' bloque_control .  (31)
 
-	.  reduce 28
+	.  reduce 31
 
 
 state 110
-	rep_switch : rep_switch CASE CONSTANTE ':' . bloque_control  (29)
+	rep_switch : rep_switch CASE CONSTANTE ':' . bloque_control  (32)
 
-	IDENTIFICADOR  shift 29
+	IDENTIFICADOR  shift 28
 	IF  shift 2
 	BEGIN  shift 3
 	OUT  shift 4
 	SWITCH  shift 7
 	.  error
 
-	bloque_control  goto 114
-	bloque_sentencias  goto 15
-	sentencia_unica_control  goto 16
-	sentencia_unica_ejecutable  goto 17
-	sentencia_if_else  goto 18
-	sentencia_if  goto 19
-	sentencia_switch  goto 20
-	asignacion  goto 21
-	salida  goto 22
-	llamado_funcion  goto 23
+	bloque_control  goto 113
+	bloque_sentencias  goto 14
+	sentencia_unica_control  goto 15
+	sentencia_unica_ejecutable  goto 16
+	sentencia_if_else  goto 17
+	sentencia_if  goto 18
+	sentencia_switch  goto 19
+	asignacion  goto 20
+	salida  goto 21
+	llamado_funcion  goto 22
 
 
 state 111
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' . '.' '}'  (22)
+	bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')' . '.' '}'  (8)
 
-	'.'  shift 115
+	'.'  shift 114
 	.  error
 
 
 state 112
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion . ')' '.' '}'  (23)
-	expresion : expresion . '+' termino  (43)
-	expresion : expresion . '-' termino  (44)
+	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF '.' .  (28)
 
-	')'  shift 116
-	'+'  shift 59
-	'-'  shift 60
-	.  error
+	.  reduce 28
 
 
 state 113
-	sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF '.' .  (25)
+	rep_switch : rep_switch CASE CONSTANTE ':' bloque_control .  (32)
 
-	.  reduce 25
+	.  reduce 32
 
 
 state 114
-	rep_switch : rep_switch CASE CONSTANTE ':' bloque_control .  (29)
+	bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')' '.' . '}'  (8)
 
-	.  reduce 29
+	'}'  shift 115
+	.  error
 
 
 state 115
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' . '}'  (22)
+	bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')' '.' '}' .  (8)
 
-	'}'  shift 117
-	.  error
-
-
-state 116
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' . '.' '}'  (23)
-
-	'.'  shift 118
-	.  error
+	.  reduce 8
 
 
-state 117
-	declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}' .  (22)
-
-	.  reduce 22
+State 88 contains 4 shift/reduce conflicts.
+State 95 contains 4 shift/reduce conflicts.
 
 
-state 118
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' . '}'  (23)
-
-	'}'  shift 119
-	.  error
-
-
-state 119
-	declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')' '.' '}' .  (23)
-
-	.  reduce 23
-
-
-37 terminals, 26 nonterminals
-53 grammar rules, 120 states
+37 terminals, 27 nonterminals
+56 grammar rules, 116 states

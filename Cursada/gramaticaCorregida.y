@@ -11,21 +11,27 @@ import complementos.Token;
 
 %%
 
-programa : bloque_main
-		;
-		
-bloque_main : bloque	
-		| bloque_main bloque		
+programa : bloque
 		;
 		
 bloque : bloque_comun
 		| declaracion_funcion
+		| bloque bloque_comun
+		|bloque declaracion_funcion
 		;
 		
 bloque_comun : bloque_control
 		| declaracion
 		;
 		
+bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}'
+
+bloque_sentencias_funcion : cjto_sentencias_control
+		| declaracion
+		| bloque_sentencias_funcion cjto_sentencias_control
+		| bloque_sentencias_funcion declaracion
+		;
+
 bloque_control : bloque_sentencias
 		| BEGIN cjto_sentencias_control END'.'
 		;
@@ -44,14 +50,11 @@ sentencia_unica_ejecutable : asignacion
 		| llamado_funcion
 		;		
 	
-cjto_sentencias_control : sentencia_unica_ejecutable
-		| sentencia_unica_control
-		| cjto_sentencias_control sentencia_unica_ejecutable
-		| cjto_sentencias_control sentencia_unica_control
+cjto_sentencias_control : bloque_sentencias
 		;
 
-declaracion_funcion : tipo FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion");}
-		| tipo MOVE FUNCTION IDENTIFICADOR '{' bloque_comun RETURN '(' expresion ')''.' '}' {this.sintactico.showMessage("Declaracion de Funcion con MOVE");} 
+declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion {this.sintactico.showMessage("Declaracion de Funcion");}
+		| tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion {this.sintactico.showMessage("Declaracion de Funcion con MOVE");} 
 		;
 				
 declaracion : lista_variables ':' tipo'.' {this.sintactico.showMessage("Declaracion de variable");}
