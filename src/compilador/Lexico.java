@@ -27,7 +27,7 @@ public class Lexico {
 	private List<ErrorToken> errores;
 	private Principal ppal;
 	private Map<Integer, String> Reservadas;
-	private Map<Integer, ArrayList<Token>> tablaSimbolos;
+	private Map<String, Token> tablaSimbolos;
 	private int pos = 0;
 	private int fila = 0;
 	private int estado = 0;
@@ -62,28 +62,7 @@ public class Lexico {
 		//this.Reservadas.put(276, "OperadorAritmetico");
 		//this.Reservadas.put(277, "OperadorAsignacion");
 		
-		this.tablaSimbolos= new HashMap<Integer, ArrayList<Token>>();
-		this.tablaSimbolos.put(257, new ArrayList<Token>()); //Identificador
-		this.tablaSimbolos.put(258, new ArrayList<Token>()); //Constante
-		this.tablaSimbolos.put(259, new ArrayList<Token>());
-		this.tablaSimbolos.put(260, new ArrayList<Token>());
-		this.tablaSimbolos.put(261, new ArrayList<Token>());
-		this.tablaSimbolos.put(262, new ArrayList<Token>());
-		this.tablaSimbolos.put(263, new ArrayList<Token>());
-		this.tablaSimbolos.put(264, new ArrayList<Token>());
-		this.tablaSimbolos.put(265, new ArrayList<Token>());
-		this.tablaSimbolos.put(266, new ArrayList<Token>());
-		this.tablaSimbolos.put(267, new ArrayList<Token>());
-		this.tablaSimbolos.put(268, new ArrayList<Token>());
-		this.tablaSimbolos.put(269, new ArrayList<Token>());
-		this.tablaSimbolos.put(270, new ArrayList<Token>());
-		this.tablaSimbolos.put(271, new ArrayList<Token>());
-		this.tablaSimbolos.put(272, new ArrayList<Token>());
-		this.tablaSimbolos.put(273, new ArrayList<Token>()); //Cadena
-		this.tablaSimbolos.put(274, new ArrayList<Token>()); //Literal
-		this.tablaSimbolos.put(275, new ArrayList<Token>()); //Comparador
-		this.tablaSimbolos.put(276, new ArrayList<Token>()); //OperadorAritmetico
-		this.tablaSimbolos.put(277, new ArrayList<Token>()); //OperadorAsignacion
+		this.tablaSimbolos= new HashMap<String, Token>();
 				
 		this.ppal = ppal;
 	}
@@ -93,10 +72,9 @@ public class Lexico {
 		this.pos = 0;
 		this.fila = 0;
 		this.estado = 0;
-		this.locs = new ArrayList<String>();
-		this.tablaSimbolos = new HashMap<Integer, ArrayList<Token>>();
-		this.Reservadas = new HashMap<Integer, String>();
-		this.errores = new ArrayList<ErrorToken>();
+		this.locs.clear();
+		this.tablaSimbolos.clear();
+		this.errores.clear();
 	}
 	
 	public void cargar(File archivoACargar) {		
@@ -195,14 +173,14 @@ public class Lexico {
 		return result;
 	}
 	
-	public String getLexema(int key)
+	public String getLexema(String key)
 	{
-		return this.tablaSimbolos.get(key).get(this.tablaSimbolos.get(key).size()-1).getLexema();
+		return this.tablaSimbolos.get(key).getLexema();
 	}
 	
-	public String getType(int key)
+	public String getType(String key)
 	{
-		return this.tablaSimbolos.get(key).get(this.tablaSimbolos.get(key).size()-1).getType();
+		return this.tablaSimbolos.get(key).getType();
 	}
 	
 	public void setEstado(int estado)
@@ -238,20 +216,7 @@ public class Lexico {
 	
 	public void putSimbolo(Token token)
 	{
-		boolean esta = false;
-		ArrayList<Token> aux = new ArrayList<Token>(this.tablaSimbolos.get(token.getKey()));
-		for(Token t : aux)
-		{
-			if(t.getLexema().equals(token.getLexema()))
-			{
-				esta = true;
-			}
-		}
-		if(!esta)
-		{
-			aux.add(token);
-		}
-		this.tablaSimbolos.put(token.getKey(), aux);
+		this.tablaSimbolos.put(token.getLexema(), token);
 	}
 	
 	public int existPalabraReservada(String palabraReservada)
@@ -292,17 +257,20 @@ public class Lexico {
 
 	public String printTSimbolos() {
 		String result = "";
-		ArrayList<Integer> keys = new ArrayList<Integer>(this.tablaSimbolos.keySet());
-		for(Integer k : keys)
-		{
-			result = result + k + " -> "; 
-			ArrayList<Token> aux = this.tablaSimbolos.get(k);
-			for(Token t : aux)
-			{
-				result = result + t.toString() + " - "; 
-			}
+		for (String key : this.tablaSimbolos.keySet()){
+			result = result + key + " -> ";
+			result = result + this.tablaSimbolos.get(key).toString();
 			result = result + "\n";
-		}
+		} 
 		return result;
+	}
+	
+	public boolean estaDeclarada(String lexema) {
+		for (String key : this.tablaSimbolos.keySet()){
+			if(this.tablaSimbolos.get(key).equals(lexema)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

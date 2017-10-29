@@ -8,6 +8,30 @@ public class Token {
 	private int linea;
 	private String ambito;
 	
+	//----------------------------------------------------
+	//257 --> "Identificador"
+	//258 --> "Constante"
+	//259 --> "IF"
+	//260 --> "THEN"
+	//261 --> "ELSE"
+	//262 --> "END_IF"
+	//263 --> "BEGIN"
+	//264 --> "END"
+	//265 --> "OUT"
+	//266 --> "LONG"
+	//267 --> "DOUBLE"
+	//268 --> "SWITCH"
+	//269 --> "CASE"
+	//270 --> "FUNCTION"
+	//271 --> "RETURN"
+	//272 --> "MOVE"
+	//273 --> "Cadena"
+	//274 --> "Literal"
+	//275 --> "Comparador"
+	//276 --> "OperadorAritmetico"
+	//277 --> "OperadorAsignacion"
+	//----------------------------------------------------
+	
 	public Token(String lexema, int key, String type, int linea, String ambito)
 	{
 		this.lexema = lexema;

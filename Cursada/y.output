@@ -12,27 +12,27 @@
 
    8  bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')' '.' '}'
 
-   9  bloque_sentencias_funcion : cjto_sentencias_control
+   9  bloque_sentencias_funcion : sentencias
   10                            | declaracion
-  11                            | bloque_sentencias_funcion cjto_sentencias_control
+  11                            | bloque_sentencias_funcion sentencias
   12                            | bloque_sentencias_funcion declaracion
 
-  13  bloque_control : bloque_sentencias
-  14                 | BEGIN cjto_sentencias_control END '.'
+  13  bloque_control : sentencias
+  14                 | BEGIN bloque_sentencias END '.'
 
-  15  bloque_sentencias : sentencia_unica_control
-  16                    | sentencia_unica_ejecutable
+  15  bloque_sentencias : sentencias
+  16                    | bloque_sentencias sentencias
 
-  17  sentencia_unica_control : sentencia_if_else
-  18                          | sentencia_if
-  19                          | sentencia_switch
+  17  sentencias : sentencia_unica_control
+  18             | sentencia_unica_ejecutable
 
-  20  sentencia_unica_ejecutable : asignacion
-  21                             | salida
-  22                             | llamado_funcion
+  19  sentencia_unica_control : sentencia_if_else
+  20                          | sentencia_if
+  21                          | sentencia_switch
 
-  23  cjto_sentencias_control : bloque_sentencias
-  24                          | cjto_sentencias_control bloque_sentencias
+  22  sentencia_unica_ejecutable : asignacion
+  23                             | salida
+  24                             | llamado_funcion
 
   25  declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion
   26                      | tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion
@@ -99,7 +99,7 @@ state 0
 	declaracion_funcion  goto 11
 	bloque_control  goto 12
 	declaracion  goto 13
-	bloque_sentencias  goto 14
+	sentencias  goto 14
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -132,7 +132,7 @@ state 2
 
 
 state 3
-	bloque_control : BEGIN . cjto_sentencias_control END '.'  (14)
+	bloque_control : BEGIN . bloque_sentencias END '.'  (14)
 
 	IDENTIFICADOR  shift 28
 	IF  shift 2
@@ -140,7 +140,7 @@ state 3
 	SWITCH  shift 7
 	.  error
 
-	cjto_sentencias_control  goto 29
+	sentencias  goto 29
 	bloque_sentencias  goto 30
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
@@ -202,7 +202,7 @@ state 9
 	declaracion_funcion  goto 34
 	bloque_control  goto 12
 	declaracion  goto 13
-	bloque_sentencias  goto 14
+	sentencias  goto 14
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -240,57 +240,57 @@ state 13
 
 
 state 14
-	bloque_control : bloque_sentencias .  (13)
+	bloque_control : sentencias .  (13)
 
 	.  reduce 13
 
 
 state 15
-	bloque_sentencias : sentencia_unica_control .  (15)
-
-	.  reduce 15
-
-
-state 16
-	bloque_sentencias : sentencia_unica_ejecutable .  (16)
-
-	.  reduce 16
-
-
-state 17
-	sentencia_unica_control : sentencia_if_else .  (17)
+	sentencias : sentencia_unica_control .  (17)
 
 	.  reduce 17
 
 
-state 18
-	sentencia_unica_control : sentencia_if .  (18)
+state 16
+	sentencias : sentencia_unica_ejecutable .  (18)
 
 	.  reduce 18
 
 
-state 19
-	sentencia_unica_control : sentencia_switch .  (19)
+state 17
+	sentencia_unica_control : sentencia_if_else .  (19)
 
 	.  reduce 19
 
 
-state 20
-	sentencia_unica_ejecutable : asignacion .  (20)
+state 18
+	sentencia_unica_control : sentencia_if .  (20)
 
 	.  reduce 20
 
 
-state 21
-	sentencia_unica_ejecutable : salida .  (21)
+state 19
+	sentencia_unica_control : sentencia_switch .  (21)
 
 	.  reduce 21
 
 
-state 22
-	sentencia_unica_ejecutable : llamado_funcion .  (22)
+state 20
+	sentencia_unica_ejecutable : asignacion .  (22)
 
 	.  reduce 22
+
+
+state 21
+	sentencia_unica_ejecutable : salida .  (23)
+
+	.  reduce 23
+
+
+state 22
+	sentencia_unica_ejecutable : llamado_funcion .  (24)
+
+	.  reduce 24
 
 
 state 23
@@ -354,8 +354,14 @@ state 28
 
 
 state 29
-	bloque_control : BEGIN cjto_sentencias_control . END '.'  (14)
-	cjto_sentencias_control : cjto_sentencias_control . bloque_sentencias  (24)
+	bloque_sentencias : sentencias .  (15)
+
+	.  reduce 15
+
+
+state 30
+	bloque_control : BEGIN bloque_sentencias . END '.'  (14)
+	bloque_sentencias : bloque_sentencias . sentencias  (16)
 
 	IDENTIFICADOR  shift 28
 	IF  shift 2
@@ -364,7 +370,7 @@ state 29
 	SWITCH  shift 7
 	.  error
 
-	bloque_sentencias  goto 48
+	sentencias  goto 48
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -373,12 +379,6 @@ state 29
 	asignacion  goto 20
 	salida  goto 21
 	llamado_funcion  goto 22
-
-
-state 30
-	cjto_sentencias_control : bloque_sentencias .  (23)
-
-	.  reduce 23
 
 
 state 31
@@ -529,16 +529,16 @@ state 46
 
 
 state 47
-	bloque_control : BEGIN cjto_sentencias_control END . '.'  (14)
+	bloque_control : BEGIN bloque_sentencias END . '.'  (14)
 
 	'.'  shift 70
 	.  error
 
 
 state 48
-	cjto_sentencias_control : cjto_sentencias_control bloque_sentencias .  (24)
+	bloque_sentencias : bloque_sentencias sentencias .  (16)
 
-	.  reduce 24
+	.  reduce 16
 
 
 state 49
@@ -706,7 +706,7 @@ state 69
 
 
 state 70
-	bloque_control : BEGIN cjto_sentencias_control END '.' .  (14)
+	bloque_control : BEGIN bloque_sentencias END '.' .  (14)
 
 	.  reduce 14
 
@@ -736,8 +736,7 @@ state 73
 
 	declaracion  goto 86
 	bloque_sentencias_funcion  goto 87
-	cjto_sentencias_control  goto 88
-	bloque_sentencias  goto 30
+	sentencias  goto 88
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -848,7 +847,7 @@ state 82
 	.  error
 
 	bloque_control  goto 90
-	bloque_sentencias  goto 14
+	sentencias  goto 14
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -898,7 +897,7 @@ state 86
 
 state 87
 	bloque_funcion : '{' bloque_sentencias_funcion . RETURN '(' expresion ')' '.' '}'  (8)
-	bloque_sentencias_funcion : bloque_sentencias_funcion . cjto_sentencias_control  (11)
+	bloque_sentencias_funcion : bloque_sentencias_funcion . sentencias  (11)
 	bloque_sentencias_funcion : bloque_sentencias_funcion . declaracion  (12)
 
 	IDENTIFICADOR  shift 1
@@ -909,8 +908,7 @@ state 87
 	.  error
 
 	declaracion  goto 94
-	cjto_sentencias_control  goto 95
-	bloque_sentencias  goto 30
+	sentencias  goto 95
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -922,29 +920,10 @@ state 87
 	lista_variables  goto 24
 
 
-88: shift/reduce conflict (shift 28, reduce 9) on IDENTIFICADOR
-88: shift/reduce conflict (shift 2, reduce 9) on IF
-88: shift/reduce conflict (shift 4, reduce 9) on OUT
-88: shift/reduce conflict (shift 7, reduce 9) on SWITCH
 state 88
-	bloque_sentencias_funcion : cjto_sentencias_control .  (9)
-	cjto_sentencias_control : cjto_sentencias_control . bloque_sentencias  (24)
+	bloque_sentencias_funcion : sentencias .  (9)
 
-	IDENTIFICADOR  shift 28
-	IF  shift 2
-	OUT  shift 4
-	SWITCH  shift 7
-	RETURN  reduce 9
-
-	bloque_sentencias  goto 48
-	sentencia_unica_control  goto 15
-	sentencia_unica_ejecutable  goto 16
-	sentencia_if_else  goto 17
-	sentencia_if  goto 18
-	sentencia_switch  goto 19
-	asignacion  goto 20
-	salida  goto 21
-	llamado_funcion  goto 22
+	.  reduce 9
 
 
 state 89
@@ -991,29 +970,10 @@ state 94
 	.  reduce 12
 
 
-95: shift/reduce conflict (shift 28, reduce 11) on IDENTIFICADOR
-95: shift/reduce conflict (shift 2, reduce 11) on IF
-95: shift/reduce conflict (shift 4, reduce 11) on OUT
-95: shift/reduce conflict (shift 7, reduce 11) on SWITCH
 state 95
-	bloque_sentencias_funcion : bloque_sentencias_funcion cjto_sentencias_control .  (11)
-	cjto_sentencias_control : cjto_sentencias_control . bloque_sentencias  (24)
+	bloque_sentencias_funcion : bloque_sentencias_funcion sentencias .  (11)
 
-	IDENTIFICADOR  shift 28
-	IF  shift 2
-	OUT  shift 4
-	SWITCH  shift 7
-	RETURN  reduce 11
-
-	bloque_sentencias  goto 48
-	sentencia_unica_control  goto 15
-	sentencia_unica_ejecutable  goto 16
-	sentencia_if_else  goto 17
-	sentencia_if  goto 18
-	sentencia_switch  goto 19
-	asignacion  goto 20
-	salida  goto 21
-	llamado_funcion  goto 22
+	.  reduce 11
 
 
 state 96
@@ -1027,7 +987,7 @@ state 96
 	.  error
 
 	bloque_control  goto 102
-	bloque_sentencias  goto 14
+	sentencias  goto 14
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -1102,7 +1062,7 @@ state 104
 	.  error
 
 	bloque_control  goto 109
-	bloque_sentencias  goto 14
+	sentencias  goto 14
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -1161,7 +1121,7 @@ state 110
 	.  error
 
 	bloque_control  goto 113
-	bloque_sentencias  goto 14
+	sentencias  goto 14
 	sentencia_unica_control  goto 15
 	sentencia_unica_ejecutable  goto 16
 	sentencia_if_else  goto 17
@@ -1202,10 +1162,6 @@ state 115
 	bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')' '.' '}' .  (8)
 
 	.  reduce 8
-
-
-State 88 contains 4 shift/reduce conflicts.
-State 95 contains 4 shift/reduce conflicts.
 
 
 37 terminals, 27 nonterminals
