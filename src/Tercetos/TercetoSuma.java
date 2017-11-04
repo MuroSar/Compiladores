@@ -4,13 +4,13 @@ import compilador.ParserVal;
 
 public class TercetoSuma extends Terceto{
 
-	public TercetoSuma(ParserVal primero, ParserVal segundo) {
-		super("+", primero, segundo);
+	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
+		super("+", primero, segundo, pos);
 	}
 	
-	/*public String getCodigo()
+	public String getCodigo()
 	{
-		
-	}*/
+		return "";
+	}
 	
 }

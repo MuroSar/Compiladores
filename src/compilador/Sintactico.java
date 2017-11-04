@@ -1,6 +1,12 @@
 package compilador;
 
 import compilador.Parser;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import Tercetos.Terceto;
 import compilador.Lexico;
 import interfaz.Principal;
 
@@ -10,14 +16,37 @@ public class Sintactico {
 	private Lexico lexico;
 	private Parser parser;
 	private GenCodigo generador;
+	private ArrayList<Terceto> tercetos;
 
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
 		this.lexico = lexico;
 		this.parser = parser;
 		this.generador = generador;
+		this.tercetos = new ArrayList<Terceto>();
 	}
 
+	public void addTerceto(Terceto t) {
+		int pos = this.tercetos.size();
+		this.tercetos.add(t);
+	}
+	
+	public Terceto getTerceto(int key) {
+		return this.tercetos.get(key);
+	}
+	
+	public ArrayList<Terceto> getTercetos() {
+		return new ArrayList<Terceto>(this.tercetos);
+	}
+	
+	public String showTercetos() {
+		String salida = "";
+		for(Terceto t : tercetos) {
+			salida = salida + t.getPos() + "--> " + t.toString() + "\n";
+		}
+		return salida;
+	}
+	
 	public void showMessage(String mensaje)
 	{
 		this.ppal.mostrarMensaje(mensaje);
@@ -51,6 +80,6 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("--------------------TERCETOS--------------------");
 		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje(this.generador.showTercetos());
+		this.ppal.mostrarMensaje(this.showTercetos());
 	}
 }

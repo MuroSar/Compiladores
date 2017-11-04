@@ -2,17 +2,26 @@ package Tercetos;
 
 import compilador.ParserVal;
 
-//public abstract class Terceto {
-public class Terceto {
+public abstract class Terceto {
 
 	protected String operador;
 	protected String primero;
 	protected String segundo;
 	
-	public Terceto(String operador, ParserVal primero, ParserVal segundo) {
+	private int pos;
+	
+	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
 		this.primero = primero.sval;
-		this.segundo = segundo.sval;
+		
+		if(segundo.obj != null) {
+			int referencia = ((Terceto)segundo.obj).getPos(); 
+			this.segundo = "[" + referencia + "]";
+		}
+		else {
+			this.segundo = segundo.sval;	
+		}
+		this.pos = pos;
 	}
 
 	public String getOperador() {
@@ -39,7 +48,15 @@ public class Terceto {
 		this.segundo = segundo;
 	}
 	
-	//public abstract String getCodigo();
+	public int getPos() {
+		return pos;
+	}
+
+	public void setPos(int pos) {
+		this.pos = pos;
+	}
+	
+	public abstract String getCodigo();
 	
 	public int isReferencia(Object obj) {
 		if(((String)obj).contains("[") && ((String)obj).contains("]")) {

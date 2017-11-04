@@ -1,7 +1,9 @@
 %{
 package compilador;
 
+import Tercetos.Terceto;
 import Tercetos.TercetoSuma;
+import Tercetos.TercetoAsignacion;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
@@ -76,8 +78,9 @@ rep_switch : CASE CONSTANTE ':' bloque_control {this.sintactico.showMessage("Sen
 		;
 		
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n"); 
-								//if(!estaDeclarada(($1.obj)){System.out.println("la variable "+ $1.obj + " no esta declarada..");}} 
-								}
+										 	$$ = new ParserVal(new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size()));
+											Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+											this.sintactico.addTerceto(t);}
 		;
 		
 salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}
@@ -102,9 +105,10 @@ operador : '<'
 		| '=='
 		;
 
-expresion : expresion '+' termino { $$ = new ParserVal(new TercetoSuma($1, $3)); 
-									this.sintactico.showMessage("tercetoSuma --> " + $1 + ", " + $3);}
-		| expresion '-' termino 
+expresion : expresion '+' termino { $$ = new ParserVal(new TercetoSuma($1, $3, this.sintactico.getTercetos().size()));
+									Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size());
+									this.sintactico.addTerceto(t);}
+		| expresion '-' termino  
 		| termino
 		;
 
@@ -113,8 +117,8 @@ termino : termino '*' factor
 		| factor
 		;
 
-factor : IDENTIFICADOR
-		| CONSTANTE
+factor : IDENTIFICADOR 
+		| CONSTANTE 
 		;
 
 
@@ -141,6 +145,9 @@ public void setSintactico(Sintactico sintactico) {
 }
 private int yylex() {
 	this.token = lexico.getToken();
+	
+	yylval = new ParserVal(token.getLexema());
+	
 	if (token.getType().equals("Identificador") || token.getType().equals("Constante") || token.getType().equals("Cadena"))	
 	{
 		return token.getKey();
