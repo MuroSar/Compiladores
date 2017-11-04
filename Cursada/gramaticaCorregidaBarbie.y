@@ -1,6 +1,7 @@
 %{
 package compilador;
 
+import Tercetos.TercetoSuma;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
@@ -33,7 +34,7 @@ bloque_sentencias_funcion : sentencias
 		;
 
 bloque_control : sentencias
-		| BEGIN bloque_sentencias END'.'
+		| BEGIN bloque_sentencias END'.' {this.sintactico.showMessage("Bloque BEGIN-END");}
 		;
 
 bloque_sentencias : sentencias
@@ -74,7 +75,9 @@ rep_switch : CASE CONSTANTE ':' bloque_control {this.sintactico.showMessage("Sen
 		| rep_switch CASE CONSTANTE ':' bloque_control  
 		;
 		
-asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n"); if(!estaDeclarada((String)$$.obj)){System.out.println("la variable "+ (String)$$.obj + " no esta declarada..");}} 
+asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n"); 
+								//if(!estaDeclarada(($1.obj)){System.out.println("la variable "+ $1.obj + " no esta declarada..");}} 
+								}
 		;
 		
 salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}
@@ -99,7 +102,8 @@ operador : '<'
 		| '=='
 		;
 
-expresion : expresion '+' termino 
+expresion : expresion '+' termino { $$ = new ParserVal(new TercetoSuma($1, $3)); 
+									this.sintactico.showMessage("tercetoSuma --> " + $1 + ", " + $3);}
 		| expresion '-' termino 
 		| termino
 		;

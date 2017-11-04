@@ -1,15 +1,18 @@
 package Tercetos;
 
+import compilador.ParserVal;
+
+//public abstract class Terceto {
 public class Terceto {
 
-	private String operador;
-	private Object primero;
-	private Object segundo;
+	protected String operador;
+	protected String primero;
+	protected String segundo;
 	
-	public Terceto(String operador, Object primero, Object segundo) {
+	public Terceto(String operador, ParserVal primero, ParserVal segundo) {
 		this.operador = operador;
-		this.primero = primero;
-		this.segundo = segundo;
+		this.primero = primero.sval;
+		this.segundo = segundo.sval;
 	}
 
 	public String getOperador() {
@@ -24,7 +27,7 @@ public class Terceto {
 		return primero;
 	}
 
-	public void setPrimero(Object primero) {
+	public void setPrimero(String primero) {
 		this.primero = primero;
 	}
 
@@ -32,9 +35,11 @@ public class Terceto {
 		return segundo;
 	}
 
-	public void setSegundo(Object segundo) {
+	public void setSegundo(String segundo) {
 		this.segundo = segundo;
 	}
+	
+	//public abstract String getCodigo();
 	
 	public int isReferencia(Object obj) {
 		if(((String)obj).contains("[") && ((String)obj).contains("]")) {
@@ -45,6 +50,6 @@ public class Terceto {
 	
 	@Override
 	public String toString() {
-		return "(" + this.operador + ", " + (String)this.primero + ", " + (String)this.segundo + ")";
+		return "(" + this.operador + ", " + this.primero + ", " + this.segundo + ")";
 	}
 }

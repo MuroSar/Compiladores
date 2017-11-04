@@ -19,10 +19,11 @@
 //#line 2 "gramaticaCorregidaBarbie.y"
 package compilador;
 
+import Tercetos.TercetoSuma;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
-//#line 23 "Parser.java"
+//#line 24 "Parser.java"
 
 
 
@@ -395,7 +396,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
-//#line 122 "gramaticaCorregidaBarbie.y"
+//#line 126 "gramaticaCorregidaBarbie.y"
 
 private Lexico lexico;
 private Sintactico sintactico;
@@ -430,7 +431,7 @@ private void yyerror(String string) {
 	//this.sintactico.showMessage(string);
 	System.out.println(string);
 }
-//#line 362 "Parser.java"
+//#line 363 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -584,51 +585,62 @@ boolean doaction;
     switch(yyn)
       {
 //########## USER-SUPPLIED ACTIONS ##########
+case 14:
+//#line 37 "gramaticaCorregidaBarbie.y"
+{this.sintactico.showMessage("Bloque BEGIN-END");}
+break;
 case 25:
-//#line 57 "gramaticaCorregidaBarbie.y"
+//#line 58 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");}
 break;
 case 26:
-//#line 58 "gramaticaCorregidaBarbie.y"
+//#line 59 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");}
 break;
 case 27:
-//#line 61 "gramaticaCorregidaBarbie.y"
+//#line 62 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Declaraci\u00f3n de variable");}
 break;
 case 28:
-//#line 64 "gramaticaCorregidaBarbie.y"
+//#line 65 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: IF - ELSE");}
 break;
 case 29:
-//#line 67 "gramaticaCorregidaBarbie.y"
+//#line 68 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: IF");}
 break;
 case 30:
-//#line 70 "gramaticaCorregidaBarbie.y"
+//#line 71 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: SWITCH");}
 break;
 case 31:
-//#line 73 "gramaticaCorregidaBarbie.y"
+//#line 74 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: CASE");}
 break;
 case 33:
-//#line 77 "gramaticaCorregidaBarbie.y"
-{this.sintactico.showMessage("Asignaci\u00f3n"); if(!estaDeclarada((String)yyval.obj)){System.out.println("la variable "+ (String)yyval.obj + " no esta declarada..");}}
+//#line 78 "gramaticaCorregidaBarbie.y"
+{this.sintactico.showMessage("Asignaci\u00f3n"); 
+								/*if(!estaDeclarada(($1.obj)){System.out.println("la variable "+ $1.obj + " no esta declarada..");}} */
+								}
 break;
 case 34:
-//#line 80 "gramaticaCorregidaBarbie.y"
+//#line 83 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: OUT");}
 break;
 case 35:
-//#line 83 "gramaticaCorregidaBarbie.y"
+//#line 86 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Llamado a funci\u00f3n");}
 break;
 case 39:
-//#line 91 "gramaticaCorregidaBarbie.y"
+//#line 94 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Condici\u00f3n");}
 break;
-//#line 555 "Parser.java"
+case 46:
+//#line 105 "gramaticaCorregidaBarbie.y"
+{ yyval = new ParserVal(new TercetoSuma(val_peek(2), val_peek(0))); 
+									this.sintactico.showMessage("tercetoSuma --> " + val_peek(2) + ", " + val_peek(0));}
+break;
+//#line 567 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
