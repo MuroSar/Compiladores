@@ -1,7 +1,9 @@
 package compilador;
 
 import compilador.Parser;
+import complementos.Token;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +47,17 @@ public class Sintactico {
 			salida = salida + t.getPos() + "--> " + t.toString() + "\n";
 		}
 		return salida;
+	}
+	
+	public void actualizaVariables(ParserVal PVvariables, ParserVal tipo) {
+		ArrayList<ParserVal> variables = new ArrayList<ParserVal>(((ArrayList<ParserVal>)PVvariables.obj));
+		
+		//cada ParserVal tiene en su sval el nombre de la variable..
+		//hay que buscarla en la tabla de simbolos..
+		//y ponerle al final el @variable..
+		//tambien hay que setearle el tipo..
+		
+		this.showMessage("variables --> " + variables + "----");
 	}
 	
 	public void showMessage(String mensaje)

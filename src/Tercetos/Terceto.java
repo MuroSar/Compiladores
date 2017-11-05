@@ -12,7 +12,14 @@ public abstract class Terceto {
 	
 	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
-		this.primero = primero.sval;
+
+		if(primero.obj != null) {
+			int referencia = ((Terceto)primero.obj).getPos(); 
+			this.primero = "[" + referencia + "]";
+		}
+		else {
+			this.primero = primero.sval;	
+		}
 		
 		if(segundo.obj != null) {
 			int referencia = ((Terceto)segundo.obj).getPos(); 
@@ -21,6 +28,7 @@ public abstract class Terceto {
 		else {
 			this.segundo = segundo.sval;	
 		}
+		
 		this.pos = pos;
 	}
 

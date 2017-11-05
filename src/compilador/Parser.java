@@ -19,13 +19,18 @@
 //#line 2 "gramaticaCorregidaBarbie.y"
 package compilador;
 
+import java.util.ArrayList;
 import Tercetos.Terceto;
 import Tercetos.TercetoSuma;
+import Tercetos.TercetoResta;
+import Tercetos.TercetoMultiplicacion;
+import Tercetos.TercetoDivision;
+import Tercetos.TercetoComparador;
 import Tercetos.TercetoAsignacion;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
-//#line 26 "Parser.java"
+//#line 31 "Parser.java"
 
 
 
@@ -219,19 +224,19 @@ final static short yydgoto[] = {                          8,
 final static short yysindex[] = {                      -199,
   -33,  -37, -173,  -17,    0,    0,   -5,    0, -199,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0, -197,   -4,   24, -228, -228,  -33,    0, -187,
- -190, -163,    0,    0, -156, -164, -162, -145,   67,    0,
-    0,   57,  -27,    0,  -11,  -23,   68,    0,   74,   75,
-   -6, -139,   73,    0,    0,    0, -228, -228, -228, -228,
-    0,    0,    0,    0,    0,    0, -228, -140, -228,    0,
+    0,    0, -197,   -4,  -12, -155, -155,  -33,    0, -187,
+ -231, -174,    0,    0, -163, -164, -162, -160,   65,    0,
+    0,   55,  -27,    0,  -11,  -23,   68,    0,   74,   75,
+   -6, -139,   73,    0,    0,    0, -155, -155, -155, -155,
+    0,    0,    0,    0,    0,    0, -155, -140, -155,    0,
    76,   -2, -169,    0,   -6,    0,  -27,  -27,    0,    0,
-  -27, -183,   46,    0, -146,    0, -215,    0,    0, -153,
+   46, -183,   46,    0, -146,    0, -209,    0,    0, -154,
  -134, -124,   85,    0,    0, -183,   80,   69, -130,   83,
- -228, -132,    0, -183,   77,    0,   18,   86,    0, -183,
+ -155, -132,    0, -183,   77,    0,   20,   86,    0, -183,
    87,    0,    0,    9,    0,
 };
 final static short yyrindex[] = {                         0,
-    4,    0,    0,    0,    0,    0,    0,    0,  131,    0,
+   13,    0,    0,    0,    0,    0,    0,    0,  131,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -245,9 +250,9 @@ final static short yyrindex[] = {                         0,
     0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    0,  127,  128,  -58,  -16,   63,    0,  -14,    6,    0,
+    0,  127,  128,  -58,  -43,   63,    0,  -14,    6,    0,
     0,    0,    0,    0,    0,    0,    0,    0,  102,    0,
-    0,    0,   94,   40,   51,
+    0,    0,   94,   52,   53,
 };
 final static int YYTABLESIZE=266;
 static short yytable[];
@@ -256,16 +261,16 @@ static void yytable(){
 yytable = new short[]{                         48,
   100,   48,   27,   48,   48,   46,   25,   46,   29,   46,
    46,   47,   45,   47,   59,   47,   47,   68,   48,   60,
-   48,   39,   31,   90,   46,   38,   46,   26,   40,   41,
+   48,   39,   31,   90,   46,   38,   46,   26,   39,   86,
    47,   57,   47,   58,   32,   48,   61,  102,   62,   38,
-   39,    1,   39,    2,   38,  109,   38,   36,   61,    4,
-   62,  113,    7,   37,   83,   93,   86,    1,  111,    2,
-   57,   36,   58,    3,   39,    4,    5,    6,    7,   28,
-   94,    2,   35,   28,   36,    2,   47,    4,   88,    3,
-    7,    4,   49,   28,    7,    2,  107,    1,   57,    2,
-   58,    4,   95,   50,    7,    4,   77,   78,    7,   57,
-   51,   58,   56,    5,    6,   52,   81,   96,   97,   79,
-   80,   54,   55,   70,   71,   72,   73,   75,   76,   82,
+   39,   49,   39,   94,   38,  109,   38,    1,   61,    2,
+   62,  113,   81,   37,   83,    4,   36,    1,    7,    2,
+  111,   93,   57,    3,   58,    4,    5,    6,    7,   28,
+   36,    2,   35,   28,   36,    2,   47,    4,   88,    3,
+    7,    4,   50,   28,    7,    2,  107,    1,   57,    2,
+   58,    4,   95,   51,    7,    4,   54,   57,    7,   58,
+   56,   40,   41,    5,    6,   52,   96,   97,   77,   78,
+   55,   79,   80,   70,   71,   72,   73,   75,   76,   82,
    85,   84,   91,   98,  101,  103,  104,  105,  106,  108,
     1,  112,  114,  115,  110,   33,   34,   89,   53,   69,
     0,    0,    0,    0,   99,    0,    0,    0,    0,    0,
@@ -289,16 +294,16 @@ static void yycheck() {
 yycheck = new short[] {                         41,
   125,   43,   40,   45,   46,   41,   40,   43,    3,   45,
    46,   41,   27,   43,   42,   45,   46,   41,   60,   47,
-   62,   41,   40,   82,   60,   41,   62,   61,  257,  258,
+   62,   41,   40,   82,   60,   41,   62,   61,   41,   73,
    60,   43,   62,   45,   40,   30,   60,   96,   62,   44,
-   60,  257,   62,  259,   60,  104,   62,   44,   60,  265,
-   62,  110,  268,   58,   69,  271,   73,  257,   41,  259,
-   43,   58,   45,  263,   41,  265,  266,  267,  268,  257,
-   87,  259,  270,  257,  272,  259,  264,  265,   73,  263,
-  268,  265,  273,  257,  268,  259,  101,  257,   43,  259,
-   45,  265,   87,  257,  268,  265,   57,   58,  268,   43,
-  257,   45,   46,  266,  267,  270,   67,  261,  262,   59,
-   60,  257,   46,   46,   41,   41,  123,  257,   46,  260,
+   60,  273,   62,   87,   60,  104,   62,  257,   60,  259,
+   62,  110,   67,   58,   69,  265,   44,  257,  268,  259,
+   41,  271,   43,  263,   45,  265,  266,  267,  268,  257,
+   58,  259,  270,  257,  272,  259,  264,  265,   73,  263,
+  268,  265,  257,  257,  268,  259,  101,  257,   43,  259,
+   45,  265,   87,  257,  268,  265,  257,   43,  268,   45,
+   46,  257,  258,  266,  267,  270,  261,  262,   57,   58,
+   46,   59,   60,   46,   41,   41,  123,  257,   46,  260,
   123,   46,  269,  258,   40,   46,   58,  258,   46,  262,
     0,   46,   46,  125,   58,    9,    9,   75,   37,   46,
    -1,   -1,   -1,   -1,  269,   -1,   -1,   -1,   -1,   -1,
@@ -379,7 +384,7 @@ final static String yyrule[] = {
 "lista_variables : IDENTIFICADOR",
 "lista_variables : lista_variables ',' IDENTIFICADOR",
 "condicion : condicion operador expresion",
-"condicion : expresion operador termino",
+"condicion : expresion operador expresion",
 "operador : '<'",
 "operador : '>'",
 "operador : \"<=\"",
@@ -398,7 +403,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
-//#line 130 "gramaticaCorregidaBarbie.y"
+//#line 151 "gramaticaCorregidaBarbie.y"
 
 private Lexico lexico;
 private Sintactico sintactico;
@@ -436,7 +441,7 @@ private void yyerror(String string) {
 	//this.sintactico.showMessage(string);
 	System.out.println(string);
 }
-//#line 368 "Parser.java"
+//#line 373 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -591,63 +596,96 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 14:
-//#line 39 "gramaticaCorregidaBarbie.y"
+//#line 44 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Bloque BEGIN-END");}
 break;
 case 25:
-//#line 60 "gramaticaCorregidaBarbie.y"
+//#line 65 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");}
 break;
 case 26:
-//#line 61 "gramaticaCorregidaBarbie.y"
+//#line 66 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");}
 break;
 case 27:
-//#line 64 "gramaticaCorregidaBarbie.y"
-{this.sintactico.showMessage("Declaraci\u00f3n de variable");}
+//#line 69 "gramaticaCorregidaBarbie.y"
+{ this.sintactico.showMessage("Declaraci\u00f3n de variable");
+											this.sintactico.actualizaVariables(val_peek(3), val_peek(1));}
 break;
 case 28:
-//#line 67 "gramaticaCorregidaBarbie.y"
+//#line 73 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: IF - ELSE");}
 break;
 case 29:
-//#line 70 "gramaticaCorregidaBarbie.y"
+//#line 76 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: IF");}
 break;
 case 30:
-//#line 73 "gramaticaCorregidaBarbie.y"
+//#line 79 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: SWITCH");}
 break;
 case 31:
-//#line 76 "gramaticaCorregidaBarbie.y"
+//#line 82 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: CASE");}
 break;
 case 33:
-//#line 80 "gramaticaCorregidaBarbie.y"
+//#line 86 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Asignaci\u00f3n"); 
 										 	yyval = new ParserVal(new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size()));
 											Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size());
 											this.sintactico.addTerceto(t);}
 break;
 case 34:
-//#line 86 "gramaticaCorregidaBarbie.y"
+//#line 92 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Sentencia: OUT");}
 break;
 case 35:
-//#line 89 "gramaticaCorregidaBarbie.y"
+//#line 95 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Llamado a funci\u00f3n");}
 break;
+case 36:
+//#line 98 "gramaticaCorregidaBarbie.y"
+{ yyval.obj = new ArrayList<ParserVal>(); 
+								  ((ArrayList<ParserVal>)(yyval.obj)).add(val_peek(0));}
+break;
+case 37:
+//#line 101 "gramaticaCorregidaBarbie.y"
+{ yyval = new ParserVal(new ArrayList<ParserVal>()); 
+											  ((ArrayList<ParserVal>)val_peek(2).obj).add(val_peek(0));
+                                              ((ArrayList<ParserVal>)yyval.obj).addAll((ArrayList<ParserVal>)val_peek(2).obj);}
+break;
 case 39:
-//#line 97 "gramaticaCorregidaBarbie.y"
-{this.sintactico.showMessage("Condici\u00f3n");}
+//#line 107 "gramaticaCorregidaBarbie.y"
+{ this.sintactico.showMessage("Condici\u00f3n");
+									   yyval = new ParserVal(new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size()));
+									   Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+									   this.sintactico.addTerceto(t);}
 break;
 case 46:
-//#line 108 "gramaticaCorregidaBarbie.y"
+//#line 121 "gramaticaCorregidaBarbie.y"
 { yyval = new ParserVal(new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size()));
 									Terceto t =  new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
 									this.sintactico.addTerceto(t);}
 break;
-//#line 574 "Parser.java"
+case 47:
+//#line 125 "gramaticaCorregidaBarbie.y"
+{ yyval = new ParserVal(new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size()));
+								  Terceto t =  new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+								  this.sintactico.addTerceto(t);}
+break;
+case 49:
+//#line 131 "gramaticaCorregidaBarbie.y"
+{ yyval = new ParserVal(new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size()));
+							   Terceto t =  new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+							   this.sintactico.addTerceto(t);}
+break;
+case 50:
+//#line 135 "gramaticaCorregidaBarbie.y"
+{ yyval = new ParserVal(new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size()));
+							   Terceto t =  new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+							   this.sintactico.addTerceto(t);}
+break;
+//#line 612 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

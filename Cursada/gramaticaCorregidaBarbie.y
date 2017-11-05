@@ -1,8 +1,13 @@
 %{
 package compilador;
 
+import java.util.ArrayList;
 import Tercetos.Terceto;
 import Tercetos.TercetoSuma;
+import Tercetos.TercetoResta;
+import Tercetos.TercetoMultiplicacion;
+import Tercetos.TercetoDivision;
+import Tercetos.TercetoComparador;
 import Tercetos.TercetoAsignacion;
 import compilador.Lexico;
 import compilador.Sintactico;
@@ -61,7 +66,8 @@ declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion {this.sintactic
 		| tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");} 
 		;
 				
-declaracion : lista_variables ':' tipo'.' {this.sintactico.showMessage("Declaraci\u00f3n de variable");}
+declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declaraci\u00f3n de variable");
+											this.sintactico.actualizaVariables($1, $3);}
 		;
 		
 sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}	
@@ -89,12 +95,19 @@ salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}
 llamado_funcion : IDENTIFICADOR '('')''.' {this.sintactico.showMessage("Llamado a funci\u00f3n");}
 		;
 		
-lista_variables : IDENTIFICADOR
-		| lista_variables ',' IDENTIFICADOR
+lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>(); 
+								  ((ArrayList<ParserVal>)($$.obj)).add($1);}
+								  
+		| lista_variables ',' IDENTIFICADOR { $$ = new ParserVal(new ArrayList<ParserVal>()); 
+											  ((ArrayList<ParserVal>)$1.obj).add($3);
+                                              ((ArrayList<ParserVal>)$$.obj).addAll((ArrayList<ParserVal>)$1.obj);}
 		;
 		
 condicion : condicion operador expresion
-		| expresion operador termino {this.sintactico.showMessage("Condici\u00f3n");}
+		| expresion operador expresion { this.sintactico.showMessage("Condici\u00f3n");
+									   $$ = new ParserVal(new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size()));
+									   Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size());
+									   this.sintactico.addTerceto(t);}
 		;
 
 operador : '<' 
@@ -108,12 +121,20 @@ operador : '<'
 expresion : expresion '+' termino { $$ = new ParserVal(new TercetoSuma($1, $3, this.sintactico.getTercetos().size()));
 									Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size());
 									this.sintactico.addTerceto(t);}
-		| expresion '-' termino  
+									
+		| expresion '-' termino { $$ = new ParserVal(new TercetoResta($1, $3, this.sintactico.getTercetos().size()));
+								  Terceto t =  new TercetoResta($1, $3, this.sintactico.getTercetos().size());
+								  this.sintactico.addTerceto(t);}
 		| termino
 		;
 
-termino : termino '*' factor 
-		| termino '/' factor 
+termino : termino '*' factor { $$ = new ParserVal(new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size()));
+							   Terceto t =  new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size());
+							   this.sintactico.addTerceto(t);}
+							   
+		| termino '/' factor { $$ = new ParserVal(new TercetoDivision($1, $3, this.sintactico.getTercetos().size()));
+							   Terceto t =  new TercetoDivision($1, $3, this.sintactico.getTercetos().size());
+							   this.sintactico.addTerceto(t);}
 		| factor
 		;
 

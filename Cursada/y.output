@@ -58,7 +58,7 @@
   37                  | lista_variables ',' IDENTIFICADOR
 
   38  condicion : condicion operador expresion
-  39            | expresion operador termino
+  39            | expresion operador expresion
 
   40  operador : '<'
   41           | '>'
@@ -494,7 +494,7 @@ state 44
 
 
 state 45
-	condicion : expresion . operador termino  (39)
+	condicion : expresion . operador expresion  (39)
 	expresion : expresion . '+' termino  (46)
 	expresion : expresion . '-' termino  (47)
 
@@ -675,13 +675,14 @@ state 66
 
 
 state 67
-	condicion : expresion operador . termino  (39)
+	condicion : expresion operador . expresion  (39)
 
 	IDENTIFICADOR  shift 40
 	CONSTANTE  shift 41
 	.  error
 
-	termino  goto 81
+	expresion  goto 81
+	termino  goto 43
 	factor  goto 44
 
 
@@ -820,12 +821,12 @@ state 80
 
 
 state 81
-	condicion : expresion operador termino .  (39)
-	termino : termino . '*' factor  (49)
-	termino : termino . '/' factor  (50)
+	condicion : expresion operador expresion .  (39)
+	expresion : expresion . '+' termino  (46)
+	expresion : expresion . '-' termino  (47)
 
-	'*'  shift 59
-	'/'  shift 60
+	'+'  shift 57
+	'-'  shift 58
 	')'  reduce 39
 	'<'  reduce 39
 	'>'  reduce 39
