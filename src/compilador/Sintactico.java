@@ -17,14 +17,14 @@ public class Sintactico {
 	private Principal ppal;
 	private Lexico lexico;
 	private Parser parser;
-	private GenCodigo generador;
+	private GenCodigo generador; 
 	private ArrayList<Terceto> tercetos;
 
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
 		this.lexico = lexico;
 		this.parser = parser;
-		this.generador = generador;
+		this.generador = generador;  
 		this.tercetos = new ArrayList<Terceto>();
 	}
 
@@ -47,6 +47,10 @@ public class Sintactico {
 			salida = salida + t.getPos() + "--> " + t.toString() + "\n";
 		}
 		return salida;
+	}
+	
+	public ArrayList<Terceto> getAllTercetos(){
+		return this.tercetos;
 	}
 	
 	public void actualizaVariables(ParserVal PVvariables, ParserVal tipo) {
@@ -94,5 +98,11 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("--------------------TERCETOS--------------------");
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
+		
+		this.ppal.mostrarMensaje("");
+		this.ppal.mostrarMensaje("--------------------CODIGO--------------------");
+		this.ppal.mostrarMensaje("");
+		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
+		this.generador.generarCodigo();
 	}
 }
