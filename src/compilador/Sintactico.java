@@ -7,6 +7,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 import Tercetos.Terceto;
 import compilador.Lexico;
@@ -19,6 +20,8 @@ public class Sintactico {
 	private Parser parser;
 	private GenCodigo generador;
 	private ArrayList<Terceto> tercetos;
+	private ArrayList<String> errores;
+	private Stack<Terceto> pila;
 
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
@@ -26,6 +29,44 @@ public class Sintactico {
 		this.parser = parser;
 		this.generador = generador;
 		this.tercetos = new ArrayList<Terceto>();
+		this.errores = new ArrayList<String>();
+		this.pila = new Stack<Terceto>();
+	}
+	
+	public void pilaPush(Terceto pos) {
+		this.pila.push(pos);
+	}
+	
+	public Terceto pilaPop() {
+		return this.pila.pop();
+	}
+	
+	public boolean huboErrores()
+	{
+		return !this.errores.isEmpty();
+	}
+	
+	public void addError(String error, ParserVal val)
+	{
+		Token t = this.lexico.getTokenFromTS(val.sval);
+		
+		if(error.equals("variable"))
+		{
+			this.errores.add("La variable " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());	
+		}
+		else if(error.equals("funcion"))
+		{
+			this.errores.add("La funcion " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());
+		}
+	}
+	
+	public String showErrores() {
+		String errors = "";
+		for (String error : this.errores)
+		{
+			errors = errors + error + "\n";
+		}
+		return errors;
 	}
 
 	public void addTerceto(Terceto t) {
@@ -52,12 +93,23 @@ public class Sintactico {
 	public void actualizaVariables(ParserVal PVvariables, ParserVal tipo) {
 		ArrayList<ParserVal> variables = new ArrayList<ParserVal>(((ArrayList<ParserVal>)PVvariables.obj));
 		
-		//cada ParserVal tiene en su sval el nombre de la variable..
-		//hay que buscarla en la tabla de simbolos..
-		//y ponerle al final el @variable..
-		//tambien hay que setearle el tipo..
-		
-		this.showMessage("variables --> " + variables + "----");
+		for(ParserVal var : variables) {
+			Token aux = this.lexico.getTokenFromTS(var.sval);
+			this.lexico.removeTokenFromTS(var.sval);
+			
+			String lexema = aux.getLexema();
+			lexema = lexema + "@Variable";
+			
+			aux.setLexema(lexema);
+			aux.setTipoDato(tipo.sval);		
+			
+			this.lexico.putSimbolo(aux);
+		}
+	}
+	
+	public boolean existeVariable(ParserVal variable)
+	{
+		return this.lexico.estaDeclarada(variable.sval);
 	}
 	
 	public void showMessage(String mensaje)
@@ -94,5 +146,10 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("--------------------TERCETOS--------------------");
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
+		
+		this.ppal.mostrarMensaje("");
+		this.ppal.mostrarMensaje("---------------------ERRORES--------------------");
+		this.ppal.mostrarMensaje("");
+		this.ppal.mostrarMensaje(this.showErrores());
 	}
 }

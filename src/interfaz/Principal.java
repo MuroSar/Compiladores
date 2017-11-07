@@ -358,6 +358,8 @@ public class Principal extends JFrame {
 		else
 		{
 			lexema = "---------------- Fin del archivo ----------------";
+			lexema = lexema + "\n";
+			
 			ArrayList<ErrorToken> errores = this.lexico.getErrores();
 			for(ErrorToken error : errores)
 			{

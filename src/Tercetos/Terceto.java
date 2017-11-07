@@ -12,23 +12,33 @@ public abstract class Terceto {
 	
 	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
-
-		if(primero.obj != null) {
-			int referencia = ((Terceto)primero.obj).getPos(); 
-			this.primero = "[" + referencia + "]";
+				
+		if(primero != null) {
+			if(primero.obj != null) {
+				int referencia = ((Terceto)primero.obj).getPos(); 
+				this.primero = "[" + referencia + "]";
+			}
+			else {
+				this.primero = primero.sval;	
+			}
 		}
-		else {
-			this.primero = primero.sval;	
-		}
-		
-		if(segundo.obj != null) {
-			int referencia = ((Terceto)segundo.obj).getPos(); 
-			this.segundo = "[" + referencia + "]";
-		}
-		else {
-			this.segundo = segundo.sval;	
+		else { //significa que viene de un BIncondificonal
+			this.primero = "";
 		}
 		
+		if(segundo != null) {
+			if(segundo.obj != null) {
+				int referencia = ((Terceto)segundo.obj).getPos(); 
+				this.segundo = "[" + referencia + "]";
+			}
+			else {
+				this.segundo = segundo.sval;	
+			}
+		}
+		else { //significa que viene de un BFalse
+			this.segundo = "";
+		}
+			
 		this.pos = pos;
 	}
 
@@ -48,12 +58,20 @@ public abstract class Terceto {
 		this.primero = primero;
 	}
 
+	public void setPrimero(int primero) {
+		this.primero = "[" + primero + "]";
+	}
+	
 	public Object getSegundo() {
 		return segundo;
 	}
 
 	public void setSegundo(String segundo) {
 		this.segundo = segundo;
+	}
+	
+	public void setSegundo(int segundo) {
+		this.segundo = "[" + segundo + "]";
 	}
 	
 	public int getPos() {

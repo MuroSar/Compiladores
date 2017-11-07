@@ -173,14 +173,14 @@ public class Lexico {
 		return result;
 	}
 	
-	public String getLexema(String key)
+	public Token getTokenFromTS(String key)
 	{
-		return this.tablaSimbolos.get(key).getLexema();
+		return this.tablaSimbolos.get(key);
 	}
-	
-	public String getType(String key)
+
+	public void removeTokenFromTS(String key) 
 	{
-		return this.tablaSimbolos.get(key).getType();
+		this.tablaSimbolos.remove(key);
 	}
 	
 	public void setEstado(int estado)
@@ -267,7 +267,7 @@ public class Lexico {
 	
 	public boolean estaDeclarada(String lexema) {
 		for (String key : this.tablaSimbolos.keySet()){
-			if(this.tablaSimbolos.get(key).equals(lexema)) {
+			if(key.equals(lexema + "@Variable")) {
 				return true;
 			}
 		}

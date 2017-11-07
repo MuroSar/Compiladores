@@ -9,6 +9,8 @@ import Tercetos.TercetoMultiplicacion;
 import Tercetos.TercetoDivision;
 import Tercetos.TercetoComparador;
 import Tercetos.TercetoAsignacion;
+import Tercetos.TercetoBFalse;
+import Tercetos.TercetoBIncondicional;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
@@ -52,8 +54,7 @@ sentencias : sentencia_unica_control
 		| sentencia_unica_ejecutable
 		;
 		
-sentencia_unica_control : sentencia_if_else
-		| sentencia_if
+sentencia_unica_control : sentencia_if
 		| sentencia_switch
 		;
 		
@@ -70,12 +71,29 @@ declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declara
 											this.sintactico.actualizaVariables($1, $3);}
 		;
 		
-sentencia_if_else : IF '(' condicion ')' THEN bloque_control ELSE bloque_control END_IF'.' {this.sintactico.showMessage("Sentencia: IF - ELSE");}	
+sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
+									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
+										   this.sintactico.addTerceto(bFalse);
+		               					   this.sintactico.pilaPush(bFalse);
+		                            	  } cuerpo_if
 		;
 		
-sentencia_if : IF '(' condicion ')' THEN bloque_control END_IF'.' {this.sintactico.showMessage("Sentencia: IF");}
+cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: IF");
+			   							Terceto bFalse = this.sintactico.pilaPop();
+										bFalse.setSegundo(this.sintactico.getTercetos().size());
+			   						  }
+		| bloque_control {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
+							this.sintactico.addTerceto(bIncondicional); 
+							Terceto bFalse = this.sintactico.pilaPop();
+							this.sintactico.pilaPush(bIncondicional);
+							bFalse.setSegundo(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
+						 }		
+		ELSE bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: IF - ELSE");
+										Terceto bInconditional = this.sintactico.pilaPop();
+		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el IF
+									  }
 		;
-		
+				
 sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.' {this.sintactico.showMessage("Sentencia: SWITCH");}
 		;
 		
@@ -83,10 +101,18 @@ rep_switch : CASE CONSTANTE ':' bloque_control {this.sintactico.showMessage("Sen
 		| rep_switch CASE CONSTANTE ':' bloque_control  
 		;
 		
-asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n"); 
-										 	$$ = new ParserVal(new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size()));
-											Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
-											this.sintactico.addTerceto(t);}
+asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n");
+
+											if(this.sintactico.existeVariable($1))
+ 											{
+ 												$$ = new ParserVal(new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size()));
+												Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+												this.sintactico.addTerceto(t);
+ 											}
+ 											else
+ 											{
+ 												this.sintactico.addError("variable", $1);
+ 											}}
 		;
 		
 salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}

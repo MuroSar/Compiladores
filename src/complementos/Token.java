@@ -7,6 +7,11 @@ public class Token {
 	private String type; // tipo de token IDENTIFICADOR LITERAL ANOTACION etc
 	private int linea;
 	private String ambito;
+	private String tipoDato;
+	
+	
+	//lexema para nombres de variables --> nombreVariable@Variable
+	//lexema para nombres de funciones --> nombreVariable@Funcion
 	
 	//----------------------------------------------------
 	//257 --> "Identificador"
@@ -32,13 +37,14 @@ public class Token {
 	//277 --> "OperadorAsignacion"
 	//----------------------------------------------------
 	
-	public Token(String lexema, int key, String type, int linea, String ambito)
+	public Token(String lexema, int key, String type, int linea, String ambito, String tipoDato)
 	{
 		this.lexema = lexema;
 		this.key = key;
 		this.type = type;
 		this.linea = linea;
 		this.ambito = ambito;
+		this.tipoDato = tipoDato;
 	}
 	
 	public Token ()
@@ -48,6 +54,7 @@ public class Token {
 		this.type = "";
 		this.linea = -2;
 		this.ambito = "";
+		this.tipoDato = "";
 	}
 	
 	public String getLexema() {
@@ -80,10 +87,16 @@ public class Token {
 	public void setAmbito(String ambito) {
 		this.ambito = ambito;
 	}
+	public String getTipoDato() {
+		return tipoDato;
+	}
+	public void setTipoDato(String tipoDato) {
+		this.tipoDato = tipoDato;
+	}
 
 	@Override
 	public String toString() {
-		return "Token [lexema=" + lexema + ", key=" + key + ", type=" + type + ", linea=" + linea + ", ambito=" + ambito + "]";
+		return "Token [lexema=" + lexema + ", key=" + key + ", type=" + type + ", linea=" + linea + ", ambito=" + ambito + ", tipoDato= " + tipoDato + "]";
 	}
 	
 	
