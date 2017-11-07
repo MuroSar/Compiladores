@@ -77,11 +77,9 @@ public class Principal extends JFrame {
         this.lexico = new Lexico(this);
         this.parser = new Parser();
         this.parser.setLexico(lexico);
-        this.generador = new GenCodigo();
-        this.sintactico = new Sintactico(this, this.lexico, this.parser, this.generador);
-        this.parser.setSintactico(this.sintactico);
-        
-		
+        this.generador = new GenCodigo(); 
+        this.sintactico = new Sintactico(this, this.lexico, this.parser, this.generador); 
+        this.parser.setSintactico(this.sintactico);	
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

@@ -18,7 +18,7 @@ public class Sintactico {
 	private Principal ppal;
 	private Lexico lexico;
 	private Parser parser;
-	private GenCodigo generador;
+	private GenCodigo generador; 
 	private ArrayList<Terceto> tercetos;
 	private ArrayList<String> errores;
 	private Stack<Terceto> pila;
@@ -27,7 +27,7 @@ public class Sintactico {
 		this.ppal = principal;
 		this.lexico = lexico;
 		this.parser = parser;
-		this.generador = generador;
+		this.generador = generador;  
 		this.tercetos = new ArrayList<Terceto>();
 		this.errores = new ArrayList<String>();
 		this.pila = new Stack<Terceto>();
@@ -88,6 +88,10 @@ public class Sintactico {
 			salida = salida + t.getPos() + "--> " + t.toString() + "\n";
 		}
 		return salida;
+	}
+	
+	public ArrayList<Terceto> getAllTercetos(){
+		return this.tercetos;
 	}
 	
 	public void actualizaVariables(ParserVal PVvariables, ParserVal tipo) {
@@ -151,5 +155,11 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("---------------------ERRORES--------------------");
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showErrores());
+
+		this.ppal.mostrarMensaje("");
+		this.ppal.mostrarMensaje("--------------------CODIGO--------------------");
+		this.ppal.mostrarMensaje("");
+		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
+		this.generador.generarCodigo();
 	}
 }
