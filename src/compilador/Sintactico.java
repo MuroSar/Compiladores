@@ -111,9 +111,27 @@ public class Sintactico {
 		}
 	}
 	
+	public void actualizaFuncion(ParserVal nombre, ParserVal tipo) {
+		Token aux = this.lexico.getTokenFromTS(nombre.sval);
+		this.lexico.removeTokenFromTS(nombre.sval);
+		
+		String lexema = aux.getLexema();
+		lexema = lexema + "@Funcion";
+		
+		aux.setLexema(lexema);
+		aux.setTipoDato(tipo.sval);		
+		
+		this.lexico.putSimbolo(aux);
+	}
+	
 	public boolean existeVariable(ParserVal variable)
 	{
-		return this.lexico.estaDeclarada(variable.sval);
+		return this.lexico.estaDeclarada(variable.sval, "variable");
+	}
+	
+	public boolean existeFuncion(ParserVal funcion)
+	{
+		return this.lexico.estaDeclarada(funcion.sval, "funcion");
 	}
 	
 	public void showMessage(String mensaje)
@@ -150,6 +168,8 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("--------------------TERCETOS--------------------");
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
+		
+		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("---------------------ERRORES--------------------");

@@ -265,12 +265,24 @@ public class Lexico {
 		return result;
 	}
 	
-	public boolean estaDeclarada(String lexema) {
-		for (String key : this.tablaSimbolos.keySet()){
-			if(key.equals(lexema + "@Variable")) {
-				return true;
+	public boolean estaDeclarada(String lexema, String dato) {
+		
+		if(dato.equals("variable")) {
+			for (String key : this.tablaSimbolos.keySet()){
+				if(key.equals(lexema + "@Variable")) {
+					return true;
+				}
+			}
+		}
+		else if(dato.equals("funcion")) {
+			for (String key : this.tablaSimbolos.keySet()){
+				if(key.equals(lexema + "@Funcion")) {
+					return true;
+				}
 			}
 		}
 		return false;
+		
+		
 	}
 }

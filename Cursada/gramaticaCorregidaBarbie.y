@@ -11,6 +11,7 @@ import Tercetos.TercetoComparador;
 import Tercetos.TercetoAsignacion;
 import Tercetos.TercetoBFalse;
 import Tercetos.TercetoBIncondicional;
+import Tercetos.TercetoFuncion;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
@@ -63,8 +64,10 @@ sentencia_unica_ejecutable : asignacion
 		| llamado_funcion
 		;		
 		
-declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");}
-		| tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion {this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");} 
+declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
+																   this.sintactico.actualizaFuncion($3, $1);}
+		| tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion {	this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
+															this.sintactico.actualizaFuncion($4, $1);} 
 		;
 				
 declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declaraci\u00f3n de variable");
@@ -118,7 +121,17 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}
 		;
 
-llamado_funcion : IDENTIFICADOR '('')''.' {this.sintactico.showMessage("Llamado a funci\u00f3n");}
+llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
+											if(this.sintactico.existeFuncion($1))
+ 											{
+ 												$$ = new ParserVal(new TercetoFuncion($1, this.sintactico.getTercetos().size()));
+												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
+												this.sintactico.addTerceto(t);
+ 											}
+ 											else
+ 											{
+ 												this.sintactico.addError("funcion", $1);
+ 											}}
 		;
 		
 lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>(); 
@@ -178,10 +191,6 @@ tipo : LONG
 private Lexico lexico;
 private Sintactico sintactico;
 private Token token;
-
-public boolean estaDeclarada(String lexema) {
-	return lexico.estaDeclarada(lexema);
-}
 
 public void setLexico(Lexico lexico)
 {
