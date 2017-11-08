@@ -97,11 +97,31 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 									  }
 		;
 				
-sentencia_switch : SWITCH '(' IDENTIFICADOR ')' '{' rep_switch '}''.' {this.sintactico.showMessage("Sentencia: SWITCH");}
+sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("Sentencia: SWITCH");
+												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
+									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
+												  this.sintactico.addTerceto(bFalse);
+							               		  this.sintactico.pilaPush(bFalse);} cuerpo_switch
+		;
+
+cuerpo_switch : '{' rep_switch '}''.' { Terceto bInconditional = this.sintactico.pilaPop();
+		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el IF
+									  }
 		;
 		
-rep_switch : CASE CONSTANTE ':' bloque_control {this.sintactico.showMessage("Sentencia: CASE");}
-		| rep_switch CASE CONSTANTE ':' bloque_control  
+rep_switch : CASE CONSTANTE ':' bloque_control { Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
+												 this.sintactico.addTerceto(bIncondicional); 
+												 Terceto bFalse = this.sintactico.pilaPop();
+												 this.sintactico.pilaPush(bIncondicional);
+												 bFalse.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
+											   }
+		| rep_switch CASE CONSTANTE ':' bloque_control  { this.sintactico.showMessage("Sentencia: CASE");
+														  Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
+														  this.sintactico.addTerceto(bIncondicional); 
+														  Terceto bFalse = this.sintactico.pilaPop();
+														  this.sintactico.pilaPush(bIncondicional);
+														  bFalse.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
+											  		    }
 		;
 		
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n");
