@@ -58,6 +58,10 @@ public class Sintactico {
 		{
 			this.errores.add("La funcion " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());
 		}
+		else if(error.equals("tipos"))
+		{
+			this.errores.add("Error de tipos en la operacion de la linea " + t.getLinea());
+		}
 	}
 	
 	public String showErrores() {
@@ -124,9 +128,73 @@ public class Sintactico {
 		this.lexico.putSimbolo(aux);
 	}
 	
+	public String mismoTipo(ParserVal op1, ParserVal op2) {
+		String tipoDato1;
+		String tipoDato2;
+		if(op1.obj == null) {
+			if(esVariable(op1)) {
+				tipoDato1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getTipoDato();	
+			}
+			else {
+				tipoDato1 = this.lexico.getTokenFromTS(op1.sval).getTipoDato();
+			}	
+		}
+		else {
+			tipoDato1 = ((Terceto)op1.obj).getTipoDato();
+		}
+		
+		if(op2.obj == null) {
+			if(esVariable(op2)) {
+				tipoDato2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getTipoDato();
+			}
+			else {
+				tipoDato2 = this.lexico.getTokenFromTS(op2.sval).getTipoDato();
+			}
+		}
+		else {
+			tipoDato2 = ((Terceto)op2.obj).getTipoDato();
+		}
+				
+		
+		if(tipoDato1.equals(tipoDato2)){
+			return tipoDato1;
+		}
+		return null;
+	}
+	
+	public boolean esVariable(ParserVal val) {
+		boolean esVariable = true;
+		for(char c : val.sval.toCharArray()) {
+			if(!Character.isLetter(c)) {
+				esVariable = false;
+				break;
+			}
+		}
+		return esVariable;
+	}
+	
+	public void setTipoDatoTerceto(Terceto t, ParserVal val1, ParserVal val2) {
+		t.setTipoDato(mismoTipo(val1, val2));
+				
+//		if(val.obj == null) {
+//			if(esVariable(val)) {
+//				t.setTipoDato(this.lexico.getTokenFromTS(val.sval + "@Variable").getTipoDato());
+//			}
+//			else {
+//				t.setTipoDato(this.lexico.getTokenFromTS(val.sval).getTipoDato());
+//			}
+//		}
+//		else {
+//			t.setTipoDato(((Terceto)val.obj).getTipoDato());
+//		}
+	}
+	
 	public boolean existeVariable(ParserVal variable)
 	{
-		return this.lexico.estaDeclarada(variable.sval, "variable");
+		if(esVariable(variable)) {
+			return this.lexico.estaDeclarada(variable.sval, "variable");	
+		}
+		return true;
 	}
 	
 	public boolean existeFuncion(ParserVal funcion)

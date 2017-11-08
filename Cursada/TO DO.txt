@@ -5,6 +5,11 @@ TO DO:
 --Como pasamos todo a la maquina virtual para probarlo..
 --Si agregamos errores por falta del . final no los toma..
 	
+	
+-- Tercetos para el CASE..
+-- Poner el ambito de las variables en la gramatica..
+-- Agregar errores en la gramatica..	
+	
 ------------------------------------------------------------------------------------------------------------------------
 	
 COSAS A AGREGAR EN EL PARSER CUANDO COMPILAMOS..	

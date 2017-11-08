@@ -9,6 +9,7 @@ public abstract class Terceto {
 	protected String segundo;
 	
 	private int pos;
+	private String tipoDato;
 	
 	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
@@ -80,6 +81,14 @@ public abstract class Terceto {
 
 	public void setPos(int pos) {
 		this.pos = pos;
+	}
+	
+	public String getTipoDato() {
+		return tipoDato;
+	}
+
+	public void setTipoDato(String tipoDato) {
+		this.tipoDato = tipoDato;
 	}
 	
 	public abstract String getCodigo();

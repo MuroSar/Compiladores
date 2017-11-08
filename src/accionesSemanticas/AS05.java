@@ -30,6 +30,7 @@ public class AS05 implements AccionSemantica {
 			if (Double.valueOf(lexema) <= max)
 			{
 				token.setType("Dobles (DOUBLE)");
+				token.setTipoDato("DOUBLE");
 				token.setKey(258);
 				token.setLinea(lexico.getFila()+1);
 			}
@@ -41,6 +42,7 @@ public class AS05 implements AccionSemantica {
 				
 				token.setLexema(String.valueOf(max));
 				token.setType("Dobles (DOUBLE)");
+				token.setTipoDato("DOUBLE");
 				token.setKey(258);
 				token.setLinea(lexico.getFila()+1);
 				

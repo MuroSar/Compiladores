@@ -18,6 +18,7 @@ public class AS04 implements AccionSemantica {
 		if (Long.valueOf(token.getLexema()) <= max)
 		{
 			token.setType("Entero largo (LONG)");
+			token.setTipoDato("LONG");
 			token.setKey(258);
 			token.setLinea(lexico.getFila()+1);
 		}
@@ -29,6 +30,7 @@ public class AS04 implements AccionSemantica {
 			
 			token.setLexema(String.valueOf(max));
 			token.setType("Entero largo (LONG)");
+			token.setTipoDato("LONG");
 			token.setKey(258);
 			token.setLinea(lexico.getFila()+1);
 			

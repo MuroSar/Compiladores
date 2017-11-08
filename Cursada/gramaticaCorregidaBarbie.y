@@ -108,9 +108,15 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 
 											if(this.sintactico.existeVariable($1))
  											{
- 												$$ = new ParserVal(new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size()));
-												Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
-												this.sintactico.addTerceto(t);
+ 												if(this.sintactico.mismoTipo($1, $3) != null) {
+ 													$$ = new ParserVal(new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size()));
+													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+													this.sintactico.addTerceto(t);
+												}
+												else
+												{
+													this.sintactico.addError("tipos", $1);
+												}
  											}
  											else
  											{
@@ -157,23 +163,87 @@ operador : '<'
 		| '=='
 		;
 
-expresion : expresion '+' termino { $$ = new ParserVal(new TercetoSuma($1, $3, this.sintactico.getTercetos().size()));
-									Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size());
-									this.sintactico.addTerceto(t);}
+expresion : expresion '+' termino { if(this.sintactico.existeVariable($1)){
+										if(this.sintactico.existeVariable($3)){
+	 										if(this.sintactico.mismoTipo($1, $3) != null) {
+												Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size());
+												this.sintactico.setTipoDatoTerceto(t, $1, $3);
+												$$ = new ParserVal(t);
+												this.sintactico.addTerceto(t);
+											}
+											else {
+												this.sintactico.addError("tipos", $1);
+											}
+										}
+										else {
+											this.sintactico.addError("variable", $3);
+										}
+									}
+									else {
+										this.sintactico.addError("variable", $1);
+									}}
 									
-		| expresion '-' termino { $$ = new ParserVal(new TercetoResta($1, $3, this.sintactico.getTercetos().size()));
-								  Terceto t =  new TercetoResta($1, $3, this.sintactico.getTercetos().size());
-								  this.sintactico.addTerceto(t);}
+		| expresion '-' termino { 	if(this.sintactico.existeVariable($1)){
+										if(this.sintactico.existeVariable($3)){
+	 										if(this.sintactico.mismoTipo($1, $3) != null) {
+												Terceto t =  new TercetoResta($1, $3, this.sintactico.getTercetos().size());
+												this.sintactico.setTipoDatoTerceto(t, $1, $3);
+												$$ = new ParserVal(t);
+												this.sintactico.addTerceto(t);
+											}
+											else {
+												this.sintactico.addError("tipos", $1);
+											}
+										}
+										else {
+											this.sintactico.addError("variable", $3);
+										}
+									}
+									else {
+										this.sintactico.addError("variable", $1);
+									}}
 		| termino
 		;
 
-termino : termino '*' factor { $$ = new ParserVal(new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size()));
-							   Terceto t =  new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size());
-							   this.sintactico.addTerceto(t);}
+termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
+									if(this.sintactico.existeVariable($3)){
+											if(this.sintactico.mismoTipo($1, $3) != null) {
+											Terceto t =  new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size());
+											this.sintactico.setTipoDatoTerceto(t, $1, $3);
+											$$ = new ParserVal(t);
+											this.sintactico.addTerceto(t);
+										}
+										else {
+											this.sintactico.addError("tipos", $1);
+										}
+									}
+									else {
+										this.sintactico.addError("variable", $3);
+									}
+								}
+								else {
+									this.sintactico.addError("variable", $1);
+								}}
 							   
-		| termino '/' factor { $$ = new ParserVal(new TercetoDivision($1, $3, this.sintactico.getTercetos().size()));
-							   Terceto t =  new TercetoDivision($1, $3, this.sintactico.getTercetos().size());
-							   this.sintactico.addTerceto(t);}
+		| termino '/' factor { if(this.sintactico.existeVariable($1)){
+									if(this.sintactico.existeVariable($3)){
+	 									if(this.sintactico.mismoTipo($1, $3) != null) {
+											Terceto t =  new TercetoDivision($1, $3, this.sintactico.getTercetos().size());
+											this.sintactico.setTipoDatoTerceto(t, $1, $3);
+											$$ = new ParserVal(t);
+											this.sintactico.addTerceto(t);
+										}
+										else {
+											this.sintactico.addError("tipos", $1);
+										}
+									}
+									else {
+										this.sintactico.addError("variable", $3);
+									}
+								}
+								else {
+									this.sintactico.addError("variable", $1);
+								}}
 		| factor
 		;
 
