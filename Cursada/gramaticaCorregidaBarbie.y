@@ -12,6 +12,7 @@ import Tercetos.TercetoAsignacion;
 import Tercetos.TercetoBFalse;
 import Tercetos.TercetoBIncondicional;
 import Tercetos.TercetoFuncion;
+import Tercetos.TercetoOut;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
@@ -129,8 +130,8 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 											if(this.sintactico.existeVariable($1))
  											{
  												if(this.sintactico.mismoTipo($1, $3) != null) {
- 													$$ = new ParserVal(new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size()));
-													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+ 													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+ 													$$ = new ParserVal(t);
 													this.sintactico.addTerceto(t);
 												}
 												else
@@ -144,14 +145,18 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
  											}}
 		;
 		
-salida : OUT '(' CADENA ')''.' {this.sintactico.showMessage("Sentencia: OUT");}
+salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
+							   	 Terceto t =  new TercetoOut($3, this.sintactico.getTercetos().size());
+							   	 $$ = new ParserVal(t);
+								 this.sintactico.addTerceto(t);
+							   }
 		;
 
 llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
 											if(this.sintactico.existeFuncion($1))
  											{
- 												$$ = new ParserVal(new TercetoFuncion($1, this.sintactico.getTercetos().size()));
-												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
+ 												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
+ 												$$ = new ParserVal(t);
 												this.sintactico.addTerceto(t);
  											}
  											else
@@ -170,8 +175,8 @@ lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>();
 		
 condicion : condicion operador expresion
 		| expresion operador expresion { this.sintactico.showMessage("Condici\u00f3n");
-									   $$ = new ParserVal(new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size()));
 									   Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size());
+									   $$ = new ParserVal(t);
 									   this.sintactico.addTerceto(t);}
 		;
 

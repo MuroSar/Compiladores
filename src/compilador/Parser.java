@@ -30,10 +30,11 @@ import Tercetos.TercetoAsignacion;
 import Tercetos.TercetoBFalse;
 import Tercetos.TercetoBIncondicional;
 import Tercetos.TercetoFuncion;
+import Tercetos.TercetoOut;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
-//#line 34 "Parser.java"
+//#line 35 "Parser.java"
 
 
 
@@ -410,7 +411,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
-//#line 280 "gramaticaCorregidaBarbie.y"
+//#line 285 "gramaticaCorregidaBarbie.y"
 
 private Lexico lexico;
 private Sintactico sintactico;
@@ -444,7 +445,7 @@ private void yyerror(String string) {
 	//this.sintactico.showMessage(string);
 	System.out.println(string);
 }
-//#line 376 "Parser.java"
+//#line 377 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -599,26 +600,26 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 14:
-//#line 47 "gramaticaCorregidaBarbie.y"
+//#line 48 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Bloque BEGIN-END");}
 break;
 case 24:
-//#line 67 "gramaticaCorregidaBarbie.y"
+//#line 68 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 																   this.sintactico.actualizaFuncion(val_peek(1), val_peek(3));}
 break;
 case 25:
-//#line 69 "gramaticaCorregidaBarbie.y"
+//#line 70 "gramaticaCorregidaBarbie.y"
 {	this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 															this.sintactico.actualizaFuncion(val_peek(1), val_peek(4));}
 break;
 case 26:
-//#line 73 "gramaticaCorregidaBarbie.y"
+//#line 74 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de variable");
 											this.sintactico.actualizaVariables(val_peek(3), val_peek(1));}
 break;
 case 27:
-//#line 77 "gramaticaCorregidaBarbie.y"
+//#line 78 "gramaticaCorregidaBarbie.y"
 { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 										   this.sintactico.addTerceto(bFalse);
@@ -626,14 +627,14 @@ case 27:
 		                            	  }
 break;
 case 29:
-//#line 84 "gramaticaCorregidaBarbie.y"
+//#line 85 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: IF");
 			   							Terceto bFalse = this.sintactico.pilaPop();
 										bFalse.setSegundo(this.sintactico.getTercetos().size());
 			   						  }
 break;
 case 30:
-//#line 88 "gramaticaCorregidaBarbie.y"
+//#line 89 "gramaticaCorregidaBarbie.y"
 {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 							this.sintactico.addTerceto(bIncondicional); 
 							Terceto bFalse = this.sintactico.pilaPop();
@@ -642,14 +643,14 @@ case 30:
 						 }
 break;
 case 31:
-//#line 94 "gramaticaCorregidaBarbie.y"
+//#line 95 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: IF - ELSE");
 										Terceto bInconditional = this.sintactico.pilaPop();
 		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el IF*/
 									  }
 break;
 case 32:
-//#line 100 "gramaticaCorregidaBarbie.y"
+//#line 101 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: SWITCH");
 												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
@@ -657,13 +658,13 @@ case 32:
 							               		  this.sintactico.pilaPush(bFalse);}
 break;
 case 34:
-//#line 107 "gramaticaCorregidaBarbie.y"
+//#line 108 "gramaticaCorregidaBarbie.y"
 { Terceto bInconditional = this.sintactico.pilaPop();
 		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el IF*/
 									  }
 break;
 case 35:
-//#line 112 "gramaticaCorregidaBarbie.y"
+//#line 113 "gramaticaCorregidaBarbie.y"
 { Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 												 this.sintactico.addTerceto(bIncondicional); 
 												 Terceto bFalse = this.sintactico.pilaPop();
@@ -672,7 +673,7 @@ case 35:
 											   }
 break;
 case 36:
-//#line 118 "gramaticaCorregidaBarbie.y"
+//#line 119 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 														  this.sintactico.addTerceto(bIncondicional); 
@@ -682,14 +683,14 @@ case 36:
 											  		    }
 break;
 case 37:
-//#line 127 "gramaticaCorregidaBarbie.y"
+//#line 128 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Asignaci\u00f3n");
 
 											if(this.sintactico.existeVariable(val_peek(3)))
  											{
  												if(this.sintactico.mismoTipo(val_peek(3), val_peek(1)) != null) {
- 													yyval = new ParserVal(new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size()));
-													Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size());
+ 													Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size());
+ 													yyval = new ParserVal(t);
 													this.sintactico.addTerceto(t);
 												}
 												else
@@ -703,16 +704,20 @@ case 37:
  											}}
 break;
 case 38:
-//#line 147 "gramaticaCorregidaBarbie.y"
-{this.sintactico.showMessage("Sentencia: OUT");}
+//#line 148 "gramaticaCorregidaBarbie.y"
+{ this.sintactico.showMessage("Sentencia: OUT");
+							   	 Terceto t =  new TercetoOut(val_peek(2), this.sintactico.getTercetos().size());
+							   	 yyval = new ParserVal(t);
+								 this.sintactico.addTerceto(t);
+							   }
 break;
 case 39:
-//#line 150 "gramaticaCorregidaBarbie.y"
+//#line 155 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Llamado a funci\u00f3n");
 											if(this.sintactico.existeFuncion(val_peek(3)))
  											{
- 												yyval = new ParserVal(new TercetoFuncion(val_peek(3), this.sintactico.getTercetos().size()));
-												Terceto t =  new TercetoFuncion(val_peek(3), this.sintactico.getTercetos().size());
+ 												Terceto t =  new TercetoFuncion(val_peek(3), this.sintactico.getTercetos().size());
+ 												yyval = new ParserVal(t);
 												this.sintactico.addTerceto(t);
  											}
  											else
@@ -721,25 +726,25 @@ case 39:
  											}}
 break;
 case 40:
-//#line 163 "gramaticaCorregidaBarbie.y"
+//#line 168 "gramaticaCorregidaBarbie.y"
 { yyval.obj = new ArrayList<ParserVal>(); 
 								  ((ArrayList<ParserVal>)(yyval.obj)).add(val_peek(0));}
 break;
 case 41:
-//#line 166 "gramaticaCorregidaBarbie.y"
+//#line 171 "gramaticaCorregidaBarbie.y"
 { yyval = new ParserVal(new ArrayList<ParserVal>()); 
 											  ((ArrayList<ParserVal>)val_peek(2).obj).add(val_peek(0));
                                               ((ArrayList<ParserVal>)yyval.obj).addAll((ArrayList<ParserVal>)val_peek(2).obj);}
 break;
 case 43:
-//#line 172 "gramaticaCorregidaBarbie.y"
+//#line 177 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Condici\u00f3n");
-									   yyval = new ParserVal(new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size()));
 									   Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+									   yyval = new ParserVal(t);
 									   this.sintactico.addTerceto(t);}
 break;
 case 50:
-//#line 186 "gramaticaCorregidaBarbie.y"
+//#line 191 "gramaticaCorregidaBarbie.y"
 { if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
 	 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
@@ -761,7 +766,7 @@ case 50:
 									}}
 break;
 case 51:
-//#line 206 "gramaticaCorregidaBarbie.y"
+//#line 211 "gramaticaCorregidaBarbie.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
 	 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
@@ -783,7 +788,7 @@ case 51:
 									}}
 break;
 case 53:
-//#line 228 "gramaticaCorregidaBarbie.y"
+//#line 233 "gramaticaCorregidaBarbie.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
 											if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
@@ -805,7 +810,7 @@ case 53:
 								}}
 break;
 case 54:
-//#line 248 "gramaticaCorregidaBarbie.y"
+//#line 253 "gramaticaCorregidaBarbie.y"
 { if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
 	 									if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
@@ -826,7 +831,7 @@ case 54:
 									this.sintactico.addError("variable", val_peek(2));
 								}}
 break;
-//#line 753 "Parser.java"
+//#line 758 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
