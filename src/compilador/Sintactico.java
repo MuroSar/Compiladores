@@ -62,6 +62,10 @@ public class Sintactico {
 		{
 			this.errores.add("Error de tipos en la operacion de la linea " + t.getLinea());
 		}
+		else if(error.equals("declarada"))
+		{
+			this.errores.add("La variable " + t.getLexema() + " ya se encuentra declarada. Linea " + t.getLinea());
+		}
 	}
 	
 	public String showErrores() {
@@ -102,16 +106,23 @@ public class Sintactico {
 		ArrayList<ParserVal> variables = new ArrayList<ParserVal>(((ArrayList<ParserVal>)PVvariables.obj));
 		
 		for(ParserVal var : variables) {
-			Token aux = this.lexico.getTokenFromTS(var.sval);
-			this.lexico.removeTokenFromTS(var.sval);
-			
-			String lexema = aux.getLexema();
-			lexema = lexema + "@Variable";
-			
-			aux.setLexema(lexema);
-			aux.setTipoDato(tipo.sval);		
-			
-			this.lexico.putSimbolo(aux);
+			if(!this.existeVariable(var))
+			{
+				
+				Token aux = this.lexico.getTokenFromTS(var.sval);
+				this.lexico.removeTokenFromTS(var.sval);
+				
+				String lexema = aux.getLexema();
+				lexema = lexema + "@Variable";
+				
+				aux.setLexema(lexema);
+				aux.setTipoDato(tipo.sval);		
+				
+				this.lexico.putSimbolo(aux);	
+			}
+			else {
+				this.addError("declarada", var);
+			}
 		}
 	}
 	
@@ -175,18 +186,6 @@ public class Sintactico {
 	
 	public void setTipoDatoTerceto(Terceto t, ParserVal val1, ParserVal val2) {
 		t.setTipoDato(mismoTipo(val1, val2));
-				
-//		if(val.obj == null) {
-//			if(esVariable(val)) {
-//				t.setTipoDato(this.lexico.getTokenFromTS(val.sval + "@Variable").getTipoDato());
-//			}
-//			else {
-//				t.setTipoDato(this.lexico.getTokenFromTS(val.sval).getTipoDato());
-//			}
-//		}
-//		else {
-//			t.setTipoDato(((Terceto)val.obj).getTipoDato());
-//		}
 	}
 	
 	public boolean existeVariable(ParserVal variable)
