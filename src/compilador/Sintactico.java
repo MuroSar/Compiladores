@@ -62,9 +62,13 @@ public class Sintactico {
 		{
 			this.errores.add("Error de tipos en la operacion de la linea " + t.getLinea());
 		}
-		else if(error.equals("declarada"))
+		else if(error.equals("variableDeclarada"))
 		{
 			this.errores.add("La variable " + t.getLexema() + " ya se encuentra declarada. Linea " + t.getLinea());
+		}
+		else if(error.equals("funcionDeclarada"))
+		{
+			this.errores.add("La funci\u00f3n " + t.getLexema() + " ya se encuentra declarada. Linea " + t.getLinea());
 		}
 	}
 	
@@ -121,22 +125,29 @@ public class Sintactico {
 				this.lexico.putSimbolo(aux);	
 			}
 			else {
-				this.addError("declarada", var);
+				this.addError("variableDeclarada", var);
 			}
 		}
 	}
 	
 	public void actualizaFuncion(ParserVal nombre, ParserVal tipo) {
-		Token aux = this.lexico.getTokenFromTS(nombre.sval);
-		this.lexico.removeTokenFromTS(nombre.sval);
 		
-		String lexema = aux.getLexema();
-		lexema = lexema + "@Funcion";
-		
-		aux.setLexema(lexema);
-		aux.setTipoDato(tipo.sval);		
-		
-		this.lexico.putSimbolo(aux);
+		if(!this.existeFuncion(nombre))
+		{
+			Token aux = this.lexico.getTokenFromTS(nombre.sval);
+			this.lexico.removeTokenFromTS(nombre.sval);
+			
+			String lexema = aux.getLexema();
+			lexema = lexema + "@Funcion";
+			
+			aux.setLexema(lexema);
+			aux.setTipoDato(tipo.sval);		
+			
+			this.lexico.putSimbolo(aux);	
+		}
+		else {
+			this.addError("funcionDeclarada", nombre);
+		}
 	}
 	
 	public String mismoTipo(ParserVal op1, ParserVal op2) {

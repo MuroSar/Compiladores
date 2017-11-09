@@ -31,7 +31,7 @@ public class TercetoSuma extends Terceto{
 		String s3="MOV __ R1";
 		
 		
-		return s1+"/n"+s2+"/n"+s3+"/n";
+		return s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
 	
 }
