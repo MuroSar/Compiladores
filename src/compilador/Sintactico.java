@@ -184,7 +184,7 @@ public class Sintactico {
 		return null;
 	}
 	
-	public boolean esVariable(ParserVal val) {
+	public static boolean esVariable(ParserVal val) {
 		boolean esVariable = true;
 		for(char c : val.sval.toCharArray()) {
 			if(!Character.isLetter(c)) {

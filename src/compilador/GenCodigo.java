@@ -21,10 +21,8 @@ public class GenCodigo {
 	}
 	
 	public void generarCodigo() {
-		int contador=1;
 		for (Terceto t:tercetos) {
-			System.out.println(t.getCodigo()+"numero de variable: "+contador);
-			contador++;
+			System.out.println(t.getCodigo());
 		}
 	}
 	

@@ -1,36 +1,64 @@
 package Tercetos;
 
 import compilador.ParserVal;
+import compilador.Sintactico;
 
 public class TercetoSuma extends Terceto{
+	
+		private String aux1;
+		private String aux2;
+
+		private String s1;
+		private String s2;
+		private String s3;
+		
+		private ParserVal primero;
+		private ParserVal segundo;
+		private int pos;
 
 	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
 		super("+", primero, segundo, pos);
-		/*
-		if(primero.obj != null) {
-			int referencia = ((Terceto)primero.obj).getPos(); 
-			this.primero = "[" + referencia + "]";
-		}
-		else {
-			this.primero = primero.sval;	
-		}
 		
-		if(segundo.obj != null) {
-			int referencia = ((Terceto)segundo.obj).getPos(); 
-			this.segundo = "[" + referencia + "]";
-		}
-		else {
-			this.segundo = segundo.sval;	
-		}*/
+		
+		this.primero = primero;
+		this.segundo = segundo;
+		this.pos = pos;
 	}
+		
+		
 	
 	public String getCodigo()
 	{
-		String s1="MOV R1 __ ";
-		String s2="ADD R1 __";
-		String s3="MOV __ R1";
+		if(primero.obj != null) {
+			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
+			s1="MOV R1 #aux"+aux1;
+		}
+		else {
+			aux1 = primero.sval;
+			if(Sintactico.esVariable(primero)) {
+				s1="MOV R1 _"+aux1;
+			}
+			else {
+				s1="MOV R1 "+aux1;	
+			}
+		}
 		
-		
+		if(segundo.obj != null) {
+			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
+			s2="ADD R1 #aux"+aux2;
+		}
+		else {
+			aux2 = segundo.sval;	
+			if(Sintactico.esVariable(segundo)) {
+				s2="ADD R1 _"+aux2;
+			}
+			else {
+				s2="ADD R1 "+aux2;	
+			}
+			
+		}
+		s3="MOV #aux"+ pos + " R1";
+	
 		return s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
 	
