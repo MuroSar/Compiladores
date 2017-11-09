@@ -27,7 +27,7 @@ public class Lexico {
 	private List<ErrorToken> errores;
 	private Principal ppal;
 	private Map<Integer, String> Reservadas;
-	private Map<String, Token> tablaSimbolos;
+	private static Map<String, Token> tablaSimbolos;
 	private int pos = 0;
 	private int fila = 0;
 	private int estado = 0;
@@ -214,9 +214,18 @@ public class Lexico {
 		this.fila = fila;
 	}
 	
-	public void putSimbolo(Token token)
+	public static void putSimbolo(Token token)
 	{
-		this.tablaSimbolos.put(token.getLexema(), token);
+		tablaSimbolos.put(token.getLexema(), token);
+	}
+	
+	public static void putSimboloAsm(String lexema) 
+	{
+		Token t = new Token();
+		t.setLexema(lexema);
+		
+		
+		putSimbolo(t);
 	}
 	
 	public int existPalabraReservada(String palabraReservada)

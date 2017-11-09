@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
 
@@ -18,15 +19,12 @@ public class TercetoSuma extends Terceto{
 
 	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
 		super("+", primero, segundo, pos);
-		
-		
+				
 		this.primero = primero;
 		this.segundo = segundo;
 		this.pos = pos;
 	}
 		
-		
-	
 	public String getCodigo()
 	{
 		if(primero.obj != null) {
@@ -59,7 +57,10 @@ public class TercetoSuma extends Terceto{
 		}
 		s3="MOV #aux"+ pos + " R1";
 	
+		Lexico.putSimboloAsm("#aux"+pos);
+		
 		return s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
+	
 	
 }

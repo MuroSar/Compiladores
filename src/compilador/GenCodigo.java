@@ -10,6 +10,8 @@ public class GenCodigo {
 
 	private ArrayList<Terceto> tercetos;
 	
+	//agregar los dos archivos
+	
 	public GenCodigo() {
 		/*
 		tercetos.add(new TercetoSuma(new ParserVal(3),new ParserVal(4),1));
