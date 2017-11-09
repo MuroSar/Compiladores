@@ -159,15 +159,15 @@ public class Sintactico {
 	}
 	
 	public boolean ambitoCorrecto(ParserVal op1, ParserVal op2) {
-		String ambito1;
-		String ambito2;
+		String ambito1 = "";
+		String ambito2 = "";
 		
 		if(op1.obj == null) {
 			if(esVariable(op1)) {
 				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getAmbito();
 			}
 			else {
-				ambito1 = this.lexico.getTokenFromTS(op1.sval).getTipoDato();
+				ambito1 = this.lexico.getTokenFromTS(op1.sval).getAmbito();
 			}
 		}
 		
@@ -176,13 +176,13 @@ public class Sintactico {
 				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getAmbito();
 			}
 			else {
-				ambito2 = this.lexico.getTokenFromTS(op2.sval).getTipoDato();
+				ambito2 = this.lexico.getTokenFromTS(op2.sval).getAmbito();
 			}
 		}
 		
-		if((this.ambito.contains("ambito1") && this.ambito.contains("ambito2")) 
-				|| (op1.obj != null && this.ambito.contains("ambito2"))
-				|| (this.ambito.contains("ambito1") && op2.obj != null)
+		if((this.ambito.contains(ambito1) && this.ambito.contains(ambito2)) //este caso es por si tengo dos variables.. a+b 
+				|| (op1.obj != null && this.ambito.contains(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
+				|| (this.ambito.contains(ambito1) && op2.obj != null)
 				|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
 			return true;
 		}
