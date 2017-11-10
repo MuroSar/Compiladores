@@ -6,7 +6,17 @@ TO DO:
 --Si agregamos errores por falta del . final no los toma..
 	
 
--- Poner el ambito de las variables en la gramatica..
 -- Agregar errores en la gramatica..	
+
+
+
+
+
+revisar porque no mira todas las declaracios de la variable variable en el ejemplo...
+revisar ambitos.. mismo ejemplo..
+
+
+
+
 	
 ------------------------------------------------------------------------------------------------------------------------

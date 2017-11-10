@@ -22,6 +22,7 @@ public class Sintactico {
 	private ArrayList<Terceto> tercetos;
 	private ArrayList<String> errores;
 	private Stack<Terceto> pila;
+	private String ambito;
 
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
@@ -31,6 +32,7 @@ public class Sintactico {
 		this.tercetos = new ArrayList<Terceto>();
 		this.errores = new ArrayList<String>();
 		this.pila = new Stack<Terceto>();
+		this.ambito = "A";
 	}
 	
 	public void pilaPush(Terceto pos) {
@@ -69,6 +71,10 @@ public class Sintactico {
 		else if(error.equals("funcionDeclarada"))
 		{
 			this.errores.add("La funci\u00f3n " + t.getLexema() + " ya se encuentra declarada. Linea " + t.getLinea());
+		}
+		else if(error.equals("ambito"))
+		{
+			this.errores.add("Ambitos no compatibles. Linea " + t.getLinea());
 		}
 	}
 	
@@ -122,6 +128,8 @@ public class Sintactico {
 				aux.setLexema(lexema);
 				aux.setTipoDato(tipo.sval);		
 				
+				aux.setAmbito(this.ambito);
+				
 				this.lexico.putSimbolo(aux);	
 			}
 			else {
@@ -148,6 +156,38 @@ public class Sintactico {
 		else {
 			this.addError("funcionDeclarada", nombre);
 		}
+	}
+	
+	public boolean ambitoCorrecto(ParserVal op1, ParserVal op2) {
+		String ambito1;
+		String ambito2;
+		
+		if(op1.obj == null) {
+			if(esVariable(op1)) {
+				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getAmbito();
+			}
+			else {
+				ambito1 = this.lexico.getTokenFromTS(op1.sval).getTipoDato();
+			}
+		}
+		
+		if(op2.obj == null) {
+			if(esVariable(op2)) {
+				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getAmbito();
+			}
+			else {
+				ambito2 = this.lexico.getTokenFromTS(op2.sval).getTipoDato();
+			}
+		}
+		
+		if((this.ambito.contains("ambito1") && this.ambito.contains("ambito2")) 
+				|| (op1.obj != null && this.ambito.contains("ambito2"))
+				|| (this.ambito.contains("ambito1") && op2.obj != null)
+				|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public String mismoTipo(ParserVal op1, ParserVal op2) {
@@ -222,6 +262,14 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("-------------------------------------------------");
 		this.ppal.mostrarMensaje(error);
 		this.ppal.mostrarMensaje("-------------------------------------------------");
+	}
+	
+	public  void aumentarAmbito() {
+		this.ambito = this.ambito + ":" + String.valueOf((char)(this.ambito.toCharArray()[0]+1));
+	}
+	
+	public void decrementarAmbito() {
+		this.ambito = this.ambito.substring(0, this.ambito.length()-2);
 	}
 	
 	public void start() {

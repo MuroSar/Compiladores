@@ -31,10 +31,11 @@ import Tercetos.TercetoBFalse;
 import Tercetos.TercetoBIncondicional;
 import Tercetos.TercetoFuncion;
 import Tercetos.TercetoOut;
+import Tercetos.TercetoEtiqueta;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
-//#line 35 "Parser.java"
+//#line 36 "Parser.java"
 
 
 
@@ -193,91 +194,91 @@ public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
     0,    1,    1,    1,    1,    2,    2,    6,    7,    7,
     7,    7,    4,    4,   10,   10,    9,    9,   11,   11,
-   12,   12,   12,    3,    3,    5,   22,   13,   21,   23,
-   21,   25,   14,   24,   26,   26,   15,   16,   17,   19,
-   19,   20,   20,   27,   27,   27,   27,   27,   27,    8,
-    8,    8,   28,   28,   28,   29,   29,   18,   18,
+   12,   12,   12,    3,   18,   18,    5,   23,   13,   22,
+   24,   22,   26,   14,   25,   27,   27,   15,   16,   17,
+   20,   20,   21,   21,   28,   28,   28,   28,   28,   28,
+    8,    8,    8,   29,   29,   29,   30,   30,   19,   19,
 };
 final static short yylen[] = {                            2,
     1,    1,    1,    2,    2,    1,    1,    8,    1,    1,
     2,    2,    1,    4,    1,    2,    1,    1,    1,    1,
-    1,    1,    1,    4,    5,    4,    0,    7,    3,    0,
-    6,    0,    6,    4,    4,    5,    4,    5,    4,    1,
-    3,    3,    3,    1,    1,    1,    1,    1,    1,    3,
-    3,    1,    3,    3,    1,    1,    1,    1,    1,
+    1,    1,    1,    2,    3,    4,    4,    0,    7,    3,
+    0,    6,    0,    6,    4,    4,    5,    4,    5,    4,
+    1,    3,    3,    3,    1,    1,    1,    1,    1,    1,
+    3,    3,    1,    3,    3,    1,    1,    1,    1,    1,
 };
 final static short yydefred[] = {                         0,
-    0,    0,    0,    0,   58,   59,    0,    0,    0,    2,
+    0,    0,    0,    0,   59,   60,    0,    0,    0,    2,
     3,    6,    7,   13,   17,   18,   19,   20,   21,   22,
-   23,    0,    0,    0,    0,    0,    0,   15,    0,    0,
-    0,    4,    5,    0,    0,    0,    0,    0,   56,   57,
-    0,    0,   55,    0,    0,    0,   16,    0,    0,    0,
-    0,    0,   41,   39,   37,    0,    0,    0,    0,   44,
-   45,   46,   47,   48,   49,    0,    0,    0,   14,    0,
-   32,    0,   24,    0,   26,    0,    0,   53,   54,    0,
-   27,    0,   38,    0,   10,    0,    9,   25,    0,    0,
-   33,    0,   12,   11,    0,   28,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,   29,    0,    0,    0,   34,
-    0,    0,   35,    0,    0,    0,   36,    8,   31,
+   23,    0,    0,    0,    0,    0,    0,    0,   15,    0,
+    0,    0,    4,    5,    0,   24,    0,    0,    0,    0,
+    0,   57,   58,    0,    0,   56,    0,    0,    0,   16,
+    0,    0,   10,    0,    9,   25,    0,    0,   42,   40,
+   38,    0,    0,    0,    0,   45,   46,   47,   48,   49,
+   50,    0,    0,    0,   14,    0,   33,    0,   12,   11,
+   26,   27,    0,    0,   54,   55,    0,   28,    0,   39,
+    0,    0,    0,    0,   34,    0,    0,   29,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,   30,    0,    0,
+    0,   35,    8,    0,   36,    0,    0,   37,   32,
 };
 final static short yydgoto[] = {                          8,
-    9,   10,   11,   12,   13,   73,   86,   41,   14,   29,
-   15,   16,   17,   18,   19,   20,   21,   22,   23,   45,
-   96,   89,  101,   91,   84,   98,   66,   42,   43,
+    9,   10,   11,   12,   13,   36,   54,   44,   14,   30,
+   15,   16,   17,   18,   19,   20,   21,   22,   23,   24,
+   48,   98,   93,  103,   95,   91,  100,   72,   45,   46,
 };
-final static short yysindex[] = {                      -197,
-  -37,  -33, -175,  -20,    0,    0,  -17,    0, -197,    0,
+final static short yysindex[] = {                      -194,
+  -25,  -31, -167,  -27,    0,    0,  -20,    0, -194,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0, -224,  -16,   -5, -183, -183,  -37,    0, -192, -233,
- -166,    0,    0, -151, -161, -186, -147,   65,    0,    0,
-   57,   12,    0,  -11,  -23,   66,    0,   72,   73,   -8,
- -141,   71,    0,    0,    0, -183, -183, -183, -183,    0,
-    0,    0,    0,    0,    0, -183, -142, -183,    0,   74,
-    0, -170,    0,   -8,    0,   12,   12,    0,    0,   51,
-    0,   51,    0,   -4,    0, -207,    0,    0, -180, -148,
-    0,   82,    0,    0, -139,    0, -134, -124, -183,   79,
- -135,   69, -130,   83,   56,    0, -180, -180,   75,    0,
-   84, -131,    0, -180,    7,   88,    0,    0,    0,
+    0,  -94, -192,   -4,   -6, -169, -169,  -25,    0, -182,
+ -220, -173,    0,    0, -162,    0, -163, -171, -159, -146,
+   66,    0,    0,   16,   34,    0,  -11,  -23,   67,    0,
+   73,   74,    0, -201,    0,    0, -141,   71,    0,    0,
+    0, -169, -169, -169, -169,    0,    0,    0,    0,    0,
+    0, -169, -142, -169,    0,   75,    0,   79,    0,    0,
+    0,    0,   34,   34,    0,    0,   57,    0,   57,    0,
+   -3, -169, -172, -147,    0,    1, -139,    0, -134, -124,
+   80,   81, -136,   70, -129,   84,    6,    0, -172, -172,
+   76,    0,    0, -130,    0, -172,   87,    0,    0,
 };
 final static short yyrindex[] = {                         0,
-  -14,    0,    0,    0,    0,    0,    0,    0,  135,    0,
+    8,    0,    0,    0,    0,    0,    0,    0,  135,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,  -41,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,  -41,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,  -35,  -29,    0,    0,  -19,
-    0,  -15,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0, -125,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,  -35,  -29,    0,    0,  -19,    0,  -15,    0,
+    0,    0,    0,    0,    0,    0, -125,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    0,  128,  129,  -51,  -57,   67,    0,  -13,    6,    0,
-    0,    0,    0,    0,    0,    0,    0,  103,    0,    0,
-    0,    0,    0,    0,    0,    0,   95,   48,   49,
+    0,  128,  129,  -86,    3,    0,    0,  -24,   25,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,  100,    0,
+    0,    0,    0,    0,    0,    0,    0,   92,   42,   45,
 };
 final static int YYTABLESIZE=266;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                         52,
-  104,   52,   24,   52,   52,   50,   26,   50,   28,   50,
-   50,   51,   44,   51,   85,   51,   51,   67,   52,   30,
-   52,   43,   31,   25,   50,   42,   50,   37,   93,   40,
-   51,   56,   51,   57,   47,   38,   60,   95,   61,   48,
-   43,   36,   43,   40,   42,   34,   42,   35,   60,    1,
-   61,    2,   80,   58,   82,  112,  113,    4,   59,    1,
-    7,    2,  117,   92,   27,    3,    2,    4,    5,    6,
-    7,   46,    4,   39,   40,    7,   27,   87,    2,    5,
-    6,   27,    3,    2,    4,  105,    1,    7,    2,    4,
-   49,   94,    7,   56,    4,   57,  111,    7,   56,   56,
-   57,   57,   55,   76,   77,   50,   78,   79,   51,   53,
-   54,   69,   70,   71,   72,   74,   75,   81,   90,   83,
-   97,   99,  100,  102,  106,  107,  108,  109,  110,  115,
-  116,  118,  114,  119,    1,   30,   32,   33,   52,   68,
-   88,    0,    0,    0,  103,    0,    0,    0,    0,    0,
+yytable = new short[]{                         53,
+  106,   53,   47,   53,   53,   51,   97,   51,   27,   51,
+   51,   52,   31,   52,   25,   52,   52,   73,   53,   32,
+   53,   44,  114,  115,   51,   43,   51,   29,   35,  118,
+   52,   62,   52,   63,   41,   26,   66,   53,   67,   40,
+   44,  101,   44,   62,   43,   63,   43,   87,   66,   89,
+   67,   41,   51,   39,   50,    1,   79,    2,   62,   55,
+   63,   61,    1,    4,    2,   41,    7,   96,    3,   78,
+    4,    5,    6,    7,   28,   64,    2,   37,   80,   38,
+   65,   49,    4,   52,   28,    7,    2,   42,   43,   28,
+    3,    2,    4,   56,    1,    7,    2,    4,   57,   62,
+    7,   63,    4,   83,   84,    7,    5,    6,   85,   86,
+   59,   60,   75,   76,   77,   81,   82,   88,   92,   94,
+   90,   99,  102,  104,  109,  107,  108,  110,  111,  112,
+  113,  117,  119,  116,    1,   31,   33,   34,   58,   74,
+    0,    0,    0,    0,  105,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -286,31 +287,31 @@ yytable = new short[]{                         52,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,   52,   52,   52,   52,    0,    0,   50,   50,
-   50,   50,    0,    0,   51,   51,   51,   51,    0,    0,
-   62,   63,   64,   65,   43,   43,   43,   43,   42,   42,
-   42,   42,   62,   63,   64,   65,
+    0,    0,   53,   53,   53,   53,    0,    0,   51,   51,
+   51,   51,    0,    0,   52,   52,   52,   52,    0,    0,
+   68,   69,   70,   71,   44,   44,   44,   44,   43,   43,
+   43,   43,   68,   69,   70,   71,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                         41,
-  125,   43,   40,   45,   46,   41,   40,   43,    3,   45,
-   46,   41,   26,   43,   72,   45,   46,   41,   60,   40,
-   62,   41,   40,   61,   60,   41,   62,   44,   86,   44,
-   60,   43,   62,   45,   29,   41,   60,   89,   62,  273,
-   60,   58,   62,   58,   60,  270,   62,  272,   60,  257,
-   62,  259,   66,   42,   68,  107,  108,  265,   47,  257,
-  268,  259,  114,  271,  257,  263,  259,  265,  266,  267,
-  268,  264,  265,  257,  258,  268,  257,   72,  259,  266,
-  267,  257,  263,  259,  265,   99,  257,  268,  259,  265,
-  257,   86,  268,   43,  265,   45,   41,  268,   43,   43,
-   45,   45,   46,   56,   57,  257,   58,   59,  270,  257,
-   46,   46,   41,   41,  123,  257,   46,  260,  123,   46,
-  269,   40,  262,  258,   46,  261,   58,  258,   46,   46,
-  262,  125,   58,   46,    0,  261,    9,    9,   36,   45,
-   74,   -1,   -1,   -1,  269,   -1,   -1,   -1,   -1,   -1,
+  125,   43,   27,   45,   46,   41,   93,   43,   40,   45,
+   46,   41,   40,   43,   40,   45,   46,   41,   60,   40,
+   62,   41,  109,  110,   60,   41,   62,    3,  123,  116,
+   60,   43,   62,   45,   41,   61,   60,   35,   62,   44,
+   60,   41,   62,   43,   60,   45,   62,   72,   60,   74,
+   62,   44,  273,   58,   30,  257,   54,  259,   43,   35,
+   45,   46,  257,  265,  259,   58,  268,   92,  263,  271,
+  265,  266,  267,  268,  257,   42,  259,  270,   54,  272,
+   47,  264,  265,  257,  257,  268,  259,  257,  258,  257,
+  263,  259,  265,  257,  257,  268,  259,  265,  270,   43,
+  268,   45,  265,   62,   63,  268,  266,  267,   64,   65,
+  257,   46,   46,   41,   41,  257,   46,  260,   40,  123,
+   46,  269,  262,  258,  261,   46,   46,   58,  258,   46,
+  125,  262,   46,   58,    0,  261,    9,    9,   39,   48,
+   -1,   -1,   -1,   -1,  269,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -373,8 +374,9 @@ final static String yyrule[] = {
 "sentencia_unica_ejecutable : asignacion",
 "sentencia_unica_ejecutable : salida",
 "sentencia_unica_ejecutable : llamado_funcion",
-"declaracion_funcion : tipo FUNCTION IDENTIFICADOR bloque_funcion",
-"declaracion_funcion : tipo MOVE FUNCTION IDENTIFICADOR bloque_funcion",
+"declaracion_funcion : encabezado_funcion bloque_funcion",
+"encabezado_funcion : tipo FUNCTION IDENTIFICADOR",
+"encabezado_funcion : tipo MOVE FUNCTION IDENTIFICADOR",
 "declaracion : lista_variables ':' tipo '.'",
 "$$1 :",
 "sentencia_if : IF '(' condicion ')' THEN $$1 cuerpo_if",
@@ -411,7 +413,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
-//#line 285 "gramaticaCorregidaBarbie.y"
+//#line 335 "gramaticaCorregidaBarbie.y"
 
 private Lexico lexico;
 private Sintactico sintactico;
@@ -445,7 +447,7 @@ private void yyerror(String string) {
 	//this.sintactico.showMessage(string);
 	System.out.println(string);
 }
-//#line 377 "Parser.java"
+//#line 379 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -600,71 +602,86 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 14:
-//#line 48 "gramaticaCorregidaBarbie.y"
+//#line 49 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Bloque BEGIN-END");}
 break;
 case 24:
-//#line 68 "gramaticaCorregidaBarbie.y"
-{ this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
-																   this.sintactico.actualizaFuncion(val_peek(1), val_peek(3));}
+//#line 69 "gramaticaCorregidaBarbie.y"
+{this.sintactico.decrementarAmbito();}
 break;
 case 25:
-//#line 70 "gramaticaCorregidaBarbie.y"
-{	this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
-															this.sintactico.actualizaFuncion(val_peek(1), val_peek(4));}
+//#line 72 "gramaticaCorregidaBarbie.y"
+{ this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
+												   this.sintactico.actualizaFuncion(val_peek(0), val_peek(2));
+												   this.sintactico.aumentarAmbito();}
 break;
 case 26:
-//#line 74 "gramaticaCorregidaBarbie.y"
+//#line 75 "gramaticaCorregidaBarbie.y"
+{ this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
+											 this.sintactico.actualizaFuncion(val_peek(0), val_peek(3));
+											 this.sintactico.aumentarAmbito();}
+break;
+case 27:
+//#line 80 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de variable");
 											this.sintactico.actualizaVariables(val_peek(3), val_peek(1));}
 break;
-case 27:
-//#line 78 "gramaticaCorregidaBarbie.y"
+case 28:
+//#line 84 "gramaticaCorregidaBarbie.y"
 { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 										   this.sintactico.addTerceto(bFalse);
 		               					   this.sintactico.pilaPush(bFalse);
 		                            	  }
 break;
-case 29:
-//#line 85 "gramaticaCorregidaBarbie.y"
+case 30:
+//#line 91 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: IF");
 			   							Terceto bFalse = this.sintactico.pilaPop();
 										bFalse.setSegundo(this.sintactico.getTercetos().size());
+										Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
+										etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+										this.sintactico.addTerceto(etiqueta);
 			   						  }
 break;
-case 30:
-//#line 89 "gramaticaCorregidaBarbie.y"
+case 31:
+//#line 98 "gramaticaCorregidaBarbie.y"
 {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 							this.sintactico.addTerceto(bIncondicional); 
 							Terceto bFalse = this.sintactico.pilaPop();
 							this.sintactico.pilaPush(bIncondicional);
 							bFalse.setSegundo(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
+							Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
+							etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+							this.sintactico.addTerceto(etiqueta);
 						 }
 break;
-case 31:
-//#line 95 "gramaticaCorregidaBarbie.y"
+case 32:
+//#line 107 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: IF - ELSE");
 										Terceto bInconditional = this.sintactico.pilaPop();
 		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el IF*/
+									  	Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
+										etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+										this.sintactico.addTerceto(etiqueta);
 									  }
 break;
-case 32:
-//#line 101 "gramaticaCorregidaBarbie.y"
+case 33:
+//#line 116 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: SWITCH");
 												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 												  this.sintactico.addTerceto(bFalse);
 							               		  this.sintactico.pilaPush(bFalse);}
 break;
-case 34:
-//#line 108 "gramaticaCorregidaBarbie.y"
+case 35:
+//#line 123 "gramaticaCorregidaBarbie.y"
 { Terceto bInconditional = this.sintactico.pilaPop();
 		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el IF*/
 									  }
 break;
-case 35:
-//#line 113 "gramaticaCorregidaBarbie.y"
+case 36:
+//#line 128 "gramaticaCorregidaBarbie.y"
 { Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 												 this.sintactico.addTerceto(bIncondicional); 
 												 Terceto bFalse = this.sintactico.pilaPop();
@@ -672,8 +689,8 @@ case 35:
 												 bFalse.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
 											   }
 break;
-case 36:
-//#line 119 "gramaticaCorregidaBarbie.y"
+case 37:
+//#line 134 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 														  this.sintactico.addTerceto(bIncondicional); 
@@ -682,20 +699,25 @@ case 36:
 														  bFalse.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
 											  		    }
 break;
-case 37:
-//#line 128 "gramaticaCorregidaBarbie.y"
+case 38:
+//#line 143 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Asignaci\u00f3n");
 
 											if(this.sintactico.existeVariable(val_peek(3)))
  											{
- 												if(this.sintactico.mismoTipo(val_peek(3), val_peek(1)) != null) {
- 													Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size());
- 													yyval = new ParserVal(t);
-													this.sintactico.addTerceto(t);
+	 											if(this.sintactico.ambitoCorrecto(val_peek(3), val_peek(1))) {
+	 												if(this.sintactico.mismoTipo(val_peek(3), val_peek(1)) != null) {
+	 													Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size());
+	 													yyval = new ParserVal(t);
+														this.sintactico.addTerceto(t);
+													}
+													else
+													{
+														this.sintactico.addError("tipos", val_peek(3));
+													}
 												}
-												else
-												{
-													this.sintactico.addError("tipos", val_peek(3));
+												else {
+													this.sintactico.addError("ambito", val_peek(1));
 												}
  											}
  											else
@@ -703,16 +725,16 @@ case 37:
  												this.sintactico.addError("variable", val_peek(3));
  											}}
 break;
-case 38:
-//#line 148 "gramaticaCorregidaBarbie.y"
+case 39:
+//#line 168 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: OUT");
 							   	 Terceto t =  new TercetoOut(val_peek(2), this.sintactico.getTercetos().size());
 							   	 yyval = new ParserVal(t);
 								 this.sintactico.addTerceto(t);
 							   }
 break;
-case 39:
-//#line 155 "gramaticaCorregidaBarbie.y"
+case 40:
+//#line 175 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Llamado a funci\u00f3n");
 											if(this.sintactico.existeFuncion(val_peek(3)))
  											{
@@ -725,58 +747,51 @@ case 39:
  												this.sintactico.addError("funcion", val_peek(3));
  											}}
 break;
-case 40:
-//#line 168 "gramaticaCorregidaBarbie.y"
+case 41:
+//#line 188 "gramaticaCorregidaBarbie.y"
 { yyval.obj = new ArrayList<ParserVal>(); 
 								  ((ArrayList<ParserVal>)(yyval.obj)).add(val_peek(0));}
 break;
-case 41:
-//#line 171 "gramaticaCorregidaBarbie.y"
+case 42:
+//#line 191 "gramaticaCorregidaBarbie.y"
 { yyval = new ParserVal(new ArrayList<ParserVal>()); 
 											  ((ArrayList<ParserVal>)val_peek(2).obj).add(val_peek(0));
                                               ((ArrayList<ParserVal>)yyval.obj).addAll((ArrayList<ParserVal>)val_peek(2).obj);}
 break;
-case 43:
-//#line 177 "gramaticaCorregidaBarbie.y"
-{ this.sintactico.showMessage("Condici\u00f3n");
-									   Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
-									   yyval = new ParserVal(t);
-									   this.sintactico.addTerceto(t);}
-break;
-case 50:
-//#line 191 "gramaticaCorregidaBarbie.y"
-{ if(this.sintactico.existeVariable(val_peek(2))){
-										if(this.sintactico.existeVariable(val_peek(0))){
-	 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-												Terceto t =  new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
-												this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
-												yyval = new ParserVal(t);
-												this.sintactico.addTerceto(t);
+case 44:
+//#line 197 "gramaticaCorregidaBarbie.y"
+{this.sintactico.showMessage("Condici\u00f3n");
+										if(this.sintactico.existeVariable(val_peek(2))){
+									     	if(this.sintactico.existeVariable(val_peek(0))){
+											     Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+											     yyval = new ParserVal(t);
+											     this.sintactico.addTerceto(t);
 											}
 											else {
-												this.sintactico.addError("tipos", val_peek(2));
+												this.sintactico.addError("variable", val_peek(0));
 											}
 										}
 										else {
-											this.sintactico.addError("variable", val_peek(0));
-										}
-									}
-									else {
-										this.sintactico.addError("variable", val_peek(2));
-									}}
+											this.sintactico.addError("variable", val_peek(2));
+										}}
 break;
 case 51:
-//#line 211 "gramaticaCorregidaBarbie.y"
-{ 	if(this.sintactico.existeVariable(val_peek(2))){
+//#line 221 "gramaticaCorregidaBarbie.y"
+{ if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
-	 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-												Terceto t =  new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
-												this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
-												yyval = new ParserVal(t);
-												this.sintactico.addTerceto(t);
+											if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {	
+		 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
+													Terceto t =  new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+													this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
+													yyval = new ParserVal(t);
+													this.sintactico.addTerceto(t);
+												}
+												else {
+													this.sintactico.addError("tipos", val_peek(2));
+												}
 											}
 											else {
-												this.sintactico.addError("tipos", val_peek(2));
+												this.sintactico.addError("ambito", val_peek(0));
 											}
 										}
 										else {
@@ -787,40 +802,50 @@ case 51:
 										this.sintactico.addError("variable", val_peek(2));
 									}}
 break;
-case 53:
-//#line 233 "gramaticaCorregidaBarbie.y"
+case 52:
+//#line 246 "gramaticaCorregidaBarbie.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
-									if(this.sintactico.existeVariable(val_peek(0))){
-											if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-											Terceto t =  new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
-											this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
-											yyval = new ParserVal(t);
-											this.sintactico.addTerceto(t);
+										if(this.sintactico.existeVariable(val_peek(0))){
+		 									if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
+		 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
+													Terceto t =  new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+													this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
+													yyval = new ParserVal(t);
+													this.sintactico.addTerceto(t);
+												}
+												else {
+													this.sintactico.addError("tipos", val_peek(2));
+												}
+											}
+											else {
+												this.sintactico.addError("ambito", val_peek(0));
+											}
 										}
 										else {
-											this.sintactico.addError("tipos", val_peek(2));
+											this.sintactico.addError("variable", val_peek(0));
 										}
 									}
 									else {
-										this.sintactico.addError("variable", val_peek(0));
-									}
-								}
-								else {
-									this.sintactico.addError("variable", val_peek(2));
-								}}
+										this.sintactico.addError("variable", val_peek(2));
+									}}
 break;
 case 54:
-//#line 253 "gramaticaCorregidaBarbie.y"
-{ if(this.sintactico.existeVariable(val_peek(2))){
+//#line 273 "gramaticaCorregidaBarbie.y"
+{ 	if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
-	 									if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-											Terceto t =  new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
-											this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
-											yyval = new ParserVal(t);
-											this.sintactico.addTerceto(t);
+										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
+											if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
+												Terceto t =  new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+												this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
+												yyval = new ParserVal(t);
+												this.sintactico.addTerceto(t);
+											}
+											else {
+												this.sintactico.addError("tipos", val_peek(2));
+											}
 										}
 										else {
-											this.sintactico.addError("tipos", val_peek(2));
+											this.sintactico.addError("ambito", val_peek(0));
 										}
 									}
 									else {
@@ -831,7 +856,34 @@ case 54:
 									this.sintactico.addError("variable", val_peek(2));
 								}}
 break;
-//#line 758 "Parser.java"
+case 55:
+//#line 298 "gramaticaCorregidaBarbie.y"
+{ if(this.sintactico.existeVariable(val_peek(2))){
+									if(this.sintactico.existeVariable(val_peek(0))){
+										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
+		 									if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
+												Terceto t =  new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+												this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
+												yyval = new ParserVal(t);
+												this.sintactico.addTerceto(t);
+											}
+											else {
+												this.sintactico.addError("tipos", val_peek(2));
+											}
+										}
+										else {
+											this.sintactico.addError("ambito", val_peek(0));
+										}
+									}
+									else {
+										this.sintactico.addError("variable", val_peek(0));
+									}
+								}
+								else {
+									this.sintactico.addError("variable", val_peek(2));
+								}}
+break;
+//#line 810 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
