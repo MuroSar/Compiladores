@@ -58,6 +58,4 @@ public class TercetoSuma extends Terceto{
 		
 		return s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
-	
-	
 }

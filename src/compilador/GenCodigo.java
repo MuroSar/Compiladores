@@ -23,6 +23,9 @@ public class GenCodigo {
 	}
 	
 	public void generarCodigo() {
+		//if ()
+		
+		//verificar, si hay errores no generar el asm
 		for (Terceto t:tercetos) {
 			System.out.println(t.getCodigo());
 		}
