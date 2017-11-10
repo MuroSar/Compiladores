@@ -10,7 +10,7 @@ public class TercetoComparador extends Terceto{
 		
 	public String getCodigo()
 	{
-		return "";
+		return "tengo q usar el CMP";
 	}
 
 }
