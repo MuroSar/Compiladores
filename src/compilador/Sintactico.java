@@ -22,8 +22,11 @@ public class Sintactico {
 	private ArrayList<Terceto> tercetos;
 	private ArrayList<String> errores;
 	private Stack<Terceto> pila;
+	
 	private String ambito;
-
+	private Map<String, String> ambitos;
+	private char maxAmbito;
+	
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
 		this.lexico = lexico;
@@ -32,7 +35,11 @@ public class Sintactico {
 		this.tercetos = new ArrayList<Terceto>();
 		this.errores = new ArrayList<String>();
 		this.pila = new Stack<Terceto>();
+		
 		this.ambito = "A";
+		this.maxAmbito = this.ambito.charAt(0);
+		this.ambitos = new HashMap<String, String>();
+		this.ambitos.put("general", this.ambito);
 	}
 	
 	public void pilaPush(Terceto pos) {
@@ -264,8 +271,15 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("-------------------------------------------------");
 	}
 	
-	public  void aumentarAmbito() {
-		this.ambito = this.ambito + ":" + String.valueOf((char)(this.ambito.toCharArray()[0]+1));
+	public  void aumentarAmbito(ParserVal nomFuncion) {
+		if(this.ambitos.containsKey(nomFuncion.sval)) {
+			this.ambito = this.ambitos.get(nomFuncion.sval);
+		}
+		else {
+			this.maxAmbito = (char)(this.maxAmbito+1); 
+			this.ambito = this.ambito + ":" + this.maxAmbito;
+		}
+		
 	}
 	
 	public void decrementarAmbito() {

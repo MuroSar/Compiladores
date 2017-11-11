@@ -9,14 +9,6 @@ TO DO:
 -- Agregar errores en la gramatica..	
 
 
-
-por las dudas...
-
-revisar porque no mira todas las declaracios de la variable variable en el ejemplo...
-revisar ambitos.. mismo ejemplo..
-
-
-
-
+s
 	
 ------------------------------------------------------------------------------------------------------------------------
