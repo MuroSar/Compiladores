@@ -177,7 +177,7 @@ salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
 							   	 Terceto t =  new TercetoOut($3, this.sintactico.getTercetos().size());
 							   	 $$ = new ParserVal(t);
 								 this.sintactico.addTerceto(t);
-							   }
+							   } 
 		;
 
 llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
