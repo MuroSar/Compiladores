@@ -278,6 +278,8 @@ public class Sintactico {
 	
 	public void showError(String error)
 	{
+		this.errores.add(error);
+		
 		this.ppal.mostrarMensaje("-------------------------------------------------");
 		this.ppal.mostrarMensaje(error);
 		this.ppal.mostrarMensaje("-------------------------------------------------");

@@ -94,6 +94,13 @@ sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String
 										   this.sintactico.addTerceto(bFalse);
 		               					   this.sintactico.pilaPush(bFalse);
 		                            	  } cuerpo_if
+		                            	  
+	/* ERRORES */
+		| error '(' condicion ')' THEN cuerpo_if {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'IF'");}
+		| IF error condicion ')' THEN cuerpo_if {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
+		| IF '(' condicion error THEN cuerpo_if {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')'");}
+		| IF '(' condicion ')'error cuerpo_if {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'THEN'");}
+	/* ERRORES */                          	  
 		;
 		
 cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: IF");
@@ -119,6 +126,12 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 										etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
 										this.sintactico.addTerceto(etiqueta);
 									  }
+	/* ERRORES */      
+		| bloque_control error bloque_control END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'ELSE'");}
+		| bloque_control error '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'END_IF'");}
+		| bloque_control END_IF error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.'");}
+		//| bloque_control ELSE bloque_control error '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'END_IF'");}
+	/* ERRORES */                      
 		;
 				
 sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("Sentencia: SWITCH");
@@ -126,11 +139,23 @@ sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("S
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 												  this.sintactico.addTerceto(bFalse);
 							               		  this.sintactico.pilaPush(bFalse);} cuerpo_switch
+	/* ERRORES */   
+		| error '(' IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
+		| SWITCH error IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
+		| SWITCH '(' error ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'variable'");}
+		| SWITCH '(' IDENTIFICADOR error cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')'");}
+	/* ERRORES */   							          
 		;
 
 cuerpo_switch : '{' rep_switch '}''.' { Terceto bInconditional = this.sintactico.pilaPop();
 		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el IF
 									  }
+	/* ERRORES */
+		| error rep_switch '}''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '{'");}
+		| '{' error '}''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CASE'");}
+		| '{' rep_switch error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '}'");}
+		| '{' rep_switch '}'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.'");} 
+	/* ERRORES */
 		;
 		
 rep_switch : CASE CONSTANTE ':' bloque_control { Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
@@ -146,6 +171,11 @@ rep_switch : CASE CONSTANTE ':' bloque_control { Terceto bIncondicional = new Te
 														  this.sintactico.pilaPush(bIncondicional);
 														  bFalse.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
 											  		    }
+	/* ERRORES */
+		| error CONSTANTE ':' bloque_control {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CASE'");}
+		| CASE error ':' bloque_control {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CONSTANTE'");}
+		| CASE CONSTANTE error bloque_control {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ':'");}
+	/* ERRORES */
 		;
 		
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n");
@@ -171,13 +201,23 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
  											{
  												this.sintactico.addError("variable", $1);
  											}}
+ 	/* ERRORES */
+		| IDENTIFICADOR error expresion'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'operador'");}
+		//| IDENTIFICADOR '=' expresion error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en asignacion");}
+	/* ERRORES */
 		;
 		
 salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
 							   	 Terceto t =  new TercetoOut($3, this.sintactico.getTercetos().size());
 							   	 $$ = new ParserVal(t);
 								 this.sintactico.addTerceto(t);
-							   } 
+							   }
+	/* ERRORES */ 
+		//error '(' CADENA ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'OUT' en salida");}
+		//OUT error CADENA ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en salida");}
+		//OUT '(' CADENA error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en salida");}
+		//OUT '(' CADENA ')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en salida");}
+	/* ERRORES */ 
 		;
 
 llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
@@ -208,6 +248,9 @@ lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>();
 		| lista_variables ',' IDENTIFICADOR { $$ = new ParserVal(new ArrayList<ParserVal>()); 
 											  ((ArrayList<ParserVal>)$1.obj).add($3);
                                               ((ArrayList<ParserVal>)$$.obj).addAll((ArrayList<ParserVal>)$1.obj);}
+	/* ERRORES */
+		| lista_variables IDENTIFICADOR {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ',' en declaracion de variables");}
+	/* ERRORES */  
 		;
 		
 condicion : condicion operador expresion
@@ -225,6 +268,9 @@ condicion : condicion operador expresion
 										else {
 											this.sintactico.addError("variable", $1);
 										}}
+	/* ERRORES */
+		| expresion expresion {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'operador' en condicion");}
+	/* ERRORES */
 		;
 
 operador : '<' 

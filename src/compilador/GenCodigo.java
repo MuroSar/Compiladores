@@ -28,13 +28,13 @@ public class GenCodigo {
 	}
 	
 	public void generarCodigo() {
-		if (this.sintactico.getLexico().getErrores() == null)
+		if (!this.sintactico.getLexico().getErrores().isEmpty() || this.sintactico.huboErrores())
 		{
 			this.sintactico.showError("No se puede generar el Assembler porque la gramática contiene errores");
 		}
 		else
 		{
-			//los LONG hay q declararlos de 32 bits:
+			//los LONG hay q declararlos de 32 bits: nomre DD?
 			//los DOUBLE de 
 			
 			for (Terceto t:tercetos) {
