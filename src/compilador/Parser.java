@@ -613,13 +613,13 @@ case 25:
 //#line 72 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 												   this.sintactico.actualizaFuncion(val_peek(0), val_peek(2));
-												   this.sintactico.aumentarAmbito();}
+												   this.sintactico.aumentarAmbito(val_peek(0));}
 break;
 case 26:
 //#line 75 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 this.sintactico.actualizaFuncion(val_peek(0), val_peek(3));
-											 this.sintactico.aumentarAmbito();}
+											 this.sintactico.aumentarAmbito(val_peek(0));}
 break;
 case 27:
 //#line 80 "gramaticaCorregidaBarbie.y"

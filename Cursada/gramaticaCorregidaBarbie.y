@@ -71,10 +71,10 @@ declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decreme
 		
 encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 												   this.sintactico.actualizaFuncion($3, $1);
-												   this.sintactico.aumentarAmbito();}
+												   this.sintactico.aumentarAmbito($3);}
 		| tipo MOVE FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 this.sintactico.actualizaFuncion($4, $1);
-											 this.sintactico.aumentarAmbito();} 
+											 this.sintactico.aumentarAmbito($4);} 
 		;
 				
 declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declaraci\u00f3n de variable");
