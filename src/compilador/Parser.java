@@ -421,7 +421,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
-//#line 348 "gramaticaCorregidaBarbie.y"
+//#line 352 "gramaticaCorregidaBarbie.y"
 
 private Lexico lexico;
 private Sintactico sintactico;
@@ -755,8 +755,12 @@ case 40:
 											if(this.sintactico.existeFuncion(val_peek(3)))
  											{
  												Terceto t =  new TercetoFuncion(val_peek(3), this.sintactico.getTercetos().size());
+ 												t.setSegundo("[" + this.sintactico.getTercetos().size()+1 + "]");
  												yyval = new ParserVal(t);
 												this.sintactico.addTerceto(t);
+												Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
+												etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+												this.sintactico.addTerceto(etiqueta);
  											}
  											else
  											{
@@ -764,30 +768,30 @@ case 40:
  											}}
 break;
 case 41:
-//#line 195 "gramaticaCorregidaBarbie.y"
+//#line 199 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en llamado a Funcion");}
 break;
 case 42:
-//#line 196 "gramaticaCorregidaBarbie.y"
+//#line 200 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
 break;
 case 43:
-//#line 197 "gramaticaCorregidaBarbie.y"
+//#line 201 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en llamado a Funcion");}
 break;
 case 44:
-//#line 201 "gramaticaCorregidaBarbie.y"
+//#line 205 "gramaticaCorregidaBarbie.y"
 { yyval.obj = new ArrayList<ParserVal>(); 
 								  ((ArrayList<ParserVal>)(yyval.obj)).add(val_peek(0));}
 break;
 case 45:
-//#line 204 "gramaticaCorregidaBarbie.y"
+//#line 208 "gramaticaCorregidaBarbie.y"
 { yyval = new ParserVal(new ArrayList<ParserVal>()); 
 											  ((ArrayList<ParserVal>)val_peek(2).obj).add(val_peek(0));
                                               ((ArrayList<ParserVal>)yyval.obj).addAll((ArrayList<ParserVal>)val_peek(2).obj);}
 break;
 case 47:
-//#line 210 "gramaticaCorregidaBarbie.y"
+//#line 214 "gramaticaCorregidaBarbie.y"
 {this.sintactico.showMessage("Condici\u00f3n");
 										if(this.sintactico.existeVariable(val_peek(2))){
 									     	if(this.sintactico.existeVariable(val_peek(0))){
@@ -804,7 +808,7 @@ case 47:
 										}}
 break;
 case 54:
-//#line 234 "gramaticaCorregidaBarbie.y"
+//#line 238 "gramaticaCorregidaBarbie.y"
 { if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
 											if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {	
@@ -831,7 +835,7 @@ case 54:
 									}}
 break;
 case 55:
-//#line 259 "gramaticaCorregidaBarbie.y"
+//#line 263 "gramaticaCorregidaBarbie.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
 		 									if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
@@ -858,7 +862,7 @@ case 55:
 									}}
 break;
 case 57:
-//#line 286 "gramaticaCorregidaBarbie.y"
+//#line 290 "gramaticaCorregidaBarbie.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
@@ -885,7 +889,7 @@ case 57:
 								}}
 break;
 case 58:
-//#line 311 "gramaticaCorregidaBarbie.y"
+//#line 315 "gramaticaCorregidaBarbie.y"
 { if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
@@ -911,7 +915,7 @@ case 58:
 									this.sintactico.addError("variable", val_peek(2));
 								}}
 break;
-//#line 838 "Parser.java"
+//#line 842 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
