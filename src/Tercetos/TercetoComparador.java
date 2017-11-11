@@ -18,10 +18,8 @@ public class TercetoComparador extends Terceto{
 		this.segundo = segundo;
 	}
 		
-	@SuppressWarnings("unlikely-arg-type")
 	public String getCodigo()
 	{
-		
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			s1="#aux"+aux1; //es una referencia

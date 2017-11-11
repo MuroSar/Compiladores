@@ -60,7 +60,7 @@ public class TercetoDivision extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return "CMP 0," + op2 + "\n" + "JE _division_cero" + "\n" + s1 + "\n" + s2 + "\n" + s3;
+		return "CMP 0," + op2 + "\n" + "JE _division_cero" + "\n" + s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
 
 }

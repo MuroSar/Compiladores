@@ -1,5 +1,9 @@
 package compilador;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -91,13 +95,14 @@ public class GenCodigo {
     }
 	
 	public void generarCodigo() {
+		String asm = "";
 		if (!this.sintactico.getLexico().getErrores().isEmpty() || this.sintactico.huboErrores())
 		{
 			this.sintactico.showError("No se puede generar el Assembler porque la gramática contiene errores");
 		}
 		else
 		{
-			String asm;
+			
 			asm = this.getEncabezado();
 			
 			String instrucciones = "";
@@ -119,6 +124,18 @@ public class GenCodigo {
 	        asm += instrucciones;
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
+		}
+		
+		File file = new File("Assembler.asm");
+		FileWriter fw;
+		try {
+			fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(asm);
+			bw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
