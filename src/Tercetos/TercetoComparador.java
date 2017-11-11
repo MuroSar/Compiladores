@@ -48,22 +48,25 @@ public class TercetoComparador extends Terceto{
 			else {
 				s2=aux2;	
 			}
-			
 		}
 		if(this.operador.toCharArray().equals('<')) { //<>
-			return "CMP " + s1 + "," + s2 + "JL direccion";
+			return "CMP " + s1 + "," + s2 + "JL direccion_falso";
 		}
 		else {	
 			if (this.operador.toCharArray().equals('>')) {
-					return "CMP " + s1 + "," + s2 + "JBE direccion";
+					return "CMP " + s1 + "," + s2 + "JBE direccion_falso";
 					}
 			else {
 				if (this.operador.equals(">=")) {
-					
+					return "CMP " + s1 + "," + s2 + "JB direccion_falso";
 				}
 				else {
-					if (this.operador.equals(">=")) {
-						
+					if (this.operador.equals("<=")) {
+						return "CMP " + s1 + "," + s2;
+					}
+					else {
+						//es un ==
+						return "CMP " + s1 + "," + s2;
 					}
 				}
 			}
