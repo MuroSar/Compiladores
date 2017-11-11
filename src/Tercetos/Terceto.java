@@ -51,7 +51,7 @@ public abstract class Terceto {
 		this.operador = operador;
 	}
 
-	public Object getPrimero() {
+	public String getPrimero() {
 		return primero;
 	}
 
@@ -63,7 +63,7 @@ public abstract class Terceto {
 		this.primero = "[" + primero + "]";
 	}
 	
-	public Object getSegundo() {
+	public String getSegundo() {
 		return segundo;
 	}
 
