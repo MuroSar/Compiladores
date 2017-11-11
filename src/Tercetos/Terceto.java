@@ -9,7 +9,6 @@ public abstract class Terceto {
 	protected String primero;
 	protected String segundo;
 	protected GenCodigo generador;
-	
 	private int pos;
 	private String tipoDato;
 	

@@ -14,6 +14,7 @@ public class TercetoDivision extends Terceto{
 	private ParserVal primero;
 	private ParserVal segundo;
 	private int pos;
+	private String op2;
 
 	public TercetoDivision(ParserVal primero, ParserVal segundo, int pos) {
 		super("/", primero, segundo, pos);
@@ -41,14 +42,17 @@ public class TercetoDivision extends Terceto{
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			s2="DIV R1,#aux"+aux2;
+			op2="aux"+aux2;
 		}
 		else {
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
 				s2="DIV R1,_"+aux2;
+				op2="_"+aux2;
 			}
 			else {
 				s2="DIV R1,"+aux2;	
+				op2=aux2;
 			}
 			
 		}
@@ -56,7 +60,7 @@ public class TercetoDivision extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return s1 + "\n" + s2 + "\n" + s3 +"\n"+"falta el cmp y va a _division_cero"+"\n";
+		return s1 + "\n" + s2 + "\n" + s3 +"\n" + "CMP 0," + op2 + "\n" + "JE _division_cero\n";
 	}
 
 }

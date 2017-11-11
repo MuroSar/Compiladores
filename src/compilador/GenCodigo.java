@@ -27,6 +27,14 @@ public class GenCodigo {
 		this.sintactico=s;
 	}
 	
+	public String getDeclaracionesOut() { //aca agrego barbie
+		return this.declaraciones_out;
+	}
+	
+	public void setDeclaracionesOut(String dec) { //aca agrego barbie
+		this.declaraciones_out=dec;
+	}
+	
 	public String getEncabezado() {
 		String encabezado = "";
 
@@ -76,16 +84,10 @@ public class GenCodigo {
         		else {
         			declaracion = declaracion + t.getLexema() + " DT ?\n"; // double = 10 bytes
         		}
-        	}/*
-        	else if (t.getType().equals("Cadena")) {
-        		String nombre = "Cadena" + numCad;
-        		//t.setNombreCadena(nombre);
-        		declaracion = declaracion + nombre + " DB " + t.getLexema() + ", 0\n";
-        		numCad++;
-        	}*/
+        	}
         }
         
-        return declaracion + declaraciones_out;
+        return declaracion + declaraciones_out; //aca modifico barbie
     }
 	
 	public void generarCodigo() {
@@ -100,21 +102,22 @@ public class GenCodigo {
 			
 			String instrucciones = "";
 	        instrucciones += ".code\n";
-	        //aca van los tercetos..
+	        for (Terceto t:tercetos) {
+	        	instrucciones += t.toString()+"\n";
+	        }
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
 	        instrucciones += "start:\n";
-
+	        
 			for (Terceto t:tercetos) {
 				t.setGenerador(this);
 				System.out.println(t.getCodigo());
 			}
-
+			
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
-			
 		}
 	}
 	
