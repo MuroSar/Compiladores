@@ -191,6 +191,11 @@ llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado
  											{
  												this.sintactico.addError("funcion", $1);
  											}}
+ 	/* ERRORES */ 
+		| IDENTIFICADOR error ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en llamado a Funcion");}
+		| IDENTIFICADOR '('error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
+		| IDENTIFICADOR '('')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en llamado a Funcion");}
+	/* ERRORES */
 		;
 		
 lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>(); 
