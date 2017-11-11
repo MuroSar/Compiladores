@@ -54,6 +54,6 @@ public class TercetoSuma extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+this.getPos());
 		
-		return s1 + "\n" + s2 + "\n" + s3 + "\n" + "CMP 1,OF" + "\n" + "JE _overflow";
+		return s1 + "\n" + s2 + "\n" + s3 + "\n" + "CMP 1,OF" + "\n" + "JE _overflow\n";
 	}
 }

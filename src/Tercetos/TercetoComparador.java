@@ -18,55 +18,55 @@ public class TercetoComparador extends Terceto{
 		this.segundo = segundo;
 	}
 		
-	@SuppressWarnings("unlikely-arg-type")
+	//@SuppressWarnings("unlikely-arg-type")
 	public String getCodigo()
 	{
-		
-		if(primero.obj != null) {
-			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			s1="#aux"+aux1; //es una referencia
-		}
-		else {
-			aux1 = primero.sval;
-			if(Sintactico.esVariable(primero)) {
-				s1="_"+aux1; //es una variable
-			}
-			else {
-				s1=aux1; //es un numero
-			}
-		}
-		
-		if(segundo.obj != null) {
-			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			s2="#aux"+aux2;
-		}
-		else {
-			aux2 = segundo.sval;	
-			if(Sintactico.esVariable(segundo)) {
-				s2="_"+aux2;
-			}
-			else {
-				s2=aux2;	
-			}
-			
-		}
-		if(this.operador.toCharArray().equals('<')) { //<>
-			return "CMP " + s1 + "," + s2 + "JL direccion";
-		}
-		else {	
-			if (this.operador.toCharArray().equals('>')) {
-					return "CMP " + s1 + "," + s2 + "JBE direccion";
-					}
-			else {
-				if (this.operador.equals(">=")) {
-					
-				}
-				else {
-					if (this.operador.equals(">=")) {
-						
-					}
-				}
-			}
-		}
+		return "";
+//		if(primero.obj != null) {
+//			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
+//			s1="#aux"+aux1; //es una referencia
+//		}
+//		else {
+//			aux1 = primero.sval;
+//			if(Sintactico.esVariable(primero)) {
+//				s1="_"+aux1; //es una variable
+//			}
+//			else {
+//				s1=aux1; //es un numero
+//			}
+//		}
+//		
+//		if(segundo.obj != null) {
+//			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
+//			s2="#aux"+aux2;
+//		}
+//		else {
+//			aux2 = segundo.sval;	
+//			if(Sintactico.esVariable(segundo)) {
+//				s2="_"+aux2;
+//			}
+//			else {
+//				s2=aux2;	
+//			}
+//			
+//		}
+//		if(this.operador.toCharArray().equals('<')) { //<>
+//			return "CMP " + s1 + "," + s2 + "JL direccion";
+//		}
+//		else {	
+//			if (this.operador.toCharArray().equals('>')) {
+//					return "CMP " + s1 + "," + s2 + "JBE direccion";
+//					}
+//			else {
+//				if (this.operador.equals(">=")) {
+//					
+//				}
+//				else {
+//					if (this.operador.equals(">=")) {
+//						
+//					}
+//				}
+//			}
+//		}
 	}
 }
