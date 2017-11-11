@@ -50,12 +50,21 @@ public class GenCodigo {
         return str;
     }
     
+    private String getOverflow() {
+        String str = new String();
+        str += "_overflow:\n"; //si se detecta overflow se llama aca..
+        str += "invoke MessageBox, NULL, addr _msjOverflow, addr _msjOverflow, MB_OK\n";
+        str += "invoke ExitProcess, 0\n";
+        return str;
+    }
+    
     private String getDeclaraciones() {
         String declaracion = new String();
         declaracion += ".data\n";
         declaracion += "__MIN DD  -2147483648\n";
         declaracion += "__MAX DD  2147483647\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
+        declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
 
         int numCad = 0;
         for (String key : this.sintactico.getLexico().getTSKeys()) {
@@ -93,6 +102,7 @@ public class GenCodigo {
 	        instrucciones += ".code\n";
 	        //aca van los tercetos..
 	        instrucciones += getDivZero(); 
+	        instrucciones += getOverflow();
 	        instrucciones += "start:\n";
 
 			for (Terceto t:tercetos) {
