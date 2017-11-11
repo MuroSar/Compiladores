@@ -11,13 +11,12 @@ public class GenCodigo {
 
 	private ArrayList<Terceto> tercetos;
 	private Sintactico sintactico;
+	private String declaraciones_out;
 	
 	//agregar los dos archivos
 	
 	public GenCodigo() {
-		/*
-		tercetos.add(new TercetoSuma(new ParserVal(3),new ParserVal(4),1));
-		tercetos.add(new TercetoResta(new ParserVal(5), new ParserVal(6), 2));*/
+		declaraciones_out = new String();
 	}
 		
 	public void setListaTercetos(ArrayList<Terceto> ter) {
@@ -54,9 +53,9 @@ public class GenCodigo {
     private String getDeclaraciones() {
         String declaracion = new String();
         declaracion += ".data\n";
-//        declaracion += "__MIN DD  1.17549435e-38\n";
-//        declaracion += "__MAX DD  3.40282347e38\n";
-//        declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
+        declaracion += "__MIN DD  -2147483648\n";
+        declaracion += "__MAX DD  2147483647\n";
+        declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
 
         int numCad = 0;
         for (String key : this.sintactico.getLexico().getTSKeys()) {
@@ -68,16 +67,16 @@ public class GenCodigo {
         		else {
         			declaracion = declaracion + t.getLexema() + " DT ?\n"; // double = 10 bytes
         		}
-        	}
+        	}/*
         	else if (t.getType().equals("Cadena")) {
         		String nombre = "Cadena" + numCad;
         		//t.setNombreCadena(nombre);
         		declaracion = declaracion + nombre + " DB " + t.getLexema() + ", 0\n";
         		numCad++;
-        	}
+        	}*/
         }
         
-        return declaracion;
+        return declaracion + declaraciones_out;
     }
 	
 	public void generarCodigo() {

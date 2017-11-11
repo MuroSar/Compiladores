@@ -56,7 +56,7 @@ public class TercetoDivision extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return s1 + "\n" + s2 + "\n" + s3 + "\n";
+		return s1 + "\n" + s2 + "\n" + s3 +"\n"+"falta el cmp y va a _division_cero"+"\n";
 	}
 
 }

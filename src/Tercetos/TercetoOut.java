@@ -10,6 +10,8 @@ public class TercetoOut extends Terceto {
 		
 	public String getCodigo()
 	{
+		
+		//lista + nombre + " DB " + t.getLexema() + ", 0\n";
 		return "OUTS "+this.primero+"\n";
 	}
 }
