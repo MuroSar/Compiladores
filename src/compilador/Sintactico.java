@@ -21,6 +21,8 @@ public class Sintactico {
 	private GenCodigo generador; 
 	private ArrayList<Terceto> tercetos;
 	private ArrayList<String> errores;
+	
+	private  Map<String, String> funcionPos;
 	private Stack<Terceto> pila;
 	
 	private String ambito;
@@ -34,12 +36,22 @@ public class Sintactico {
 		this.generador = generador;  
 		this.tercetos = new ArrayList<Terceto>();
 		this.errores = new ArrayList<String>();
+		
+		this.funcionPos = new HashMap<String, String>();
 		this.pila = new Stack<Terceto>();
 		
 		this.ambito = "A";
 		this.maxAmbito = this.ambito.charAt(0);
 		this.ambitos = new HashMap<String, String>();
 		this.ambitos.put("general", this.ambito);
+	}
+	
+	public void funcionPosPut(ParserVal nombreFunc, String label) {
+		this.funcionPos.put(nombreFunc.sval, label);
+	}
+	
+	public String funcionPosGet(String nombreFunc) {
+		return this.funcionPos.get(nombreFunc);
 	}
 	
 	public void pilaPush(Terceto pos) {
