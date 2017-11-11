@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.ParserVal;
 
 public abstract class Terceto {
@@ -7,6 +8,7 @@ public abstract class Terceto {
 	protected String operador;
 	protected String primero;
 	protected String segundo;
+	protected GenCodigo generador;
 	
 	private int pos;
 	private String tipoDato;
@@ -103,5 +105,9 @@ public abstract class Terceto {
 	@Override
 	public String toString() {
 		return "(" + this.operador + ", " + this.primero + ", " + this.segundo + ")";
+	}
+	
+	public void setGenerador(GenCodigo gen) {
+		this.generador=gen;
 	}
 }

@@ -298,6 +298,10 @@ public class Sintactico {
 		this.ambito = this.ambito.substring(0, this.ambito.length()-2);
 	}
 	
+	public Lexico getLexico() {
+		return lexico;
+	}
+	
 	public void start() {
 		this.ppal.mostrarMensaje("----------------LISTADO DE TOKENS----------------");
 		this.ppal.mostrarMensaje("");
@@ -332,6 +336,7 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("--------------------CODIGO--------------------");
 		this.ppal.mostrarMensaje("");
 		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
+		this.generador.setSintactico(this);
 		this.generador.generarCodigo();
 	}
 }
