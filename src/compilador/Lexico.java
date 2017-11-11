@@ -291,7 +291,9 @@ public class Lexico {
 			}
 		}
 		return false;
-		
-		
+	}
+	
+	public ArrayList<String> getTSKeys(){
+		return new ArrayList<String>(this.tablaSimbolos.keySet());
 	}
 }

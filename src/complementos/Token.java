@@ -94,6 +94,7 @@ public class Token {
 		this.tipoDato = tipoDato;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Token [lexema=" + lexema + ", key=" + key + ", type=" + type + ", linea=" + linea + ", ambito=" + ambito + ", tipoDato= " + tipoDato + "]";
