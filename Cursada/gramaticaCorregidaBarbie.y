@@ -184,7 +184,7 @@ llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado
 											if(this.sintactico.existeFuncion($1))
  											{
  												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
- 												t.setSegundo("[" + this.sintactico.getTercetos().size()+1 + "]");
+ 												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
  												$$ = new ParserVal(t);
 												this.sintactico.addTerceto(t);
 												Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());

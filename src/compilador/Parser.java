@@ -755,7 +755,7 @@ case 40:
 											if(this.sintactico.existeFuncion(val_peek(3)))
  											{
  												Terceto t =  new TercetoFuncion(val_peek(3), this.sintactico.getTercetos().size());
- 												t.setSegundo("[" + this.sintactico.getTercetos().size()+1 + "]");
+ 												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
  												yyval = new ParserVal(t);
 												this.sintactico.addTerceto(t);
 												Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
