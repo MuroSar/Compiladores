@@ -10,6 +10,6 @@ public class TercetoOut extends Terceto {
 		
 	public String getCodigo()
 	{
-		return "";
+		return "OUTS "+this.primero;
 	}
 }

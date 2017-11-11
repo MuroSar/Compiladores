@@ -10,7 +10,7 @@ public class TercetoEtiqueta extends Terceto{
 		
 	public String getCodigo()
 	{
-		return this.segundo+":";
+		return this.primero+":";
 	}
 
 }

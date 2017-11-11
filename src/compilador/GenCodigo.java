@@ -26,6 +26,11 @@ public class GenCodigo {
 		//if ()
 		
 		//verificar, si hay errores no generar el asm
+		
+		//los LONG hay q declararlos de 32 bits:
+		//los DOUBLE de 
+		
+		
 		for (Terceto t:tercetos) {
 			System.out.println(t.getCodigo());
 		}

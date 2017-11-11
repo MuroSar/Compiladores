@@ -10,6 +10,6 @@ public class TercetoFuncion extends Terceto {
 		
 	public String getCodigo()
 	{
-		return "";
+		return "CALL " + "algo"+ "RET";
 	}
 }
