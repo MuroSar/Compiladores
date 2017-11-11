@@ -18,6 +18,7 @@ public class TercetoComparador extends Terceto{
 		this.segundo = segundo;
 	}
 		
+	@SuppressWarnings("unlikely-arg-type")
 	public String getCodigo()
 	{
 		
@@ -49,6 +50,23 @@ public class TercetoComparador extends Terceto{
 			}
 			
 		}
-		return "CMP "+s1+","+s2+"\n";
+		if(this.operador.toCharArray().equals('<')) { //<>
+			return "CMP " + s1 + "," + s2 + "JL direccion";
+		}
+		else {	
+			if (this.operador.toCharArray().equals('>')) {
+					return "CMP " + s1 + "," + s2 + "JBE direccion";
+					}
+			else {
+				if (this.operador.equals(">=")) {
+					
+				}
+				else {
+					if (this.operador.equals(">=")) {
+						
+					}
+				}
+			}
+		}
 	}
 }

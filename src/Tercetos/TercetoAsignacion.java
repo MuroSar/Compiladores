@@ -54,6 +54,6 @@ public class TercetoAsignacion extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return s2 + "\n" + s1 + "\n";
+		return s2 + "\n" + s1;
 	}
 }

@@ -111,6 +111,7 @@ public class GenCodigo {
 	        
 			for (Terceto t:tercetos) {
 				t.setGenerador(this);
+				instrucciones += t.getCodigo();
 				System.out.println(t.getCodigo());
 			}
 			

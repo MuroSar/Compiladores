@@ -15,6 +15,6 @@ public class TercetoOut extends Terceto {
 		aux += nombre + " DB " + nombre + ", 0\n";// ver que nombre se le pone
 		this.generador.setDeclaracionesOut(aux);
 		//return "OUTS "+this.primero+"\n"; //esto es lo que estaba antes
-		return "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK\n"; //esto es creo lo que va.
+		return "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK"; //esto es creo lo que va.
 	}
 }
