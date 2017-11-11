@@ -13,13 +13,11 @@ public class TercetoSuma extends Terceto{
 		private String s3;
 		private ParserVal primero;
 		private ParserVal segundo;
-		private int pos;
 
 	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
 		super("+", primero, segundo, pos);		
 		this.primero = primero;
 		this.segundo = segundo;
-		this.pos = pos;
 	}
 		
 	public String getCodigo()
@@ -52,9 +50,9 @@ public class TercetoSuma extends Terceto{
 			}
 			
 		}
-		s3="MOV #aux"+ pos + ",R1";
+		s3="MOV #aux"+ this.getPos()+ ",R1";
 	
-		Lexico.putSimboloAsm("#aux"+pos);
+		Lexico.putSimboloAsm("#aux"+this.getPos());
 		
 		return s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
