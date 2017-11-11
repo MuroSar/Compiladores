@@ -10,6 +10,8 @@ public class TercetoFuncion extends Terceto {
 		
 	public String getCodigo()
 	{
-		return "CALL " + "algo"+ "RET";
+		String s=this.generador.getNombreFuncion(this.primero);
+		int pos=this.getPos()+1;
+		return "CALL " + s + "\n"+"RET "+pos+"\n";
 	}
 }

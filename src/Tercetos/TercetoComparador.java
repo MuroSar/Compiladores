@@ -49,6 +49,6 @@ public class TercetoComparador extends Terceto{
 			}
 			
 		}
-		return "CMP "+s1+","+s2;
+		return "CMP "+s1+","+s2+"\n";
 	}
 }

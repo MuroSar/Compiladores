@@ -9,6 +9,7 @@ import Tercetos.*;
 public class GenCodigo {
 
 	private ArrayList<Terceto> tercetos;
+	private Sintactico sintactico;
 	
 	//agregar los dos archivos
 	
@@ -22,18 +23,28 @@ public class GenCodigo {
 		tercetos = new ArrayList<Terceto>(ter);
 	}
 	
+	public void setSintactico(Sintactico s){
+		this.sintactico=s;
+	}
+	
 	public void generarCodigo() {
-		//if ()
-		
-		//verificar, si hay errores no generar el asm
-		
-		//los LONG hay q declararlos de 32 bits:
-		//los DOUBLE de 
-		
-		
-		for (Terceto t:tercetos) {
-			System.out.println(t.getCodigo());
+		if (this.sintactico.getLexico().getErrores() == null)
+		{
+			this.sintactico.showError("No se puede generar el Assembler porque la gramática contiene errores");
+		}
+		else
+		{
+			//los LONG hay q declararlos de 32 bits:
+			//los DOUBLE de 
+			
+			for (Terceto t:tercetos) {
+				t.setGenerador(this);
+				System.out.println(t.getCodigo());
+			}
 		}
 	}
 	
+	public String getNombreFuncion(String n) {
+		return this.sintactico.funcionPosGet(n);
+	}
 }

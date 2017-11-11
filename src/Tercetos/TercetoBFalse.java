@@ -15,6 +15,6 @@ public class TercetoBFalse extends Terceto {
 	public String getCodigo()
 	{
 		s1=Integer.valueOf(this.segundo.substring(1, segundo.length()-1));
-		return "JLE Label"+s1;
+		return "JLE Label"+s1+"\n";
 	}
 }
