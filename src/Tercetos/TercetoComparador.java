@@ -60,11 +60,11 @@ public class TercetoComparador extends Terceto{
 				}
 				else {
 					if (this.operador.equals("<=")) {
-						return "CMP " + s1 + "," + s2;
+						return "CMP " + s1 + "," + s2 + "\nJG direccion_falso\n";
 					}
 					else {
 						//es un ==
-						return "CMP " + s1 + "," + s2;
+						return "CMP " + s1 + "," + s2+ "\nJNE direccion_falso\n";
 					}
 				}
 			}
