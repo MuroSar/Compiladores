@@ -68,7 +68,7 @@ SUB R1,2
 MOV #aux5,R1
 MOV R1,#aux5
 MOV _b,R1
-JLE Label11
+CMP _b,_cJLE Label11
 invoke MessageBox, NULL, addr si, addr si, MB_OK
 JMP Label13
 Label11:
