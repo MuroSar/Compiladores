@@ -1,0 +1,51 @@
+aaa,bbb,ddd,eee:LONG.
+
+fff : LONG.
+
+LONG FUNCTION aa {
+	ccc : LONG.
+	fff = 3.
+	ccc = 50.
+	OUT("Invocacion de la funcion").
+	RETURN (var3).
+}
+
+fff = 10000000.
+
+aaa = 10000000.
+
+IF (fff == 300000) THEN
+    OUT("Mantiene asignacion de funcion").
+ELSE
+    OUT("NO Mantiene asignacion de funcion").
+END_IF
+
+IF (aaa > bbb) THEN
+    OUT("Mayor").
+ELSE
+        OUT("Menor").
+END_IF
+
+IF (bbb == 500000) THEN
+    OUT("Bien resta").
+ELSE
+        OUT("Mal resta").
+END_IF
+
+bbb = 500000.
+bbb = bbb/2.
+
+IF (bbb == 2500000) THEN
+    OUT("Bien division").
+ELSE
+        OUT("Mal division").
+END_IF
+aaa = aaa * bbb.
+bbb = bbb * 2.
+IF (bbb == 500000) THEN
+   OUT("Multiplicacion funciona bien").
+ELSE
+   OUT("Multiplicacion no funciona").
+END_IF
+
+OUT("Ultimo Print").
