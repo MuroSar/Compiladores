@@ -126,7 +126,9 @@ public class GenCodigo {
 	        asm += "end start";
 		}
 		
-		File file = new File("Assembler.asm");
+		String path = this.sintactico.getLexico().getPathArchivoACargar();
+		
+		File file = new File(path.substring(0, path.length()-3) + "asm");
 		FileWriter fw;
 		try {
 			fw = new FileWriter(file.getAbsoluteFile());

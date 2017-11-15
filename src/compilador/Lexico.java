@@ -77,6 +77,10 @@ public class Lexico {
 		this.errores.clear();
 	}
 	
+	public String getPathArchivoACargar() {
+		return this.archivoACargar.getPath();
+	}
+	
 	public void cargar(File archivoACargar) {		
 		this.archivoACargar = archivoACargar;
 		this.fila = 0;

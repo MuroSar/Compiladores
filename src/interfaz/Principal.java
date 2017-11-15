@@ -263,7 +263,7 @@ public class Principal extends JFrame {
 		int valorRetorno = buscador.showOpenDialog(null);
 		if (valorRetorno == JFileChooser.APPROVE_OPTION) {
 			archivoACargar = buscador.getSelectedFile();
-			lexico.cargar(archivoACargar);
+			lexico.cargar(archivoACargar);		
 			this.archivoCargado = true;
 		}
 		
