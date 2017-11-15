@@ -138,7 +138,8 @@ sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("S
 												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 												  this.sintactico.addTerceto(bFalse);
-							               		  this.sintactico.pilaPush(bFalse);} cuerpo_switch
+							               		  this.sintactico.pilaPush(bFalse);
+							               		} cuerpo_switch
 	/* ERRORES */   
 		| error '(' IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
 		| SWITCH error IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
@@ -213,10 +214,9 @@ salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
 								 this.sintactico.addTerceto(t);
 							   }
 	/* ERRORES */ 
-		//error '(' CADENA ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'OUT' en salida");}
-		//OUT error CADENA ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en salida");}
-		//OUT '(' CADENA error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en salida");}
-		//OUT '(' CADENA ')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en salida");}
+		| OUT error CADENA ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en salida");}
+		| OUT '(' CADENA error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en salida");}
+		| OUT '(' CADENA ')' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en salida");}
 	/* ERRORES */ 
 		;
 

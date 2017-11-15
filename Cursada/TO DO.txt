@@ -3,12 +3,12 @@ TO DO:
 ------------------------------------------------------------------------------------------------------------------------
 
 --Como pasamos todo a la maquina virtual para probarlo..
---Si agregamos errores por falta del . final no los toma..
-	
-
--- Agregar errores en la gramatica..	
 
 
-s
-	
+
+
+
+
+
+-- La sentencia OUT no explota si le falta el punto final. 
 ------------------------------------------------------------------------------------------------------------------------
