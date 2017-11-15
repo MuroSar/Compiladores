@@ -66,7 +66,6 @@ public class Principal extends JFrame {
 	
 	private JTextArea txtListaTokens;
     private JTextPane tpArchivoCodigo;
-    private JTextPane tpNumeracion;
 	
 	public Principal() {
 		setResizable(false);
@@ -165,13 +164,6 @@ public class Principal extends JFrame {
 		tpArchivoCodigo.setFont(new Font("Monospaced", Font.PLAIN, 13));
 		tpArchivoCodigo.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		tpArchivoCodigo.setEditable(false);
-		
-		tpNumeracion = new JTextPane();
-		tpNumeracion.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		tpNumeracion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		tpNumeracion.setEditable(false);
-		
-		JScrollPane scrollNumeracion = new JScrollPane(tpNumeracion, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane scrollArchivoCodigo = new JScrollPane(tpArchivoCodigo, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		JScrollPane scrollListaTokens= new JScrollPane(txtListaTokens, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
@@ -204,18 +196,17 @@ public class Principal extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollNumeracion, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-							.addComponent(scrollArchivoCodigo, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE)
+							.addComponent(scrollArchivoCodigo, GroupLayout.PREFERRED_SIZE, 435, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnCargarArchivo, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-								.addComponent(btnGetToken, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-								.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE))))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnGetToken, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+								.addComponent(btnCargarArchivo, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+								.addComponent(btnRun, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollListaTokens, GroupLayout.PREFERRED_SIZE, 417, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(scrollListaTokens, GroupLayout.PREFERRED_SIZE, 435, GroupLayout.PREFERRED_SIZE))
+					.addGap(11))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -225,16 +216,16 @@ public class Principal extends JFrame {
 						.addComponent(lblTituloCodigo, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTituloToken, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnGetToken, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-						.addComponent(scrollListaTokens, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)
-						.addComponent(scrollNumeracion)
-						.addComponent(scrollArchivoCodigo))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollArchivoCodigo, GroupLayout.PREFERRED_SIZE, 591, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(btnCargarArchivo, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnGetToken, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnRun, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollListaTokens, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)))
 					.addContainerGap(112, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
@@ -244,7 +235,6 @@ public class Principal extends JFrame {
 		lexico.nuevoArchivo();
 		txtListaTokens.setText("");
 		tpArchivoCodigo.setText("");
-		tpNumeracion.setText("");
 		archivoCargado = false;
 	}
 	
@@ -276,8 +266,7 @@ public class Principal extends JFrame {
 			String line = leer.readLine();
 			while (line != null)
 			{
-				tpNumeracion.setText(tpNumeracion.getText() + nroLinea + "->" + "\n");
-				tpArchivoCodigo.setText(tpArchivoCodigo.getText() + line + "\n");
+				tpArchivoCodigo.setText(tpArchivoCodigo.getText() + nroLinea + "-> " + line + "\n");
 				line = leer.readLine();
 				nroLinea++;
 			}
@@ -296,9 +285,10 @@ public class Principal extends JFrame {
 		tpArchivoCodigo.setText("");
 		for (int loc=0; loc<lines.size(); loc++) 
 		{
+			String numeracion = loc+1 + "-> ";
 			if(loc < fila)
 			{
-				previo = previo + lines.get(loc) + "\n";
+				previo = previo + numeracion + lines.get(loc) + "\n";
 			}
 			if(loc == fila)
 			{
@@ -310,7 +300,7 @@ public class Principal extends JFrame {
 					aux += linea.charAt(col);
 					col++;
 				}
-				previo = previo + aux;
+				previo = previo + numeracion + aux;
 				if(col == posInicial)
 				{
 					actual = lines.get(loc).substring(posInicial, pos);
@@ -319,7 +309,7 @@ public class Principal extends JFrame {
 			}
 			if(loc > fila)
 			{
-				resto = resto + lines.get(loc) + "\n";
+				resto = resto + numeracion + lines.get(loc) + "\n";
 			}
 		}
 
