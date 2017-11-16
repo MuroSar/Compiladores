@@ -245,12 +245,15 @@ public class Sintactico {
 	
 	public static boolean esVariable(ParserVal val) {
 		boolean esVariable = true;
-		for(char c : val.sval.toCharArray()) {
-			if(!Character.isLetter(c)) {
-				esVariable = false;
-				break;
-			}
+		if(val.obj != null) {
+			return false;
 		}
+			for(char c : val.sval.toCharArray()) {
+				if(!Character.isLetter(c)) {
+					esVariable = false;
+					break;
+				}
+			}	
 		return esVariable;
 	}
 	
@@ -339,6 +342,6 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
 		this.generador.setSintactico(this);
-		this.generador.generarCodigo();
+		//this.generador.generarCodigo();
 	}
 }
