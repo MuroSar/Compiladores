@@ -107,9 +107,9 @@ public class GenCodigo {
 			
 			String instrucciones = "";
 	        instrucciones += ".code\n";
-	        for (Terceto t:tercetos) {
+	        /*for (Terceto t:tercetos) {
 	        	instrucciones += t.toString()+"\n";
-	        }
+	        }*/
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
 	        instrucciones += "start:\n";

@@ -63,7 +63,6 @@ sentencia_unica_control : sentencia_if
 		
 sentencia_unica_ejecutable : asignacion
 		| salida
-		| llamado_funcion
 		;		
 
 declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decrementarAmbito();}
@@ -219,28 +218,6 @@ salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
 		| OUT '(' CADENA ')' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en salida");}
 	/* ERRORES */ 
 		;
-
-llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
-											if(this.sintactico.existeFuncion($1))
- 											{
- 												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
- 												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
- 												$$ = new ParserVal(t);
-												this.sintactico.addTerceto(t);
-												Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
-												etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
-												this.sintactico.addTerceto(etiqueta);
- 											}
- 											else
- 											{
- 												this.sintactico.addError("funcion", $1);
- 											}}
- 	/* ERRORES */ 
-		| IDENTIFICADOR error ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en llamado a Funcion");}
-		| IDENTIFICADOR '('error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
-		| IDENTIFICADOR '('')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en llamado a Funcion");}
-	/* ERRORES */
-		;
 		
 lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>(); 
 								  ((ArrayList<ParserVal>)($$.obj)).add($1);}
@@ -385,8 +362,30 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
 		| factor
 		;
 
+llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
+											if(this.sintactico.existeFuncion($1))
+ 											{
+ 												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
+ 												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
+ 												$$ = new ParserVal(t);
+												this.sintactico.addTerceto(t);
+												Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
+												etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+												this.sintactico.addTerceto(etiqueta);
+ 											}
+ 											else
+ 											{
+ 												this.sintactico.addError("funcion", $1);
+ 											}}
+ 	/* ERRORES */ 
+		| IDENTIFICADOR '('error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
+		| IDENTIFICADOR '('')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en llamado a Funcion");}
+	/* ERRORES */
+		;
+	
 factor : IDENTIFICADOR 
 		| CONSTANTE 
+		| llamado_funcion
 		;
 
 
