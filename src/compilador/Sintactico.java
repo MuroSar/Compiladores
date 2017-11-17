@@ -273,7 +273,18 @@ public class Sintactico {
 	public boolean existeVariable(ParserVal variable)
 	{
 		if(esVariable(variable)) {
-			return this.lexico.estaDeclarada(variable.sval, "variable");	
+			if(this.lexico.estaDeclarada(variable.sval, "variable")) {
+				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable");
+				if(t.getAmbito().equals(this.ambito)) {
+					return true;
+				}
+				else if(t.getAmbito().contains(this.ambito)) {
+					return false;
+				}
+			}
+			else {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -292,9 +303,9 @@ public class Sintactico {
 	{
 		this.errores.add(error);
 		
-		this.ppal.mostrarMensaje("-------------------------------------------------");
+		this.ppal.mostrarMensaje("----------------------------------------------------");
 		this.ppal.mostrarMensaje(error);
-		this.ppal.mostrarMensaje("-------------------------------------------------");
+		this.ppal.mostrarMensaje("----------------------------------------------------");
 	}
 	
 	public  void aumentarAmbito(ParserVal nomFuncion) {
@@ -317,37 +328,37 @@ public class Sintactico {
 	}
 	
 	public void start() {
-		this.ppal.mostrarMensaje("----------------LISTADO DE TOKENS----------------");
+		this.ppal.mostrarMensaje("------------------LISTADO DE TOKENS------------------");
 		this.ppal.mostrarMensaje("");
 		this.lexico.showAllTokens();
 		
 		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje("--------------------GRAMATICA--------------------");
+		this.ppal.mostrarMensaje("----------------------GRAMATICA----------------------");
 		this.ppal.mostrarMensaje("");
 		
 		int result = parser.yyparse();
 		switch (result) {
 		case 0:
-			this.ppal.mostrarMensaje("------------------Gramatica: OK------------------");
+			this.ppal.mostrarMensaje("--------------------Gramatica: OK-------------------");
 			break;
 		default:
-			this.ppal.mostrarMensaje("-----------------Gramatica: ERROR----------------");
+			this.ppal.mostrarMensaje("------------------Gramatica: ERROR-----------------");
 		}
 		
 		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje("--------------------TERCETOS--------------------");
+		this.ppal.mostrarMensaje("----------------------TERCETOS----------------------");
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
 		
 		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje("---------------------ERRORES--------------------");
+		this.ppal.mostrarMensaje("-----------------------ERRORES----------------------");
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showErrores());
 
 		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje("--------------------CODIGO--------------------");
+		this.ppal.mostrarMensaje("-----------------------CODIGO-----------------------");
 		this.ppal.mostrarMensaje("");
 		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
 		this.generador.setSintactico(this);
