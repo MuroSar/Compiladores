@@ -56,7 +56,7 @@ public class TercetoMultiplicacion extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return s1 + "\n" + s2 + "\n" + s3 + "\n" + "CMP 1,OF" + "\n" + "JE _overflow\n";
+		return s1 + "\n" + s2 + "\n" + s3 + "\n" + "JO _overflow\n";
 	}
 
 }

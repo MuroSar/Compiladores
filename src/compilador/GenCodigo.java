@@ -31,12 +31,8 @@ public class GenCodigo {
 		this.sintactico=s;
 	}
 	
-	public String getDeclaracionesOut() { //aca agrego barbie
-		return this.declaraciones_out;
-	}
-	
-	public void setDeclaracionesOut(String dec) { //aca agrego barbie
-		this.declaraciones_out=dec;
+	public void setDeclaracionesOut(String dec) { 
+		this.declaraciones_out +=dec;
 	}
 	
 	public String getEncabezado() {
@@ -91,7 +87,7 @@ public class GenCodigo {
         	}
         }
         
-        return declaracion + declaraciones_out; //aca modifico barbie
+        return declaracion + declaraciones_out; 
     }
 	
 	public void generarCodigo() {
@@ -107,9 +103,6 @@ public class GenCodigo {
 			
 			String instrucciones = "";
 	        instrucciones += ".code\n";
-	        /*for (Terceto t:tercetos) {
-	        	instrucciones += t.toString()+"\n";
-	        }*/
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
 	        instrucciones += "start:\n";

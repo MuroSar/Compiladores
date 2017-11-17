@@ -37,9 +37,6 @@ import compilador.Sintactico;
 import complementos.Token;
 //#line 36 "Parser.java"
 
-
-
-
 public class Parser
 {
 

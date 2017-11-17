@@ -10,11 +10,9 @@ public class TercetoOut extends Terceto {
 		
 	public String getCodigo()
 	{
-		String aux = this.generador.getDeclaracionesOut();
 		String nombre=this.primero;
-		aux += nombre + " DB " + nombre + ", 0\n";// ver que nombre se le pone
+		String aux = nombre + " DB " + nombre + ", 0\n";
 		this.generador.setDeclaracionesOut(aux);
-		//return "OUTS "+this.primero+"\n"; //esto es lo que estaba antes
-		return "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK\n"; //esto es creo lo que va.
+		return "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK\n"; 
 	}
 }

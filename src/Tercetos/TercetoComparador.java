@@ -11,11 +11,13 @@ public class TercetoComparador extends Terceto{
 	private String aux2;
 	private String s1;
 	private String s2;
+	private String CodAux;
 
 	public TercetoComparador(ParserVal operador, ParserVal primero, ParserVal segundo, int pos) {
 		super(operador.sval, primero, segundo, pos);
 		this.primero = primero;
 		this.segundo = segundo;
+		this.CodAux = "";
 	}
 		
 	public String getCodigo()
@@ -30,7 +32,8 @@ public class TercetoComparador extends Terceto{
 				s1="_"+aux1; //es una variable
 			}
 			else {
-				s1=aux1; //es un numero
+				CodAux="MOV R1," + aux1 + "\n";
+				s1="R1"; //es un numero
 			}
 		}
 		
@@ -44,27 +47,29 @@ public class TercetoComparador extends Terceto{
 				s2="_"+aux2;
 			}
 			else {
-				s2=aux2;	
+				CodAux="MOV R2," + aux2 + "\n";
+				s2="R2"; //es un numero
 			}
 		}
+		
 		if(this.operador.equals("<")) { //<>
-			return "CMP " + s1 + "," + s2 + "\nJL direccion_falso\n";
+			return CodAux + "CMP " + s1 + "," + s2 + "\nJL direccion_falso\n";
 		}
 		else {	
 			if (this.operador.equals(">")) {
-					return "CMP " + s1 + "," + s2 + "\nJBE direccion_falso\n";
+					return CodAux +"CMP " + s1 + "," + s2 + "\nJBE direccion_falso\n";
 					}
 			else {
 				if (this.operador.equals(">=")) {
-					return "CMP " + s1 + "," + s2 + "\nJB direccion_falso\n";
+					return CodAux +"CMP " + s1 + "," + s2 + "\nJB direccion_falso\n";
 				}
 				else {
 					if (this.operador.equals("<=")) {
-						return "CMP " + s1 + "," + s2 + "\nJG direccion_falso\n";
+						return CodAux +"CMP " + s1 + "," + s2 + "\nJG direccion_falso\n";
 					}
 					else {
 						//es un ==
-						return "CMP " + s1 + "," + s2+ "\nJNE direccion_falso\n";
+						return CodAux +"CMP " + s1 + "," + s2+ "\nJNE direccion_falso\n";
 					}
 				}
 			}

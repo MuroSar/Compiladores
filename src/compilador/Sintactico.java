@@ -362,6 +362,6 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
 		this.generador.setSintactico(this);
-		//this.generador.generarCodigo();
+		this.generador.generarCodigo();
 	}
 }

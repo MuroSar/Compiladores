@@ -46,9 +46,8 @@ public class TercetoSuma extends Terceto{
 				s2="ADD R1,_"+aux2;
 			}
 			else {
-				s2="ADD R1,"+aux2;	
+				s2="ADD R1,"+aux2;
 			}
-			
 		}
 		s3="MOV #aux"+ this.getPos()+ ",R1";
 	
