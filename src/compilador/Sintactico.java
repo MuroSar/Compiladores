@@ -255,17 +255,15 @@ public class Sintactico {
 	}
 	
 	public static boolean esVariable(ParserVal val) {
-		boolean esVariable = true;
 		if(val.obj != null) {
 			return false;
 		}
-			for(char c : val.sval.toCharArray()) {
-				if(!Character.isLetter(c)) {
-					esVariable = false;
-					break;
-				}
-			}	
-		return esVariable;
+		
+		if(!Character.isLetter(val.sval.charAt(0))) {
+			return false;
+		}
+			
+		return true;
 	}
 	
 	public void setTipoDatoTerceto(Terceto t, ParserVal val1, ParserVal val2) {
