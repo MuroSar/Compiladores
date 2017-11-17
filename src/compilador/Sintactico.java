@@ -46,6 +46,17 @@ public class Sintactico {
 		this.ambitos.put("general", this.ambito);
 	}
 	
+	public void nuevo() {
+		this.tercetos.clear();
+		this.errores.clear();
+		this.funcionPos.clear();
+		this.pila.clear();
+		this.ambito = "A";
+		this.maxAmbito = this.ambito.charAt(0);
+		this.ambitos.clear();
+		this.ambitos.put("general", this.ambito);
+	}
+	
 	public void funcionPosPut(ParserVal nombreFunc, String label) {
 		this.funcionPos.put(nombreFunc.sval, label);
 	}

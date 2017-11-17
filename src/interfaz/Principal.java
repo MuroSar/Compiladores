@@ -236,6 +236,7 @@ public class Principal extends JFrame {
 		txtListaTokens.setText("");
 		tpArchivoCodigo.setText("");
 		archivoCargado = false;
+		sintactico.nuevo();
 	}
 	
 	private void cargarArchivo()
