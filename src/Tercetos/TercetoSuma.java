@@ -28,7 +28,7 @@ public class TercetoSuma extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				s1="FLD #aux" + aux1 + "\n";
+				s1="FLD #aux" + aux1;
 				tokenAux.setLexema("#aux" + aux1);
 				tokenAux.setTipoDato("DOUBLE");
 				tokenAux.setType("Identificador");
@@ -95,9 +95,8 @@ public class TercetoSuma extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					//System.out.println("es un DOUBLE");
 					s2= "FLD " + aux2;
-					s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n"; //detalle: aux tiene q ser declarada como flotante. 
+					s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n"; 
 				}
 				else {
 					s2="ADD R1," + aux2;
