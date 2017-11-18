@@ -22,6 +22,8 @@ public class Sintactico {
 	private ArrayList<Terceto> tercetos;
 	private ArrayList<String> errores;
 	
+	private boolean fnMOVE;
+	
 	private  Map<String, String> funcionPos;
 	private Stack<Terceto> pila;
 	
@@ -37,6 +39,8 @@ public class Sintactico {
 		this.tercetos = new ArrayList<Terceto>();
 		this.errores = new ArrayList<String>();
 		
+		this.fnMOVE = false;
+		
 		this.funcionPos = new HashMap<String, String>();
 		this.pila = new Stack<Terceto>();
 		
@@ -49,6 +53,7 @@ public class Sintactico {
 	public void nuevo() {
 		this.tercetos.clear();
 		this.errores.clear();
+		this.fnMOVE = false;
 		this.funcionPos.clear();
 		this.pila.clear();
 		this.ambito = "A";
@@ -63,6 +68,14 @@ public class Sintactico {
 	
 	public String funcionPosGet(String nombreFunc) {
 		return this.funcionPos.get(nombreFunc);
+	}
+	
+	public void setFnMOVE(boolean valor) {
+		this.fnMOVE = valor;
+	}
+	
+	public boolean getFnMOVE() {
+		return this.fnMOVE;
 	}
 	
 	public void pilaPush(Terceto pos) {
@@ -196,8 +209,15 @@ public class Sintactico {
 			if(esVariable(op1)) {
 				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getAmbito();
 			}
-			else {
-				ambito1 = this.lexico.getTokenFromTS(op1.sval).getAmbito();
+			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
+				Token aux = this.lexico.getTokenFromTS(op1.sval);
+				this.lexico.removeTokenFromTS(op1.sval);
+											
+				aux.setAmbito(this.ambito);
+				
+				this.lexico.putSimbolo(aux);
+				
+				ambito1 = this.ambito;
 			}
 		}
 		
@@ -205,17 +225,35 @@ public class Sintactico {
 			if(esVariable(op2)) {
 				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getAmbito();
 			}
-			else {
-				ambito2 = this.lexico.getTokenFromTS(op2.sval).getAmbito();
+			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
+				Token aux = this.lexico.getTokenFromTS(op2.sval);
+				this.lexico.removeTokenFromTS(op2.sval);
+											
+				aux.setAmbito(this.ambito);
+				
+				this.lexico.putSimbolo(aux);
+				
+				ambito2 = this.ambito;
 			}
 		}
 		
-		if((this.ambito.contains(ambito1) && this.ambito.contains(ambito2)) //este caso es por si tengo dos variables.. a+b 
-				|| (op1.obj != null && this.ambito.contains(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
-				|| (this.ambito.contains(ambito1) && op2.obj != null)
-				|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
-			return true;
+		if(this.fnMOVE == false) { //si no estoy en una funcion MOVE
+			if((this.ambito.contains(ambito1) && this.ambito.contains(ambito2)) //este caso es por si tengo dos variables.. a+b 
+					|| (op1.obj != null && this.ambito.contains(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
+					|| (this.ambito.contains(ambito1) && op2.obj != null)
+					|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
+				return true;
+			}
 		}
+		else { //si estoy en una funcion MOVE
+			if((this.ambito.equals(ambito1) && this.ambito.equals(ambito2))
+					|| (op1.obj != null && this.ambito.equals(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
+					|| (this.ambito.equals(ambito1) && op2.obj != null)
+					|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
+				return true;
+			}
+		}
+		
 		
 		return false;
 	}
