@@ -300,4 +300,14 @@ public class Lexico {
 	public ArrayList<String> getTSKeys(){
 		return new ArrayList<String>(this.tablaSimbolos.keySet());
 	}
+	
+	public void depurarTS() {
+		ArrayList<String> keys = new ArrayList<String>(this.tablaSimbolos.keySet());
+		for(String k : keys) {
+			if(Character.isLetter(k.charAt(0))) {
+				if(!k.contains("@Variable") && !k.contains("@Funcion") && this.existPalabraReservada(k) == 257)
+					this.tablaSimbolos.remove(k);
+			}
+		}
+	}
 }

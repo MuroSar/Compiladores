@@ -350,7 +350,7 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
 		
-		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
+		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("-----------------------ERRORES----------------------");
@@ -360,6 +360,11 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("-----------------------CODIGO-----------------------");
 		this.ppal.mostrarMensaje("");
+		
+		this.lexico.depurarTS();
+		
+		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
+		
 		this.generador.setListaTercetos(this.getAllTercetos()); //barbie agrego esta linea
 		this.generador.setSintactico(this);
 		this.generador.generarCodigo();
