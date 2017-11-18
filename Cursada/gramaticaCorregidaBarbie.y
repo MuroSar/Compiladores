@@ -65,7 +65,8 @@ sentencia_unica_ejecutable : asignacion
 		| salida
 		;		
 
-declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decrementarAmbito();}
+declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decrementarAmbito();
+														 this.sintactico.setFnMOVE(false);}
 		;
 		
 encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
@@ -81,7 +82,8 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 											 this.sintactico.addTerceto(etiqueta);
 											 this.sintactico.funcionPosPut($4, etiqueta.getPrimero());
 											 this.sintactico.actualizaFuncion($4, $1);
-											 this.sintactico.aumentarAmbito($4);} 
+											 this.sintactico.aumentarAmbito($4);
+											 this.sintactico.setFnMOVE(true);} 
 		;
 				
 declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declaraci\u00f3n de variable");
