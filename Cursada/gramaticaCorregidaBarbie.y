@@ -14,6 +14,7 @@ import Tercetos.TercetoBIncondicional;
 import Tercetos.TercetoFuncion;
 import Tercetos.TercetoOut;
 import Tercetos.TercetoEtiqueta;
+import Tercetos.TercetoRet;
 import compilador.Lexico;
 import compilador.Sintactico;
 import complementos.Token;
@@ -37,7 +38,9 @@ bloque_comun : bloque_control
 		| declaracion
 		;
 		
-bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}'
+bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size());
+												   								this.sintactico.addTerceto(ret);
+																			   }
 
 bloque_sentencias_funcion : sentencias
 		| declaracion

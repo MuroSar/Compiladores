@@ -11,7 +11,7 @@ public abstract class Terceto {
 	protected GenCodigo generador;
 	private int pos;
 	private String tipoDato;
-	
+
 	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
 				
