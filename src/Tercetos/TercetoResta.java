@@ -58,30 +58,55 @@ public class TercetoResta extends Terceto{
 				else {
 					s1="MOV R1,"+aux1;
 				}
+			}
 		}
 		
 		if(segundo.obj != null) { //terminar
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			s2="SUB R1 #aux"+aux2;
+			
+			String tipo = ((Terceto)segundo.obj).getTipoDato();
+			if (tipo.equals("DOUBLE")) {
+				s2="FLD #aux" + aux2 + "\n";
+				s3="FSUB" + "\n" + "FSTP #aux" + this.getPos();
+				tokenAux.setLexema("#aux" + aux2);
+				tokenAux.setTipoDato("DOUBLE");
+				tokenAux.setType("Identificador");
+			}
+			else {
+				s2="SUB R1 #aux"+aux2;
+				s3="MOV #aux"+ this.getPos() + ",R1";
+				tokenAux.setLexema("#aux" + aux2);
+				tokenAux.setTipoDato("LONG");
+				tokenAux.setType("Identificador");
+			}
 		}
 		else {
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
-				s2="SUB R1,_"+aux2;
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
+				if (tipo.equals("DOUBLE")) {
+					s2="FLD " + aux1 + "@Variable";
+					s3="FSUB" + "\n" + "FSTP #aux" + this.getPos();
+				}
+				else
+				{
+					s2="SUB R1,_"+aux2;
+					s3="MOV #aux"+ this.getPos() + ",R1";
+				}
 			}
 			else {
-				s2="SUB R1,"+aux2;
 				if (aux2.toString().contains(",")) {
-					System.out.println("es un DOUBLE");
+					s2= "FLD " + aux2;
+					s3="FSUB" + "\n" + "FSTP #aux" + this.getPos(); 
+				}
+				else {
+					s2="SUB R1,"+aux2;
+					s3="MOV #aux"+ this.getPos() + ",R1";
 				}
 			}
 			
 		}
-		s3="MOV #aux"+ this.getPos() + ",R1";
-	
-		Lexico.putSimboloAsm("#aux"+ this.getPos());
-		
+		Lexico.putSimbolo(tokenAux); 
 		return s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
-
 }
