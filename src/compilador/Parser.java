@@ -695,7 +695,7 @@ case 25:
 //#line 79 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
-											 etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+											 etiqueta.setPrimero(val_peek(0).sval);
 											 this.sintactico.addTerceto(etiqueta);
 											 this.sintactico.funcionPosPut(val_peek(0), etiqueta.getPrimero());
 											 this.sintactico.actualizaFuncion(val_peek(0), val_peek(3));
