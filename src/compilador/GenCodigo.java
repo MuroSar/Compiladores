@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import Tercetos.*;
 import complementos.Token;
@@ -16,8 +14,7 @@ public class GenCodigo {
 	private ArrayList<Terceto> tercetos;
 	private Sintactico sintactico;
 	private String declaraciones_out;
-	
-	//agregar los dos archivos
+	private String comparador="";
 	
 	public GenCodigo() {
 		declaraciones_out = new String();
@@ -38,10 +35,9 @@ public class GenCodigo {
 	public void setDeclaracionesOut(String dec) { 
 		this.declaraciones_out +=dec;
 	}
-	
+
 	public String getEncabezado() {
 		String encabezado = "";
-
 		encabezado += ".386\n";
         encabezado += ".model flat, stdcall\n";
         encabezado += "option casemap :none\n";
@@ -50,7 +46,6 @@ public class GenCodigo {
         encabezado += "include \\masm32\\include\\user32.inc\n";
         encabezado += "includelib \\masm32\\lib\\kernel32.lib\n";
         encabezado += "includelib \\masm32\\lib\\user32.lib\n";
-		
 		return encabezado;
 	}
 	
@@ -77,8 +72,6 @@ public class GenCodigo {
         declaracion += "__MAX DD  2147483647\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
         declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
-
-        int numCad = 0;
         for (String key : this.sintactico.getLexico().getTSKeys()) {
         	Token t = this.sintactico.getLexico().getTokenFromTS(key);
         	if(t.getType().equals("Identificador")) {
@@ -90,7 +83,6 @@ public class GenCodigo {
         		}
         	}
         }
-        
         return declaracion + declaraciones_out; 
     }
 	
@@ -102,28 +94,22 @@ public class GenCodigo {
 		}
 		else
 		{
-			
 			asm = this.getEncabezado();
-			
 			String instrucciones = "";
 	        instrucciones += ".code\n";
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
 	        instrucciones += "start:\n";
-	        
 			for (Terceto t:tercetos) {
 				t.setGenerador(this);
 				instrucciones += t.getCodigo();
 			}
-			
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
 		}
-		
 		String path = this.sintactico.getLexico().getPathArchivoACargar();
-		
 		File file = new File(path.substring(0, path.length()-3) + "asm");
 		FileWriter fw;
 		try {
@@ -139,5 +125,13 @@ public class GenCodigo {
 	
 	public String getNombreFuncion(String n) {
 		return this.sintactico.funcionPosGet(n);
+	}
+
+	public String getComparador() {
+		return comparador;
+	}
+
+	public void setComparador(String comparador) {
+		this.comparador = comparador;
 	}
 }

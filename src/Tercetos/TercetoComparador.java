@@ -9,6 +9,7 @@ public class TercetoComparador extends Terceto{
 	private ParserVal segundo;
 	private String aux1;
 	private String aux2;
+	private String salidaDouble;
 	private String s1;
 	private String s2;
 	private String CodAux;
@@ -22,61 +23,73 @@ public class TercetoComparador extends Terceto{
 		
 	public String getCodigo()
 	{
+		this.generador.setComparador(this.operador);
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			s1="#aux"+aux1; //es una referencia
+			String tipo = ((Terceto)primero.obj).getTipoDato();
+			if (tipo.equals("DOUBLE")) {
+				salidaDouble="FLD #aux" + aux1; //es un terceto y el resultado es un DOUBLE
+			}
+			else {
+				s1="#aux"+aux1;
+			}
 		}
 		else {
 			aux1 = primero.sval;
 			if(Sintactico.esVariable(primero)) {
-				s1="_"+aux1; //es una variable
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
+				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
+					salidaDouble="FLD " + aux1 + "@Variable";
+				}
+				else { //es una variable de tipo LONG
+					s1="_"+aux1; //es una variable
+				}
 			}
 			else {
-				CodAux="MOV R1," + aux1 + "\n";
-				s1="R1"; //es un numero
-				if (aux1.toString().contains(",")) {
-					//System.out.println("es un DOUBLE");
+				if (aux1.toString().contains(",")) { //es una constante de tipo DOUBLE
+					salidaDouble="FLD " + aux1 + "\n"; 
+				}
+				else { //es una constante de tipo LONG
+					CodAux="MOV R1," + aux1 + "\n";
+					s1="R1"; //es un numero
 				}
 			}
 		}
-		
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			s2="#aux"+aux2;
+			String tipo = ((Terceto)segundo.obj).getTipoDato();
+			if (tipo.equals("DOUBLE")) {
+				salidaDouble +="FCOM #aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
+				return salidaDouble;
+			}
+			else {
+				s2="#aux"+aux2;
+				return CodAux + "CMP " + s1 + "," + s2;
+			}
 		}
 		else {
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
-				s2="_"+aux2;
-			}
-			else {
-				CodAux="MOV R2," + aux2 + "\n";
-				s2="R2"; //es un numero
-				if (aux2.toString().contains(",")) {
-					//System.out.println("es un DOUBLE");
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
+				if (tipo.equals("DOUBLE")) {
+					salidaDouble +="FCOM " + aux1 + "@Variable" + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					return salidaDouble;
+				}
+				else
+				{
+					s2="_"+aux2; 
+					return CodAux + "CMP " + s1 + "," + s2 + "\n";
 				}
 			}
-		}
-		
-		if(this.operador.equals("<")) { //<>
-			return CodAux + "CMP " + s1 + "," + s2 + "\nJL direccion_falso\n";
-		}
-		else {	
-			if (this.operador.equals(">")) {
-					return CodAux +"CMP " + s1 + "," + s2 + "\nJBE direccion_falso\n";
-					}
 			else {
-				if (this.operador.equals(">=")) {
-					return CodAux +"CMP " + s1 + "," + s2 + "\nJB direccion_falso\n";
+				if (aux2.toString().contains(",")) {
+					salidaDouble += "FCOM " + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					return salidaDouble;
 				}
 				else {
-					if (this.operador.equals("<=")) {
-						return CodAux +"CMP " + s1 + "," + s2 + "\nJG direccion_falso\n";
-					}
-					else {
-						//es un ==
-						return CodAux +"CMP " + s1 + "," + s2+ "\nJNE direccion_falso\n";
-					}
+					CodAux +="MOV R2," + aux2 + "\n";
+					s2="R2"; //es un numero 
+					return CodAux + "CMP " + s1 + "," + s2;
 				}
 			}
 		}
