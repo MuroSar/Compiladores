@@ -32,7 +32,6 @@ public class TercetoBFalse extends Terceto {
 						return "JG Label"+ s1 + "\n";
 					}
 					else {
-						//es un ==
 						return "JNE Label" + s1 + "\n";
 					}
 				}
