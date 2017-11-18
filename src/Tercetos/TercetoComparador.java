@@ -34,6 +34,9 @@ public class TercetoComparador extends Terceto{
 			else {
 				CodAux="MOV R1," + aux1 + "\n";
 				s1="R1"; //es un numero
+				if (aux1.toString().contains(",")) {
+					//System.out.println("es un DOUBLE");
+				}
 			}
 		}
 		
@@ -49,6 +52,9 @@ public class TercetoComparador extends Terceto{
 			else {
 				CodAux="MOV R2," + aux2 + "\n";
 				s2="R2"; //es un numero
+				if (aux2.toString().contains(",")) {
+					//System.out.println("es un DOUBLE");
+				}
 			}
 		}
 		

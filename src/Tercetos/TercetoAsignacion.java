@@ -33,7 +33,10 @@ public class TercetoAsignacion extends Terceto{
 				s1="MOV _"+aux1+",R1";
 			}
 			else {
-				s1="MOV "+aux1+",R1";	
+				s1="MOV "+aux1+",R1";
+				if (aux1.toString().contains(",")) {
+					System.out.println("es un DOUBLE");
+				}
 			}
 		}
 		
@@ -48,6 +51,9 @@ public class TercetoAsignacion extends Terceto{
 			}
 			else {
 				s2="MOV R1,"+aux2;	
+				if (aux2.toString().contains(",")) {
+					System.out.println("es un Double");
+				}
 			}
 			
 		}

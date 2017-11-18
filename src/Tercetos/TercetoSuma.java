@@ -32,27 +32,43 @@ public class TercetoSuma extends Terceto{
 				s1="MOV R1,_"+aux1;
 			}
 			else {
-				s1="MOV R1,"+aux1;	
+				if (aux1.toString().contains(",")) {
+					//System.out.println("es un DOUBLE");
+					s1="FLD "+aux1;
+				}
+				else {
+					s1="MOV R1,"+aux1;
+				}
 			}
 		}
 		
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			s2="ADD R1,#aux"+aux2;
+			s3="MOV #aux"+ this.getPos()+ ",R1";
 		}
 		else {
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
 				s2="ADD R1,_"+aux2;
+				s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
 			}
 			else {
-				s2="ADD R1,"+aux2;
+				if (aux2.toString().contains(",")) {
+					//System.out.println("es un DOUBLE");
+					s2= "FLD " + aux2;
+					s3="FADD" + "\n" + "FSTP #aux" + this.getPos(); //detalle: aux tiene q ser declarada como flotante. 
+				}
+				else {
+					s2="ADD R1,"+aux2;
+					s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+				}
 			}
 		}
-		s3="MOV #aux"+ this.getPos()+ ",R1";
+		
 	
 		Lexico.putSimboloAsm("#aux"+this.getPos());
 		
-		return s1 + "\n" + s2 + "\n" + s3 + "\n" + "JO _overflow\n";
+		return s1 + "\n" + s2 + "\n" + s3;
 	}
 }

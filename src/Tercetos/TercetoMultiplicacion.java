@@ -35,6 +35,9 @@ public class TercetoMultiplicacion extends Terceto{
 			}
 			else {
 				s1="MOV R1,"+aux1;	
+				if (aux1.toString().contains(",")) {
+					System.out.println("es un DOUBLE");
+				}
 			}
 		}
 		
@@ -49,6 +52,9 @@ public class TercetoMultiplicacion extends Terceto{
 			}
 			else {
 				s2="MUL R1,"+aux2;	
+				if (aux2.toString().contains(",")) {
+					System.out.println("es un DOUBLE");
+				}
 			}
 			
 		}

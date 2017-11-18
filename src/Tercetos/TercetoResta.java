@@ -35,6 +35,9 @@ public class TercetoResta extends Terceto{
 			}
 			else {
 				s1="MOV R1,"+aux1;	
+				if (aux1.toString().contains(",")) {
+					System.out.println("es un DOUBLE");
+				}
 			}
 		}
 		
@@ -48,7 +51,10 @@ public class TercetoResta extends Terceto{
 				s2="SUB R1,_"+aux2;
 			}
 			else {
-				s2="SUB R1,"+aux2;	
+				s2="SUB R1,"+aux2;
+				if (aux2.toString().contains(",")) {
+					System.out.println("es un DOUBLE");
+				}
 			}
 			
 		}
