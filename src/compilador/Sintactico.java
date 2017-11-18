@@ -209,7 +209,7 @@ public class Sintactico {
 			if(esVariable(op1)) {
 				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getAmbito();
 			}
-			else {
+			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
 				Token aux = this.lexico.getTokenFromTS(op1.sval);
 				this.lexico.removeTokenFromTS(op1.sval);
 											
@@ -225,7 +225,7 @@ public class Sintactico {
 			if(esVariable(op2)) {
 				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getAmbito();
 			}
-			else {
+			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
 				Token aux = this.lexico.getTokenFromTS(op2.sval);
 				this.lexico.removeTokenFromTS(op2.sval);
 											
