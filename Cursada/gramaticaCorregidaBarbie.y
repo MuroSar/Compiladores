@@ -71,14 +71,14 @@ declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decreme
 		
 encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 												   Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
-												   etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+												   etiqueta.setPrimero($3.sval);
 												   this.sintactico.addTerceto(etiqueta);
 												   this.sintactico.funcionPosPut($3, etiqueta.getPrimero());												   
 												   this.sintactico.actualizaFuncion($3, $1);
 												   this.sintactico.aumentarAmbito($3);}
 		| tipo MOVE FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
-											 etiqueta.setPrimero("Label" + this.sintactico.getTercetos().size());
+											 etiqueta.setPrimero($4.sval);
 											 this.sintactico.addTerceto(etiqueta);
 											 this.sintactico.funcionPosPut($4, etiqueta.getPrimero());
 											 this.sintactico.actualizaFuncion($4, $1);
