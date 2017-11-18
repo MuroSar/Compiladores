@@ -3,6 +3,7 @@ package Tercetos;
 import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
+import complementos.Token;
 
 public class TercetoSuma extends Terceto{
 	
@@ -22,10 +23,23 @@ public class TercetoSuma extends Terceto{
 		
 	public String getCodigo()
 	{
-		s1="Barbie";
-		if(primero.obj != null) { //es un terceto anterior............. acomodar
+		Token tokenAux = new Token();
+	
+		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			s1="MOV R1,#aux" + aux1 + "\n"; 
+			String tipo = ((Terceto)primero.obj).getTipoDato();
+			if (tipo.equals("DOUBLE")) {
+				s1="FLD #aux" + aux1 + "\n";
+				tokenAux.setLexema("#aux" + aux1);
+				tokenAux.setTipoDato("DOUBLE");
+				tokenAux.setType("Identificador");
+			}
+			else {
+				s1="MOV R1,#aux" + aux1 + "\n";
+				tokenAux.setLexema("#aux" + aux1);
+				tokenAux.setTipoDato("LONG");
+				tokenAux.setType("Identificador");
+			}
 		}
 		else {
 			aux1 = primero.sval;
@@ -48,10 +62,23 @@ public class TercetoSuma extends Terceto{
 			}
 		}
 		
-		if(segundo.obj != null) { //acomodar
+		if(segundo.obj != null) { 
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			s2="ADD R1,#aux" + aux2 + "\n";
-			s3="MOV #aux"+ this.getPos()+ ",R1" + "\n";
+			String tipo = ((Terceto)segundo.obj).getTipoDato();
+			if (tipo.equals("DOUBLE")) {
+				s2="FLD #aux" + aux2 + "\n";
+				s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n";
+				tokenAux.setLexema("#aux" + aux2);
+				tokenAux.setTipoDato("DOUBLE");
+				tokenAux.setType("Identificador");
+			}
+			else {
+				s2="ADD R1,#aux" + aux2 + "\n";
+				s3="MOV #aux"+ this.getPos()+ ",R1" + "\n";
+				tokenAux.setLexema("#aux" + aux2);
+				tokenAux.setTipoDato("LONG");
+				tokenAux.setType("Identificador");
+			}
 		}
 		else {
 			aux2 = segundo.sval;	
@@ -80,8 +107,7 @@ public class TercetoSuma extends Terceto{
 			}
 		}
 		
-	
-		Lexico.putSimboloAsm("#aux"+this.getPos());
+		Lexico.putSimbolo(tokenAux); 
 		
 		return s1 + "\n" + s2 + "\n" + s3;
 	}
