@@ -57,7 +57,7 @@ public class TercetoSuma extends Terceto{
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
-				if (tipo=="DOUBLE") {
+				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux1 + "@Variable";
 					s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n";
 				}
