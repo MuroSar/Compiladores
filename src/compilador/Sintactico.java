@@ -210,7 +210,14 @@ public class Sintactico {
 				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getAmbito();
 			}
 			else {
-				ambito1 = this.lexico.getTokenFromTS(op1.sval).getAmbito();
+				Token aux = this.lexico.getTokenFromTS(op1.sval);
+				this.lexico.removeTokenFromTS(op1.sval);
+											
+				aux.setAmbito(this.ambito);
+				
+				this.lexico.putSimbolo(aux);
+				
+				ambito1 = this.ambito;
 			}
 		}
 		
@@ -219,7 +226,14 @@ public class Sintactico {
 				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getAmbito();
 			}
 			else {
-				ambito2 = this.lexico.getTokenFromTS(op2.sval).getAmbito();
+				Token aux = this.lexico.getTokenFromTS(op2.sval);
+				this.lexico.removeTokenFromTS(op2.sval);
+											
+				aux.setAmbito(this.ambito);
+				
+				this.lexico.putSimbolo(aux);
+				
+				ambito2 = this.ambito;
 			}
 		}
 		
