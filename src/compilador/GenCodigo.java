@@ -31,6 +31,10 @@ public class GenCodigo {
 		this.sintactico=s;
 	}
 	
+	public Sintactico getSintactico() {
+		return this.sintactico;
+	}
+	
 	public void setDeclaracionesOut(String dec) { 
 		this.declaraciones_out +=dec;
 	}

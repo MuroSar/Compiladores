@@ -350,7 +350,7 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
 		
-		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
+		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("-----------------------ERRORES----------------------");

@@ -52,6 +52,7 @@ public class TercetoSuma extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				s2="ADD R1,_"+aux2;
 				s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 			}
 			else {
 				if (aux2.toString().contains(",")) {
