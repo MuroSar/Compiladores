@@ -16,7 +16,7 @@ public class TercetoBFalse extends Terceto {
 	{
 		s1=Integer.valueOf(this.segundo.substring(1, segundo.length()-1));
 		operador=this.generador.getComparador();
-		if(this.operador.equals("<")) { //<>
+		if(this.operador.equals("<")) {
 			return "JL Label"+ s1 + "\n";
 		}
 		else {	
