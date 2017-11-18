@@ -14,6 +14,7 @@ public class TercetoSuma extends Terceto{
 		private String s3;
 		private ParserVal primero;
 		private ParserVal segundo;
+		Token tokenAux = new Token();
 
 	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
 		super("+", primero, segundo, pos);		
@@ -23,8 +24,6 @@ public class TercetoSuma extends Terceto{
 		
 	public String getCodigo()
 	{
-		Token tokenAux = new Token();
-	
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();

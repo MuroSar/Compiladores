@@ -114,7 +114,6 @@ public class GenCodigo {
 			for (Terceto t:tercetos) {
 				t.setGenerador(this);
 				instrucciones += t.getCodigo();
-				System.out.println(t.getCodigo());
 			}
 			
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
