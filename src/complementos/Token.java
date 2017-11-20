@@ -9,6 +9,7 @@ public class Token {
 	private String ambito;
 	private String tipoDato;
 	
+	private String destino;
 	
 	//lexema para nombres de variables --> nombreVariable@Variable
 	//lexema para nombres de funciones --> nombreVariable@Funcion
@@ -45,6 +46,8 @@ public class Token {
 		this.linea = linea;
 		this.ambito = ambito;
 		this.tipoDato = tipoDato;
+		
+		this.destino = "";
 	}
 	
 	public Token ()
@@ -55,6 +58,8 @@ public class Token {
 		this.linea = -2;
 		this.ambito = "";
 		this.tipoDato = "";
+		
+		this.destino = "";
 	}
 	
 	public String getLexema() {
@@ -93,11 +98,17 @@ public class Token {
 	public void setTipoDato(String tipoDato) {
 		this.tipoDato = tipoDato;
 	}
+	public String getDestino() {
+		return destino;
+	}
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Token [lexema=" + lexema + ", key=" + key + ", type=" + type + ", linea=" + linea + ", ambito=" + ambito + ", tipoDato= " + tipoDato + "]";
+		return "Token [lexema=" + lexema + ", key=" + key + ", type=" + type + ", linea=" + linea + ", ambito=" + ambito + ", tipoDato= " + tipoDato + ", destino= " + destino + "]";
 	}
 	
 	

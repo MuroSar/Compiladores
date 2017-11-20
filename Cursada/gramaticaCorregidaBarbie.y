@@ -2,6 +2,8 @@
 package compilador;
 
 import java.util.ArrayList;
+import java.util.Stack;
+
 import Tercetos.Terceto;
 import Tercetos.TercetoSuma;
 import Tercetos.TercetoResta;
@@ -38,7 +40,7 @@ bloque_comun : bloque_control
 		| declaracion
 		;
 		
-bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size());
+bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size(), this.funcionActual.pop());
 												   								this.sintactico.addTerceto(ret);
 																			   }
 
@@ -78,7 +80,8 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 												   this.sintactico.addTerceto(etiqueta);
 												   this.sintactico.funcionPosPut($3, etiqueta.getPrimero());												   
 												   this.sintactico.actualizaFuncion($3, $1);
-												   this.sintactico.aumentarAmbito($3);}
+												   this.sintactico.aumentarAmbito($3);
+												   this.funcionActual.push($3.sval);}
 		| tipo MOVE FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 Terceto etiqueta = new TercetoEtiqueta("Label",null ,null , this.sintactico.getTercetos().size());
 											 etiqueta.setPrimero($4.sval);
@@ -86,7 +89,8 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 											 this.sintactico.funcionPosPut($4, etiqueta.getPrimero());
 											 this.sintactico.actualizaFuncion($4, $1);
 											 this.sintactico.aumentarAmbito($4);
-											 this.sintactico.setFnMOVE(true);} 
+											 this.sintactico.setFnMOVE(true);
+											 this.funcionActual.push($4.sval);} 
 		;
 				
 declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declaraci\u00f3n de variable");
@@ -367,7 +371,7 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
 		| factor
 		;
 
-llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado a funci\u00f3n");
+llamado_funcion : IDENTIFICADOR '('')' { this.sintactico.showMessage("Llamado a funci\u00f3n");
 											if(this.sintactico.existeFuncion($1))
  											{
  												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
@@ -384,7 +388,7 @@ llamado_funcion : IDENTIFICADOR '('')''.' { this.sintactico.showMessage("Llamado
  											}}
  	/* ERRORES */ 
 		| IDENTIFICADOR '('error'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
-		| IDENTIFICADOR '('')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en llamado a Funcion");}
+		//| IDENTIFICADOR '('')'error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en llamado a Funcion");}
 	/* ERRORES */
 		;
 	
@@ -403,6 +407,7 @@ tipo : LONG
 private Lexico lexico;
 private Sintactico sintactico;
 private Token token;
+private Stack<String> funcionActual = new Stack<String>();
 
 public void setLexico(Lexico lexico)
 {

@@ -177,14 +177,14 @@ public class Lexico {
 		return result;
 	}
 	
-	public Token getTokenFromTS(String key)
+	public static Token getTokenFromTS(String key)
 	{
-		return this.tablaSimbolos.get(key);
+		return tablaSimbolos.get(key);
 	}
 
-	public void removeTokenFromTS(String key) 
+	public static void removeTokenFromTS(String key) 
 	{
-		this.tablaSimbolos.remove(key);
+		tablaSimbolos.remove(key);
 	}
 	
 	public void setEstado(int estado)
@@ -309,5 +309,12 @@ public class Lexico {
 					this.tablaSimbolos.remove(k);
 			}
 		}
+	}
+	
+	public static void actualizarDestino(String key, String destino) {
+		Token t = getTokenFromTS(key+"@Variable");
+		removeTokenFromTS(key+"@Variable");
+		t.setDestino(destino);
+		putSimbolo(t);
 	}
 }

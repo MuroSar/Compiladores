@@ -406,5 +406,7 @@ public class Sintactico {
 		this.generador.setListaTercetos(this.getAllTercetos()); 
 		this.generador.setSintactico(this);
 		this.generador.generarCodigo();
+		
+		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 	}
 }
