@@ -121,7 +121,6 @@ public class TercetoDivision extends Terceto{
 			
 		}
 		//s3="MOV #aux"+ pos + ",R1";
-	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
 		return chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3 + "\n";
