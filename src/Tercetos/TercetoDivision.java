@@ -3,6 +3,7 @@ package Tercetos;
 import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
+import complementos.Token;
 
 public class TercetoDivision extends Terceto{
 	
@@ -15,6 +16,7 @@ public class TercetoDivision extends Terceto{
 	private ParserVal segundo;
 	private int pos;
 	private String op2;
+	Token tokenAux = new Token();
 
 	public TercetoDivision(ParserVal primero, ParserVal segundo, int pos) {
 		super("/", primero, segundo, pos);
