@@ -48,7 +48,7 @@ public class TercetoSuma extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV R1,_" + aux1 + "\n";
+					s1="MOV R1,_" + aux1;
 				}
 			}
 			else {
@@ -56,7 +56,7 @@ public class TercetoSuma extends Terceto{
 					s1="FLD " + aux1;
 				}
 				else { //es una constante de tipo LONG
-					s1="MOV R1," + aux1 + "\n"; 
+					s1="MOV R1," + aux1; 
 				}
 			}
 		}
@@ -89,7 +89,7 @@ public class TercetoSuma extends Terceto{
 				}
 				else
 				{
-					s2="ADD R1,_" + aux2 + "\n";
+					s2="ADD R1,_" + aux2;
 					s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
 				}
 			}

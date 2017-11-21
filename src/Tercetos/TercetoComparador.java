@@ -64,7 +64,7 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				s2="#aux"+aux2;
-				return CodAux + "CMP " + s1 + "," + s2;
+				return CodAux + "CMP " + s1 + "," + s2 + "\n";
 			}
 		}
 		else {
@@ -89,7 +89,7 @@ public class TercetoComparador extends Terceto{
 				else {
 					CodAux +="MOV R2," + aux2 + "\n";
 					s2="R2"; 
-					return CodAux + "CMP " + s1 + "," + s2;
+					return CodAux + "CMP " + s1 + "," + s2 + "\n";
 				}
 			}
 		}
