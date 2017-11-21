@@ -107,8 +107,8 @@ declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declara
 											this.sintactico.actualizaVariables($1, $3);}
 		;
 		
-sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
-									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+2);
+sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()+1)));
+									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 									  	   bFalse.setMarcaDesp(true);
 										   this.sintactico.addTerceto(bFalse);
 		               					   this.sintactico.pilaPush(bFalse);
@@ -157,8 +157,8 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 		;
 				
 sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("Sentencia: SWITCH");
-												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
-									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+2);
+												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()+1)));
+									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 												  this.sintactico.addTerceto(bFalse);
 							               		  this.sintactico.pilaPush(bFalse);
 							               		  this.sintactico.setMarcaAntes(true);

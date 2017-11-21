@@ -729,8 +729,8 @@ case 26:
 break;
 case 27:
 //#line 110 "gramaticaCorregidaBarbie.y"
-{ ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
-									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+2);
+{ ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()+1)));
+									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 									  	   bFalse.setMarcaDesp(true);
 										   this.sintactico.addTerceto(bFalse);
 		               					   this.sintactico.pilaPush(bFalse);
@@ -802,8 +802,8 @@ break;
 case 39:
 //#line 159 "gramaticaCorregidaBarbie.y"
 { this.sintactico.showMessage("Sentencia: SWITCH");
-												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
-									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+2);
+												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()+1)));
+									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 												  this.sintactico.addTerceto(bFalse);
 							               		  this.sintactico.pilaPush(bFalse);
 							               		  this.sintactico.setMarcaAntes(true);
