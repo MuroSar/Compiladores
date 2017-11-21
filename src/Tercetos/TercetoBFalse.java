@@ -14,25 +14,31 @@ public class TercetoBFalse extends Terceto {
 		
 	public String getCodigo()
 	{
+		String label = "";
+		if(this.marcaDesp) {
+			label = "Label" + (this.getPos()+1) + "\n";
+			this.marcaDesp = false;
+		}
+		
 		s1=Integer.valueOf(this.segundo.substring(1, segundo.length()-1));
 		operador=this.generador.getComparador();
 		if(this.operador.equals("<")) {
-			return "JL Label"+ s1 + "\n";
+			return "JL Label"+ s1 + "\n" + label;
 		}
 		else {	
 			if (this.operador.equals(">")) {
-					return "JBE Label"+ s1 + "\n";
+					return "JBE Label"+ s1 + "\n" + label;
 					}
 			else {
 				if (this.operador.equals(">=")) {
-					return "JB Label"+ s1 + "\n";
+					return "JB Label"+ s1 + "\n" + label;
 				}
 				else {
 					if (this.operador.equals("<=")) {
-						return "JG Label"+ s1 + "\n";
+						return "JG Label"+ s1 + "\n" + label;
 					}
 					else {
-						return "JNE Label" + s1 + "\n";
+						return "JNE Label" + s1 + "\n" + label;
 					}
 				}
 			}

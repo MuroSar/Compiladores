@@ -23,6 +23,13 @@ public class TercetoComparador extends Terceto{
 		
 	public String getCodigo()
 	{
+		String label = "";
+		if(this.marcaAntes) {
+			label = "Label" + (this.getPos()-1) + "\n";
+			this.marcaAntes = false;
+		}
+		
+		
 		this.generador.setComparador(this.operador);
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
@@ -60,11 +67,11 @@ public class TercetoComparador extends Terceto{
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				salidaDouble +="FCOM #aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
-				return salidaDouble;
+				return label + salidaDouble;
 			}
 			else {
 				s2="#aux"+aux2;
-				return CodAux + "CMP " + s1 + "," + s2 + "\n";
+				return label + CodAux + "CMP " + s1 + "," + s2 + "\n";
 			}
 		}
 		else {
@@ -73,23 +80,23 @@ public class TercetoComparador extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					salidaDouble +="FCOM " + aux1 + "@Variable" + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
-					return salidaDouble;
+					return label + salidaDouble;
 				}
 				else
 				{
 					s2="_"+aux2; 
-					return CodAux + "CMP " + s1 + "," + s2 + "\n";
+					return label + CodAux + "CMP " + s1 + "," + s2 + "\n";
 				}
 			}
 			else {
 				if (aux2.toString().contains(",")) {
 					salidaDouble += "FCOM " + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
-					return salidaDouble;
+					return label + salidaDouble;
 				}
 				else {
 					CodAux +="MOV R2," + aux2 + "\n";
 					s2="R2"; 
-					return CodAux + "CMP " + s1 + "," + s2 + "\n";
+					return label + CodAux + "CMP " + s1 + "," + s2 + "\n";
 				}
 			}
 		}

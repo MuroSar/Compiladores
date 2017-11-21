@@ -111,6 +111,12 @@ public class TercetoMultiplicacion extends Terceto{
 	
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return s1 + "\n" + s2 + "\n" + s3 + "\n" + "JO _overflow\n";
+		String label = "";
+		if(this.marcaAntes) {
+			label = "Label" + (this.getPos()-1) + "\n";
+			this.marcaAntes = false;
+		}
+		
+		return label + s1 + "\n" + s2 + "\n" + s3 + "\n" + "JO _overflow\n";
 		}
 	}

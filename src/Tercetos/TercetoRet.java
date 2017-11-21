@@ -66,10 +66,11 @@ public class TercetoRet extends Terceto{
 		
 		String label = "";
 		if(this.marcaDesp) {
-			
+			label = "Label" + (this.getPos()+1) + "\n";
+			this.marcaDesp = false;
 		}
 		
-		return "RET\n";
+		return "RET\n" + label;
 	}
 
 }

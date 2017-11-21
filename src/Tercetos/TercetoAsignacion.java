@@ -35,7 +35,6 @@ public class TercetoAsignacion extends Terceto{
 			else {
 				s1="MOV "+aux1+",R1";
 				if (aux1.toString().contains(",")) {
-					System.out.println("es un DOUBLE");
 				}
 			}
 		}
@@ -52,7 +51,6 @@ public class TercetoAsignacion extends Terceto{
 			else {
 				s2="MOV R1,"+aux2;	
 				if (aux2.toString().contains(",")) {
-					System.out.println("es un Double");
 				}
 			}
 			
@@ -62,6 +60,12 @@ public class TercetoAsignacion extends Terceto{
 		
 		Lexico.actualizarDestino(aux1, "#aux"+pos);
 		
-		return s2 + "\n" + s1 + "\n";
+		String label = "";
+		if(this.marcaAntes) {
+			label = "Label" + (this.getPos()-1) + "\n";
+			this.marcaAntes = false;
+		}
+		
+		return label + s2 + "\n" + s1 + "\n";
 	}
 }

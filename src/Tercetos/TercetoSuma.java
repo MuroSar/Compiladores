@@ -111,7 +111,6 @@ public class TercetoSuma extends Terceto{
 		
 		Lexico.putSimbolo(tokenAux); 
 		
-		
 		String label = "";
 		if(this.marcaAntes) {
 			label = "Label" + (this.getPos()-1) + "\n";

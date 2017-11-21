@@ -11,6 +11,13 @@ public class TercetoBIncondicional extends Terceto {
 	public String getCodigo()
 	{
 		int i=Integer.valueOf(this.primero.substring(1, primero.length()-1));
-		return "JMP Label"+ i + "\n";
+		
+		String label = "";
+		if(this.marcaDesp) {
+			label = "Label" + (this.getPos()+1) + "\n";
+			this.marcaDesp = false;
+		}
+				
+		return "JMP Label"+ i + "\n" + label;
 	}
 }

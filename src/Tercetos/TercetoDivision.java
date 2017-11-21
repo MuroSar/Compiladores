@@ -16,7 +16,8 @@ public class TercetoDivision extends Terceto{
 	private ParserVal segundo;
 	private int pos;
 	private String op2;
-	Token tokenAux = new Token();
+	private Token tokenAux = new Token();
+	private String chequeo_div_cero;
 
 	public TercetoDivision(ParserVal primero, ParserVal segundo, int pos) {
 		super("/", primero, segundo, pos);
@@ -67,10 +68,10 @@ public class TercetoDivision extends Terceto{
 		
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				s2="FLD #aux" + aux2 + "\n";
+				chequeo_div_cero = "FTST" + "\n" + "JE _division_cero" + "\n";
 				s3="FDIV" + "\n" + "FSTP #aux" + this.getPos() + "\n";
 				tokenAux.setLexema("#aux" + aux2);
 				tokenAux.setTipoDato("DOUBLE");
@@ -78,7 +79,8 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				s2="DIV R1,#aux"+aux2;
-				op2="aux"+aux2;
+				op2="#aux"+aux2;
+				chequeo_div_cero = "MOV R2," + op2 + "CMP 0,R2" + "\n" + "JE _division_cero" + "\n";
 				s3="MOV #aux"+ this.getPos()+ ",R1" + "\n";
 				tokenAux.setLexema("#aux" + aux2);
 				tokenAux.setTipoDato("LONG");
@@ -88,38 +90,40 @@ public class TercetoDivision extends Terceto{
 		else {
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
-				
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux1 + "@Variable";
+					chequeo_div_cero = "FTST" + "\n" + "JE _division_cero" + "\n";
 					s3="FDIV" + "\n" + "FSTP #aux" + this.getPos() + "\n";
 				}
 				else
 				{
 					s2="DIV R1,_"+aux2;
 					op2="_"+aux2;
+					chequeo_div_cero = "MOV R2," + op2 + "CMP 0,R2" + "\n" + "JE _division_cero" + "\n";
 					s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
 				}
 			}
 			else {
 				if (aux2.toString().contains(",")) {
 					s2= "FLD " + aux2;
+					chequeo_div_cero ="FTST" + "\n" + "JE _division_cero" + "\n";
 					s3="FDIV" + "\n" + "FSTP #aux" + this.getPos() + "\n"; 
 				}
 				else 
 				{
 					s2="DIV R1,"+aux2;	
 					op2=aux2;
+					chequeo_div_cero = "MOV R2," + op2 + "CMP 0,R2" + "\n" + "JE _division_cero" + "\n";
 					s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
 				}
 			}
 			
 		}
-		s3="MOV #aux"+ pos + ",R1";
-	
+		//s3="MOV #aux"+ pos + ",R1";
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return "CMP 0," + op2 + "\n" + "JE _division_cero" + "\n" + s1 + "\n" + s2 + "\n" + s3 + "\n";
+		return chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
 
 }

@@ -13,6 +13,13 @@ public class TercetoOut extends Terceto {
 		String nombre=this.primero;
 		String aux = nombre + " DB " + nombre + ", 0\n";
 		this.generador.setDeclaracionesOut(aux);
-		return "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK\n"; 
+		
+		String label = "";
+		if(this.marcaAntes) {
+			label = "Label" + (this.getPos()-1) + "\n";
+			this.marcaAntes = false;
+		}
+		
+		return label + "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK\n"; 
 	}
 }
