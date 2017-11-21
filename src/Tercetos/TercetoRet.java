@@ -61,9 +61,13 @@ public class TercetoRet extends Terceto{
 				}
 			}
 		}
-		
 
 		Lexico.putSimbolo(t);
+		
+		String label = "";
+		if(this.marcaDesp) {
+			
+		}
 		
 		return "RET\n";
 	}

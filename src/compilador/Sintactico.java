@@ -31,6 +31,9 @@ public class Sintactico {
 	private Map<String, String> ambitos;
 	private char maxAmbito;
 	
+	private static boolean marcaAntes;
+	private static boolean marcaDesp;
+	
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
 		this.lexico = lexico;
@@ -48,6 +51,9 @@ public class Sintactico {
 		this.maxAmbito = this.ambito.charAt(0);
 		this.ambitos = new HashMap<String, String>();
 		this.ambitos.put("general", this.ambito);
+		
+		this.marcaAntes = false;
+		this.marcaDesp = false;
 	}
 	
 	public void nuevo() {
@@ -60,6 +66,24 @@ public class Sintactico {
 		this.maxAmbito = this.ambito.charAt(0);
 		this.ambitos.clear();
 		this.ambitos.put("general", this.ambito);
+		this.marcaAntes = false;
+		this.marcaDesp = false;
+	}
+	
+	public static boolean getMarcaAntes() {
+		return marcaAntes;
+	}
+	
+	public static void setMarcaAntes(boolean marca) {
+		marcaAntes = marca;
+	}
+	
+	public static boolean getMarcaDesp() {
+		return marcaDesp;
+	}
+	
+	public static void setMarcaDesp(boolean marca) {
+		marcaDesp = marca;
 	}
 	
 	public void funcionPosPut(ParserVal nombreFunc, String label) {

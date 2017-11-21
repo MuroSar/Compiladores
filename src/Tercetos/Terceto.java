@@ -12,8 +12,8 @@ public abstract class Terceto {
 	private int pos;
 	private String tipoDato;
 	
-	private boolean marcaAntes = false;
-	private boolean marcaDesp = false;
+	protected boolean marcaAntes = false;
+	protected boolean marcaDesp = false;
 
 	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
@@ -99,18 +99,18 @@ public abstract class Terceto {
 		return marcaAntes;
 	}
 
-	public void setMarcaAntes(boolean marcaAntes) {
-		this.marcaAntes = marcaAntes;
+	public void setMarcaAntes(boolean marca) {
+		this.marcaAntes = marca;
 	}
 
 	public boolean getMarcaDesp() {
 		return marcaDesp;
 	}
 
-	public void setMarcaDesp(boolean marcaDesp) {
-		this.marcaDesp = marcaDesp;
+	public void setMarcaDesp(boolean marca) {
+		this.marcaDesp = marca;
 	}
-
+	
 	public abstract String getCodigo();
 	
 	public int isReferencia(Object obj) {

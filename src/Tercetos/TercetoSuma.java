@@ -20,6 +20,10 @@ public class TercetoSuma extends Terceto{
 		super("+", primero, segundo, pos);		
 		this.primero = primero;
 		this.segundo = segundo;
+		
+		if(Sintactico.getMarcaAntes()) {
+			this.marcaAntes = true;
+		}
 	}
 		
 	public String getCodigo()
@@ -107,6 +111,13 @@ public class TercetoSuma extends Terceto{
 		
 		Lexico.putSimbolo(tokenAux); 
 		
-		return s1 + "\n" + s2 + "\n" + s3;
+		
+		String label = "";
+		if(this.marcaAntes) {
+			label = "Label" + (this.getPos()-1) + "\n";
+			this.marcaAntes = false;
+		}
+		
+		return label + s1 + "\n" + s2 + "\n" + s3;
 	}
 }
