@@ -16,10 +16,21 @@ public class GenCodigo {
 	private String declaraciones_out;
 	private String comparador="";
 	
+	private ArrayList<Integer> labels;
+	
 	public GenCodigo() {
 		declaraciones_out = new String();
+		this.labels = new ArrayList<Integer>();
 	}
 		
+	public ArrayList<Integer> getLabels(){
+		return new ArrayList<Integer>(this.labels);
+	}
+	
+	public void addLabel(Integer nro) {
+		this.labels.add(nro);
+	}
+	
 	public void setListaTercetos(ArrayList<Terceto> ter) {
 		tercetos = new ArrayList<Terceto>(ter);
 	}
@@ -100,12 +111,13 @@ public class GenCodigo {
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
 	        instrucciones += "start:\n";
-			for (Terceto t:tercetos) {
+			for (Terceto t : this.tercetos) {
 				t.setGenerador(this);
 				instrucciones += t.getCodigo();
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
+	        asm += "Label" + this.tercetos.size() + "\n";
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
 		}

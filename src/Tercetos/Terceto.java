@@ -110,7 +110,7 @@ public abstract class Terceto {
 	public void setMarcaDesp(boolean marca) {
 		this.marcaDesp = marca;
 	}
-	
+
 	public abstract String getCodigo();
 	
 	public int isReferencia(Object obj) {

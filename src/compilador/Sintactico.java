@@ -23,6 +23,7 @@ public class Sintactico {
 	private ArrayList<String> errores;
 	
 	private boolean fnMOVE;
+	private String IDSwitch;
 	
 	private  Map<String, String> funcionPos;
 	private Stack<Terceto> pila;
@@ -68,6 +69,14 @@ public class Sintactico {
 		this.ambitos.put("general", this.ambito);
 		this.marcaAntes = false;
 		this.marcaDesp = false;
+	}
+	
+	public String getIDSwitch() {
+		return this.IDSwitch;
+	}
+	
+	public void setIDSwitch(String id) {
+		this.IDSwitch = id;
 	}
 	
 	public static boolean getMarcaAntes() {
