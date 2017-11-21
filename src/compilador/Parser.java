@@ -839,7 +839,7 @@ case 50:
 												 this.sintactico.addTerceto(bIncondicional); 
 												 Terceto bFalse = this.sintactico.pilaPop();
 												 this.sintactico.pilaPush(bIncondicional);
-												 bFalse.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
+												 bFalse.setSegundo(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
 											   }
 break;
 case 51:
@@ -847,9 +847,9 @@ case 51:
 { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 														  this.sintactico.addTerceto(bIncondicional); 
-														  Terceto bFalse = this.sintactico.pilaPop();
+														  Terceto bIncon = this.sintactico.pilaPop();
 														  this.sintactico.pilaPush(bIncondicional);
-														  bFalse.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
+														  bIncon.setPrimero(this.sintactico.getTercetos().size()); /*Set linea donde termina el THEN*/
 											  		    }
 break;
 case 52:

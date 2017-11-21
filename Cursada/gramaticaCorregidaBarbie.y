@@ -171,14 +171,14 @@ rep_switch : CASE CONSTANTE ':' bloque_control { Terceto bIncondicional = new Te
 												 this.sintactico.addTerceto(bIncondicional); 
 												 Terceto bFalse = this.sintactico.pilaPop();
 												 this.sintactico.pilaPush(bIncondicional);
-												 bFalse.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
+												 bFalse.setSegundo(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
 											   }
 		| rep_switch CASE CONSTANTE ':' bloque_control  { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 														  this.sintactico.addTerceto(bIncondicional); 
-														  Terceto bFalse = this.sintactico.pilaPop();
+														  Terceto bIncon = this.sintactico.pilaPop();
 														  this.sintactico.pilaPush(bIncondicional);
-														  bFalse.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
+														  bIncon.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
 											  		    }
 	/* ERRORES */
 		| error CONSTANTE ':' bloque_control {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CASE'");}
