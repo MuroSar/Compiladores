@@ -11,7 +11,6 @@ public abstract class Terceto {
 	protected GenCodigo generador;
 	private int pos;
 	private String tipoDato;
-	
 	private boolean marcaAntes = false;
 	private boolean marcaDesp = false;
 
