@@ -34,6 +34,7 @@ public class Sintactico {
 	
 	private static boolean marcaAntes;
 	private static boolean marcaDesp;
+	private String nombreMarca;
 	
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
@@ -55,6 +56,7 @@ public class Sintactico {
 		
 		this.marcaAntes = false;
 		this.marcaDesp = false;
+		this.nombreMarca = "";
 	}
 	
 	public void nuevo() {
@@ -69,6 +71,7 @@ public class Sintactico {
 		this.ambitos.put("general", this.ambito);
 		this.marcaAntes = false;
 		this.marcaDesp = false;
+		this.nombreMarca = "";
 	}
 	
 	public String getIDSwitch() {
@@ -95,6 +98,14 @@ public class Sintactico {
 		marcaDesp = marca;
 	}
 	
+	public String getNombreMarca() {
+		return nombreMarca;
+	}
+
+	public void setNombreMarca(String nombreMarca) {
+		this.nombreMarca = nombreMarca;
+	}
+
 	public void funcionPosPut(ParserVal nombreFunc, String label) {
 		this.funcionPos.put(nombreFunc.sval, label);
 	}

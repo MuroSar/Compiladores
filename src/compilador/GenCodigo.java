@@ -31,6 +31,10 @@ public class GenCodigo {
 		this.labels.add(nro);
 	}
 	
+	public void removeLabel(String nro) {
+		this.labels.remove(nro);
+	}
+	
 	public void setListaTercetos(ArrayList<Terceto> ter) {
 		tercetos = new ArrayList<Terceto>(ter);
 	}

@@ -61,9 +61,15 @@ public class TercetoAsignacion extends Terceto{
 		Lexico.actualizarDestino(aux1, "#aux"+pos);
 		
 		String label = "";
-		if(this.marcaAntes) {
-			label = "Label" + (this.getPos()-1) + "\n";
-			this.marcaAntes = false;
+		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
+			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
+				label = this.generador.getSintactico().getNombreMarca() + "\n";
+				this.generador.getSintactico().setNombreMarca("");
+			}
+			else {
+				label = "Label" + (this.getPos()) + "\n";
+				this.marcaAntes = false;	
+			}
 		}
 		
 		return label + s2 + "\n" + s1 + "\n";

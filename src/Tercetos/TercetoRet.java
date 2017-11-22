@@ -65,12 +65,18 @@ public class TercetoRet extends Terceto{
 		Lexico.putSimbolo(t);
 		
 		String label = "";
-		if(this.marcaDesp) {
-			label = "Label" + (this.getPos()+1) + "\n";
-			this.marcaDesp = false;
+		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
+			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
+				label = this.generador.getSintactico().getNombreMarca() + "\n";
+				this.generador.getSintactico().setNombreMarca("");
+			}
+			else {
+				label = "Label" + (this.getPos()) + "\n";
+				this.marcaAntes = false;	
+			}
 		}
 		
-		return "RET\n" + label;
+		return label + "RET\n";
 	}
 
 }

@@ -123,7 +123,19 @@ public class TercetoDivision extends Terceto{
 		//s3="MOV #aux"+ pos + ",R1";
 		Lexico.putSimboloAsm("#aux"+pos);
 		
-		return chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3 + "\n";
+		String label = "";
+		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
+			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
+				label = this.generador.getSintactico().getNombreMarca() + "\n";
+				this.generador.getSintactico().setNombreMarca("");
+			}
+			else {
+				label = "Label" + (this.getPos()) + "\n";
+				this.marcaAntes = false;	
+			}
+		}
+		
+		return label + chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3 + "\n";
 	}
 
 }

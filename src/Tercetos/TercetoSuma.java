@@ -69,14 +69,14 @@ public class TercetoSuma extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				s2="FLD #aux" + aux2 + "\n";
+				s2="FLD #aux" + aux2;
 				s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n";
 				tokenAux.setLexema("#aux" + aux2);
 				tokenAux.setTipoDato("DOUBLE");
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s2="ADD R1,#aux" + aux2 + "\n";
+				s2="ADD R1,#aux" + aux2;
 				s3="MOV #aux"+ this.getPos()+ ",R1" + "\n";
 				tokenAux.setLexema("#aux" + aux2);
 				tokenAux.setTipoDato("LONG");
@@ -112,9 +112,15 @@ public class TercetoSuma extends Terceto{
 		Lexico.putSimbolo(tokenAux); 
 		
 		String label = "";
-		if(this.marcaAntes) {
-			label = "Label" + (this.getPos()-1) + "\n";
-			this.marcaAntes = false;
+		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
+			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
+				label = this.generador.getSintactico().getNombreMarca() + "\n";
+				this.generador.getSintactico().setNombreMarca("");
+			}
+			else {
+				label = "Label" + (this.getPos()) + "\n";
+				this.marcaAntes = false;	
+			}
 		}
 		
 		return label + s1 + "\n" + s2 + "\n" + s3;

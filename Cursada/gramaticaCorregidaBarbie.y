@@ -40,7 +40,7 @@ bloque_comun : bloque_control
 		;
 		
 bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size(), this.funcionActual.pop());
-												   								ret.setMarcaDesp(true);
+												   								this.sintactico.setMarcaAntes(true);
 												   								this.sintactico.addTerceto(ret);
 																			   }
 
@@ -77,6 +77,7 @@ declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decreme
 encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 												   
 												   this.sintactico.setMarcaAntes(true);
+												   this.sintactico.setNombreMarca($3.sval);
 												   this.sintactico.funcionPosPut($3, $3.sval);												   
 												   
 												   this.sintactico.actualizaFuncion($3, $1);
@@ -86,6 +87,7 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 		| tipo MOVE FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 
 											 this.sintactico.setMarcaAntes(true);
+											 this.sintactico.setNombreMarca($4.sval);
 											 this.sintactico.funcionPosPut($4, $4.sval);
 											 
 											 this.sintactico.actualizaFuncion($4, $1);
@@ -100,7 +102,7 @@ declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declara
 		
 sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
-									  	   bFalse.setMarcaDesp(true);
+									  	   //bFalse.setMarcaDesp(true);
 										   this.sintactico.addTerceto(bFalse);
 		               					   this.sintactico.pilaPush(bFalse);
 		                            	  } cuerpo_if
@@ -141,7 +143,7 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("Sentencia: SWITCH");
 												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
-												  bFalse.setMarcaDesp(true);
+												  //bFalse.setMarcaDesp(true);
 												  this.tercetoAux = bFalse;
 							               		  this.sintactico.pilaPush(bFalse);
 							               		  this.sintactico.setMarcaAntes(true);
@@ -170,7 +172,7 @@ rep_switch : CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVa
 							}
 						  ':' bloque_control { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
 									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
-									  		   bFalse.setMarcaDesp(true);
+									  		   //bFalse.setMarcaDesp(true);
 											   this.tercetoAux = bFalse;
 											   Terceto bFalse2 = this.sintactico.pilaPop();
 											   this.sintactico.pilaPush(bFalse);
@@ -182,7 +184,7 @@ rep_switch : CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVa
 									}
 									':' bloque_control  { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bFalse3 = this.sintactico.pilaPop();
-														  bFalse3.setMarcaDesp(true);
+														  //bFalse3.setMarcaDesp(true);
 														  this.sintactico.pilaPush(tercetoAux);
 														  bFalse3.setSegundo(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
 											  		    }
