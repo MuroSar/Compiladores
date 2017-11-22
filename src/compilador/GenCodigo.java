@@ -124,18 +124,19 @@ public class GenCodigo {
 	        asm += "Label" + this.tercetos.size() + "\n";
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
-		}
-		String path = this.sintactico.getLexico().getPathArchivoACargar();
-		File file = new File(path.substring(0, path.length()-3) + "asm");
-		FileWriter fw;
-		try {
-			fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(asm);
-			bw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			String path = this.sintactico.getLexico().getPathArchivoACargar();
+			File file = new File(path.substring(0, path.length()-3) + "asm");
+			FileWriter fw;
+			try {
+				fw = new FileWriter(file.getAbsoluteFile());
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(asm);
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
