@@ -135,7 +135,7 @@ public class TercetoDivision extends Terceto{
 			}
 		}
 		
-		return label + chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3 + "\n";
+		return label + chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3;
 	}
 
 }

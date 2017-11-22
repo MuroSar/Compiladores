@@ -199,20 +199,27 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 
 											if(this.sintactico.existeVariable($1))
  											{
-	 											if(this.sintactico.ambitoCorrecto($1, $3)) {
-	 												if(this.sintactico.mismoTipo($1, $3) != null) {
-	 													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
-	 													$$ = new ParserVal(t);
-														this.sintactico.addTerceto(t);
+ 												if(this.sintactico.existeVariable($3))
+ 												{
+		 											if(this.sintactico.ambitoCorrecto($1, $3)) {
+		 												if(this.sintactico.mismoTipo($1, $3) != null) {
+		 													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+		 													$$ = new ParserVal(t);
+															this.sintactico.addTerceto(t);
+														}
+														else
+														{
+															this.sintactico.addError("tipos", $1);
+														}
 													}
-													else
-													{
-														this.sintactico.addError("tipos", $1);
+													else {
+														this.sintactico.addError("ambito", $3);
 													}
 												}
-												else {
-													this.sintactico.addError("ambito", $3);
-												}
+												else
+ 												{
+ 												this.sintactico.addError("variable", $3);
+ 												}
  											}
  											else
  											{
@@ -220,7 +227,7 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
  											}}
  	/* ERRORES */
 		| IDENTIFICADOR error expresion'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'operador'");}
-		//| IDENTIFICADOR '=' expresion error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en asignacion");}
+		| IDENTIFICADOR '=' expresion error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en asignacion");}
 	/* ERRORES */
 		;
 		
