@@ -1,0 +1,48 @@
+a : LONG.
+a = 5.
+a : LONG.
+b = 3.
+a = b.
+suma : LONG.
+
+
+LONG FUNCTION suma {
+result : LONG.
+result = 4.
+RETURN (result).
+}
+
+b : LONG.
+
+a = sumar().
+a = 6,7.
+c : DOUBLE.
+d : DOUBLE.
+e : DOUBLE.
+c = a + b.
+e = 4,5.
+d = 0.
+c = e / d.
+
+LONG MOVE FUNCTION sumar {
+b : LONG.
+a = 2.
+b = 6.
+RETURN (b).
+}
+
+SWITCH (a) {
+CASE 5 : a=1.
+CASE 3 : a=2.
+}.
+
+a=suma().
+
+IF ( a == 5 ) THEN
+OUT ("Barbie").
+ELSE
+OUT("Mauro").
+END_IF.
+
+a=6.
+
