@@ -10,8 +10,13 @@ public class TercetoOut extends Terceto {
 		
 	public String getCodigo()
 	{
+		
 		String nombre=this.primero;
-		String aux = nombre + " DB " + nombre + ", 0\n";
+		
+		String soloNombre = nombre.substring(1, nombre.length()-1); //aca le saco las " del principio y fin
+		
+		
+		String aux = soloNombre + " DB " + nombre + ", 0\n";
 		this.generador.setDeclaracionesOut(aux);
 		
 		String label = "";
@@ -26,6 +31,6 @@ public class TercetoOut extends Terceto {
 			}
 		}
 		
-		return label + "invoke MessageBox, NULL, addr " + nombre +", addr " + nombre + ", MB_OK\n"; 
+		return label + "invoke MessageBox, NULL, addr " + soloNombre +", addr " + soloNombre + ", MB_OK\n"; 
 	}
 }

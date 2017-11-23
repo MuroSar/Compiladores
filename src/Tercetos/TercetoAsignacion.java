@@ -25,40 +25,44 @@ public class TercetoAsignacion extends Terceto{
 	{
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			s1="MOV #aux"+aux1+",R1";
+			s1="MOV var@@aux"+aux1+",R1";
 		}
 		else {
 			aux1 = primero.sval;
 			if(Sintactico.esVariable(primero)) {
-				s1="MOV _"+aux1+",R1";
+				s1="MOV _"+aux1+"@Variable,R1";
 			}
 			else {
 				s1="MOV "+aux1+",R1";
 				if (aux1.toString().contains(",")) {
+					//aca que pasa???
+					//estaba vacio
 				}
 			}
 		}
 		
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			s2="MOV R1,#aux"+aux2;
+			s2="MOV R1,var@@aux"+aux2;
 		}
 		else {
 			aux2 = segundo.sval;	
 			if(Sintactico.esVariable(segundo)) {
-				s2="MOV R1,_"+aux2;
+				s2="MOV R1,_"+aux2+"@Variable";
 			}
 			else {
 				s2="MOV R1,"+aux2;	
 				if (aux2.toString().contains(",")) {
+					//aca que pasa???
+					//estaba vacio
 				}
 			}
 			
 		}
 	
-		Lexico.putSimboloAsm("#aux"+pos);
+		Lexico.putSimboloAsm("var@@aux"+pos);
 		
-		Lexico.actualizarDestino(aux1, "#aux"+pos);
+		Lexico.actualizarDestino(aux1, "var@@aux"+pos);
 		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {

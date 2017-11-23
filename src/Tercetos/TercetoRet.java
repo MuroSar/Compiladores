@@ -20,7 +20,7 @@ public class TercetoRet extends Terceto{
 	public String getCodigo()
 	{
 		Token t = new Token();
-		t.setLexema("#" + nombreFuncion + "Ret");
+		t.setLexema("var@@" + nombreFuncion + "Ret");
 		String destino = "";
 				
 		if(primero.obj != null) { //tengo un terceto..

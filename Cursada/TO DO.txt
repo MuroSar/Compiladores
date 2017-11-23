@@ -7,8 +7,16 @@ TO DO:
 
 
 
-
-
-
--- La sentencia OUT no explota si le falta el punto final. 
+REVISAR::::
+	-- Asignacion!!! (comentarios en getCodigo)
+	-- Las variables auxiliares que se crean en los getCodigo no estan en la TS
+	-- Para que poniamos el _ antes de las variables?? 
+		hay que acomodar la TS si es necesario.. si no sacarlo de todos los tercetos 
+	-- Hay que sacar el metodo putSimboloAsm del lexico.. 
+		Para todas las variables auxiliares hay que generar un token
+		ponerle el Type = "Identificador", lexema y TipoDato.. si no no se levantan desp.
+		Ver ejemplos de Suma y Resta..
+		Acomodar Asignacion, Multiplicacion y Resta.. 
+		
+	-- continuara.. ;P
 ------------------------------------------------------------------------------------------------------------------------

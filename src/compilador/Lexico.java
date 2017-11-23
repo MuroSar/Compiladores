@@ -227,7 +227,7 @@ public class Lexico {
 	{
 		Token t = new Token();
 		t.setLexema(lexema);
-		
+		t.setType("Identificador");
 		
 		putSimbolo(t);
 	}

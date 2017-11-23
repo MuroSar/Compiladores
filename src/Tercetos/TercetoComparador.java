@@ -46,10 +46,10 @@ public class TercetoComparador extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				salidaDouble="FLD #aux" + aux1; //es un terceto y el resultado es un DOUBLE
+				salidaDouble="FLD var@@aux" + aux1; //es un terceto y el resultado es un DOUBLE
 			}
 			else {
-				s1="#aux"+aux1;
+				s1="var@@aux"+aux1;
 			}
 		}
 		else {
@@ -60,7 +60,7 @@ public class TercetoComparador extends Terceto{
 					salidaDouble="FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="_"+aux1; //es una variable
+					s1="_"+aux1+ "@Variable"; //es una variable
 				}
 			}
 			else {
@@ -77,11 +77,11 @@ public class TercetoComparador extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				salidaDouble +="FCOM #aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
+				salidaDouble +="FCOM var@@aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
 				return label + salidaDouble + labelFinal;
 			}
 			else {
-				s2="#aux"+aux2;
+				s2="var@@aux"+aux2;
 				return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
 			}
 		}
@@ -95,7 +95,7 @@ public class TercetoComparador extends Terceto{
 				}
 				else
 				{
-					s2="_"+aux2; 
+					s2="_"+aux2+ "@Variable"; 
 					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
 				}
 			}

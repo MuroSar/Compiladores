@@ -32,14 +32,14 @@ public class TercetoSuma extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				s1="FLD #aux" + aux1;
-				tokenAux.setLexema("#aux" + aux1);
+				s1="FLD var@@aux" + aux1;
+				tokenAux.setLexema("var@@aux" + aux1);
 				tokenAux.setTipoDato("DOUBLE");
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s1="MOV R1,#aux" + aux1 + "\n";
-				tokenAux.setLexema("#aux" + aux1);
+				s1="MOV R1,var@@aux" + aux1 + "\n";
+				tokenAux.setLexema("var@@aux" + aux1);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
 			}
@@ -52,7 +52,7 @@ public class TercetoSuma extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV R1,_" + aux1;
+					s1="MOV R1,_" + aux1 + "@Variable";
 				}
 			}
 			else {
@@ -69,16 +69,16 @@ public class TercetoSuma extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				s2="FLD #aux" + aux2;
-				s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n";
-				tokenAux.setLexema("#aux" + aux2);
+				s2="FLD var@@aux" + aux2;
+				s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				tokenAux.setLexema("var@@aux" + aux2);
 				tokenAux.setTipoDato("DOUBLE");
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s2="ADD R1,#aux" + aux2;
-				s3="MOV #aux"+ this.getPos()+ ",R1" + "\n";
-				tokenAux.setLexema("#aux" + aux2);
+				s2="ADD R1,var@@aux" + aux2;
+				s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n";
+				tokenAux.setLexema("var@@aux" + aux2);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
 			}
@@ -89,22 +89,22 @@ public class TercetoSuma extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux1 + "@Variable";
-					s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				}
 				else
 				{
-					s2="ADD R1,_" + aux2;
-					s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+					s2="ADD R1,_" + aux2 + "@Variable";
+					s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
 				}
 			}
 			else {
 				if (aux2.toString().contains(",")) {
 					s2= "FLD " + aux2;
-					s3="FADD" + "\n" + "FSTP #aux" + this.getPos() + "\n"; 
+					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
 				}
 				else {
 					s2="ADD R1," + aux2;
-					s3="MOV #aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+					s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
 				}
 			}
 		}
