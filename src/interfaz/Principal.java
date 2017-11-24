@@ -237,6 +237,7 @@ public class Principal extends JFrame {
 		tpArchivoCodigo.setText("");
 		archivoCargado = false;
 		sintactico.nuevo();
+		generador.nuevo();
 	}
 	
 	private void cargarArchivo()

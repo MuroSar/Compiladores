@@ -25,6 +25,14 @@ public class GenCodigo {
 		this.labels = new ArrayList<Integer>();
 	}
 	
+	public void nuevo() {
+		this.declaraciones_out = new String();
+		this.tercetos.clear();
+		this.comparador = "";
+		this.labels.clear();
+		this.tercetosFuncion.clear();
+	}
+	
 	public ArrayList<Integer> getLabels(){
 		return new ArrayList<Integer>(this.labels);
 	}
@@ -132,7 +140,7 @@ public class GenCodigo {
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
-	        //asm += "Label" + this.tercetos.size() + ":\n";
+	        asm += "Label" + this.tercetos.size() + ":\n";
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
 		
