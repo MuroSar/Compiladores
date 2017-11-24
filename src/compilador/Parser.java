@@ -490,7 +490,7 @@ final static String yyrule[] = {
 "tipo : DOUBLE",
 };
 
-//#line 450 "gramaticaCorregidaFinal.y"
+//#line 449 "gramaticaCorregidaFinal.y"
 
 private Lexico lexico;
 private Sintactico sintactico;
@@ -799,51 +799,54 @@ case 39:
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
 												  this.tercetoAux = bFalse;
 							               		  this.sintactico.pilaPush(bFalse);
-							               		  this.sintactico.setMarcaAntes(true);
 							               		  this.sintactico.setIDSwitch(val_peek(1).sval);
 							               		}
 break;
+case 40:
+//#line 152 "gramaticaCorregidaFinal.y"
+{this.sintactico.setMarcaAntes(true);}
+break;
 case 41:
-//#line 155 "gramaticaCorregidaFinal.y"
+//#line 154 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
 break;
 case 42:
-//#line 156 "gramaticaCorregidaFinal.y"
+//#line 155 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
 break;
 case 43:
-//#line 157 "gramaticaCorregidaFinal.y"
+//#line 156 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'variable'");}
 break;
 case 44:
-//#line 158 "gramaticaCorregidaFinal.y"
+//#line 157 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')'");}
 break;
 case 46:
-//#line 164 "gramaticaCorregidaFinal.y"
+//#line 163 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '{'");}
 break;
 case 47:
-//#line 165 "gramaticaCorregidaFinal.y"
+//#line 164 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CASE'");}
 break;
 case 48:
-//#line 166 "gramaticaCorregidaFinal.y"
+//#line 165 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '}'");}
 break;
 case 49:
-//#line 167 "gramaticaCorregidaFinal.y"
+//#line 166 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.'");}
 break;
 case 50:
-//#line 171 "gramaticaCorregidaFinal.y"
+//#line 170 "gramaticaCorregidaFinal.y"
 { Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), val_peek(0), this.sintactico.getTercetos().size());
 							  this.sintactico.addTerceto(comp);
 							  this.sintactico.addTerceto(tercetoAux);
 							}
 break;
 case 51:
-//#line 175 "gramaticaCorregidaFinal.y"
+//#line 174 "gramaticaCorregidaFinal.y"
 { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
 									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
 											   this.tercetoAux = bFalse;
@@ -853,14 +856,14 @@ case 51:
 										   	 }
 break;
 case 52:
-//#line 182 "gramaticaCorregidaFinal.y"
+//#line 181 "gramaticaCorregidaFinal.y"
 { Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), val_peek(0), this.sintactico.getTercetos().size());
 									  this.sintactico.addTerceto(comp);
 									  this.sintactico.addTerceto(tercetoAux);
 									}
 break;
 case 53:
-//#line 186 "gramaticaCorregidaFinal.y"
+//#line 185 "gramaticaCorregidaFinal.y"
 { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bFalse3 = this.sintactico.pilaPop();
 														  this.sintactico.pilaPush(tercetoAux);
@@ -868,19 +871,19 @@ case 53:
 											  		    }
 break;
 case 54:
-//#line 192 "gramaticaCorregidaFinal.y"
+//#line 191 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CASE'");}
 break;
 case 55:
-//#line 193 "gramaticaCorregidaFinal.y"
+//#line 192 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'CONSTANTE'");}
 break;
 case 56:
-//#line 194 "gramaticaCorregidaFinal.y"
+//#line 193 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ':'");}
 break;
 case 57:
-//#line 198 "gramaticaCorregidaFinal.y"
+//#line 197 "gramaticaCorregidaFinal.y"
 {this.sintactico.showMessage("Asignaci\u00f3n");
 
 											if(this.sintactico.existeVariable(val_peek(3)))
@@ -917,15 +920,15 @@ case 57:
  											}}
 break;
 case 58:
-//#line 233 "gramaticaCorregidaFinal.y"
+//#line 232 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'operador'");}
 break;
 case 59:
-//#line 234 "gramaticaCorregidaFinal.y"
+//#line 233 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en asignacion");}
 break;
 case 60:
-//#line 238 "gramaticaCorregidaFinal.y"
+//#line 237 "gramaticaCorregidaFinal.y"
 { this.sintactico.showMessage("Sentencia: OUT");
 							   	 Terceto t =  new TercetoOut(val_peek(2), this.sintactico.getTercetos().size());
 							   	 if(this.sintactico.getMarcaAntes()){
@@ -937,34 +940,34 @@ case 60:
 							   }
 break;
 case 61:
-//#line 248 "gramaticaCorregidaFinal.y"
+//#line 247 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en salida");}
 break;
 case 62:
-//#line 249 "gramaticaCorregidaFinal.y"
+//#line 248 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en salida");}
 break;
 case 63:
-//#line 250 "gramaticaCorregidaFinal.y"
+//#line 249 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.' en salida");}
 break;
 case 64:
-//#line 254 "gramaticaCorregidaFinal.y"
+//#line 253 "gramaticaCorregidaFinal.y"
 { yyval.obj = new ArrayList<ParserVal>(); 
 								  ((ArrayList<ParserVal>)(yyval.obj)).add(val_peek(0));}
 break;
 case 65:
-//#line 257 "gramaticaCorregidaFinal.y"
+//#line 256 "gramaticaCorregidaFinal.y"
 { yyval = new ParserVal(new ArrayList<ParserVal>()); 
 											  ((ArrayList<ParserVal>)val_peek(2).obj).add(val_peek(0));
                                               ((ArrayList<ParserVal>)yyval.obj).addAll((ArrayList<ParserVal>)val_peek(2).obj);}
 break;
 case 66:
-//#line 261 "gramaticaCorregidaFinal.y"
+//#line 260 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ',' en declaracion de variables");}
 break;
 case 68:
-//#line 266 "gramaticaCorregidaFinal.y"
+//#line 265 "gramaticaCorregidaFinal.y"
 {this.sintactico.showMessage("Condici\u00f3n");
 										if(this.sintactico.existeVariable(val_peek(2))){
 									     	if(this.sintactico.existeVariable(val_peek(0))){
@@ -985,11 +988,11 @@ case 68:
 										}}
 break;
 case 69:
-//#line 285 "gramaticaCorregidaFinal.y"
+//#line 284 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'operador' en condicion");}
 break;
 case 76:
-//#line 297 "gramaticaCorregidaFinal.y"
+//#line 296 "gramaticaCorregidaFinal.y"
 { if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
 											if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {	
@@ -1020,7 +1023,7 @@ case 76:
 									}}
 break;
 case 77:
-//#line 326 "gramaticaCorregidaFinal.y"
+//#line 325 "gramaticaCorregidaFinal.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
 										if(this.sintactico.existeVariable(val_peek(0))){
 		 									if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
@@ -1051,7 +1054,7 @@ case 77:
 									}}
 break;
 case 79:
-//#line 357 "gramaticaCorregidaFinal.y"
+//#line 356 "gramaticaCorregidaFinal.y"
 { 	if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
@@ -1082,7 +1085,7 @@ case 79:
 								}}
 break;
 case 80:
-//#line 386 "gramaticaCorregidaFinal.y"
+//#line 385 "gramaticaCorregidaFinal.y"
 { if(this.sintactico.existeVariable(val_peek(2))){
 									if(this.sintactico.existeVariable(val_peek(0))){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
@@ -1113,7 +1116,7 @@ case 80:
 								}}
 break;
 case 82:
-//#line 417 "gramaticaCorregidaFinal.y"
+//#line 416 "gramaticaCorregidaFinal.y"
 { this.sintactico.showMessage("Llamado a funci\u00f3n");
 											if(this.sintactico.existeFuncion(val_peek(2)))
  											{
@@ -1132,10 +1135,10 @@ case 82:
  											}}
 break;
 case 83:
-//#line 434 "gramaticaCorregidaFinal.y"
+//#line 433 "gramaticaCorregidaFinal.y"
 {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta ')' en llamado a Funcion");}
 break;
-//#line 1062 "Parser.java"
+//#line 1065 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

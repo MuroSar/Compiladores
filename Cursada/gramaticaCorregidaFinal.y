@@ -148,9 +148,8 @@ sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("S
 									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
 												  this.tercetoAux = bFalse;
 							               		  this.sintactico.pilaPush(bFalse);
-							               		  this.sintactico.setMarcaAntes(true);
 							               		  this.sintactico.setIDSwitch($3.sval);
-							               		} cuerpo_switch
+							               		} cuerpo_switch {this.sintactico.setMarcaAntes(true);}
 	/* ERRORES */   
 		| error '(' IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
 		| SWITCH error IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
