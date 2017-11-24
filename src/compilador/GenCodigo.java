@@ -121,7 +121,7 @@ public class GenCodigo {
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
-	        asm += "Label" + this.tercetos.size() + "\n";
+	        //asm += "Label" + this.tercetos.size() + ":\n";
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
 		

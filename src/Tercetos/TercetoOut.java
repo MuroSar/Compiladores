@@ -13,7 +13,9 @@ public class TercetoOut extends Terceto {
 		
 		String nombre=this.primero;
 		
-		String soloNombre = nombre.substring(1, nombre.length()-1); //aca le saco las " del principio y fin
+		//aca le saco las " del principio y fin
+		//tambien le borro los espacios en blanco
+		String soloNombre = nombre.substring(1, nombre.length()-1).replaceAll("\\s+","");
 		
 		
 		String aux = soloNombre + " DB " + nombre + ", 0\n";
