@@ -67,12 +67,12 @@ public class TercetoRet extends Terceto{
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
-				label = this.generador.getSintactico().getNombreMarca() + "\n";
+				label = this.generador.getSintactico().getNombreMarca() + ":\n";
 				this.generador.getSintactico().setNombreMarca("");
 			}
 			else {
-				label = "Label" + (this.getPos()) + "\n";
-				this.marcaAntes = false;	
+				label = "Label" + (this.getPos()) + ":\n";
+				this.marcaAntes = false;
 			}
 		}
 		

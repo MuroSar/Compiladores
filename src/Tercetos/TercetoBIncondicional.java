@@ -16,7 +16,7 @@ public class TercetoBIncondicional extends Terceto {
 		
 		String label = "";
 		if(this.marcaDesp) {
-			label = "Label" + (this.getPos()+1) + "\n";
+			label = "Label" + (this.getPos()+1) + ":\n";
 			this.marcaDesp = false;
 		}
 		
