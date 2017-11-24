@@ -68,8 +68,8 @@ public class TercetoComparador extends Terceto{
 					salidaDouble="FLD " + aux1 + "\n"; 
 				}
 				else { //es una constante de tipo LONG
-					CodAux="MOV R1," + aux1 + "\n";
-					s1="R1"; //es un numero
+					CodAux="MOV EAX," + aux1 + "\n";
+					s1="EAX"; //es un numero
 				}
 			}
 		}
