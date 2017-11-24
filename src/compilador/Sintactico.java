@@ -36,6 +36,8 @@ public class Sintactico {
 	private static boolean marcaDesp;
 	private String nombreMarca;
 	
+	private ArrayList<Terceto> tercetosFuncion;
+	
 	public Sintactico(Principal principal, Lexico lexico, Parser parser, GenCodigo generador) {
 		this.ppal = principal;
 		this.lexico = lexico;
@@ -57,6 +59,8 @@ public class Sintactico {
 		this.marcaAntes = false;
 		this.marcaDesp = false;
 		this.nombreMarca = "";
+		
+		this.tercetosFuncion = new ArrayList<Terceto>();
 	}
 	
 	public void nuevo() {
@@ -72,6 +76,7 @@ public class Sintactico {
 		this.marcaAntes = false;
 		this.marcaDesp = false;
 		this.nombreMarca = "";
+		this.tercetosFuncion.clear();
 	}
 	
 	public String getIDSwitch() {
@@ -185,6 +190,14 @@ public class Sintactico {
 	
 	public ArrayList<Terceto> getTercetos() {
 		return new ArrayList<Terceto>(this.tercetos);
+	}
+	
+	public void addTercetoFuncion(Terceto t) {
+		this.tercetosFuncion.add(t);
+	}
+	
+	public ArrayList<Terceto> getTercetosFuncion() {
+		return new ArrayList<Terceto>(this.tercetosFuncion);
 	}
 	
 	public String showTercetos() {
@@ -403,6 +416,10 @@ public class Sintactico {
 	
 	public void decrementarAmbito() {
 		this.ambito = this.ambito.substring(0, this.ambito.length()-2);
+	}
+	
+	public String getAmbito() {
+		return this.ambito;
 	}
 	
 	public Lexico getLexico() {

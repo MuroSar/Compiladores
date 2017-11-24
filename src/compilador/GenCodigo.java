@@ -18,11 +18,13 @@ public class GenCodigo {
 	
 	private ArrayList<Integer> labels;
 	
+	private ArrayList<Terceto> tercetosFuncion;
+	
 	public GenCodigo() {
 		declaraciones_out = new String();
 		this.labels = new ArrayList<Integer>();
 	}
-		
+	
 	public ArrayList<Integer> getLabels(){
 		return new ArrayList<Integer>(this.labels);
 	}
@@ -114,12 +116,19 @@ public class GenCodigo {
 	        instrucciones += ".code\n";
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
-	        //aca irian las funciones
-	        //nombrefuncion + codigo + RET
-	        instrucciones += "start:\n";
-			for (Terceto t : this.tercetos) {
+	        
+	        this.tercetosFuncion = this.sintactico.getTercetosFuncion();
+	        for (Terceto t : this.tercetosFuncion) {
 				t.setGenerador(this);
 				instrucciones += t.getCodigo();
+			}
+
+	        instrucciones += "start:\n";
+			for (Terceto t : this.tercetos) {
+				if(!this.tercetosFuncion.contains(t)) {
+					t.setGenerador(this);
+					instrucciones += t.getCodigo();	
+				}
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;

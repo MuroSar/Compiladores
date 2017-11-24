@@ -45,6 +45,7 @@ bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	
 																					this.sintactico.setMarcaAntes(false);
 																				}
 												   								this.sintactico.addTerceto(ret);
+												   								this.sintactico.addTercetoFuncion(ret);
 																			   }
 
 bloque_sentencias_funcion : sentencias
@@ -106,6 +107,9 @@ declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declara
 sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
 									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
 										   this.sintactico.addTerceto(bFalse);
+										   if(!this.sintactico.getAmbito().equals("A")){
+										   	   this.sintactico.addTercetoFuncion(bFalse);
+										   }
 		               					   this.sintactico.pilaPush(bFalse);
 		                            	  } cuerpo_if
 		                            	  
@@ -123,7 +127,10 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 										this.sintactico.setMarcaAntes(true);
 			   						  }
 		| bloque_control {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
-							this.sintactico.addTerceto(bIncondicional); 
+							this.sintactico.addTerceto(bIncondicional);
+							if(!this.sintactico.getAmbito().equals("A")){
+						   	   this.sintactico.addTercetoFuncion(bIncondicional);
+						    } 
 							Terceto bFalse = this.sintactico.pilaPop();
 							this.sintactico.pilaPush(bIncondicional);
 							bFalse.setSegundo(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
@@ -168,6 +175,9 @@ cuerpo_switch : '{' rep_switch '}''.'
 		
 rep_switch : CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $2, this.sintactico.getTercetos().size());
 							  this.sintactico.addTerceto(comp);
+							  if(!this.sintactico.getAmbito().equals("A")){
+						   	  	  this.sintactico.addTercetoFuncion(comp);
+						      } 
 							  this.sintactico.addTerceto(tercetoAux);
 							}
 						  ':' bloque_control { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
@@ -179,7 +189,13 @@ rep_switch : CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVa
 										   	 }
 		| rep_switch CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $3, this.sintactico.getTercetos().size());
 									  this.sintactico.addTerceto(comp);
+									  if(!this.sintactico.getAmbito().equals("A")){
+								   	  	  this.sintactico.addTercetoFuncion(comp);
+								      } 
 									  this.sintactico.addTerceto(tercetoAux);
+									  if(!this.sintactico.getAmbito().equals("A")){
+								   	  	  this.sintactico.addTercetoFuncion(tercetoAux);
+								      } 
 									}
 									':' bloque_control  { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bFalse3 = this.sintactico.pilaPop();
@@ -208,6 +224,9 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 		 													}
 		 													$$ = new ParserVal(t);
 															this.sintactico.addTerceto(t);
+															if(!this.sintactico.getAmbito().equals("A")){
+													   	  	    this.sintactico.addTercetoFuncion(t);
+													        }
 														}
 														else
 														{
@@ -241,6 +260,9 @@ salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
 								 }
 							   	 $$ = new ParserVal(t);
 								 this.sintactico.addTerceto(t);
+								 if(!this.sintactico.getAmbito().equals("A")){
+						   	  	     this.sintactico.addTercetoFuncion(t);
+						         }
 							   }
 	/* ERRORES */ 
 		| OUT error CADENA ')''.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '(' en salida");}
@@ -271,6 +293,9 @@ condicion : condicion operador expresion
 												}
 												$$ = new ParserVal(t);
 												this.sintactico.addTerceto(t);
+												if(!this.sintactico.getAmbito().equals("A")){
+										   	  	    this.sintactico.addTercetoFuncion(t);
+										        }
 											}
 											else {
 												this.sintactico.addError("variable", $3);
@@ -304,6 +329,9 @@ expresion : expresion '+' termino { if(this.sintactico.existeVariable($1)){
 													}
 													$$ = new ParserVal(t);
 													this.sintactico.addTerceto(t);
+													if(!this.sintactico.getAmbito().equals("A")){
+											   	  	    this.sintactico.addTercetoFuncion(t);
+											        }
 												}
 												else {
 													this.sintactico.addError("tipos", $1);
@@ -333,6 +361,9 @@ expresion : expresion '+' termino { if(this.sintactico.existeVariable($1)){
 													}
 													$$ = new ParserVal(t);
 													this.sintactico.addTerceto(t);
+													if(!this.sintactico.getAmbito().equals("A")){
+											   	  	    this.sintactico.addTercetoFuncion(t);
+											        }
 												}
 												else {
 													this.sintactico.addError("tipos", $1);
@@ -364,6 +395,9 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
 												}
 												$$ = new ParserVal(t);
 												this.sintactico.addTerceto(t);
+												if(!this.sintactico.getAmbito().equals("A")){
+										   	  	    this.sintactico.addTercetoFuncion(t);
+										        }
 											}
 											else {
 												this.sintactico.addError("tipos", $1);
@@ -393,6 +427,9 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
 												}
 												$$ = new ParserVal(t);
 												this.sintactico.addTerceto(t);
+												if(!this.sintactico.getAmbito().equals("A")){
+										   	  	    this.sintactico.addTercetoFuncion(t);
+										        }
 											}
 											else {
 												this.sintactico.addError("tipos", $1);
@@ -423,6 +460,9 @@ llamado_funcion : IDENTIFICADOR '('')' { this.sintactico.showMessage("Llamado a 
 												}
  												$$ = new ParserVal(t);
 												this.sintactico.addTerceto(t);
+												if(!this.sintactico.getAmbito().equals("A")){
+										   	  	    this.sintactico.addTercetoFuncion(t);
+										        }
  											}
  											else
  											{
