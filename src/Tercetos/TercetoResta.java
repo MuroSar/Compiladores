@@ -34,7 +34,7 @@ public class TercetoResta extends Terceto{
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s1="MOV R1,var@@aux"+aux1;
+				s1="MOV EAX,var@@aux"+aux1;
 				tokenAux.setLexema("var@@aux" + aux1);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
@@ -48,7 +48,7 @@ public class TercetoResta extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV R1,_"+aux1+"@Variable";
+					s1="MOV EAX,"+aux1+"@Variable"; //aca hay que acomodar
 				}
 			}
 			else {
@@ -56,7 +56,7 @@ public class TercetoResta extends Terceto{
 						s1="FLD " + aux1;
 				}
 				else {
-					s1="MOV R1,"+aux1;
+					s1="MOV EAX,"+aux1;
 				}
 			}
 		}
@@ -73,8 +73,8 @@ public class TercetoResta extends Terceto{
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s2="SUB R1 var@@aux"+aux2;
-				s3="MOV var@@aux"+ this.getPos() + ",R1";
+				s2="SUB EAX,var@@aux"+aux2;
+				s3="MOV var@@aux"+ this.getPos() + ",EAX";
 				tokenAux.setLexema("var@@aux" + aux2);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
@@ -90,8 +90,8 @@ public class TercetoResta extends Terceto{
 				}
 				else
 				{
-					s2="SUB R1,_"+aux2+"@Variable";
-					s3="MOV var@@aux"+ this.getPos() + ",R1";
+					s2="SUB EAX,"+aux2+"@Variable";
+					s3="MOV var@@aux"+ this.getPos() + ",EAX";
 				}
 			}
 			else {
@@ -100,8 +100,8 @@ public class TercetoResta extends Terceto{
 					s3="FSUB" + "\n" + "FSTP var@@aux" + this.getPos(); 
 				}
 				else {
-					s2="SUB R1,"+aux2;
-					s3="MOV var@@aux"+ this.getPos() + ",R1";
+					s2="SUB EAX,"+aux2;
+					s3="MOV var@@aux"+ this.getPos() + ",EAX";
 				}
 			}
 			

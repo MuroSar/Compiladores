@@ -10,16 +10,16 @@ TO DO:
 REVISAR::::
 	-- Asignacion!!! (comentarios en getCodigo)(Barbie lo hace)
 	
-	-- Las variables auxiliares que se crean en los getCodigo no estan en la TS (Barbie lo hace)
+	-- Las variables auxiliares que se crean en los getCodigo no estan en la TS 
 	
-	-- Para que poniamos el _ antes de las variables (Barbie lo hace)
+	-- Para que poniamos el _ antes de las variables 
 		hay que acomodar la TS si es necesario.. si no sacarlo de todos los tercetos 
 		
-	-- Hay que sacar el metodo putSimboloAsm del lexico.. (Barbie lo hace)
+	-- Hay que sacar el metodo putSimboloAsm del lexico.. 
 		Para todas las variables auxiliares hay que generar un token
 		ponerle el Type = "Identificador", lexema y TipoDato.. si no no se levantan desp.
 		Ver ejemplos de Suma y Resta..
-		Acomodar Asignacion, Multiplicacion y Resta.. (Barbie lo hace)
+		Acomodar Asignacion, Multiplicacion y Resta..
 		
 		
 	--Hay que acomodar los labels que genera de gusto

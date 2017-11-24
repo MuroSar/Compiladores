@@ -38,7 +38,7 @@ public class TercetoDivision extends Terceto{
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s1="MOV R1,var@@aux"+aux1;
+				s1="MOV EAX,var@@aux"+aux1;
 				tokenAux.setLexema("var@@aux" + aux1);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
@@ -52,16 +52,16 @@ public class TercetoDivision extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else {
-					s1="MOV R1,_"+aux1+ "@Variable";
+					s1="MOV EAX,"+aux1+ "@Variable";
 				}
 			}
 			else {
-				s1="MOV R1,"+aux1;	
+				s1="MOV EAX,"+aux1;	
 				if (aux1.toString().contains(",")) {
 					s1="FLD " + aux1;
 				}
 				else { //es una constante de tipo LONG
-					s1="MOV R1,"+aux1;
+					s1="MOV EAX,"+aux1;
 				}
 			}
 		}
@@ -78,10 +78,10 @@ public class TercetoDivision extends Terceto{
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s2="DIV R1,var@@aux"+aux2;
+				s2="DIV EAX,var@@aux"+aux2;
 				op2="var@@aux"+aux2;
-				chequeo_div_cero = "MOV R2," + op2 + "CMP 0,R2" + "\n" + "JE _division_cero" + "\n";
-				s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n";
+				chequeo_div_cero = "MOV EDX," + op2 + "CMP 0,EDX" + "\n" + "JE _division_cero" + "\n";
+				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setLexema("var@@aux" + aux2);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
@@ -98,10 +98,11 @@ public class TercetoDivision extends Terceto{
 				}
 				else
 				{
-					s2="DIV R1,_"+aux2+ "@Variable";
+					s2="DIV EAX,"+aux2+ "@Variable";
 					op2="_"+aux2+ "@Variable";
-					chequeo_div_cero = "MOV R2," + op2 + "CMP 0,R2" + "\n" + "JE _division_cero" + "\n";
-					s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+					chequeo_div_cero = "MOV EDX," + op2 + "CMP 0,EDX" + "\n" + "JE _division_cero" + "\n";
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX";
+					 
 				}
 			}
 			else {
@@ -112,17 +113,14 @@ public class TercetoDivision extends Terceto{
 				}
 				else 
 				{
-					s2="DIV R1,"+aux2;	
+					s2="DIV EAX,"+aux2;	
 					op2=aux2;
-					chequeo_div_cero = "MOV R2," + op2 + "CMP 0,R2" + "\n" + "JE _division_cero" + "\n";
-					s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+					chequeo_div_cero = "MOV EDX," + op2 + "CMP 0,EDX" + "\n" + "JE _division_cero" + "\n";
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX";
 				}
 			}
-			
 		}
-		//s3="MOV var@@aux"+ pos + ",R1";
-		Lexico.putSimboloAsm("var@@aux"+pos);
-		
+		Lexico.putSimbolo(tokenAux);
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
@@ -133,9 +131,7 @@ public class TercetoDivision extends Terceto{
 				label = "Label" + (this.getPos()) + ":\n";
 				this.marcaAntes = false;
 			}
-		}
-		
+		}	
 		return label + chequeo_div_cero + s1 + "\n" + s2 + "\n" + s3;
 	}
-
 }

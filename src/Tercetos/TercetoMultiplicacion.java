@@ -36,7 +36,7 @@ public class TercetoMultiplicacion extends Terceto{
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s1="MOV R1,var@@aux"+aux1;
+				s1="MOV EAX,var@@aux"+aux1;
 				tokenAux.setLexema("var@@aux" + aux1);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
@@ -50,7 +50,7 @@ public class TercetoMultiplicacion extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV R1,_"+aux1+ "@Variable";
+					s1="MOV EAX,"+aux1+ "@Variable"; 
 				}
 			}
 			else {
@@ -58,7 +58,7 @@ public class TercetoMultiplicacion extends Terceto{
 					s1="FLD " + aux1;
 				}
 				else { //es una constante de tipo LONG
-					s1="MOV R1,"+aux1;
+					s1="MOV EAX,"+aux1;
 				}
 			}
 		}
@@ -74,8 +74,8 @@ public class TercetoMultiplicacion extends Terceto{
 				tokenAux.setType("Identificador");
 			}
 			else {
-				s2="MUL R1,var@@aux"+aux2;
-				s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n";
+				s2="MUL EAX,var@@aux"+aux2;
+				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setLexema("var@@aux" + aux2);
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
@@ -91,25 +91,24 @@ public class TercetoMultiplicacion extends Terceto{
 				}
 				else
 				{
-					s2="MUL R1,_"+aux2+ "@Variable";
-					s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+					s2="MUL EAX,"+aux2+ "@Variable";
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				}
 			}
 			else {
-				s2="MUL R1,"+aux2;	
 				if (aux2.toString().contains(",")) {
 					s2= "FLD " + aux2;
 					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
 				}
 				else {
-					s2="MUL R1," + aux2;
-					s3="MOV var@@aux"+ this.getPos()+ ",R1" + "\n" + "JO _overflow\n";
+					s2="MUL EAX," + aux2;
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				}
 			}
 		}
-		s3="MOV var@@aux"+ pos + ",R1";
+		s3="MOV var@@aux"+ pos + ",EAX";
 	
-		Lexico.putSimboloAsm("var@@aux"+pos);
+		Lexico.putSimbolo(tokenAux); 
 		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
@@ -123,6 +122,6 @@ public class TercetoMultiplicacion extends Terceto{
 			}
 		}
 		
-		return label + s1 + "\n" + s2 + "\n" + s3 + "\n" + "JO _overflow\n";
+		return label + s1 + "\n" + s2 + "\n" + s3;
 		}
 	}
