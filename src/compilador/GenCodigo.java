@@ -114,6 +114,8 @@ public class GenCodigo {
 	        instrucciones += ".code\n";
 	        instrucciones += getDivZero(); 
 	        instrucciones += getOverflow();
+	        //aca irian las funciones
+	        //nombrefuncion + codigo + RET
 	        instrucciones += "start:\n";
 			for (Terceto t : this.tercetos) {
 				t.setGenerador(this);

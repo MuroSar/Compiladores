@@ -25,10 +25,16 @@ public class TercetoAsignacion extends Terceto{
 	}
 		
 	public String getCodigo()
-	{
+	{/*
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			s1="MOV var@@aux"+aux1+",EAX";
+			String tipo = ((Terceto)primero.obj).getTipoDato();
+			if (tipo.equals("DOUBLE")) {
+				s1="MOV var@@aux"+aux1+",EAX";
+			}
+			else {
+				
+			}
 		}
 		else {
 			aux1 = primero.sval;
@@ -42,7 +48,7 @@ public class TercetoAsignacion extends Terceto{
 					//estaba vacio
 				}
 			}
-		}
+		}*/
 		
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
