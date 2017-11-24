@@ -23,6 +23,8 @@ public class TercetoFuncion extends Terceto {
 		tokenAux.setType("Identificador");
 		tokenAux.setDestino(s);
 		
+		Lexico.putSimbolo(tokenAux);
+		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
