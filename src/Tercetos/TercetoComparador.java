@@ -60,7 +60,7 @@ public class TercetoComparador extends Terceto{
 					salidaDouble="FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="_"+aux1+ "@Variable"; //es una variable
+					s1=aux1+ "@Variable"; //es una variable
 				}
 			}
 			else {
