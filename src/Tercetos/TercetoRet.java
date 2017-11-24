@@ -76,7 +76,7 @@ public class TercetoRet extends Terceto{
 			}
 		}
 		
-		return label + "RET\n" + "nombreFuncion endp";
+		return label + "RET\n" + nombreFuncion + " endp\n";
 	}
 
 }

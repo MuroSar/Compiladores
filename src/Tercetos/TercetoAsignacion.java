@@ -34,7 +34,7 @@ public class TercetoAsignacion extends Terceto{
 		
 		if(segundo.obj != null) {
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			String tipo = ((Terceto)primero.obj).getTipoDato();
+			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { 
 				s2 = "FLD var@@aux" + aux2 + "\n" + "FSTP " + aux1 + "\n";
 			}
