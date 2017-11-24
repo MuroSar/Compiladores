@@ -2,8 +2,11 @@ package Tercetos;
 
 import compilador.Lexico;
 import compilador.ParserVal;
+import complementos.Token;
 
 public class TercetoFuncion extends Terceto {
+	
+	private Token tokenAux = new Token();
 
 	public TercetoFuncion(ParserVal primero, int pos) {
 		super("FN", primero, null, pos);
@@ -15,6 +18,10 @@ public class TercetoFuncion extends Terceto {
 	public String getCodigo()
 	{
 		String s=this.generador.getNombreFuncion(this.primero);
+		tokenAux.setLexema("var@@aux" + this.getPos());
+		tokenAux.setTipoDato(this.getTipoDato());
+		tokenAux.setType("Identificador");
+		tokenAux.setDestino(s);
 		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {

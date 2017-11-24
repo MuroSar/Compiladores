@@ -12,6 +12,7 @@ public class TercetoComparador extends Terceto{
 	private String salidaDouble;
 	private String s1;
 	private String s2;
+	private String s3;
 	private String CodAux;
 
 	public TercetoComparador(ParserVal operador, ParserVal primero, ParserVal segundo, int pos) {
@@ -96,7 +97,8 @@ public class TercetoComparador extends Terceto{
 				else
 				{
 					s2=aux2+ "@Variable"; 
-					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
+					s3 = "MOV EAX," + s2;
+					return label + CodAux +s2+ "CMP " + s1 + ",EAX" + "\n" + labelFinal;
 				}
 			}
 			else {
