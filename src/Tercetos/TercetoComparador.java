@@ -36,9 +36,9 @@ public class TercetoComparador extends Terceto{
 		}
 		
 		String labelFinal = "";
-		if(this.generador.getLabels().contains(this.getPos())) {
-			labelFinal = "Label" + (this.getPos()) + ":\n";
-		}
+//		if(this.generador.getLabels().contains(this.getPos())) {
+//			labelFinal = "Label" + (this.getPos()) + ":\n";
+//		}
 		
 		
 		this.generador.setComparador(this.operador);

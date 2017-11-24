@@ -44,7 +44,6 @@ bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	
 																					ret.setMarcaAntes(true);
 																					this.sintactico.setMarcaAntes(false);
 																				}
-												   								this.sintactico.setMarcaAntes(true);
 												   								this.sintactico.addTerceto(ret);
 																			   }
 
