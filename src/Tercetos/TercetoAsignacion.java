@@ -63,9 +63,8 @@ public class TercetoAsignacion extends Terceto{
 			}
 		}
 	
-		Lexico.putSimboloAsm("var@@aux"+pos);
-		
-		Lexico.actualizarDestino(aux1, "var@@aux"+pos);
+		//Lexico.putSimboloAsm("var@@aux"+pos);
+		//Lexico.actualizarDestino(aux1, "var@@aux"+pos);
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(!this.generador.getSintactico().getNombreMarca().equals("")) {

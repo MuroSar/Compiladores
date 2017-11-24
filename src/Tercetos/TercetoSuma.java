@@ -32,16 +32,16 @@ public class TercetoSuma extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto que retorna DOUBLE
-				s1="FLD var@@aux" + aux1;
-				tokenAux.setLexema("var@@aux" + aux1);
+				s1="FLD var@@aux" + aux1;/*
+				tokenAux.setLexema("var@@aux" + this.getPos());
 				tokenAux.setTipoDato("DOUBLE");
-				tokenAux.setType("Identificador");
+				tokenAux.setType("Identificador");*/
 			}
 			else { //es un terceto que retorna LONG
-				s1="MOV EAX,var@@aux" + aux1 + "\n";
-				tokenAux.setLexema("var@@aux" + aux1);
+				s1="MOV EAX,var@@aux" + aux1 + "\n";/*
+				tokenAux.setLexema("var@@aux" + this.getPos());
 				tokenAux.setTipoDato("LONG");
-				tokenAux.setType("Identificador");
+				tokenAux.setType("Identificador");*/
 			}
 		}
 		else {
@@ -73,14 +73,14 @@ public class TercetoSuma extends Terceto{
 			if (tipo.equals("DOUBLE")) { //es un terceto de tipo DOUBLE
 				s2="FLD var@@aux" + aux2;
 				s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-				tokenAux.setLexema("var@@aux" + aux2);
+				tokenAux.setLexema("var@@aux" + this.getPos());
 				tokenAux.setTipoDato("DOUBLE");
 				tokenAux.setType("Identificador");
 			}
 			else {// es un terceto de tipo LONG
 				s2="ADD EAX,var@@aux" + aux2;
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
-				tokenAux.setLexema("var@@aux" + aux2);
+				tokenAux.setLexema("var@@aux" + this.getPos());
 				tokenAux.setTipoDato("LONG");
 				tokenAux.setType("Identificador");
 			}
@@ -93,22 +93,34 @@ public class TercetoSuma extends Terceto{
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux1 + "@Variable";
 					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					tokenAux.setLexema("var@@aux" + this.getPos());
+					tokenAux.setTipoDato("DOUBLE");
+					tokenAux.setType("Identificador");
 				}
 				else
 				{ //es una variable de tipo LONG
 					s2="ADD EAX," + aux2 + "@Variable";
-					s3="JO _overflow\n" + "MOV var@@aux" + this.getPos() + ",EAX" + "\n";;
+					s3="JO _overflow\n" + "MOV var@@aux" + this.getPos() + ",EAX" + "\n";
+					tokenAux.setLexema("var@@aux" + this.getPos());
+					tokenAux.setTipoDato("LONG");
+					tokenAux.setType("Identificador");
 				}
 			}
 			else {
 				if (aux2.toString().contains(",")) {
 					//es una constante DOUBLE
 					s2= "FLD " + aux2;
-					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
+					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					tokenAux.setLexema("var@@aux" + this.getPos());
+					tokenAux.setTipoDato("DOUBLE");
+					tokenAux.setType("Identificador");
 				}
 				else {
 					s2="ADD EAX," + aux2;
 					s3="JO _overflow\n" + "MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
+					tokenAux.setLexema("var@@aux" + this.getPos());
+					tokenAux.setTipoDato("LONG");
+					tokenAux.setType("Identificador");
 				}
 			}
 		}
