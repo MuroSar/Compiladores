@@ -95,7 +95,7 @@ public class TercetoComparador extends Terceto{
 				}
 				else
 				{
-					s2="_"+aux2+ "@Variable"; 
+					s2=aux2+ "@Variable"; 
 					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
 				}
 			}
@@ -105,8 +105,8 @@ public class TercetoComparador extends Terceto{
 					return label + salidaDouble + labelFinal;
 				}
 				else {
-					CodAux +="MOV R2," + aux2 + "\n";
-					s2="R2"; 
+					CodAux +="MOV EDX," + aux2 + "\n";
+					s2="EDX"; 
 					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
 				}
 			}
