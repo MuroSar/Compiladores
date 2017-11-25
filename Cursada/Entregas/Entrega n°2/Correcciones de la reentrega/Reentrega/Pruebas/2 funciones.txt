@@ -1,0 +1,42 @@
+LONG FUNCTION salida5 {
+	aB1 : LONG.
+	aB1 = 5.
+RETURN ( aB1 ).
+}
+
+
+
+
+aux : LONG.
+
+
+aux = salida5() + salida5().
+
+IF (aux > 7) THEN
+	OUT("salida aux").
+END_IF.
+
+
+
+
+
+DOUBLE FUNCTION salida5D {
+	aC1 : DOUBLE.
+	aC1 = 5,5.
+RETURN ( aC1 ).
+}
+
+
+
+
+aux2 : DOUBLE.
+
+aux2 = 6,0 + salida5D().
+
+IF (aux2 > 11,1) THEN
+	OUT("salida aux2").
+ELSE
+	OUT("lalala").
+END_IF.
+
+
