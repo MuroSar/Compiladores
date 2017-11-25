@@ -14,14 +14,12 @@ public class TercetoMultiplicacion extends Terceto{
 	private String s3;
 	private ParserVal primero;
 	private ParserVal segundo;
-	private int pos;
 	Token tokenAux = new Token();
 
 	public TercetoMultiplicacion(ParserVal primero, ParserVal segundo, int pos) {
 		super("*", primero, segundo, pos);
 		this.primero = primero;
 		this.segundo = segundo;
-		this.pos = pos;
 	}
 		
 	public String getCodigo()
@@ -129,7 +127,7 @@ public class TercetoMultiplicacion extends Terceto{
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {
-					s2="MUL EAX," + aux2;
+					s2= "MOV EDX," + aux2 + "MUL EAX,EDX";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
