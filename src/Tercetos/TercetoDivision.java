@@ -136,7 +136,7 @@ public class TercetoDivision extends Terceto{
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else 
-				{
+				{  
 					s2= "MOV EDX," + aux2 + "\n" + "DIV EAX";	
 					op2=aux2;
 					chequeo_div_cero ="CMP constCeroLong," + op2 + "\n" + "JE _division_cero";
