@@ -19,11 +19,13 @@ public class TercetoOut extends Terceto {
 		
 		
 		String aux = soloNombre + " DB " + nombre + ", 0\n";
-		this.generador.setDeclaracionesOut(aux);
+		if(!this.generador.delcaracionesOutContains(aux)) {
+			this.generador.setDeclaracionesOut(aux);	
+		}
 		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
-			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
+			if(this.generador.getSintactico().existeNombreMarca()) {
 				label = this.generador.getSintactico().getNombreMarca() + " proc\n";
 				this.generador.getSintactico().removeNombreMarca();
 			}

@@ -141,7 +141,7 @@ public class TercetoMultiplicacion extends Terceto{
 		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
-			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
+			if(this.generador.getSintactico().existeNombreMarca()) {
 				label = this.generador.getSintactico().getNombreMarca() + " proc\n";
 				this.generador.getSintactico().removeNombreMarca();
 			}

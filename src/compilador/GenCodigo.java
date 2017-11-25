@@ -61,6 +61,13 @@ public class GenCodigo {
 		return this.sintactico;
 	}
 	
+	public boolean delcaracionesOutContains(String dec) {
+		if(this.declaraciones_out.contains(dec)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void setDeclaracionesOut(String dec) { 
 		this.declaraciones_out +=dec;
 	}
@@ -146,7 +153,7 @@ public class GenCodigo {
 					instrucciones += t.getCodigo();	
 				}
 				else {
-					if(t.getMarcaAntes()) {
+					if(t.getMarcaAntes() && this.tercetos.get(0) != t) {
 						instrucciones += "Label"+t.getPos()+":\n";
 					}
 				}

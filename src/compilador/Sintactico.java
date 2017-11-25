@@ -103,6 +103,13 @@ public class Sintactico {
 		marcaDesp = marca;
 	}
 	
+	public boolean existeNombreMarca() {
+		if(this.nombreMarca.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+	
 	public String getNombreMarca() {
 		return this.nombreMarca.get(0);
 	}
