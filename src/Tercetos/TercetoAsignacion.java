@@ -47,7 +47,7 @@ public class TercetoAsignacion extends Terceto{
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return "FLD " + nombre_func + "\n" + "FSTP " + aux1+"\n";
+					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
 					s2 = "MOV EAX," + "var@@aux" + aux2 + "\n" + "MOV " + aux1 + ",EAX";  
