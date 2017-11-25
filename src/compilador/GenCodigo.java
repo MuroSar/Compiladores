@@ -16,21 +16,25 @@ public class GenCodigo {
 	private String declaraciones_out;
 	private String comparador="";
 	
+	private String declaraciones_const;
+	
 	private ArrayList<Integer> labels;
 	
 	private ArrayList<Terceto> tercetosFuncion;
 	
 	public GenCodigo() {
-		declaraciones_out = new String();
+		declaraciones_out = "";
 		this.labels = new ArrayList<Integer>();
+		this.declaraciones_const = "";
 	}
 	
 	public void nuevo() {
-		this.declaraciones_out = new String();
+		this.declaraciones_out = "";
 		this.tercetos.clear();
 		this.comparador = "";
 		this.labels.clear();
 		this.tercetosFuncion.clear();
+		this.declaraciones_const = "";
 	}
 	
 	public ArrayList<Integer> getLabels(){
@@ -59,6 +63,10 @@ public class GenCodigo {
 	
 	public void setDeclaracionesOut(String dec) { 
 		this.declaraciones_out +=dec;
+	}
+	
+	public void setDeclaracionesConst(String dec) { 
+		this.declaraciones_const += dec;
 	}
 
 	public String getEncabezado() {
@@ -108,7 +116,7 @@ public class GenCodigo {
         		}
         	}
         }
-        return declaracion + declaraciones_out; 
+        return declaracion + declaraciones_out + declaraciones_const; 
     }
 	
 	public void generarCodigo() {
@@ -136,6 +144,11 @@ public class GenCodigo {
 				if(!this.tercetosFuncion.contains(t)) {
 					t.setGenerador(this);
 					instrucciones += t.getCodigo();	
+				}
+				else {
+					if(t.getMarcaAntes()) {
+						instrucciones += "Label"+t.getPos()+":\n";
+					}
 				}
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS

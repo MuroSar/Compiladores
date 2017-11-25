@@ -67,7 +67,9 @@ public class TercetoAsignacion extends Terceto{
 			}
 			else {	
 				if (aux2.toString().contains(",")) {
-					s2 = "FLD " + aux2 + "\n" + "FSTP " + aux1;
+					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
+					this.generador.setDeclaracionesOut(aux);
+					s2 = "FLD const@@"+aux2.replace(',', '_') + "\n" + "FSTP " + aux1;
 				}
 				else {
 					s2="MOV " + aux1 + "," + aux2; 

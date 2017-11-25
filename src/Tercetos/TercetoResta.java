@@ -25,7 +25,7 @@ public class TercetoResta extends Terceto{
 	public String getCodigo()
 	{
 		tokenAux.setType("Identificador");
-		tokenAux.setLexema("var@@aux" + aux1);
+		tokenAux.setLexema("var@@aux" + this.getPos());
 		
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
@@ -64,7 +64,11 @@ public class TercetoResta extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) {
-						s1="FLD " + aux1;
+					
+					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
+					this.generador.setDeclaracionesOut(aux);
+					
+					s1="FLD const@@"+aux1.replace(',', '_');
 				}
 				else {
 					s1="MOV EAX,"+aux1;
@@ -116,7 +120,9 @@ public class TercetoResta extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					s2= "FLD " + aux2;
+					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
+					this.generador.setDeclaracionesOut(aux);
+					s2= "FLD const@@"+aux2.replace(',', '_');
 					s3="FSUB" + "\n" + "FSTP var@@aux" + this.getPos(); 
 					tokenAux.setTipoDato("DOUBLE");
 				}

@@ -91,7 +91,9 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) { //es una constante de tipo DOUBLE
-					salidaDouble="FLD " + aux1 + "\n"; 
+					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
+					this.generador.setDeclaracionesOut(aux);
+					salidaDouble="FLD const@@"+aux1.replace(',', '_') + "\n"; 
 				}
 				else { //es una constante de tipo LONG
 					CodAux="MOV EAX," + aux1 + "\n";
@@ -111,7 +113,8 @@ public class TercetoComparador extends Terceto{
 					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
-					salidaDouble +="FCOM var@@aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
+					salidaDouble +="FLD var@@aux" + aux2 +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
+					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					return label + salidaDouble + labelFinal;
 				}
 				
@@ -140,7 +143,8 @@ public class TercetoComparador extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					salidaDouble +="FCOM " + aux1 + "@Variable" + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					salidaDouble +="FLD "+ aux1 + "@Variable\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					return label + salidaDouble + labelFinal;
 				}
 				else
@@ -152,7 +156,11 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					salidaDouble += "FCOM " + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
+					this.generador.setDeclaracionesOut(aux);
+					
+					salidaDouble += "FLD const@@"+aux2.replace(',', '_') + "\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					return label + salidaDouble + labelFinal;
 				}
 				else {
