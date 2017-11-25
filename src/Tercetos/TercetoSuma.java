@@ -150,7 +150,7 @@ public class TercetoSuma extends Terceto{
 					s3="JO _overflow\n" + "MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
-			}
+			} 
 		}
 		
 		Lexico.putSimbolo(tokenAux); 
