@@ -146,7 +146,7 @@ public class TercetoSuma extends Terceto{
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
 				label = this.generador.getSintactico().getNombreMarca() + " proc\n";
-				this.generador.getSintactico().setNombreMarca("");
+				this.generador.getSintactico().removeNombreMarca();
 			}
 			else {
 				label = "Label" + (this.getPos()) + ":\n";

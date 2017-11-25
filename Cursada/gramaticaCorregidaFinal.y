@@ -81,7 +81,7 @@ declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decreme
 encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 												   
 												   this.sintactico.setMarcaAntes(true);
-												   this.sintactico.setNombreMarca($3.sval);
+												   this.sintactico.addNombreMarca($3.sval);
 												   this.sintactico.funcionPosPut($3, $3.sval);												   
 												   
 												   this.sintactico.actualizaFuncion($3, $1);
@@ -91,7 +91,7 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 		| tipo MOVE FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 
 											 this.sintactico.setMarcaAntes(true);
-											 this.sintactico.setNombreMarca($4.sval);
+											 this.sintactico.addNombreMarca($4.sval);
 											 this.sintactico.funcionPosPut($4, $4.sval);
 											 
 											 this.sintactico.actualizaFuncion($4, $1);
