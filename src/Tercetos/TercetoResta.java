@@ -66,8 +66,9 @@ public class TercetoResta extends Terceto{
 				if (aux1.toString().contains(",")) {
 					
 					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
-					this.generador.setDeclaracionesOut(aux);
-					
+					if(!this.generador.delcaracionesConstContains(aux)) {
+						this.generador.setDeclaracionesConst(aux);	
+					}					
 					s1="FLD const@@"+aux1.replace(',', '_');
 				}
 				else {

@@ -77,8 +77,9 @@ public class TercetoRet extends Terceto{
 					t.setDestino(primero.sval);*/
 					t.setTipoDato("DOUBLE");
 					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
-					this.generador.setDeclaracionesOut(aux);
-					
+					if(!this.generador.delcaracionesConstContains(aux)) {
+						this.generador.setDeclaracionesConst(aux);	
+					}					
 					retorno = "FLD const@@"+aux1.replace(',', '_') + "\n" + "FSTP " + this.nombreFuncion  + "@Funcion" +"\n";
 				}
 				else { //es una constante de tipo LONG
