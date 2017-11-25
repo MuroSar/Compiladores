@@ -37,6 +37,7 @@ public class TercetoResta extends Terceto{
 				}
 				else {//no es funcion
 					s1="FLD var@@aux" + aux1 + "\n";
+					
 					//tokenAux.setTipoDato("DOUBLE");
 				}
 			}
