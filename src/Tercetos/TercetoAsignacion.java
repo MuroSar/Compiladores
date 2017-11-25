@@ -26,7 +26,7 @@ public class TercetoAsignacion extends Terceto{
 	public String getCodigo()
 	{
 		if(primero.obj != null) {
-			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); //nunca se va a dar este caso
+			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 		}
 		else {
 				aux1 = primero.sval + "@Variable";
@@ -36,7 +36,13 @@ public class TercetoAsignacion extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { 
-				s2 = "FLD var@@aux" + aux2 + "\n" + "FSTP " + aux1 + "\n";
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					return "FLD " + nombre_func + "\n" + "FSTP " + aux1;
+				}
+				else {
+					s2 = "FLD var@@aux" + aux2 + "\n" + "FSTP " + aux1 + "\n";
+				}
 			}
 			else {
 				s2 = "MOV EAX," + "var@@aux" + aux2 + "\n" + "MOV " + aux1 + ",EAX"; 
