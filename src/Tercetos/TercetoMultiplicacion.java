@@ -93,10 +93,10 @@ public class TercetoMultiplicacion extends Terceto{
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "MOV EAX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s2= "MOV EDX," + nombre_func + "\n" + "MUL EDX";//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
-					s2="MUL EAX,var@@aux"+aux2;
+					s2="MOV EDX,var@@aux" + aux2 + "\n" + "MUL EAX";
 				}
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setTipoDato("LONG");
@@ -113,7 +113,7 @@ public class TercetoMultiplicacion extends Terceto{
 				}
 				else
 				{
-					s2="MUL EAX,"+aux2+ "@Variable";
+					s2="MOV EDX,"+aux2+ "@Variable" + "\n" + "MUL EAX";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
@@ -129,7 +129,7 @@ public class TercetoMultiplicacion extends Terceto{
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {
-					s2= "MOV EDX," + aux2 + "\nMUL EAX,EDX";
+					s2= "MOV EDX," + aux2 + "\nMUL EDX";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 					
