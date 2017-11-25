@@ -41,7 +41,7 @@ public class TercetoAsignacion extends Terceto{
 					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
-					s2 = "FLD var@@aux" + aux2 + "\n" + "FSTP " + aux1 + "\n";
+					s2 = "FLD var@@aux" + aux2 + "\n" + "FSTP " + aux1;
 				}
 			}
 			else {
@@ -59,7 +59,7 @@ public class TercetoAsignacion extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FSTP " + aux1 + "\n";
+					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FSTP " + aux1;
 				}
 				else {
 					s2 = "MOV EAX," + aux2 + "@Variable" + "\n" + "MOV " + aux1 + ",EAX";
@@ -67,7 +67,7 @@ public class TercetoAsignacion extends Terceto{
 			}
 			else {	
 				if (aux2.toString().contains(",")) {
-					s2 = "FLD " + aux2 + "\n" + "FSTP " + aux1 + "\n";
+					s2 = "FLD " + aux2 + "\n" + "FSTP " + aux1;
 				}
 				else {
 					s2="MOV " + aux1 + "," + aux2; 

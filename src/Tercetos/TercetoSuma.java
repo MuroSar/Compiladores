@@ -37,7 +37,7 @@ public class TercetoSuma extends Terceto{
 			if (tipo.equals("DOUBLE")) { //es un terceto que retorna DOUBLE
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1 = "FLD " + nombre_func + "\n";
+					s1 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
 					s1="FLD var@@aux" + aux1;/*
@@ -49,10 +49,10 @@ public class TercetoSuma extends Terceto{
 			else { //es un terceto que retorna LONG
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1 = "MOV EAX," + nombre_func + "\n"; //+ "MOV var@@aux" + aux1+ ",EAX"+"\n";
+					s1 = "MOV EAX," + nombre_func; //+ "MOV var@@aux" + aux1+ ",EAX"+"\n";
 				}
 				else {
-					s1="MOV EAX,var@@aux" + aux1 + "\n";/*
+					s1="MOV EAX,var@@aux" + aux1;/*
 					tokenAux.setLexema("var@@aux" + this.getPos());
 					tokenAux.setTipoDato("LONG");
 					tokenAux.setType("Identificador");*/
@@ -88,7 +88,7 @@ public class TercetoSuma extends Terceto{
 			if (tipo.equals("DOUBLE")) { //es un terceto de tipo DOUBLE
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2 = "FLD " + nombre_func + "\n";
+					s2 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
@@ -100,7 +100,7 @@ public class TercetoSuma extends Terceto{
 				tokenAux.setTipoDato("LONG");		
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "ADD EAX," + nombre_func + "\n";//+ "MOV " + aux1+ ",EAX"+"\n";
+					s2= "ADD EAX," + nombre_func;//+ "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
 					s2="ADD EAX,var@@aux" + aux2;
