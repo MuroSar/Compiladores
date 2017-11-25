@@ -24,6 +24,9 @@ public class TercetoResta extends Terceto{
 		
 	public String getCodigo()
 	{
+		tokenAux.setType("Identificador");
+		tokenAux.setLexema("var@@aux" + aux1);
+		
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
@@ -36,9 +39,7 @@ public class TercetoResta extends Terceto{
 				}
 				else {//no es funcion
 					s1="FLD var@@aux" + aux1 + "\n";
-					tokenAux.setLexema("var@@aux" + aux1);
 					tokenAux.setTipoDato("DOUBLE");
-					tokenAux.setType("Identificador");
 				}
 				
 				
@@ -56,9 +57,7 @@ public class TercetoResta extends Terceto{
 				}
 				else {
 					s1="MOV EAX,var@@aux"+aux1;
-					tokenAux.setLexema("var@@aux" + aux1);
 					tokenAux.setTipoDato("LONG");
-					tokenAux.setType("Identificador");
 				}
 				
 				
@@ -105,9 +104,7 @@ public class TercetoResta extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2 + "\n";
 					s3="FSUB" + "\n" + "FSTP var@@aux" + this.getPos();
-					tokenAux.setLexema("var@@aux" + aux2);
 					tokenAux.setTipoDato("DOUBLE");
-					tokenAux.setType("Identificador");
 				}
 				
 				
@@ -126,9 +123,7 @@ public class TercetoResta extends Terceto{
 				else {
 					s2="SUB EAX,var@@aux"+aux2;
 					s3="MOV var@@aux"+ this.getPos() + ",EAX";
-					tokenAux.setLexema("var@@aux" + aux2);
 					tokenAux.setTipoDato("LONG");
-					tokenAux.setType("Identificador");
 				}
 				
 				

@@ -49,7 +49,7 @@ public class TercetoSuma extends Terceto{
 			else { //es un terceto que retorna LONG
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					return "MOV EAX," + nombre_func + "\n"; //+ "MOV var@@aux" + aux1+ ",EAX"+"\n";
+					s1 = "MOV EAX," + nombre_func + "\n"; //+ "MOV var@@aux" + aux1+ ",EAX"+"\n";
 				}
 				else {
 					s1="MOV EAX,var@@aux" + aux1 + "\n";/*
