@@ -122,6 +122,7 @@ public class TercetoComparador extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
+					//aca acomodaste??
 					salidaDouble +="FLD "+ aux1 + "@Variable\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					return label + salidaDouble + labelFinal;
