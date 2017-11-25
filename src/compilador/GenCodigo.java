@@ -72,6 +72,13 @@ public class GenCodigo {
 		this.declaraciones_out +=dec;
 	}
 	
+	public boolean delcaracionesConstContains(String dec) {
+		if(this.declaraciones_const.contains(dec)) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void setDeclaracionesConst(String dec) { 
 		this.declaraciones_const += dec;
 	}

@@ -79,7 +79,9 @@ public class TercetoComparador extends Terceto{
 			else {
 				if (aux1.toString().contains(",")) { //es una constante de tipo DOUBLE
 					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
-					this.generador.setDeclaracionesOut(aux);
+					if(!this.generador.delcaracionesConstContains(aux)) {
+						this.generador.setDeclaracionesConst(aux);	
+					}
 					salidaDouble="FLD const@@"+aux1.replace(',', '_') + "\n"; 
 				}
 				else { //es una constante de tipo LONG
@@ -122,7 +124,7 @@ public class TercetoComparador extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					salidaDouble +="FLD "+ aux1 + "@Variable\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					salidaDouble +="FLD "+ aux2 + "@Variable\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					return label + salidaDouble + labelFinal;
 				}

@@ -76,7 +76,9 @@ public class TercetoSuma extends Terceto{
 					//es una constante de tipo DOUBLE
 					
 					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
-					this.generador.setDeclaracionesOut(aux);
+					if(!this.generador.delcaracionesConstContains(aux)) {
+						this.generador.setDeclaracionesConst(aux);	
+					}
 					
 					s1="FLD const@@"+aux1.replace(',', '_');
 					
@@ -135,7 +137,9 @@ public class TercetoSuma extends Terceto{
 					//es una constante DOUBLE
 					
 					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
-					this.generador.setDeclaracionesOut(aux);
+					if(!this.generador.delcaracionesConstContains(aux)) {
+						this.generador.setDeclaracionesConst(aux);	
+					}
 					
 					s2= "FLD const@@"+aux2.replace(',', '_');
 					s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
