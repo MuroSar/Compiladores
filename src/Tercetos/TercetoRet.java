@@ -9,6 +9,7 @@ public class TercetoRet extends Terceto{
 
 	private ParserVal primero;
 	private String nombreFuncion;
+	private String retorno;
 	
 	public TercetoRet(String operador, ParserVal primero, ParserVal segundo, int pos, String nombreFuncion) {
 		super(operador, primero, segundo, pos);
@@ -22,19 +23,25 @@ public class TercetoRet extends Terceto{
 		Token t = new Token();
 		t.setLexema("var@@" + nombreFuncion + "Ret");
 		String destino = "";
+		retorno = "";
 				
 		if(primero.obj != null) { //tengo un terceto..
 			String tipo = ((Terceto)primero.obj).getTipoDato();
+			String aux1 = String.valueOf(((Terceto)primero.obj).getPos());
 			if (tipo.equals("DOUBLE")) {
 				t.setTipoDato("DOUBLE");
 				t.setType("Identificador");
+				//retorno = "MOV var@@aux" + aux1 + "," + this.nombreFuncion;
+				System.out.println(this.nombreFuncion);
 			}
 			else {
 				t.setTipoDato("LONG");
 				t.setType("Identificador");
+				retorno = "MOV var@@aux" + aux1 + "," + this.nombreFuncion;
 			}
 		}
 		else {
+			String aux1 = primero.sval;
 			if(Sintactico.esVariable(primero)) { //es una variable
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
@@ -45,6 +52,7 @@ public class TercetoRet extends Terceto{
 				else { //es una variable de tipo LONG
 					t.setTipoDato("LONG");
 					t.setType("Identificador");
+					retorno = "MOV var@@aux" + aux1 + "," + this.nombreFuncion;
 					t.setDestino(this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getDestino());
 				}
 			}
@@ -58,6 +66,7 @@ public class TercetoRet extends Terceto{
 					t.setTipoDato("LONG");
 					t.setType("Identificador");
 					t.setDestino(primero.sval); 
+					retorno = "MOV var@@aux" + aux1 + "," + this.nombreFuncion;
 				}
 			}
 		}
@@ -76,7 +85,7 @@ public class TercetoRet extends Terceto{
 			}
 		}
 		
-		return label + "RET\n" + nombreFuncion + " endp\n";
+		return label + retorno + "RET\n" + nombreFuncion + " endp\n";
 	}
 
 }
