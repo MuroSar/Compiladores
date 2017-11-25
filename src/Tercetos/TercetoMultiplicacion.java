@@ -30,16 +30,42 @@ public class TercetoMultiplicacion extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				s1="FLD var@@aux" + aux1;
-				tokenAux.setLexema("var@@aux" + aux1);
-				tokenAux.setTipoDato("DOUBLE");
-				tokenAux.setType("Identificador");
+				
+				
+				
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+				}
+				else {//no es funcion
+					s1="FLD var@@aux" + aux1;
+					tokenAux.setLexema("var@@aux" + aux1);
+					tokenAux.setTipoDato("DOUBLE");
+					tokenAux.setType("Identificador");
+				}
+				
+				
+				
+				
+				
+				
 			}
 			else {
-				s1="MOV EAX,var@@aux"+aux1;
-				tokenAux.setLexema("var@@aux" + aux1);
-				tokenAux.setTipoDato("LONG");
-				tokenAux.setType("Identificador");
+				
+				
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+				}
+				else {
+					s1="MOV EAX,var@@aux"+aux1;
+					tokenAux.setLexema("var@@aux" + aux1);
+					tokenAux.setTipoDato("LONG");
+					tokenAux.setType("Identificador");
+				}
+				
+				
+				
 			}
 		}
 		else {
@@ -67,18 +93,47 @@ public class TercetoMultiplicacion extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				s2="FLD var@@aux" + aux2 + "\n";
-				s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-				tokenAux.setLexema("var@@aux" + aux2);
-				tokenAux.setTipoDato("DOUBLE");
-				tokenAux.setType("Identificador");
+				
+				
+				
+				
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+				}
+				else {//no es funcion
+					s2="FLD var@@aux" + aux2 + "\n";
+					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					tokenAux.setLexema("var@@aux" + aux2);
+					tokenAux.setTipoDato("DOUBLE");
+					tokenAux.setType("Identificador");
+				}
+				
+				
+				
+				
+				
 			}
 			else {
-				s2="MUL EAX,var@@aux"+aux2;
-				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
-				tokenAux.setLexema("var@@aux" + aux2);
-				tokenAux.setTipoDato("LONG");
-				tokenAux.setType("Identificador");
+				
+				
+				
+				
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+				}
+				else {
+					s2="MUL EAX,var@@aux"+aux2;
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
+					tokenAux.setLexema("var@@aux" + aux2);
+					tokenAux.setTipoDato("LONG");
+					tokenAux.setType("Identificador");
+				}
+				
+				
+				
+				
 			}
 		}
 		else {
