@@ -113,7 +113,8 @@ public class TercetoComparador extends Terceto{
 				}
 				else {
 					s2="var@@aux"+aux2;
-					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
+					CodAux = "MOV EAX," + s2;
+					return label + CodAux + "CMP " + s1 + ",EAX" + "\n" + labelFinal;
 				}
 			}
 		}
