@@ -113,7 +113,7 @@ public class TercetoDivision extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux1 + "@Variable" + "\n" + "FDIV" ;
-					chequeo_div_cero = "FTST" + "\n" + "JE _division_cero" + "\n";
+					chequeo_div_cero = "FTST" + "\n" + "JE _division_cero";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
@@ -121,8 +121,8 @@ public class TercetoDivision extends Terceto{
 				{
 					s2="DIV EAX,"+aux2+ "@Variable";
 					op2="_"+aux2+ "@Variable";
-					chequeo_div_cero = "MOV EDX," + op2 + "CMP 0,EDX" + "\n" + "JE _division_cero" + "\n";
-					s3="MOV var@@aux"+ this.getPos()+ ",EAX";
+					chequeo_div_cero = "MOV EDX," + op2 + "\nCMP EDX,0" + "\n" + "JE _division_cero";
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
 			}
@@ -131,7 +131,7 @@ public class TercetoDivision extends Terceto{
 					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
 					this.generador.setDeclaracionesOut(aux);
 					s2= "FLD const@@"+aux2.replace(',', '_');
-					chequeo_div_cero ="FTST" + "\n" + "JE _division_cero" + "\n";
+					chequeo_div_cero ="FTST" + "\n" + "JE _division_cero";
 					s3="FDIV" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
@@ -139,8 +139,8 @@ public class TercetoDivision extends Terceto{
 				{
 					s2="DIV EAX,"+aux2;	
 					op2=aux2;
-					chequeo_div_cero = "MOV EDX," + op2 + "CMP 0,EDX" + "\n" + "JE _division_cero" + "\n";
-					s3="MOV var@@aux"+ this.getPos()+ ",EAX";
+					chequeo_div_cero = "MOV EDX," + op2 + "\nCMP EDX,0" + "\n" + "JE _division_cero";
+					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
 			}
@@ -157,6 +157,6 @@ public class TercetoDivision extends Terceto{
 				this.marcaAntes = false;
 			}
 		}	
-		return label + s1 + "\n" + s2 + chequeo_div_cero + "\n" + s3;
+		return label + s1 + "\n" + s2 + "\n" + chequeo_div_cero + "\n" + s3;
 	}
 }
