@@ -102,7 +102,7 @@ public class TercetoDivision extends Terceto{
 					s2="MOV EDX,var@@aux" + aux2 + "\n" + "DIV EAX";
 					op2="var@@aux"+aux2;
 				}
-				chequeo_div_cero ="CMP constCeroLong,op2" + "\n" + "JE _division_cero" + "\n";
+				chequeo_div_cero ="CMP constCeroLong," + op2 + "\n" + "JE _division_cero" + "\n";
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setTipoDato("LONG");
 			}
@@ -120,8 +120,8 @@ public class TercetoDivision extends Terceto{
 				else
 				{
 					s2="MOV EDX," + aux2 + "@Variable" + "\n" + "DIV EAX";
-					op2="_"+aux2+ "@Variable";
-					chequeo_div_cero = "CMP op2,constCeroLong" + "\n" + "JE _division_cero";
+					op2=aux2+ "@Variable";
+					chequeo_div_cero = "CMP constCeroLong," + op2 + "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
@@ -139,7 +139,7 @@ public class TercetoDivision extends Terceto{
 				{
 					s2= "MOV EDX," + aux2 + "\n" + "DIV EAX";	
 					op2=aux2;
-					chequeo_div_cero ="CMP op2,constCeroLong" + "\n" + "JE _division_cero";
+					chequeo_div_cero ="CMP constCeroLong," + op2 + "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
