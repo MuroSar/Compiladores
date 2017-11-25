@@ -18,10 +18,11 @@ public class TercetoFuncion extends Terceto {
 	public String getCodigo()
 	{
 		String s=this.generador.getNombreFuncion(this.primero);
-		tokenAux.setLexema("var@@aux" + this.getPos());
+		//tokenAux.setLexema("var@@aux" + this.getPos());
+		tokenAux.setLexema(s+"@Funcion");
 		tokenAux.setTipoDato(this.getTipoDato());
 		tokenAux.setType("Identificador");
-		tokenAux.setDestino(s+"@Funcion");
+		//tokenAux.setDestino(s+"@Funcion");
 		
 		Lexico.putSimbolo(tokenAux);
 		

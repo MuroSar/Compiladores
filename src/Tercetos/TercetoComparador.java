@@ -40,42 +40,29 @@ public class TercetoComparador extends Terceto{
 //		if(this.generador.getLabels().contains(this.getPos())) {
 //			labelFinal = "Label" + (this.getPos()) + ":\n";
 //		}
-		
-		
+	
 		this.generador.setComparador(this.operador);
+		
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				
-				
-				
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+					salidaDouble = "FLD " + nombre_func;//+ "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
-				salidaDouble="FLD var@@aux" + aux1; //es un terceto y el resultado es un DOUBLE
+					salidaDouble = "FLD var@@aux" + aux1; //es un terceto y el resultado es un DOUBLE
 				}
-				
-				
-				
-				
 			}
 			else {
-				
-				
-				
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1 = "MOV EAX," + nombre_func;// + "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
-				s1="var@@aux"+aux1;
+				s1 = "var@@aux"+aux1;
 				}
-				
-				
-				
 			}
 		}
 		else {
@@ -105,37 +92,29 @@ public class TercetoComparador extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				
-				
-				
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
+					salidaDouble = "FLD " + nombre_func +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
+					return label + salidaDouble + labelFinal;
+					// + "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
 					salidaDouble +="FLD var@@aux" + aux2 +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					return label + salidaDouble + labelFinal;
 				}
-				
-				
-				
 			}
 			else {
-				
-				
-				
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					return label + s1 + "CMP EAX," + nombre_func + labelFinal;
+					// + "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
 					s2="var@@aux"+aux2;
 					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
 				}
-				
-				
-				
 			}
 		}
 		else {

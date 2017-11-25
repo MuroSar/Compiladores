@@ -14,7 +14,6 @@ public class TercetoDivision extends Terceto{
 	private String s3;
 	private ParserVal primero;
 	private ParserVal segundo;
-	private int pos;
 	private String op2;
 	private Token tokenAux = new Token();
 	private String chequeo_div_cero;
@@ -23,7 +22,6 @@ public class TercetoDivision extends Terceto{
 		super("/", primero, segundo, pos);
 		this.primero = primero;
 		this.segundo = segundo;
-		this.pos = pos;
 	}
 		
 	public String getCodigo()

@@ -24,47 +24,35 @@ public class TercetoRet extends Terceto{
 		t.setLexema("var@@" + nombreFuncion + "Ret");
 		String destino = "";
 		retorno = "";
+		t.setType("Identificador");
+		t.setLexema("var@@aux" + this.getPos());
 				
 		if(primero.obj != null) { //tengo un terceto..
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			String aux1 = String.valueOf(((Terceto)primero.obj).getPos());
 			if (tipo.equals("DOUBLE")) {
-				
-				
-				
-				
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {/*
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+					retorno = "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";*/
+					//este if no me importa, nunca voy a tener un terceto funcion como resultado porque no hay anidamiento de funciones
+					retorno = "ERROR";
 				}
 				else {//no es funcion
-					t.setTipoDato("DOUBLE");
-					t.setType("Identificador");
 					retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
 				}
-				
-				
-				
-				
+				t.setTipoDato("DOUBLE");
 			}
 			else {
-				
-				
-				
-			
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+				if (((Terceto)primero.obj).getOperador().equals("FN")) { /*
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					retorno="MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";*/
+					//idem arriba,nunca se da porque no hay anidamiento de funciones
+					retorno = "ERROR";
 				}
 				else {
-					t.setTipoDato("LONG");
-					t.setType("Identificador");
 					retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + this.nombreFuncion + "@Funcion,EAX" + "\n";
 				}
-				
-				
-				
-				
+				t.setTipoDato("LONG");
 			}
 		}
 		else {
@@ -73,33 +61,30 @@ public class TercetoRet extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
 					t.setTipoDato("DOUBLE");
-					t.setType("Identificador");
-					t.setDestino(this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getDestino());
+					//t.setDestino(this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getDestino());
 					retorno = "FLD "+ aux1 + "@Variable" + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
 				}
 				else { //es una variable de tipo LONG
 					t.setTipoDato("LONG");
-					t.setType("Identificador");
 					retorno = "MOV EAX,"+ aux1 + "@Variable" + "\n" + "MOV " + this.nombreFuncion + "@Funcion,EAX" + "\n";
-					t.setDestino(this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getDestino());
+					//t.setDestino(this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getDestino());
 				}
 			}
 			else {
-				if (primero.sval.contains(",")) { //es una constante de tipo DOUBLE
-					t.setTipoDato("DOUBLE");
+				if (primero.sval.contains(",")) { //es una constante de tipo DOUBLE 
+					/*
 					t.setType("Identificador");
-					t.setDestino(primero.sval);
-					
-					
+					t.setDestino(primero.sval);*/
+					t.setTipoDato("DOUBLE");
 					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
 					this.generador.setDeclaracionesOut(aux);
 					
 					retorno = "FLD const@@"+aux1.replace(',', '_') + "\n" + "FSTP " + this.nombreFuncion  + "@Funcion" +"\n";
 				}
 				else { //es una constante de tipo LONG
-					t.setTipoDato("LONG");
+					t.setTipoDato("LONG");/*
 					t.setType("Identificador");
-					t.setDestino(primero.sval); 
+					t.setDestino(primero.sval); */
 					retorno = "MOV EAX," + aux1 + "\n" + "MOV " + this.nombreFuncion  + "@Funcion,EAX" +"\n";
 				}
 			}
