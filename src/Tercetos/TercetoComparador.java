@@ -28,7 +28,7 @@ public class TercetoComparador extends Terceto{
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(!this.generador.getSintactico().getNombreMarca().equals("")) {
 				label = this.generador.getSintactico().getNombreMarca() + " proc\n";
-				this.generador.getSintactico().setNombreMarca("");
+				this.generador.getSintactico().removeNombreMarca();
 			}
 			else {
 				label = "Label" + (this.getPos()) + ":\n";
@@ -83,7 +83,7 @@ public class TercetoComparador extends Terceto{
 			if(Sintactico.esVariable(primero)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
-					salidaDouble="FLD " + aux1 + "@Variable";
+					salidaDouble="FLD " + aux1 + "@Variable\n";
 				}
 				else { //es una variable de tipo LONG
 					s1=aux1+ "@Variable"; //es una variable

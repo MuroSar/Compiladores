@@ -705,7 +705,7 @@ case 24:
 { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
 												   
 												   this.sintactico.setMarcaAntes(true);
-												   this.sintactico.setNombreMarca(val_peek(0).sval);
+												   this.sintactico.addNombreMarca(val_peek(0).sval);
 												   this.sintactico.funcionPosPut(val_peek(0), val_peek(0).sval);												   
 												   
 												   this.sintactico.actualizaFuncion(val_peek(0), val_peek(2));
@@ -717,7 +717,7 @@ case 25:
 { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n con MOVE");
 											 
 											 this.sintactico.setMarcaAntes(true);
-											 this.sintactico.setNombreMarca(val_peek(0).sval);
+											 this.sintactico.addNombreMarca(val_peek(0).sval);
 											 this.sintactico.funcionPosPut(val_peek(0), val_peek(0).sval);
 											 
 											 this.sintactico.actualizaFuncion(val_peek(0), val_peek(3));

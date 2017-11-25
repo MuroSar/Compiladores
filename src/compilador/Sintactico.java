@@ -34,7 +34,7 @@ public class Sintactico {
 	
 	private static boolean marcaAntes;
 	private static boolean marcaDesp;
-	private String nombreMarca;
+	private ArrayList<String> nombreMarca;
 	
 	private ArrayList<Terceto> tercetosFuncion;
 	
@@ -58,7 +58,7 @@ public class Sintactico {
 		
 		this.marcaAntes = false;
 		this.marcaDesp = false;
-		this.nombreMarca = "";
+		this.nombreMarca = new ArrayList<String>();
 		
 		this.tercetosFuncion = new ArrayList<Terceto>();
 	}
@@ -75,7 +75,7 @@ public class Sintactico {
 		this.ambitos.put("general", this.ambito);
 		this.marcaAntes = false;
 		this.marcaDesp = false;
-		this.nombreMarca = "";
+		this.nombreMarca = new ArrayList<String>();
 		this.tercetosFuncion.clear();
 	}
 	
@@ -104,12 +104,17 @@ public class Sintactico {
 	}
 	
 	public String getNombreMarca() {
-		return nombreMarca;
+		return this.nombreMarca.get(0);
 	}
 
-	public void setNombreMarca(String nombreMarca) {
-		this.nombreMarca = nombreMarca;
+	public void addNombreMarca(String nombreMarca) {
+		this.nombreMarca.add(nombreMarca);
 	}
+
+	public String removeNombreMarca() {
+		return this.nombreMarca.remove(0);
+	}
+
 
 	public void funcionPosPut(ParserVal nombreFunc, String label) {
 		this.funcionPos.put(nombreFunc.sval, label);
