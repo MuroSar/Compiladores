@@ -36,7 +36,7 @@ public class TercetoDivision extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					return "FLD " + nombre_func ;//+ "\n" + "FSTP " + aux1 +"\n";
+					s1= "FLD " + nombre_func ;//+ "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
 					s1="FLD var@@aux" + aux1;
@@ -45,7 +45,7 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					return "MOV EAX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1= "MOV EAX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
 					s1="MOV EAX,var@@aux"+aux1;
