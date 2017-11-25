@@ -28,6 +28,9 @@ public class TercetoSuma extends Terceto{
 		
 	public String getCodigo()
 	{
+		tokenAux.setType("Identificador");
+		tokenAux.setLexema("var@@aux" + this.getPos());
+		
 		if(primero.obj != null) {
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
@@ -72,29 +75,25 @@ public class TercetoSuma extends Terceto{
 				}
 			}
 		}
-		
+
 		if(segundo.obj != null) { 
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto de tipo DOUBLE
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return "FLD " + nombre_func + "\n";
+					s2 = "FLD " + nombre_func + "\n";
 				}
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
-					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-					tokenAux.setLexema("var@@aux" + this.getPos());
-					tokenAux.setTipoDato("DOUBLE");
-					tokenAux.setType("Identificador");
 				}
+				s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {// es un terceto de tipo LONG
 				s2="ADD EAX,var@@aux" + aux2;
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
-				tokenAux.setLexema("var@@aux" + this.getPos());
 				tokenAux.setTipoDato("LONG");
-				tokenAux.setType("Identificador");
 			}
 		}
 		else {
@@ -105,17 +104,13 @@ public class TercetoSuma extends Terceto{
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux1 + "@Variable";
 					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-					tokenAux.setLexema("var@@aux" + this.getPos());
 					tokenAux.setTipoDato("DOUBLE");
-					tokenAux.setType("Identificador");
 				}
 				else
 				{ //es una variable de tipo LONG
 					s2="ADD EAX," + aux2 + "@Variable";
 					s3="JO _overflow\n" + "MOV var@@aux" + this.getPos() + ",EAX" + "\n";
-					tokenAux.setLexema("var@@aux" + this.getPos());
 					tokenAux.setTipoDato("LONG");
-					tokenAux.setType("Identificador");
 				}
 			}
 			else {
@@ -123,16 +118,12 @@ public class TercetoSuma extends Terceto{
 					//es una constante DOUBLE
 					s2= "FLD " + aux2;
 					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-					tokenAux.setLexema("var@@aux" + this.getPos());
 					tokenAux.setTipoDato("DOUBLE");
-					tokenAux.setType("Identificador");
 				}
 				else {
 					s2="ADD EAX," + aux2;
 					s3="JO _overflow\n" + "MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
-					tokenAux.setLexema("var@@aux" + this.getPos());
 					tokenAux.setTipoDato("LONG");
-					tokenAux.setType("Identificador");
 				}
 			}
 		}
