@@ -29,14 +29,42 @@ public class TercetoRet extends Terceto{
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			String aux1 = String.valueOf(((Terceto)primero.obj).getPos());
 			if (tipo.equals("DOUBLE")) {
-				t.setTipoDato("DOUBLE");
-				t.setType("Identificador");
-				retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
+				
+				
+				
+				
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+				}
+				else {//no es funcion
+					t.setTipoDato("DOUBLE");
+					t.setType("Identificador");
+					retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
+				}
+				
+				
+				
+				
 			}
 			else {
-				t.setTipoDato("LONG");
-				t.setType("Identificador");
-				retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + this.nombreFuncion + "@Funcion,EAX" + "\n";
+				
+				
+				
+			
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+				}
+				else {
+					t.setTipoDato("LONG");
+					t.setType("Identificador");
+					retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + this.nombreFuncion + "@Funcion,EAX" + "\n";
+				}
+				
+				
+				
+				
 			}
 		}
 		else {

@@ -47,10 +47,35 @@ public class TercetoComparador extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
+				
+				
+				
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+				}
+				else {//no es funcion
 				salidaDouble="FLD var@@aux" + aux1; //es un terceto y el resultado es un DOUBLE
+				}
+				
+				
+				
+				
 			}
 			else {
+				
+				
+				
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+				}
+				else {
 				s1="var@@aux"+aux1;
+				}
+				
+				
+				
 			}
 		}
 		else {
@@ -78,12 +103,36 @@ public class TercetoComparador extends Terceto{
 			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				salidaDouble +="FCOM var@@aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
-				return label + salidaDouble + labelFinal;
+				
+				
+				
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					return "FLD " + nombre_func + "\n" + "FSTP " + aux1 +"\n";
+				}
+				else {//no es funcion
+					salidaDouble +="FCOM var@@aux" + aux2 + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
+					return label + salidaDouble + labelFinal;
+				}
+				
+				
+				
 			}
 			else {
-				s2="var@@aux"+aux2;
-				return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
+				
+				
+				
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					return "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+				}
+				else {
+					s2="var@@aux"+aux2;
+					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
+				}
+				
+				
+				
 			}
 		}
 		else {

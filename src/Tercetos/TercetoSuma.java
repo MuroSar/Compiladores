@@ -47,10 +47,16 @@ public class TercetoSuma extends Terceto{
 				}
 			}
 			else { //es un terceto que retorna LONG
-				s1="MOV EAX,var@@aux" + aux1 + "\n";/*
-				tokenAux.setLexema("var@@aux" + this.getPos());
-				tokenAux.setTipoDato("LONG");
-				tokenAux.setType("Identificador");*/
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+					return "MOV EAX," + nombre_func + "\n"; //+ "MOV var@@aux" + aux1+ ",EAX"+"\n";
+				}
+				else {
+					s1="MOV EAX,var@@aux" + aux1 + "\n";/*
+					tokenAux.setLexema("var@@aux" + this.getPos());
+					tokenAux.setTipoDato("LONG");
+					tokenAux.setType("Identificador");*/
+				}
 			}
 		}
 		else {
@@ -87,13 +93,19 @@ public class TercetoSuma extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {// es un terceto de tipo LONG
-				s2="ADD EAX,var@@aux" + aux2;
+				tokenAux.setTipoDato("LONG");		
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					s2= "ADD EAX," + nombre_func + "\n";//+ "MOV " + aux1+ ",EAX"+"\n";
+				}
+				else {
+					s2="ADD EAX,var@@aux" + aux2;
+				}
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
-				tokenAux.setTipoDato("LONG");
 			}
 		}
 		else {
@@ -103,7 +115,7 @@ public class TercetoSuma extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux1 + "@Variable";
-					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -117,7 +129,7 @@ public class TercetoSuma extends Terceto{
 				if (aux2.toString().contains(",")) {
 					//es una constante DOUBLE
 					s2= "FLD " + aux2;
-					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {
