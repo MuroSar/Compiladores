@@ -130,6 +130,7 @@ public class TercetoMultiplicacion extends Terceto{
 					s2= "MOV EDX," + aux2 + "MUL EAX,EDX";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
+					
 				}
 			}
 		}
