@@ -106,7 +106,7 @@ public class TercetoDivision extends Terceto{
 					s2="MOV EBX, var@@aux" + aux2 + "\n" + "IDIV EBX";
 					op2="var@@aux"+aux2;
 				}
-				chequeo_div_cero ="CMP " + op2 + ",0" + "\n" + "JE _division_cero" + "\n";
+				chequeo_div_cero ="CMP " + op2 + ",0" + "\n" + "JE _division_cero";
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setTipoDato("LONG");
 			}
