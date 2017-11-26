@@ -96,7 +96,7 @@ public class TercetoMultiplicacion extends Terceto{
 					s2= "MOV EDX," + nombre_func + "\n" + "MUL EDX";//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
-					s2="MOV EDX,var@@aux" + aux2 + "\n" + "MUL EAX";
+					s2="MOV EDX,var@@aux" + aux2 + "\n" + "MUL EDX";
 				}
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setTipoDato("LONG");
@@ -113,7 +113,7 @@ public class TercetoMultiplicacion extends Terceto{
 				}
 				else
 				{
-					s2="MOV EDX,"+aux2+ "@Variable" + "\n" + "MUL EAX";
+					s2="MOV EDX,"+aux2+ "@Variable" + "\n" + "MUL EDX";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
