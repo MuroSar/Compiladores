@@ -143,10 +143,9 @@ public class TercetoDivision extends Terceto{
 				{  
 					//s2= "MOV EDX," + aux2 + "\n" + "DIV EDX";	
 					s2= "MOV EBX,const@@"+ aux2 + "\n" + "DIV EBX";
-					String dec = "const@@"+aux2 + " DD " + aux2 + "\n";;
+					String dec = "const@@"+aux2 + " DD " + aux2 + "\n";
 					this.generador.setDeclaracionesConst(dec);
-					op2=aux2;
-					chequeo_div_cero ="CMP " + op2  + ",0"+ "\n" + "JE _division_cero";
+					chequeo_div_cero ="CMP const@@"+aux2 + ",0"+ "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
