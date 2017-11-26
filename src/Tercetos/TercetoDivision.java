@@ -163,6 +163,6 @@ public class TercetoDivision extends Terceto{
 				this.marcaAntes = false;
 			}
 		}	
-		return label + s1 + "\n" + s2 + "\n" + chequeo_div_cero + "\n" + s3;
+		return label + s1 + "\n" + chequeo_div_cero + "\n" + s2 + "\n" + s3;
 	}
 }
