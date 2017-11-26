@@ -45,10 +45,10 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "MOV EAX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1= "MOV EAX," + nombre_func + "\n" + "CDQ" ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
-					s1="MOV EAX,var@@aux"+aux1;
+					s1="MOV EAX,var@@aux"+aux1 + "\n" + "CDQ";
 				}
 			}
 		}
@@ -60,7 +60,7 @@ public class TercetoDivision extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else {
-					s1="MOV EAX,"+aux1+ "@Variable";
+					s1="MOV EAX,"+aux1+ "@Variable" + "\n" + "CDQ";
 				}
 			}
 			else {
@@ -72,7 +72,7 @@ public class TercetoDivision extends Terceto{
 					s1="FLD const@@"+aux1.replace(',', '_');
 				}
 				else { //es una constante de tipo LONG
-					s1="MOV EAX,"+aux1;
+					s1="MOV EAX,"+aux1 + "\n" + "CDQ";
 				}
 			}
 		}
@@ -96,12 +96,13 @@ public class TercetoDivision extends Terceto{
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
 					//s2 = "MOV EDX,"+ nombre_func + "\n" + "DIV EDX" ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
-					s2 = "DIV " + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s2 = "MOV EBX," + nombre_func + "\n" + "IDIV EBX"; 
+					//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 					op2=nombre_func;
 				}
 				else {
 					//s2="MOV EDX,var@@aux" + aux2 + "\n" + "DIV EDX";
-					s2="DIV var@@aux" + aux2;
+					s2="MOV EBX, var@@aux" + aux2 + "\n" + "IDIV EBX";
 					op2="var@@aux"+aux2;
 				}
 				chequeo_div_cero ="CMP " + op2 + ",0" + "\n" + "JE _division_cero" + "\n";
@@ -122,7 +123,7 @@ public class TercetoDivision extends Terceto{
 				else
 				{
 					//s2="MOV EDX," + aux2 + "@Variable" + "\n" + "DIV EDX";
-					s2="DIV " + aux2 + "@Variable";
+					s2= "MOV EBX," + aux2 + "@Variable"  + "\n" + "DIV EBX";
 					op2=aux2+ "@Variable";
 					chequeo_div_cero = "CMP " + op2 + ",0" + "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
@@ -141,7 +142,7 @@ public class TercetoDivision extends Terceto{
 				else 
 				{  
 					//s2= "MOV EDX," + aux2 + "\n" + "DIV EDX";	
-					s2= "DIV const@@"+ aux2;
+					s2= "MOV EBX,const@@"+ aux2 + "\n" + "DIV EBX";
 					String dec = "const@@"+aux2 + " DD " + aux2 + "\n";;
 					this.generador.setDeclaracionesConst(dec);
 					op2=aux2;
