@@ -45,10 +45,10 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "MOV EDX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1= "MOV EAX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
-					s1="MOV EDX,var@@aux"+aux1;
+					s1="MOV EAX,var@@aux"+aux1;
 				}
 			}
 		}
@@ -60,7 +60,7 @@ public class TercetoDivision extends Terceto{
 					s1="FLD " + aux1 + "@Variable";
 				}
 				else {
-					s1="MOV EDX,"+aux1+ "@Variable";
+					s1="MOV EAX,"+aux1+ "@Variable";
 				}
 			}
 			else {
@@ -72,7 +72,7 @@ public class TercetoDivision extends Terceto{
 					s1="FLD const@@"+aux1.replace(',', '_');
 				}
 				else { //es una constante de tipo LONG
-					s1="MOV EDX,"+aux1;
+					s1="MOV EAX,"+aux1;
 				}
 			}
 		}
@@ -104,7 +104,7 @@ public class TercetoDivision extends Terceto{
 					s2="DIV var@@aux" + aux2;
 					op2="var@@aux"+aux2;
 				}
-				chequeo_div_cero ="CMP constCeroLong," + op2 + "\n" + "JE _division_cero" + "\n";
+				chequeo_div_cero ="CMP " + op2 + ",0" + "\n" + "JE _division_cero" + "\n";
 				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 				tokenAux.setTipoDato("LONG");
 			}
@@ -124,7 +124,7 @@ public class TercetoDivision extends Terceto{
 					//s2="MOV EDX," + aux2 + "@Variable" + "\n" + "DIV EDX";
 					s2="DIV " + aux2 + "@Variable";
 					op2=aux2+ "@Variable";
-					chequeo_div_cero = "CMP constCeroLong," + op2 + "\n" + "JE _division_cero";
+					chequeo_div_cero = "CMP " + op2 + ",0" + "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
@@ -145,7 +145,7 @@ public class TercetoDivision extends Terceto{
 					String dec = "const@@"+aux2 + " DD " + aux2 + "\n";;
 					this.generador.setDeclaracionesConst(dec);
 					op2=aux2;
-					chequeo_div_cero ="CMP constCeroLong," + op2 + "\n" + "JE _division_cero";
+					chequeo_div_cero ="CMP " + op2  + ",0"+ "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
