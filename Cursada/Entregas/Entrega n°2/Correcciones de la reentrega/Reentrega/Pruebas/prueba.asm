@@ -67,7 +67,7 @@ MOV EAX,var@@aux1
 MOV a@Variable,EAX
 MOV EAX,8
 MOV EDX,3
-MUL EDX
+IMUL EDX
 MOV var@@aux3,EAX
 MOV EAX,var@@aux3
 MOV c@Variable,EAX
@@ -107,7 +107,7 @@ invoke MessageBox, NULL, addr entroalELSE, addr entroalELSE, MB_OK
 Label21:
 MOV EAX,8
 MOV EDX,3
-MUL EDX
+IMUL EDX
 MOV var@@aux21,EAX
 MOV EAX,var@@aux21
 MOV c@Variable,EAX
