@@ -107,7 +107,7 @@ public class TercetoMultiplicacion extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					s2="FLD " + aux1 + "@Variable";
+					s2="FLD " + aux2 + "@Variable";
 					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
