@@ -87,6 +87,16 @@ public class Lexico {
 		this.pos = 0;
 		
 		try {
+//			InputStream is = new FileInputStream("manifest.mf"); 
+//			BufferedReader buf = new BufferedReader(new InputStreamReader(is)); String line = buf.readLine(); StringBuilder sb = new StringBuilder(); while(line != null){ sb.append(line).append("\n"); line = buf.readLine(); } String fileAsString = sb.toString();
+//
+//			
+//			
+//			
+			
+			
+			
+			
 			List<Object> aux = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
 			for (Object object : aux) {
 			    this.locs.add(Objects.toString(object, null));
