@@ -411,7 +411,11 @@ public class MatrizTransicionEstados {
 			return 16;
 		else if (!lexema.isEmpty() && (lexema.charAt(lexema.length()-1) >= '0' && lexema.charAt(lexema.length()-1) <= '9') && (loQueLee == 'E' || loQueLee == 'e'))
 			return 16;
-		else if ((loQueLee >= 'a' && loQueLee <= 'z') || (loQueLee >= 'A' && loQueLee <= 'Z')) 
+		else if ((loQueLee >= 'a' && loQueLee <= 'z') || (loQueLee >= 'A' && loQueLee <= 'Z') 
+				|| loQueLee == 'á' || loQueLee == 'é' || loQueLee == 'í' 
+				|| loQueLee == 'ó' || loQueLee == 'ú' || loQueLee == 'Á'
+				|| loQueLee == 'É' || loQueLee == 'Í' || loQueLee == 'Ó'
+				|| loQueLee == 'Ú') 
 			return 0;
 		else if (loQueLee >= '0' && loQueLee <= '9')
 			return 1;
