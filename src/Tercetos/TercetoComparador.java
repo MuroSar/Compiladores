@@ -41,6 +41,10 @@ public class TercetoComparador extends Terceto{
 			labelDesp = "Label" + (this.getPos()+1) + ":\n";
 			this.marcaDesp = false;
 		}
+		
+		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
+			label = "";
+		}
 	
 		this.generador.setComparador(this.operador);
 		

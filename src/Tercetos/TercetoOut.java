@@ -58,6 +58,10 @@ public class TercetoOut extends Terceto {
 			this.marcaDesp = false;
 		}
 		
+		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
+			label = "";
+		}
+		
 		return label + "invoke MessageBox, NULL, addr " + soloNombre +", addr " + soloNombre + ", MB_OK\n" + labelDesp; 
 	}
 }
