@@ -121,7 +121,7 @@ public class TercetoSuma extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
-					s2="FLD " + aux1 + "@Variable";
+					s2="FLD " + aux2 + "@Variable";
 					s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
