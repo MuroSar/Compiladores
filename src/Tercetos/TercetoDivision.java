@@ -118,6 +118,7 @@ public class TercetoDivision extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
+					this.generador.setDeclaracionesConst("auxCero DT ?\n");
 					chequeo_div_cero = "FLDZ" + "\n" + "FCOM " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FSTP auxCero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
