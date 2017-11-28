@@ -17,7 +17,8 @@ public class TercetoOut extends Terceto {
 		String soloNombre = nombre.substring(1, nombre.length()-1);
 		//Borro los espacios en blanco
 		soloNombre = soloNombre.replaceAll("\\s+","_");
-		//Reviso que no haya letras con acentos y si los hay los remplazo por la letra sin acento
+		//Reviso que no haya letras con acentos..
+		//Si las hay las remplazo por la letra sin acento
 		if(soloNombre.contains("á")) {
 			soloNombre = soloNombre.replaceAll("á","a");
 		}
