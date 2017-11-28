@@ -127,7 +127,6 @@ sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String
 cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: IF");
 			   							Terceto bFalse = this.sintactico.pilaPop();
 										bFalse.setSegundo(this.sintactico.getTercetos().size());
-										this.sintactico.setMarcaAntes(true);
 			   						  }
 		| bloque_control {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
 							this.sintactico.addTerceto(bIncondicional);
@@ -142,7 +141,6 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 		ELSE bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: IF - ELSE");
 										Terceto bInconditional = this.sintactico.pilaPop();
 		                               	bInconditional.setPrimero(this.sintactico.getTercetos().size()); //Set linea donde termina el IF
-									  	this.sintactico.setMarcaAntes(true);
 									  }
 	/* ERRORES */      
 		| bloque_control error bloque_control END_IF'.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'ELSE'");}
@@ -158,8 +156,7 @@ sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("S
 												  this.tercetoAux = bFalse;
 							               		  this.sintactico.pilaPush(bFalse);
 							               		  this.sintactico.setIDSwitch($3.sval);
-							               		} cuerpo_switch {this.sintactico.setMarcaAntes(true);
-							               						 this.sintactico.getTerceto(this.sintactico.getTercetos().size()-1).setMarcaDesp(true);}
+							               		} cuerpo_switch {this.sintactico.getTerceto(this.sintactico.getTercetos().size()-1).setMarcaDesp(true);}
 	/* ERRORES */   
 		| error '(' IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
 		| SWITCH error IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
