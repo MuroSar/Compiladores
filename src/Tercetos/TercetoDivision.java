@@ -83,13 +83,14 @@ public class TercetoDivision extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "FLD " + nombre_func;//+ "\n" + "FSTP " + aux1 +"\n";
+					s2= "FLD " + nombre_func;//+ "\n" + "FSTP " + aux1 +"\n"; 
+					//acomodar aca
 				}
 				else {//no es funcion
-					s2="FLD var@@aux" + aux2;
+					s2="FLD var@@aux" + aux2; //acomodar aca
 				}
-				//chequeo_div_cero = "FTST" + "\n" + "JE _division_cero" + "\n";
-				chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+				//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+				chequeo_div_cero = "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 				s3="FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
@@ -116,9 +117,11 @@ public class TercetoDivision extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					s2="FLD " + aux2 + "@Variable";
-					//chequeo_div_cero = "FTST" + "\n" + "JE _division_cero";
-					chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+					//s2="FLD " + aux2 + "@Variable";
+					String aux=aux2 + "@Variable";
+					s2="";
+					chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
+					//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
@@ -136,9 +139,9 @@ public class TercetoDivision extends Terceto{
 				if (aux2.toString().contains(",")) {
 					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
 					this.generador.setDeclaracionesOut(aux);
-					s2= "FLD const@@"+aux2.replace(',', '_');
+					s2= "FLD const@@"+aux2.replace(',', '_'); //acomodar aca
 					//chequeo_div_cero ="FTST" + "\n" + "JE _division_cero";
-					chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+					chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 					s3="FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
