@@ -36,10 +36,11 @@ public class TercetoComparador extends Terceto{
 			}
 		}
 		
-		String labelFinal = "";
-//		if(this.generador.getLabels().contains(this.getPos())) {
-//			labelFinal = "Label" + (this.getPos()) + ":\n";
-//		}
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
 	
 		this.generador.setComparador(this.operador);
 		
@@ -98,26 +99,26 @@ public class TercetoComparador extends Terceto{
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
 					salidaDouble = "FLD " + nombre_func +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
-					return label + salidaDouble + labelFinal;
+					return label + salidaDouble + labelDesp;
 					// + "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
 					salidaDouble +="FLD var@@aux" + aux2 +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
-					return label + salidaDouble + labelFinal;
+					return label + salidaDouble + labelDesp;
 				}
 			}
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return label + s1 + "CMP EAX," + nombre_func + labelFinal;
+					return label + s1 + "CMP EAX," + nombre_func + labelDesp;
 					// + "\n" + "MOV " + aux1+ ",EAX"+"\n";
 				}
 				else {
 					s2="var@@aux"+aux2;
 					CodAux = "MOV EAX," + s2;
 					CodAux = "MOV EAX," + s2 + "\n";
-					return label + CodAux + "CMP " + s1 + ",EAX" + "\n" + labelFinal;
+					return label + CodAux + "CMP " + s1 + ",EAX" + "\n" + labelDesp;
 				}
 			}
 		}
@@ -128,13 +129,13 @@ public class TercetoComparador extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					salidaDouble +="FLD "+ aux2 + "@Variable\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
-					return label + salidaDouble + labelFinal;
+					return label + salidaDouble + labelDesp;
 				}
 				else
 				{
 					s2=aux2+ "@Variable"; 
 					s3 = "MOV EAX," + s2 + "\n";
-					return label + CodAux + s3 + "CMP " + s1 + ",EAX" + "\n" + labelFinal;
+					return label + CodAux + s3 + "CMP " + s1 + ",EAX" + "\n" + labelDesp;
 				}
 			}
 			else {
@@ -144,12 +145,12 @@ public class TercetoComparador extends Terceto{
 					
 					salidaDouble += "FLD const@@"+aux2.replace(',', '_') + "\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
 					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
-					return label + salidaDouble + labelFinal;
+					return label + salidaDouble + labelDesp;
 				}
 				else {
 					CodAux +="MOV EDX," + aux2 + "\n";
 					s2="EDX"; 
-					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelFinal;
+					return label + CodAux + "CMP " + s1 + "," + s2 + "\n" + labelDesp;
 				}
 			}
 		}

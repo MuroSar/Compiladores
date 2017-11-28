@@ -56,6 +56,9 @@ bloque_sentencias_funcion : sentencias
 
 bloque_control : sentencias
 		| BEGIN bloque_sentencias END'.' {this.sintactico.showMessage("Bloque BEGIN-END");}
+	/* ERRORES */
+		| BEGIN bloque_sentencias END error {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '.'");}
+	/* ERRORES */
 		;
 
 bloque_sentencias : sentencias
@@ -111,7 +114,7 @@ sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String
 										   	   this.sintactico.addTercetoFuncion(bFalse);
 										   }
 		               					   this.sintactico.pilaPush(bFalse);
-		                            	  } cuerpo_if
+		                            	  } cuerpo_if {this.sintactico.getTerceto(this.sintactico.getTercetos().size()-1).setMarcaDesp(true);}
 		                            	  
 	/* ERRORES */
 		| error '(' condicion ')' THEN cuerpo_if {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'IF'");}
@@ -155,7 +158,8 @@ sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("S
 												  this.tercetoAux = bFalse;
 							               		  this.sintactico.pilaPush(bFalse);
 							               		  this.sintactico.setIDSwitch($3.sval);
-							               		} cuerpo_switch {this.sintactico.setMarcaAntes(true);}
+							               		} cuerpo_switch {this.sintactico.setMarcaAntes(true);
+							               						 this.sintactico.getTerceto(this.sintactico.getTercetos().size()-1).setMarcaDesp(true);}
 	/* ERRORES */   
 		| error '(' IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
 		| SWITCH error IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta '('");}
@@ -286,16 +290,27 @@ condicion : condicion operador expresion
 		| expresion operador expresion {this.sintactico.showMessage("Condici\u00f3n");
 										if(this.sintactico.existeVariable($1)){
 									     	if(this.sintactico.existeVariable($3)){
-												Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size());
-												if(this.sintactico.getMarcaAntes()){
-													t.setMarcaAntes(true);
-													this.sintactico.setMarcaAntes(false);
+									     		if(this.sintactico.ambitoCorrecto($1, $3)) {
+										     		if(this.sintactico.mismoTipo($1, $3) != null) {
+														Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size());
+														if(this.sintactico.getMarcaAntes()){
+															t.setMarcaAntes(true);
+															this.sintactico.setMarcaAntes(false);
+														}
+														$$ = new ParserVal(t);
+														this.sintactico.addTerceto(t);
+														if(!this.sintactico.getAmbito().equals("A")){
+												   	  	    this.sintactico.addTercetoFuncion(t);
+												        }
+													}
+													else {
+														this.sintactico.addError("tipos", $1);
+													}
 												}
-												$$ = new ParserVal(t);
-												this.sintactico.addTerceto(t);
-												if(!this.sintactico.getAmbito().equals("A")){
-										   	  	    this.sintactico.addTercetoFuncion(t);
-										        }
+												else {
+													this.sintactico.addError("ambito", $3);
+												}
+												
 											}
 											else {
 												this.sintactico.addError("variable", $3);

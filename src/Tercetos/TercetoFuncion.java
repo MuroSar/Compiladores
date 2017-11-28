@@ -37,7 +37,12 @@ public class TercetoFuncion extends Terceto {
 				this.marcaAntes = false;
 			}
 		}
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
 		
-		return label + "CALL " + s + "\n";//+ "RET Label"+ this.segundo.substring(1, segundo.length()-1) + "\n";
+		return label + "CALL " + s + "\n" + labelDesp;//+ "RET Label"+ this.segundo.substring(1, segundo.length()-1) + "\n";
 	}
 }
