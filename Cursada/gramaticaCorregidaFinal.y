@@ -150,12 +150,19 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 	/* ERRORES */
 		;
 				
-sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { this.sintactico.showMessage("Sentencia: SWITCH");
-												  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
-									  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
-												  this.tercetoAux = bFalse;
-							               		  this.sintactico.pilaPush(bFalse);
-							               		  this.sintactico.setIDSwitch($3.sval);
+sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { if(this.sintactico.existeVariable($3))
+ 												  {
+													  this.sintactico.showMessage("Sentencia: SWITCH");
+													  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
+										  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
+													  this.tercetoAux = bFalse;
+								               		  this.sintactico.pilaPush(bFalse);
+								               		  this.sintactico.setIDSwitch($3.sval);
+								               	  }
+								               	  else
+								               	  {
+								               	  	  this.sintactico.addError("variable", $3);
+								               	  }
 							               		} cuerpo_switch {this.sintactico.getTerceto(this.sintactico.getTercetos().size()-1).setMarcaDesp(true);}
 	/* ERRORES */   
 		| error '(' IDENTIFICADOR ')' cuerpo_switch {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Falta 'SWITCH'");}
@@ -174,12 +181,18 @@ cuerpo_switch : '{' rep_switch '}''.'
 	/* ERRORES */
 		;
 		
-rep_switch : CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $2, this.sintactico.getTercetos().size());
-							  this.sintactico.addTerceto(comp);
-							  if(!this.sintactico.getAmbito().equals("A")){
-						   	  	  this.sintactico.addTercetoFuncion(comp);
-						      } 
-							  this.sintactico.addTerceto(tercetoAux);
+rep_switch : CASE CONSTANTE { if(this.sintactico.mismoTipo(new ParserVal(this.sintactico.getIDSwitch()), $2) != null) {
+								  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $2, this.sintactico.getTercetos().size());
+								  this.sintactico.addTerceto(comp);
+								  if(!this.sintactico.getAmbito().equals("A")){
+							   	  	  this.sintactico.addTercetoFuncion(comp);
+							      } 
+								  this.sintactico.addTerceto(tercetoAux);
+							  }
+							  else
+							  {
+								  this.sintactico.addError("tipos", $2);
+							  }
 							}
 						  ':' bloque_control { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
 									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
@@ -188,15 +201,21 @@ rep_switch : CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVa
 											   this.sintactico.pilaPush(bFalse);
 											   bFalse2.setSegundo(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
 										   	 }
-		| rep_switch CASE CONSTANTE { Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $3, this.sintactico.getTercetos().size());
-									  this.sintactico.addTerceto(comp);
-									  if(!this.sintactico.getAmbito().equals("A")){
-								   	  	  this.sintactico.addTercetoFuncion(comp);
-								      } 
-									  this.sintactico.addTerceto(tercetoAux);
-									  if(!this.sintactico.getAmbito().equals("A")){
-								   	  	  this.sintactico.addTercetoFuncion(tercetoAux);
-								      } 
+		| rep_switch CASE CONSTANTE { if(this.sintactico.mismoTipo(new ParserVal(this.sintactico.getIDSwitch()), $3) != null) {
+										  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $3, this.sintactico.getTercetos().size());
+										  this.sintactico.addTerceto(comp);
+										  if(!this.sintactico.getAmbito().equals("A")){
+									   	  	  this.sintactico.addTercetoFuncion(comp);
+									      } 
+										  this.sintactico.addTerceto(tercetoAux);
+										  if(!this.sintactico.getAmbito().equals("A")){
+									   	  	  this.sintactico.addTercetoFuncion(tercetoAux);
+									      } 
+									  }
+							  		  else
+							  		  {
+									  	  this.sintactico.addError("tipos", $3);
+								  	  }
 									}
 									':' bloque_control  { this.sintactico.showMessage("Sentencia: CASE");
 														  Terceto bFalse3 = this.sintactico.pilaPop();
