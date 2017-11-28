@@ -375,6 +375,8 @@ public class Principal extends JFrame {
 	{
 		this.txtListaTokens.setText("");
 		this.lexico.empiezaDeNuevo();
+		this.sintactico.nuevo();
+		this.generador.nuevo();
 		this.sintactico.start();
 	}
 

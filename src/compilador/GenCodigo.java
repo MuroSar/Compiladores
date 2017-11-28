@@ -14,7 +14,7 @@ public class GenCodigo {
 	private ArrayList<Terceto> tercetos;
 	private Sintactico sintactico;
 	private String declaraciones_out;
-	private String comparador="";
+	private String comparador;
 	
 	private String declaraciones_const;
 	
@@ -23,18 +23,21 @@ public class GenCodigo {
 	private ArrayList<Terceto> tercetosFuncion;
 	
 	public GenCodigo() {
-		declaraciones_out = "";
-		this.labels = new ArrayList<Integer>();
+		this.tercetos = new ArrayList<Terceto>();
+		this.declaraciones_out = "";
+		this.comparador = "";
 		this.declaraciones_const = "";
+		this.labels = new ArrayList<Integer>();
+		this.tercetosFuncion = new ArrayList<Terceto>();
 	}
 	
 	public void nuevo() {
-		this.declaraciones_out = "";
 		this.tercetos.clear();
+		this.declaraciones_out = "";
 		this.comparador = "";
+		this.declaraciones_const = "";
 		this.labels.clear();
 		this.tercetosFuncion.clear();
-		this.declaraciones_const = "";
 	}
 	
 	public ArrayList<Integer> getLabels(){
