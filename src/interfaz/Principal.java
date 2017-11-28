@@ -257,25 +257,25 @@ public class Principal extends JFrame {
 			archivoACargar = buscador.getSelectedFile();
 			lexico.cargar(archivoACargar);		
 			this.archivoCargado = true;
-		}
 		
-		//ACA LO MOSTRAMOS POR PANTALLA..
-		try 
-		{
-			int nroLinea = 1;			
-			tpArchivoCodigo.setEditable(true);
-			BufferedReader leer = new BufferedReader(new FileReader(archivoACargar));
-			String line = leer.readLine();
-			while (line != null)
+			//ACA LO MOSTRAMOS POR PANTALLA..
+			try 
 			{
-				tpArchivoCodigo.setText(tpArchivoCodigo.getText() + nroLinea + "-> " + line + "\n");
-				line = leer.readLine();
-				nroLinea++;
+				int nroLinea = 1;			
+				tpArchivoCodigo.setEditable(true);
+				BufferedReader leer = new BufferedReader(new FileReader(archivoACargar));
+				String line = leer.readLine();
+				while (line != null)
+				{
+					tpArchivoCodigo.setText(tpArchivoCodigo.getText() + nroLinea + "-> " + line + "\n");
+					line = leer.readLine();
+					nroLinea++;
+				}
+				leer.close();
+				tpArchivoCodigo.setEditable(false);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			leer.close();
-			tpArchivoCodigo.setEditable(false);
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -375,6 +375,8 @@ public class Principal extends JFrame {
 	{
 		this.txtListaTokens.setText("");
 		this.lexico.empiezaDeNuevo();
+		this.sintactico.nuevo();
+		this.generador.nuevo();
 		this.sintactico.start();
 	}
 

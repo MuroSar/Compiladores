@@ -266,6 +266,8 @@ public class Lexico {
 		this.pos = 0;
 		this.fila = 0;
 		this.estado = 0;
+		this.tablaSimbolos.clear();
+		this.errores.clear();
 	}
 	
 	public void showAllTokens() {
