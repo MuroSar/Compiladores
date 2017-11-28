@@ -166,6 +166,12 @@ public class TercetoDivision extends Terceto{
 				this.marcaAntes = false;
 			}
 		}	
-		return label + s1  + "\n" + s2 + "\n" + chequeo_div_cero + "\n" + s3;
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
+		
+		return label + s1  + "\n" + s2 + "\n" + chequeo_div_cero + "\n" + s3 + labelDesp;
 	}
 }

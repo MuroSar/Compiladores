@@ -104,8 +104,13 @@ public class TercetoRet extends Terceto{
 				this.marcaAntes = false;
 			}
 		}
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
 		
-		return label + retorno + "RET\n" + nombreFuncion + " endp\n";
+		return label + retorno + "RET\n" + nombreFuncion + " endp\n" + labelDesp;
 	}
 
 }

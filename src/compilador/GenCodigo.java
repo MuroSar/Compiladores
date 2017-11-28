@@ -116,8 +116,8 @@ public class GenCodigo {
         String declaracion = new String();
         declaracion += ".data\n";
         declaracion += "constCeroLong DD  0\n";
-        declaracion += "__MIN DD  -2147483648\n";
-        declaracion += "__MAX DD  2147483647\n";
+//        declaracion += "__MIN DD  -2147483648\n";
+//        declaracion += "__MAX DD  2147483647\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
         declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
         for (String key : this.sintactico.getLexico().getTSKeys()) {
@@ -168,7 +168,6 @@ public class GenCodigo {
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
-	        asm += "Label" + this.tercetos.size() + ":\n";
 	        asm += "invoke ExitProcess, 0\n";
 	        asm += "end start";
 		

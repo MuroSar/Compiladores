@@ -151,7 +151,12 @@ public class TercetoMultiplicacion extends Terceto{
 				this.marcaAntes = false;
 			}
 		}
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
 		
-		return label + s1 + "\n" + s2 + "\n" + s3;
+		return label + s1 + "\n" + s2 + "\n" + s3 + labelDesp;
 		}
 	}

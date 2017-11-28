@@ -93,6 +93,12 @@ public class TercetoAsignacion extends Terceto{
 				this.marcaAntes = false;
 			}
 		}
-		return label + s2 + "\n";
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
+		
+		return label + s2 + "\n" + labelDesp;
 	}
 }

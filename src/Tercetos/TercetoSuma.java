@@ -166,6 +166,12 @@ public class TercetoSuma extends Terceto{
 				this.marcaAntes = false;
 			}
 		}
-		return label + s1 + "\n" + s2 + "\n" + s3;
+		String labelDesp = "";
+		if(this.marcaDesp) {
+			labelDesp = "Label" + (this.getPos()+1) + ":\n";
+			this.marcaDesp = false;
+		}
+		
+		return label + s1 + "\n" + s2 + "\n" + s3 + labelDesp;
 	}
 }
