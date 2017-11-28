@@ -117,10 +117,9 @@ public class TercetoDivision extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					//s2="FLD " + aux2 + "@Variable";
-					String aux=aux2 + "@Variable";
-					s2="";
-					chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
+					s2="FLD " + aux2 + "@Variable";
+					chequeo_div_cero = "FLDZ" + "\n" + "FCOM " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FSTP auxCero" + "\n" + "FDIV";
+					//chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
