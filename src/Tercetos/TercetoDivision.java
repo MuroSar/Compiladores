@@ -98,13 +98,13 @@ public class TercetoDivision extends Terceto{
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
 					//s2 = "MOV EDX,"+ nombre_func + "\n" + "DIV EDX" ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
-					s2 = "MOV EBX," + nombre_func + "\n" + "IDIV EBX"; 
+					s2 = "MOV EBX," + nombre_func + "\n" + "DIV EBX"; 
 					//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 					op2=nombre_func;
 				}
 				else {
 					//s2="MOV EDX,var@@aux" + aux2 + "\n" + "DIV EDX";
-					s2="MOV EBX, var@@aux" + aux2 + "\n" + "IDIV EBX";
+					s2="MOV EBX, var@@aux" + aux2 + "\n" + "DIV EBX";
 					op2="var@@aux"+aux2;
 				}
 				chequeo_div_cero ="CMP " + op2 + ",0" + "\n" + "JE _division_cero";
@@ -118,8 +118,9 @@ public class TercetoDivision extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
+					//pruba de barbie:
 					this.generador.setDeclaracionesConst("auxCero DT ?\n");
-					chequeo_div_cero = "FLDZ" + "\n" + "FCOM " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FSTP auxCero" + "\n" + "FDIV";
+					chequeo_div_cero = "FLDZ" + "\n" + "FCOMP " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "POP auxCero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
