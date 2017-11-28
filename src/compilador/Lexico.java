@@ -1,8 +1,12 @@
 package compilador;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,20 +91,14 @@ public class Lexico {
 		this.pos = 0;
 		
 		try {
-//			InputStream is = new FileInputStream("manifest.mf"); 
-//			BufferedReader buf = new BufferedReader(new InputStreamReader(is)); String line = buf.readLine(); StringBuilder sb = new StringBuilder(); while(line != null){ sb.append(line).append("\n"); line = buf.readLine(); } String fileAsString = sb.toString();
-//
-//			
-//			
-//			
-			
-			
-			
-			
-			List<Object> aux = Files.lines(archivoACargar.toPath()).collect(Collectors.toList());
-			for (Object object : aux) {
-			    this.locs.add(Objects.toString(object, null));
-			}
+			InputStream is = new FileInputStream(archivoACargar.toPath().toString()); 
+			BufferedReader buf = new BufferedReader(new InputStreamReader(is)); 
+			String line = buf.readLine(); 
+			StringBuilder sb = new StringBuilder(); 
+			while(line != null){ 
+				this.locs.add(line);
+				line = buf.readLine(); 
+			} 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
