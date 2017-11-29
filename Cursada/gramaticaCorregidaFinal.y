@@ -79,6 +79,9 @@ sentencia_unica_ejecutable : asignacion
 
 declaracion_funcion : encabezado_funcion bloque_funcion {this.sintactico.decrementarAmbito();
 														 this.sintactico.setFnMOVE(false);}
+	/* ERRORES */
+		| encabezado_funcion bloque_funcion '.' {this.sintactico.showError("ERROR Linea "+ token.getLinea() +": Sobra '.'");}
+	/* ERRORES */														 
 		;
 		
 encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("Declaraci\u00f3n de Funci\u00f3n");
