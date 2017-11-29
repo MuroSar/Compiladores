@@ -92,13 +92,9 @@ public class TercetoDivision extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				chequeo_div_cero = "FTST\n" + "FSTSW aux_mem_2bytes\n" + "MOV AX,aux_mem_2bytes\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
+				chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
 				s3="FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
-				String aux = "aux_mem_2bytes DW ?\n";
-				if(!this.generador.delcaracionesConstContains(aux)){
-					this.generador.setDeclaracionesConst(aux);
-				}
 			}
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) { //son funciones de tipo LONG
@@ -121,13 +117,9 @@ public class TercetoDivision extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					chequeo_div_cero = "FTST\n" + "FSTSW aux_mem_2bytes\n"+ "MOV AX,aux_mem_2bytes\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
+					chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
-					String aux = "aux_mem_2bytes DW ?\n";
-					if(!this.generador.delcaracionesConstContains(aux)){
-						this.generador.setDeclaracionesConst(aux);
-					}
 				}
 				else
 				{
@@ -145,13 +137,9 @@ public class TercetoDivision extends Terceto{
 						this.generador.setDeclaracionesConst(aux);
 					}
 					s2= "FLD const@@"+aux2.replace(',', '_'); 
-					chequeo_div_cero ="FTST\n"+ "FSTSW aux_mem_2bytes\n" + "MOV AX, aux_mem_2bytes\n" +"SAHF\n" +"JE _division_cero\n" + "FDIV";
+					chequeo_div_cero ="FTST\n"+ "FSTSW AX\n" +"SAHF\n" +"JE _division_cero\n" + "FDIV";
 					s3="FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
-					String auxiliar = "aux_mem_2bytes DW ?\n";
-					if(!this.generador.delcaracionesConstContains(auxiliar)){
-						this.generador.setDeclaracionesConst(auxiliar);
-					}
 				}
 				else 
 				{
