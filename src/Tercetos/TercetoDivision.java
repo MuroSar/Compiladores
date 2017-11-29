@@ -89,6 +89,7 @@ public class TercetoDivision extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2; //acomodar aca
 				}
+				this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?");
 				//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 				chequeo_div_cero = "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 				s3="FSTP var@@aux" + this.getPos() + "\n";
@@ -119,8 +120,11 @@ public class TercetoDivision extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
 					//pruba de barbie:
-					this.generador.setDeclaracionesConst("auxCero DT ?\n");
-					chequeo_div_cero = "FLDZ" + "\n" + "FCOMP " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "POP auxCero" + "\n" + "FDIV";
+
+					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?");
+					chequeo_div_cero = "FTST\n" + "MOV AX,aux_mem_2bytes\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
+					
+					//chequeo_div_cero = "FLDZ" + "\n" + "FCOMP " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "POP auxCero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
 					//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
@@ -141,6 +145,13 @@ public class TercetoDivision extends Terceto{
 					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
 					this.generador.setDeclaracionesOut(aux);
 					s2= "FLD const@@"+aux2.replace(',', '_'); //acomodar aca
+					
+					Float div = Float.parseFloat(aux1.replace(',', '.')) / Float.parseFloat(aux2.replace(',', '.'));
+					//System.out.println(aux1);
+					//System.out.println(Float.parseFloat(aux1.replace(',', '.')));
+					System.out.println(div);
+
+					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?");
 					//chequeo_div_cero ="FTST" + "\n" + "JE _division_cero";
 					chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
 					s3="FSTP var@@aux" + this.getPos() + "\n";
