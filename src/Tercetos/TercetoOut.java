@@ -58,6 +58,13 @@ public class TercetoOut extends Terceto {
 			this.marcaDesp = false;
 		}
 		
+		String s="1,0e308";
+		String[] valor=s.split("e");
+		Double d=Double.valueOf(valor[0]);
+		int pot=Integer.valueOf(valor[1]);
+		Double result = Math.pow(d, pot);
+		System.out.println(result);
+		
 		return label + "invoke MessageBox, NULL, addr " + soloNombre +", addr " + soloNombre + ", MB_OK\n" + labelDesp; 
 	}
 }
