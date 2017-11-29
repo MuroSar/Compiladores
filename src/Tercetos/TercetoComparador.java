@@ -52,12 +52,12 @@ public class TercetoComparador extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
 					salidaDouble = "FLD " + nombre_func;//+ "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
-					salidaDouble = "FLD var@@aux" + aux1; //es un terceto y el resultado es un DOUBLE
+					salidaDouble = "FLD var@@aux" + aux1 + "\n"; //es un terceto y el resultado es un DOUBLE
 				}
 			}
 			else {
