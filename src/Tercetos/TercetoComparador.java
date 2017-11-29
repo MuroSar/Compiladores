@@ -101,14 +101,18 @@ public class TercetoComparador extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
+					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
+						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
+					}
 					salidaDouble = "FLD " + nombre_func +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
 					return label + salidaDouble + labelDesp;
 					// + "\n" + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
 					salidaDouble +="FLD var@@aux" + aux2 +"\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n"; //porque tengo dos DOUBLE
-					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
+					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
+						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
+					}
 					return label + salidaDouble + labelDesp;
 				}
 			}
@@ -132,7 +136,9 @@ public class TercetoComparador extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					salidaDouble +="FLD "+ aux2 + "@Variable\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
-					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
+					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
+						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
+					}
 					return label + salidaDouble + labelDesp;
 				}
 				else
@@ -148,7 +154,9 @@ public class TercetoComparador extends Terceto{
 					this.generador.setDeclaracionesOut(aux);
 					
 					salidaDouble += "FLD const@@"+aux2.replace(',', '_') + "\nFCOM\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n";
-					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");
+					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
+						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
+					}
 					return label + salidaDouble + labelDesp;
 				}
 				else {
