@@ -166,6 +166,7 @@ public class GenCodigo {
 			}
 
 	        instrucciones += "start:\n";
+	        instrucciones += "FNINIT\n";
 			for (Terceto t : this.tercetos) {
 				if(!this.tercetosFuncion.contains(t)) {
 					t.setGenerador(this);
@@ -183,6 +184,7 @@ public class GenCodigo {
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;
 	        asm += "invoke ExitProcess, 0\n";
+	        asm += "FNINIT\n";
 	        asm += "end start";
 		
 			String path = this.sintactico.getLexico().getPathArchivoACargar();
