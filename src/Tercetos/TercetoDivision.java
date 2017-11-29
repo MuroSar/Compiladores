@@ -36,7 +36,7 @@ public class TercetoDivision extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "FLD " + nombre_func ;//+ "\n" + "FSTP " + aux1 +"\n";
+					s1= "FLD " + nombre_func ;
 				}
 				else {//no es funcion
 					s1="FLD var@@aux" + aux1;
@@ -45,7 +45,7 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "MOV EAX," + nombre_func + "\n" + "CDQ" ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1= "MOV EAX," + nombre_func + "\n" + "CDQ" ;
 				}
 				else {
 					s1="MOV EAX,var@@aux"+aux1 + "\n" + "CDQ";
@@ -65,7 +65,7 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) {
-					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
+					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1.replace(',', '.') + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
@@ -73,6 +73,10 @@ public class TercetoDivision extends Terceto{
 				}
 				else { //es una constante de tipo LONG
 					s1="MOV EAX,"+aux1 + "\n" + "CDQ";
+					String dec = "const@@"+aux1 + " DD " + aux1 + "\n";
+					if(!this.generador.delcaracionesConstContains(dec)){
+						this.generador.setDeclaracionesConst(dec);
+					}
 				}
 			}
 		}
@@ -83,28 +87,26 @@ public class TercetoDivision extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "FLD " + nombre_func;//+ "\n" + "FSTP " + aux1 +"\n"; 
-					//acomodar aca
+					s2= "FLD " + nombre_func;
 				}
 				else {//no es funcion
-					s2="FLD var@@aux" + aux2; //acomodar aca
+					s2="FLD var@@aux" + aux2;
 				}
-				this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?");
-				//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
-				chequeo_div_cero = "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+				chequeo_div_cero = "FTST\n" + "FSTSW aux_mem_2bytes\n" + "MOV AX,aux_mem_2bytes\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
 				s3="FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
+				String aux = "aux_mem_2bytes DW ?\n";
+				if(!this.generador.delcaracionesConstContains(aux)){
+					this.generador.setDeclaracionesConst(aux);
+				}
 			}
 			else {
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+				if (((Terceto)segundo.obj).getOperador().equals("FN")) { //son funciones de tipo LONG
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					//s2 = "MOV EDX,"+ nombre_func + "\n" + "DIV EDX" ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 					s2 = "MOV EBX," + nombre_func + "\n" + "DIV EBX"; 
-					//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
 					op2=nombre_func;
 				}
 				else {
-					//s2="MOV EDX,var@@aux" + aux2 + "\n" + "DIV EDX";
 					s2="MOV EBX, var@@aux" + aux2 + "\n" + "DIV EBX";
 					op2="var@@aux"+aux2;
 				}
@@ -119,20 +121,16 @@ public class TercetoDivision extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					//pruba de barbie:
-
-					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?");
-					chequeo_div_cero = "FTST\n" + "MOV AX,aux_mem_2bytes\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
-					
-					//chequeo_div_cero = "FLDZ" + "\n" + "FCOMP " + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "POP auxCero" + "\n" + "FDIV";
-					//chequeo_div_cero = "FCOM " + aux + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FDIV";
-					//chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW AX" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+					chequeo_div_cero = "FTST\n" + "FSTSW aux_mem_2bytes\n"+ "MOV AX,aux_mem_2bytes\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
+					String aux = "aux_mem_2bytes DW ?\n";
+					if(!this.generador.delcaracionesConstContains(aux)){
+						this.generador.setDeclaracionesConst(aux);
+					}
 				}
 				else
 				{
-					//s2="MOV EDX," + aux2 + "@Variable" + "\n" + "DIV EDX";
 					s2= "MOV EBX," + aux2 + "@Variable"  + "\n" + "DIV EBX";
 					op2=aux2+ "@Variable";
 					chequeo_div_cero = "CMP " + op2 + ",0" + "\n" + "JE _division_cero";
@@ -142,27 +140,26 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
-					this.generador.setDeclaracionesOut(aux);
-					s2= "FLD const@@"+aux2.replace(',', '_'); //acomodar aca
-					
-					Float div = Float.parseFloat(aux1.replace(',', '.')) / Float.parseFloat(aux2.replace(',', '.'));
-					//System.out.println(aux1);
-					//System.out.println(Float.parseFloat(aux1.replace(',', '.')));
-					System.out.println(div);
-
-					this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?");
-					//chequeo_div_cero ="FTST" + "\n" + "JE _division_cero";
-					chequeo_div_cero = "FLDZ" + "\n" + "FCOM" + "\n" + "FSTSW aux_mem_2bytes" + "\n" + "MOV AX, aux_mem_2bytes" + "\n" + "SAHF" + "\n" + "JE _division_cero" + "\n" + "FXCH" + "\n" + "FDIV";
+					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2.replace(',', '.') + "\n";
+					if(!this.generador.delcaracionesConstContains(aux)){
+						this.generador.setDeclaracionesConst(aux);
+					}
+					s2= "FLD const@@"+aux2.replace(',', '_'); 
+					chequeo_div_cero ="FTST\n"+ "FSTSW aux_mem_2bytes\n" + "MOV AX, aux_mem_2bytes\n" +"SAHF\n" +"JE _division_cero\n" + "FDIV";
 					s3="FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
+					String auxiliar = "aux_mem_2bytes DW ?\n";
+					if(!this.generador.delcaracionesConstContains(auxiliar)){
+						this.generador.setDeclaracionesConst(auxiliar);
+					}
 				}
 				else 
-				{  
-					//s2= "MOV EDX," + aux2 + "\n" + "DIV EDX";	
+				{
 					s2= "MOV EBX,const@@"+ aux2 + "\n" + "DIV EBX";
 					String dec = "const@@"+aux2 + " DD " + aux2 + "\n";
-					this.generador.setDeclaracionesConst(dec);
+					if(!this.generador.delcaracionesConstContains(dec)){
+						this.generador.setDeclaracionesConst(dec);
+					}
 					chequeo_div_cero ="CMP const@@"+aux2 + ",0"+ "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
