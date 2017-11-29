@@ -64,7 +64,7 @@ public class TercetoMultiplicacion extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) { //es una constante de tipo DOUBLE
-					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1 + "\n";
+					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}					
@@ -120,7 +120,7 @@ public class TercetoMultiplicacion extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2 + "\n";
+					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}					
