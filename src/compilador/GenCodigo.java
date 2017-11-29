@@ -22,6 +22,8 @@ public class GenCodigo {
 	
 	private ArrayList<Terceto> tercetosFuncion;
 	
+	private String ultimaLinea;
+	
 	public GenCodigo() {
 		this.tercetos = new ArrayList<Terceto>();
 		this.declaraciones_out = "";
@@ -29,6 +31,7 @@ public class GenCodigo {
 		this.declaraciones_const = "";
 		this.labels = new ArrayList<Integer>();
 		this.tercetosFuncion = new ArrayList<Terceto>();
+		this.ultimaLinea = "";
 	}
 	
 	public void nuevo() {
@@ -38,6 +41,7 @@ public class GenCodigo {
 		this.declaraciones_const = "";
 		this.labels.clear();
 		this.tercetosFuncion.clear();
+		this.ultimaLinea = "";
 	}
 	
 	public ArrayList<Integer> getLabels(){
@@ -84,6 +88,10 @@ public class GenCodigo {
 	
 	public void setDeclaracionesConst(String dec) { 
 		this.declaraciones_const += dec;
+	}
+	
+	public String getUltimaLinea() {
+		return this.ultimaLinea;
 	}
 
 	public String getEncabezado() {
@@ -168,6 +176,9 @@ public class GenCodigo {
 						instrucciones += "Label"+t.getPos()+":\n";
 					}
 				}
+				
+				String[] aux = instrucciones.split("\n");
+				this.ultimaLinea = aux[aux.length-1];
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;

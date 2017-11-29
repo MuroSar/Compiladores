@@ -57,13 +57,18 @@ public class TercetoOut extends Terceto {
 			labelDesp = "Label" + (this.getPos()+1) + ":\n";
 			this.marcaDesp = false;
 		}
-		
+		/*
 		String s="1,0e308";
 		String[] valor=s.split("e");
 		Double d=Double.valueOf(valor[0]);
 		int pot=Integer.valueOf(valor[1]);
 		Double result = Math.pow(d, pot);
 		System.out.println(result);
+*/
+		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
+			label = "";
+		}
+
 		
 		return label + "invoke MessageBox, NULL, addr " + soloNombre +", addr " + soloNombre + ", MB_OK\n" + labelDesp; 
 	}

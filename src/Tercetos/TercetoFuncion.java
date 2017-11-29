@@ -43,6 +43,10 @@ public class TercetoFuncion extends Terceto {
 			this.marcaDesp = false;
 		}
 		
+		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
+			label = "";
+		}
+		
 		return label + "CALL " + s + "\n" + labelDesp;//+ "RET Label"+ this.segundo.substring(1, segundo.length()-1) + "\n";
 	}
 }

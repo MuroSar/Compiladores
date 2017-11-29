@@ -176,6 +176,10 @@ public class TercetoDivision extends Terceto{
 			this.marcaDesp = false;
 		}
 		
+		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
+			label = "";
+		}
+		
 		return label + s1  + "\n" + s2 + "\n" + chequeo_div_cero + "\n" + s3 + labelDesp;
 	}
 }

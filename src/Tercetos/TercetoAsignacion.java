@@ -99,6 +99,10 @@ public class TercetoAsignacion extends Terceto{
 			this.marcaDesp = false;
 		}
 		
+		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
+			label = "";
+		}
+		
 		return label + s2 + "\n" + labelDesp;
 	}
 }
