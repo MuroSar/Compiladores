@@ -135,10 +135,10 @@ public class GenCodigo {
         	Token t = this.sintactico.getLexico().getTokenFromTS(key);
         	if(t.getType().equals("Identificador")) {
         		if(t.getTipoDato().equals("LONG")) {
-        			declaracion = declaracion + t.getLexema() + " DQ ?\n"; // long = 8 bytes - 32 bits
+        			declaracion = declaracion + t.getLexema() + " DD ?\n"; 
         		}
         		else {
-        			declaracion = declaracion + t.getLexema() + " DQ ?\n"; // double = 8 bytes 
+        			declaracion = declaracion + t.getLexema() + " DQ ?\n"; 
         		}
         	}
         }
