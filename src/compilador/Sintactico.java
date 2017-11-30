@@ -25,7 +25,7 @@ public class Sintactico {
 	private boolean fnMOVE;
 	private String IDSwitch;
 	
-	private  Map<String, String> funcionPos;
+	private Map<String, String> funcionPos;
 	private Stack<Terceto> pila;
 	
 	private String ambito;
@@ -42,7 +42,7 @@ public class Sintactico {
 		this.ppal = principal;
 		this.lexico = lexico;
 		this.parser = parser;
-		this.generador = generador;  
+		this.generador = generador;
 		this.tercetos = new ArrayList<Terceto>();
 		this.errores = new ArrayList<String>();
 		
@@ -364,6 +364,13 @@ public class Sintactico {
 	public static boolean esVariable(ParserVal val) {
 		if(val.obj != null) {
 			return false;
+		}
+		
+		if(val.sval.charAt(0) == '-') {
+			if(!Character.isLetter(val.sval.charAt(1))) {
+				return false;
+			}
+			return true;
 		}
 		
 		if(!Character.isLetter(val.sval.charAt(0))) {

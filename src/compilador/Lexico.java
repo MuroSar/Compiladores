@@ -37,6 +37,8 @@ public class Lexico {
 	private int estado = 0;
 	private MatrizTransicionEstados matriz;
 	
+	public Token ultimoToken;
+	
 	public Lexico(Principal ppal)
 	{
 		this.matriz = new MatrizTransicionEstados();
@@ -69,6 +71,8 @@ public class Lexico {
 		this.tablaSimbolos= new HashMap<String, Token>();
 				
 		this.ppal = ppal;
+		
+		this.ultimoToken = new Token();
 	}
 
 	public void nuevoArchivo() {
@@ -79,6 +83,7 @@ public class Lexico {
 		this.locs.clear();
 		this.tablaSimbolos.clear();
 		this.errores.clear();
+		this.ultimoToken = new Token();
 	}
 	
 	public String getPathArchivoACargar() {
@@ -105,6 +110,34 @@ public class Lexico {
 	}
 
 	public Token getToken() {
+		Token token = this.getTokenParcial();
+		if (ultimoToken.getLexema().equals("==") || ultimoToken.getLexema().equals("<>")
+			|| ultimoToken.getLexema().equals("<") || ultimoToken.getLexema().equals(">")
+			|| ultimoToken.getLexema().equals("<=") || ultimoToken.getLexema().equals(">=")
+			|| ultimoToken.getLexema().equals("=") || ultimoToken.getLexema().equals("+")
+			|| ultimoToken.getLexema().equals("-") || ultimoToken.getLexema().equals("*")
+			|| ultimoToken.getLexema().equals("/")) 
+		{
+			if(token.getLexema().equals("-")) {
+				char prox = this.locs.get(fila).charAt(pos);
+				if(Character.isDigit(prox) || Character.isLetter(prox)) {
+					Token tokenAux = this.getTokenParcial();
+					
+					//this.removeTokenFromTS(token.getLexema());
+					//this.removeTokenFromTS(tokenAux.getLexema());
+					
+					tokenAux.setLexema("-" + tokenAux.getLexema());
+					token = tokenAux;
+					
+					this.putSimbolo(token);
+				}
+			}
+		}
+		this.ultimoToken = token;
+		return token;
+	}
+	
+	public Token getTokenParcial() {
 		Token token = new Token();
 		boolean terminoArchivo = false;
 		int col;
@@ -268,6 +301,7 @@ public class Lexico {
 		this.estado = 0;
 		this.tablaSimbolos.clear();
 		this.errores.clear();
+		this.ultimoToken = new Token();
 	}
 	
 	public void showAllTokens() {

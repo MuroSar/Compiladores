@@ -76,10 +76,10 @@ public class TercetoDivision extends Terceto{
 				}
 				else { //es una constante de tipo LONG
 					s1="MOV EAX,"+aux1 + "\n" + "CDQ";
-					String dec = "const@@"+aux1 + " DQ " + aux1 + "\n";
+					/*String dec = "const@@"+aux1 + " DQ " + aux1 + "\n";
 					if(!this.generador.delcaracionesConstContains(dec)){
 						this.generador.setDeclaracionesConst(dec);
-					}
+					}*/
 				}
 			}
 		}
@@ -102,11 +102,11 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) { //son funciones de tipo LONG
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2 = "MOV EBX," + nombre_func + "\n" + "DIV EBX"; 
+					s2 = "MOV EBX," + nombre_func + "\n" + "IDIV EBX"; 
 					op2=nombre_func;
 				}
 				else {
-					s2="MOV EBX, var@@aux" + aux2 + "\n" + "DIV EBX";
+					s2="MOV EBX, var@@aux" + aux2 + "\n" + "IDIV EBX";
 					op2="var@@aux"+aux2;
 				}
 				chequeo_div_cero ="CMP " + op2 + ",0" + "\n" + "JE _division_cero";
@@ -126,7 +126,7 @@ public class TercetoDivision extends Terceto{
 				}
 				else
 				{
-					s2= "MOV EBX," + aux2 + "@Variable"  + "\n" + "DIV EBX";
+					s2= "MOV EBX," + aux2 + "@Variable"  + "\n" + "IDIV EBX";
 					op2=aux2+ "@Variable";
 					chequeo_div_cero = "CMP " + op2 + ",0" + "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
@@ -146,12 +146,12 @@ public class TercetoDivision extends Terceto{
 				}
 				else 
 				{
-					s2= "MOV EBX,const@@"+ aux2 + "\n" + "DIV EBX";
-					String dec = "const@@"+aux2 + " DQ " + aux2 + "\n";
+					s2= "MOV EBX,"+ aux2 + "\n" + "IDIV EBX";
+					/*String dec = "const@@"+aux2 + " DQ " + aux2 + "\n";
 					if(!this.generador.delcaracionesConstContains(dec)){
 						this.generador.setDeclaracionesConst(dec);
-					}
-					chequeo_div_cero ="CMP const@@"+aux2 + ",0"+ "\n" + "JE _division_cero";
+					}*/
+					chequeo_div_cero ="MOV ECX," + aux2 +"\n" +"CMP ECX" + ",0"+ "\n" + "JE _division_cero";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
