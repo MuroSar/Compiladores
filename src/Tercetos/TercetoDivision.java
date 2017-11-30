@@ -34,12 +34,13 @@ public class TercetoDivision extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
+				String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "FLD " + nombre_func ;
+					s1= limpiaPila + "FLD " + nombre_func ;
 				}
 				else {//no es funcion
-					s1="FLD var@@aux" + aux1;
+					s1= limpiaPila + "FLD var@@aux" + aux1;
 				}
 			}
 			else {
@@ -57,7 +58,8 @@ public class TercetoDivision extends Terceto{
 			if(Sintactico.esVariable(primero)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
-					s1="FLD " + aux1 + "@Variable";
+					String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
+					s1= limpiaPila + "FLD " + aux1 + "@Variable";
 				}
 				else {
 					s1="MOV EAX,"+aux1+ "@Variable" + "\n" + "CDQ";
@@ -69,7 +71,8 @@ public class TercetoDivision extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
-					s1="FLD const@@"+aux1.replace(',', '_');
+					String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
+					s1= limpiaPila + "FLD const@@"+aux1.replace(',', '_');
 				}
 				else { //es una constante de tipo LONG
 					s1="MOV EAX,"+aux1 + "\n" + "CDQ";
