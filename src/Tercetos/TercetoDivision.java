@@ -65,7 +65,7 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) {
-					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1.replace(',', '.') + "\n";
+					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(',', '.') + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
@@ -73,7 +73,7 @@ public class TercetoDivision extends Terceto{
 				}
 				else { //es una constante de tipo LONG
 					s1="MOV EAX,"+aux1 + "\n" + "CDQ";
-					String dec = "const@@"+aux1 + " DD " + aux1 + "\n";
+					String dec = "const@@"+aux1 + " DQ " + aux1 + "\n";
 					if(!this.generador.delcaracionesConstContains(dec)){
 						this.generador.setDeclaracionesConst(dec);
 					}
@@ -132,7 +132,7 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DT " + aux2.replace(',', '.') + "\n";
+					String aux = "const@@"+aux2.replace(',', '_') + " DQ " + aux2.replace(',', '.') + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)){
 						this.generador.setDeclaracionesConst(aux);
 					}
@@ -144,7 +144,7 @@ public class TercetoDivision extends Terceto{
 				else 
 				{
 					s2= "MOV EBX,const@@"+ aux2 + "\n" + "DIV EBX";
-					String dec = "const@@"+aux2 + " DD " + aux2 + "\n";
+					String dec = "const@@"+aux2 + " DQ " + aux2 + "\n";
 					if(!this.generador.delcaracionesConstContains(dec)){
 						this.generador.setDeclaracionesConst(dec);
 					}

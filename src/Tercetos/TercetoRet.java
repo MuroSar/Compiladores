@@ -76,7 +76,7 @@ public class TercetoRet extends Terceto{
 					t.setType("Identificador");
 					t.setDestino(primero.sval);*/
 					t.setTipoDato("DOUBLE");
-					String aux = "const@@"+aux1.replace(',', '_') + " DT " + aux1.replace(",", ".") + "\n";
+					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}					
