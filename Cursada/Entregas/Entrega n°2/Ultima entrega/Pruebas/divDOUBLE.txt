@@ -1,0 +1,11 @@
+a, b : DOUBLE.
+
+a = 10,0.
+b = 5,0.
+
+a = a / b.
+
+
+IF (a == 2,0) THEN
+	OUT("divide bien").
+END_IF.

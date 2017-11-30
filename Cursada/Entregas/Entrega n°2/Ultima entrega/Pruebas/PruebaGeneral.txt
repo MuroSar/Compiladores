@@ -1,0 +1,40 @@
+e,f,g: DOUBLE.
+e = 12,00.
+f = 4,00.
+g = e + f.
+
+
+a,b,c:LONG.
+a = 2.
+b = 2147483647.
+c = a + b.
+d:DOUBLE.
+d = 1,0e308 + 1,7976931348623157e308.
+OUT("Termino").
+
+OUT("IMPRIME").
+h : LONG.
+h = 2.
+SWITCH  ( h) {
+		CASE 2 : OUT("A").
+		CASE 3 : OUT("B").
+}.
+
+OUT("TERMINO").
+
+var1,var2:DOUBLE.
+
+var6 : DOUBLE.
+var6 = 1,0.
+
+DOUBLE FUNCTION aa {
+	var3 : DOUBLE.
+        var3 = 50,0 * var6.
+	var6 = var6 + 1,0.
+	OUT("Invocacion de la funcion").
+	RETURN (var3).
+}
+
+var3 : DOUBLE.
+var3 = aa() + aa() + aa().
+OUT("TERMINO").

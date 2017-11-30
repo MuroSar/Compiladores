@@ -1,0 +1,36 @@
+var, pepe : LONG.
+var = -8.
+pepe = 7.
+
+IF (var * pepe == 56) THEN 
+	OUT("mal").
+ELSE 
+	OUT("los neg andan bien").
+END_IF.
+
+IF (pepe * var == -56) THEN 
+	OUT("anda mul negativos").
+ELSE 
+	OUT("no anda mul negativos").
+END_IF.
+
+IF (var + pepe == -1) THEN 
+	OUT("anda suma negativos").
+ELSE 
+	OUT("no anda suma negativos").
+END_IF.
+
+IF (var - pepe == -15) THEN 
+	OUT("anda resta negativos").
+ELSE 
+	OUT("no anda resta negativos").
+END_IF.
+
+c : LONG.
+c = 56 / var.
+
+IF ( c == -7) THEN 
+	OUT("anda div negativos").
+ELSE 
+	OUT("no anda div negativos").
+END_IF.

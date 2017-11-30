@@ -1,0 +1,39 @@
+a : DOUBLE.
+b : DOUBLE.
+z : DOUBLE.
+
+a=987,2.
+b=123,5.
+
+z=a-b.
+IF(z == 863,7) THEN
+	OUT("Resta bien").
+ELSE
+	OUT("Resta mal").
+END_IF.
+
+z=a+b.
+IF(z == 1110,7) THEN
+	OUT("Suma bien").
+ELSE
+	OUT("Suma mal").
+END_IF.
+
+z=a*b.
+IF(z == 121919,2) THEN
+	OUT("Multiplica bien").
+ELSE
+	OUT("Multiplica mal").
+END_IF.
+
+
+
+a=15,5.
+b=2,5.
+z = a/b.
+
+IF(z == 6,2) THEN
+	OUT("divide bien").
+ELSE
+	OUT("divide mal").
+END_IF.

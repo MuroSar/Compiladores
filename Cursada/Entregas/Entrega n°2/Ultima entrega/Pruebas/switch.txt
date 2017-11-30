@@ -1,0 +1,10 @@
+var : LONG.
+var = 5.
+
+SWITCH (var) {
+	CASE 4 : OUT ( "Es un 4" ).
+	CASE 5 : OUT ( "No es un 4" ).
+}.
+
+
+OUT("Imprime").

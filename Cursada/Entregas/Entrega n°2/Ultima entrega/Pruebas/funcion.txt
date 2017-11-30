@@ -1,0 +1,14 @@
+LONG FUNCTION salida1 {
+	aB1 : LONG.
+	aB1 = 6 + 3.
+RETURN ( aB1 ).
+}
+
+valor : LONG.
+valor = salida1().
+
+IF (valor == 9) THEN
+	OUT("Es un 9").
+ELSE
+	OUT("No es un 9").
+END_IF.

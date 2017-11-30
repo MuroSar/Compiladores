@@ -1,0 +1,50 @@
+a : LONG.
+b : LONG.
+c : LONG.
+d : LONG.
+
+variable, suma : LONG.
+
+d = 2.
+a = 3 + 5.
+c = 8 * 3.
+b = 4 - 2.
+
+IF (c == 24) THEN
+	OUT("MUL ok").
+END_IF.
+
+IF (2+5 < 8-5) THEN 
+	BEGIN
+		variable = 6.
+		suma = 8 + 2.
+		OUT("entro al IF").
+	END.
+ELSE
+	BEGIN
+		suma = variable.
+		OUT("entro al ELSE").
+	END.
+END_IF.
+
+c = 8 * 3.
+
+OUT ( "Es un 4" ).
+
+variable = 5.
+
+SWITCH (variable) {
+	CASE 4 : OUT ( "Es un 4" ).
+	CASE 5 : OUT ( "No es un 4" ).
+}.
+
+
+DOUBLE FUNCTION salida1 {
+	aB1 : DOUBLE.
+	aB1 = 6,8 + 3,3.
+RETURN ( aB1 ).
+}
+
+valor : DOUBLE.
+
+valor = 3,3 + salida1().
