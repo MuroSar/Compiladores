@@ -174,7 +174,10 @@ public class GenCodigo {
 				}
 				else {
 					if(t.getMarcaAntes() && this.tercetos.get(0) != t) {
-						instrucciones += "Label"+t.getPos()+":\n";
+						String marca = "Label"+t.getPos()+":";
+						if(!this.ultimaLinea.equals(marca)) {
+							instrucciones += marca + "\n";	
+						}
 					}
 				}
 				

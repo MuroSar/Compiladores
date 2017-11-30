@@ -116,7 +116,7 @@ public class Lexico {
 			|| ultimoToken.getLexema().equals("<=") || ultimoToken.getLexema().equals(">=")
 			|| ultimoToken.getLexema().equals("=") || ultimoToken.getLexema().equals("+")
 			|| ultimoToken.getLexema().equals("-") || ultimoToken.getLexema().equals("*")
-			|| ultimoToken.getLexema().equals("/")) 
+			|| ultimoToken.getLexema().equals("/") || ultimoToken.getLexema().equals("(")) 
 		{
 			if(token.getLexema().equals("-")) {
 				char prox = this.locs.get(fila).charAt(pos);
