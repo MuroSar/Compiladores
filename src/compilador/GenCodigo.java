@@ -126,7 +126,7 @@ public class GenCodigo {
     private String getDeclaraciones() {
         String declaracion = new String();
         declaracion += ".data\n";
-        declaracion += "constCeroLong DD  0\n";
+        //declaracion += "constCeroLong DD  0\n";
 //        declaracion += "__MIN DD  -2147483648\n";
 //        declaracion += "__MAX DD  2147483647\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
