@@ -100,7 +100,7 @@ public class TercetoSuma extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {// es un terceto de tipo LONG
@@ -122,7 +122,7 @@ public class TercetoSuma extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux2 + "@Variable";
-					s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -142,7 +142,7 @@ public class TercetoSuma extends Terceto{
 					}
 					
 					s2= "FLD const@@"+aux2.replace(',', '_');
-					s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {

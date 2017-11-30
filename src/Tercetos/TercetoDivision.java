@@ -92,7 +92,7 @@ public class TercetoDivision extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
+				chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
 				s3="FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
@@ -117,7 +117,7 @@ public class TercetoDivision extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
+					chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+ "SAHF\n" + "JE _division_cero\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
@@ -137,7 +137,7 @@ public class TercetoDivision extends Terceto{
 						this.generador.setDeclaracionesConst(aux);
 					}
 					s2= "FLD const@@"+aux2.replace(',', '_'); 
-					chequeo_div_cero ="FTST\n"+ "FSTSW AX\n" +"SAHF\n" +"JE _division_cero\n" + "FDIV";
+					chequeo_div_cero ="FTST\n"+ "FSTSW AX\n" + "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"SAHF\n" +"JE _division_cero\n" + "FDIV";
 					s3="FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}

@@ -87,7 +87,8 @@ public class TercetoMultiplicacion extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2 + "\n";
 				}
-				s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				//s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; //linea que estaba antes 
+				s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {
@@ -108,7 +109,8 @@ public class TercetoMultiplicacion extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					//s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; //linea que estaba antes
+					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -125,7 +127,8 @@ public class TercetoMultiplicacion extends Terceto{
 						this.generador.setDeclaracionesConst(aux);	
 					}					
 					s2= "FLD const@@"+aux2.replace(',', '_');
-					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
+					//s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; //linea que estaba antes
+					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {
@@ -136,10 +139,7 @@ public class TercetoMultiplicacion extends Terceto{
 				}
 			}
 		}
-		//s3="MOV var@@aux"+ pos + ",EAX";
-	
 		Lexico.putSimbolo(tokenAux); 
-		
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(this.generador.getSintactico().existeNombreMarca()) {
@@ -156,11 +156,9 @@ public class TercetoMultiplicacion extends Terceto{
 			labelDesp = "Label" + (this.getPos()+1) + ":\n";
 			this.marcaDesp = false;
 		}
-		
 		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
 			label = "";
 		}
-		
 		return label + s1 + "\n" + s2 + "\n" + s3 + labelDesp;
 		}
 	}
