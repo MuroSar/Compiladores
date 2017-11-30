@@ -90,8 +90,8 @@ public class TercetoMultiplicacion extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2 + "\n";
 				}
-				//s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; //linea que estaba antes 
-				s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				//s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {
