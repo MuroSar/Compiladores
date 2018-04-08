@@ -35,28 +35,21 @@ public class TercetoSuma extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto que retorna DOUBLE
-				//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
 					s1 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
-					s1= "FLD var@@aux" + aux1;/*
-					tokenAux.setLexema("var@@aux" + this.getPos());
-					tokenAux.setTipoDato("DOUBLE");
-					tokenAux.setType("Identificador");*/
+					s1= "FLD var@@aux" + aux1;
 				}
 			}
 			else { //es un terceto que retorna LONG
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1 = "MOV EAX," + nombre_func; //+ "MOV var@@aux" + aux1+ ",EAX"+"\n";
+					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
-					s1="MOV EAX,var@@aux" + aux1;/*
-					tokenAux.setLexema("var@@aux" + this.getPos());
-					tokenAux.setTipoDato("LONG");
-					tokenAux.setType("Identificador");*/
+					s1="MOV EAX,var@@aux" + aux1;
 				}
 			}
 		}
@@ -65,8 +58,6 @@ public class TercetoSuma extends Terceto{
 			if(Sintactico.esVariable(primero)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { 
-					//es una variable de tipo DOUBLE
-					//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 					s1= "FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
@@ -81,7 +72,6 @@ public class TercetoSuma extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
-					//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 					s1= "FLD const@@"+aux1.replace(',', '_');
 					
 				}
@@ -102,7 +92,6 @@ public class TercetoSuma extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				//s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				s3="FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
@@ -110,8 +99,7 @@ public class TercetoSuma extends Terceto{
 				tokenAux.setTipoDato("LONG");		
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "ADD EAX," + nombre_func;//+ "MOV " + aux1+ ",EAX"+"\n";
-				}
+					s2= "ADD EAX," + nombre_func;				}
 				else {
 					s2="ADD EAX,var@@aux" + aux2;
 				}
@@ -125,7 +113,7 @@ public class TercetoSuma extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux2 + "@Variable";
-					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -145,7 +133,7 @@ public class TercetoSuma extends Terceto{
 					}
 					
 					s2= "FLD const@@"+aux2.replace(',', '_');
-					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FADD" + "\n" + "JO _overflow\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {

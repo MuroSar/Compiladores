@@ -38,10 +38,10 @@ public class TercetoAsignacion extends Terceto{
 			if (tipo.equals("DOUBLE")) { 
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "FLD " + nombre_func + "\n" + "FSTP " + aux1;
+					s2= "FLD " + nombre_func + "\n" + "FST " + aux1;
 				}
 				else {//no es funcion
-					s2 = "FLD var@@aux" + aux2 + "\n" + "FSTP " + aux1;
+					s2 = "FLD var@@aux" + aux2 + "\n" + "FST " + aux1;
 				}
 			}
 			else {
@@ -60,7 +60,7 @@ public class TercetoAsignacion extends Terceto{
 			if(Sintactico.esVariable(segundo)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FSTP " + aux1;
+					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FST " + aux1;
 				}
 				else {
 					s2 = "MOV EAX," + aux2 + "@Variable" + "\n" + "MOV " + aux1 + ",EAX";
@@ -72,7 +72,7 @@ public class TercetoAsignacion extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
-					s2 = "FLD const@@"+aux2.replace(',', '_') + "\n" + "FSTP " + aux1;
+					s2 = "FLD const@@"+aux2.replace(',', '_') + "\n" + "FST " + aux1;
 				}
 				else {
 					s2="MOV " + aux1 + "," + aux2; 
