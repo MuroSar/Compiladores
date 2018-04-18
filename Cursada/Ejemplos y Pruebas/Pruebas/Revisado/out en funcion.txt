@@ -1,0 +1,16 @@
+var1,var2:DOUBLE.
+
+var6 : DOUBLE.
+var6 = 1,0.
+
+DOUBLE FUNCTION aa {
+	var3 : DOUBLE.
+        var3 = 50,0 * var6.
+	var6 = var6 + 1,0.
+	OUT("Invocacion de la funcion").
+	RETURN (var3).
+}
+
+var4 : DOUBLE.
+var4 = aa() + aa() + aa().
+OUT("TERMINO").

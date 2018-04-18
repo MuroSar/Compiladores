@@ -1,0 +1,6 @@
+a : LONG.
+a = -2*-4.
+
+IF (-2*-4 == 8) THEN
+	OUT("salida aux").
+END_IF.

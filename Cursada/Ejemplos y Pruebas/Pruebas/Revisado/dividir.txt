@@ -1,0 +1,14 @@
+a : DOUBLE.
+b : DOUBLE.
+z : DOUBLE.
+
+a=15,5.
+b=2,5.
+z = a/b.
+
+IF(z == 6,2) THEN
+	OUT("divide bien").
+ELSE
+	OUT("divide mal").
+END_IF.
+

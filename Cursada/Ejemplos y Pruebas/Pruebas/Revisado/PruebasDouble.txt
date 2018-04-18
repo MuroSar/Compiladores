@@ -1,0 +1,56 @@
+a,b,c,d,e : DOUBLE.
+c=594,317.
+d=800634,147.
+e=d/c.
+
+IF(e == 1347,15) THEN
+	OUT("Divide bien").
+ELSE
+	OUT("Divide mal").
+END_IF.
+
+a=34812,6.
+b=588303,457.
+e=b+a.
+c=b-a.
+IF(e == 623116,057) THEN
+	OUT("Suma bien").
+ELSE
+	OUT("Suma mal").
+END_IF.
+
+IF(c == 553490,857) THEN
+	OUT("Resta bien").
+ELSE
+	OUT("Resta mal").
+END_IF.
+
+IF(23,45 * 84,982 == 1992,8279) THEN
+	OUT("Multiplica bien").
+ELSE
+	OUT("Multiplica mal").
+END_IF.
+
+IF(c+d == 802626,9749) THEN
+	OUT("Suma bien").
+ELSE
+	OUT("Suma mal").
+END_IF.
+
+IF(454723389,9/7823,4 == 58123,5) THEN
+	OUT("Divide bien").
+ELSE
+	OUT("Divide mal").
+END_IF.
+
+IF(14579,2*9851,9 == 143632820,48) THEN
+	OUT("Multiplica bien").
+ELSE
+	OUT("Multiplica mal").
+END_IF.
+
+IF(9851,9-579,2 == 9272,7) THEN
+	OUT("Resta bien").
+ELSE
+	OUT("Resta mal").
+END_IF.

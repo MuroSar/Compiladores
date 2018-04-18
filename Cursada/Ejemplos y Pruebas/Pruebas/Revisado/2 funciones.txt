@@ -1,0 +1,38 @@
+LONG FUNCTION salida5 {
+	aB1 : LONG.
+	aB1 = 5.
+RETURN ( aB1 ).
+}
+
+
+
+
+aux : LONG.
+
+
+aux = salida5() + salida5().
+
+IF (aux <> 10) THEN
+	OUT("son iguales y anda mal").
+ELSE
+	OUT("son distintos y anda bien").
+END_IF.
+
+DOUBLE FUNCTION salida5D {
+	aC1 : DOUBLE.
+	aC1 = 5,5.
+RETURN ( aC1 ).
+}
+
+aux2,aux3 : DOUBLE.
+
+aux2 = 6,0 + salida5D().
+aux3=265,65/salida5D().
+
+IF (aux3 == 48,3) THEN
+	OUT("anda bien la funcion").
+ELSE
+	OUT("la cagamos").
+END_IF.
+
+
