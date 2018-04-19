@@ -31,24 +31,21 @@ public class TercetoResta extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
 					s1 = "FLD " + nombre_func + "\n";// + "FSTP " + aux1 +"\n";
 				}
 				else {//no es funcion
 					s1= "FLD var@@aux" + aux1 + "\n";
-					//tokenAux.setTipoDato("DOUBLE");
 				}
 			}
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1 = "MOV EAX," + nombre_func + "\n";// + "MOV " + aux1+ ",EAX"+"\n";
+					s1 = "MOV EAX," + nombre_func + "\n";
 				}
 				else {
 					s1="MOV EAX,var@@aux"+aux1;
-					//tokenAux.setTipoDato("LONG");
 				}
 			}
 		}
@@ -57,11 +54,10 @@ public class TercetoResta extends Terceto{
 			if(Sintactico.esVariable(primero)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
-					//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 					s1= "FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV EAX,"+aux1+"@Variable"; //aca hay que acomodar
+					s1="MOV EAX,"+aux1+"@Variable"; 
 				}
 			}
 			else {
@@ -71,7 +67,6 @@ public class TercetoResta extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}	
-					//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 					s1= "FLD const@@"+aux1.replace(',', '_');
 				}
 				else {
@@ -92,8 +87,7 @@ public class TercetoResta extends Terceto{
 					s2="FLD var@@aux" + aux2;
 				}
 				tokenAux.setTipoDato("DOUBLE");
-				s3="FSUB" + "\n" + "FSTP var@@aux" + this.getPos();
-				//s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FSUB" + "\n" + "FSTP var@@aux" + this.getPos();
+				s3="FSUB" + "\n" + "FST var@@aux" + this.getPos();
 			}
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
@@ -113,7 +107,7 @@ public class TercetoResta extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FSUB" + "\n" + "FSTP var@@aux" + this.getPos();
+					s3="FSUB" + "\n" + "FST var@@aux" + this.getPos();
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -130,7 +124,7 @@ public class TercetoResta extends Terceto{
 						this.generador.setDeclaracionesConst(aux);	
 					}	
 					s2= "FLD const@@"+aux2.replace(',', '_');
-					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FSUB" + "\n" + "FSTP var@@aux" + this.getPos(); 
+					s3="FSUB" + "\n" + "FST var@@aux" + this.getPos(); 
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {

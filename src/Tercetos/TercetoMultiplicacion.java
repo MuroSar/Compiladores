@@ -31,25 +31,22 @@ public class TercetoMultiplicacion extends Terceto{
 			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
 			String tipo = ((Terceto)primero.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "FLD " + nombre_func ;//+ "\n" + "FSTP " + aux1 +"\n";
+					s1= "FLD " + nombre_func ;
 				}
 				else {//no es funcion
 					s1= "FLD var@@aux" + aux1;
 				}
-				//tokenAux.setTipoDato("DOUBLE");
 			}
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1= "MOV EAX," + nombre_func ;//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1= "MOV EAX," + nombre_func ;
 				}
 				else {
 					s1="MOV EAX,var@@aux"+aux1;
 				}
-				//tokenAux.setTipoDato("LONG");
 			}
 		}
 		else {
@@ -57,7 +54,6 @@ public class TercetoMultiplicacion extends Terceto{
 			if(Sintactico.esVariable(primero)) { //es una variable
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
-					//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 					s1= "FLD " + aux1 + "@Variable";
 				}
 				else { //es una variable de tipo LONG
@@ -70,7 +66,6 @@ public class TercetoMultiplicacion extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}		
-					//String limpiaPila = "FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n";
 					s1= "FLD const@@"+aux1.replace(',', '_');
 				}
 				else { //es una constante de tipo LONG
@@ -85,19 +80,18 @@ public class TercetoMultiplicacion extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "FLD " + nombre_func ;//+ "\n" + "FSTP " + aux1 +"\n";
+					s2= "FLD " + nombre_func ;
 				}
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2 + "\n";
 				}
-				//s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-				s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				s3="FMUL" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					s2= "MOV EDX," + nombre_func + "\n" + "MUL EDX";//+ "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s2= "MOV EDX," + nombre_func + "\n" + "MUL EDX";
 				}
 				else {
 					s2="MOV EDX,var@@aux" + aux2 + "\n" + "MUL EDX";
@@ -112,8 +106,7 @@ public class TercetoMultiplicacion extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					//s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; //linea que estaba antes
-					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					s3="FMUL" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -130,8 +123,7 @@ public class TercetoMultiplicacion extends Terceto{
 						this.generador.setDeclaracionesConst(aux);	
 					}					
 					s2= "FLD const@@"+aux2.replace(',', '_');
-					//s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; //linea que estaba antes
-					s3="FFREE ST(0)\n" + "FFREE ST(1)\n" + "FWAIT\n"+"FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
+					s3="FMUL" + "\n" + "FST var@@aux" + this.getPos() + "\n"; 
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {

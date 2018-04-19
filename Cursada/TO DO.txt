@@ -2,26 +2,14 @@ TO DO:
 
 ------------------------------------------------------------------------------------------------------------------------
 
---Como pasamos todo a la maquina virtual para probarlo..
+--revisar overflow en sumas
 
-
-
-
-REVISAR::::
-	-- Asignacion!!! (comentarios en getCodigo)(Barbie lo hace)
+--divisiones:********************
+	--revisar el CDQ en las divisiones
 	
-	-- Las variables auxiliares que se crean en los getCodigo no estan en la TS 
-	
-	-- Para que poniamos el _ antes de las variables 
-		hay que acomodar la TS si es necesario.. si no sacarlo de todos los tercetos 
-		
-	-- Hay que sacar el metodo putSimboloAsm del lexico.. 
-		Para todas las variables auxiliares hay que generar un token
-		ponerle el Type = "Identificador", lexema y TipoDato.. si no no se levantan desp.
-		Ver ejemplos de Suma y Resta..
-		Acomodar Asignacion, Multiplicacion y Resta..
-		
-		
-	--Hay que acomodar los labels que genera de gusto
-	-- continuara.. ;P
+	--FTST
+	--FSTSW AX
+	--SAHF
+	--JE _division_cero
+	revisar si sirve para el chequeo de division por cero
 ------------------------------------------------------------------------------------------------------------------------
