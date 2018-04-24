@@ -54,7 +54,7 @@ public class TercetoComparador extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					salidaDouble = "FLD " + nombre_func;//+ "\n" + "FSTP " + aux1 +"\n";
+					salidaDouble = "FLD " + nombre_func;
 				}
 				else {//no es funcion
 					salidaDouble = "FLD var@@aux" + aux1 + "\n"; //es un terceto y el resultado es un DOUBLE
@@ -63,7 +63,7 @@ public class TercetoComparador extends Terceto{
 			else {
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
-					s1 = "MOV EAX," + nombre_func;// + "\n" + "MOV " + aux1+ ",EAX"+"\n";
+					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
 				s1 = "var@@aux"+aux1;

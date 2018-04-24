@@ -44,44 +44,40 @@ public class TercetoAsignacion extends Terceto{
 					s2 = "FLD var@@aux" + aux2 + "\n" + "FST " + aux1;
 				}
 			}
-			else {
+			else { //TIPO = A LONG
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					//s2 = "MOV EAX," + nombre_func + "\n" + "MOV " + aux1+ ",EAX";
 					s2 = "MOV EAX,"+ nombre_func + "\nMOV " + aux1 + ",EAX" ;
 				}
-				else {
+				else {//NO ES FUNCION
 					s2 = "MOV EAX," + "var@@aux" + aux2 + "\n" + "MOV " + aux1 + ",EAX";  
 				}
 			}
 		}
 		else {
 			aux2 = segundo.sval;	
-			if(Sintactico.esVariable(segundo)) {
+			if(Sintactico.esVariable(segundo)) {//ES VARIABLE
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
-				if (tipo.equals("DOUBLE")) {
+				if (tipo.equals("DOUBLE")) { //TIPO DOUBLE
 					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FST " + aux1;
 				}
-				else {
+				else {//TIPO LONG
 					s2 = "MOV EAX," + aux2 + "@Variable" + "\n" + "MOV " + aux1 + ",EAX";
 				}
 			}
-			else {	
+			else {	//ES UNA CONSTANTE
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DQ " + aux2.replace(",", ".") + "\n";
+					String aux = "const@@"+aux2.replace(',', '_').replace('-', '_') + " DQ " + aux2.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
-					}
-					s2 = "FLD const@@"+aux2.replace(',', '_') + "\n" + "FST " + aux1;
+					}//TIPO DOUBLE
+					s2 = "FLD const@@"+aux2.replace(',', '_').replace('-', '_') + "\n" + "FST " + aux1;
 				}
-				else {
+				else { //TIPO LONG
 					s2="MOV " + aux1 + "," + aux2; 
 				}
 			}
 		}
-	
-		//Lexico.putSimboloAsm("var@@aux"+pos);
-		//Lexico.actualizarDestino(aux1, "var@@aux"+pos);
 		String label = "";
 		if(this.marcaAntes || this.generador.getLabels().contains(this.getPos())) {
 			if(this.generador.getSintactico().existeNombreMarca()) {
