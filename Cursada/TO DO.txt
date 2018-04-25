@@ -12,4 +12,13 @@ TO DO:
 	--SAHF
 	--JE _division_cero
 	revisar si sirve para el chequeo de division por cero
+	
+	
+	
+	
+	
+	JE _division_cero
+	esta luego de la division!!! 
+	
+	
 ------------------------------------------------------------------------------------------------------------------------

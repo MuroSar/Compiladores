@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.ParserVal;
 
 public class TercetoOut extends Terceto {
@@ -13,28 +14,7 @@ public class TercetoOut extends Terceto {
 		
 		String nombre=this.primero;
 		
-		//Saco las " del principio y fin
-		String soloNombre = nombre.substring(1, nombre.length()-1);
-		//Borro los espacios en blanco
-		soloNombre = soloNombre.replaceAll("\\s+","_");
-		//Reviso que no haya letras con acentos..
-		//Si las hay las remplazo por la letra sin acento
-		if(soloNombre.contains("á")) {
-			soloNombre = soloNombre.replaceAll("á","a");
-		}
-		if(soloNombre.contains("é")) {
-			soloNombre = soloNombre.replaceAll("é","e");
-		}
-		if(soloNombre.contains("í")) {
-			soloNombre = soloNombre.replaceAll("í","i");
-		}
-		if(soloNombre.contains("ó")) {
-			soloNombre = soloNombre.replaceAll("ó","o");
-		}
-		if(soloNombre.contains("ú")) {
-			soloNombre = soloNombre.replaceAll("ú","u");
-		}
-		
+		String soloNombre = "cadena@@" + GenCodigo.getContadorCadenas();
 		
 		String aux = soloNombre + " DB " + nombre + ", 0\n";
 		if(!this.generador.delcaracionesOutContains(aux)) {

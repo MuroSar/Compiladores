@@ -24,6 +24,8 @@ public class GenCodigo {
 	
 	private String ultimaLinea;
 	
+	private static int contadorCadenas = 0;
+	
 	public GenCodigo() {
 		this.tercetos = new ArrayList<Terceto>();
 		this.declaraciones_out = "";
@@ -94,6 +96,13 @@ public class GenCodigo {
 		return this.ultimaLinea;
 	}
 
+	public static int getContadorCadenas() {
+		int actual = contadorCadenas; 
+		contadorCadenas++;
+		return actual;
+	}
+	
+
 	public String getEncabezado() {
 		String encabezado = "";
 		encabezado += ".386\n";
@@ -126,8 +135,8 @@ public class GenCodigo {
     private String getDeclaraciones() {
         String declaracion = new String();
         declaracion += ".data\n";
-        declaracion += "__MIN DQ  ??como ponemos el minimo??\n";
-        declaracion += "__MAX DQ  ??como ponemos el maximo??\n";
+        declaracion += "__MIN DQ " + Double.MIN_NORMAL + "\n";
+        declaracion += "__MAX DQ " + Double.MAX_VALUE + "\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
         declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
         for (String key : this.sintactico.getLexico().getTSKeys()) {
