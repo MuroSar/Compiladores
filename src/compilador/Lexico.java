@@ -46,8 +46,6 @@ public class Lexico {
 		this.errores = new ArrayList<ErrorToken>();
 		
 		this.Reservadas = new HashMap<Integer, String>();
-		//this.Reservadas.put(257, "Identificador");
-		//this.Reservadas.put(258, "Constante");
 		this.Reservadas.put(259, "IF");
 		this.Reservadas.put(260, "THEN");
 		this.Reservadas.put(261, "ELSE");
@@ -62,11 +60,6 @@ public class Lexico {
 		this.Reservadas.put(270, "FUNCTION");
 		this.Reservadas.put(271, "RETURN");
 		this.Reservadas.put(272, "MOVE");
-		//this.Reservadas.put(273, "Cadena");
-		//this.Reservadas.put(274, "Literal");
-		//this.Reservadas.put(275, "Comparador");
-		//this.Reservadas.put(276, "OperadorAritmetico");
-		//this.Reservadas.put(277, "OperadorAsignacion");
 		
 		this.tablaSimbolos= new HashMap<String, Token>();
 				
@@ -322,12 +315,15 @@ public class Lexico {
 		return result;
 	}
 	
-	public boolean estaDeclarada(String lexema, String dato) {
+	public boolean estaDeclarada(String lexema, String dato, String ambito) {
 		
 		if(dato.equals("variable")) {
 			for (String key : this.tablaSimbolos.keySet()){
 				if(key.equals(lexema + "@Variable")) {
-					return true;
+					String ambitoVarTS = this.tablaSimbolos.get(key).getAmbito();
+					if(ambito.equals(ambitoVarTS)) {
+						return true;						
+					}
 				}
 			}
 		}

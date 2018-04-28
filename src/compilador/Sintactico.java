@@ -387,7 +387,7 @@ public class Sintactico {
 	public boolean existeVariable(ParserVal variable)
 	{
 		if(esVariable(variable)) {
-			if(this.lexico.estaDeclarada(variable.sval, "variable")) {
+			if(this.lexico.estaDeclarada(variable.sval, "variable", this.ambito)) {
 				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable");
 				if(t.getAmbito().equals(this.ambito)) {
 					return true;
@@ -405,7 +405,7 @@ public class Sintactico {
 	
 	public boolean existeFuncion(ParserVal funcion)
 	{
-		return this.lexico.estaDeclarada(funcion.sval, "funcion");
+		return this.lexico.estaDeclarada(funcion.sval, "funcion", null);
 	}
 	
 	public void showMessage(String mensaje)

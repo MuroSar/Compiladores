@@ -24,7 +24,7 @@ public class GenCodigo {
 	
 	private String ultimaLinea;
 	
-	private static int contadorCadenas = 0;
+	private int contadorCadenas = 0;
 	
 	public GenCodigo() {
 		this.tercetos = new ArrayList<Terceto>();
@@ -96,7 +96,7 @@ public class GenCodigo {
 		return this.ultimaLinea;
 	}
 
-	public static int getContadorCadenas() {
+	public int getContadorCadenas() {
 		int actual = contadorCadenas; 
 		contadorCadenas++;
 		return actual;

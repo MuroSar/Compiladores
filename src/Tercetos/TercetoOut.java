@@ -14,7 +14,7 @@ public class TercetoOut extends Terceto {
 		
 		String nombre=this.primero;
 		
-		String soloNombre = "cadena@@" + GenCodigo.getContadorCadenas();
+		String soloNombre = "cadena@@" + this.generador.getContadorCadenas();
 		
 		String aux = soloNombre + " DB " + nombre + ", 0\n";
 		if(!this.generador.delcaracionesOutContains(aux)) {
@@ -37,14 +37,7 @@ public class TercetoOut extends Terceto {
 			labelDesp = "Label" + (this.getPos()+1) + ":\n";
 			this.marcaDesp = false;
 		}
-		/*
-		String s="1,0e308";
-		String[] valor=s.split("e");
-		Double d=Double.valueOf(valor[0]);
-		int pot=Integer.valueOf(valor[1]);
-		Double result = Math.pow(d, pot);
-		System.out.println(result);
-*/
+
 		if(!label.equals("") && this.generador.getUltimaLinea().equals(label.substring(0, label.length()-1))) {
 			label = "";
 		}
