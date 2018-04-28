@@ -83,11 +83,11 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) { //es una constante de tipo DOUBLE
-					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(",", ".") + "\n";
+					String aux = "const@@"+aux1.replace(',', '_').replace('-', '_') + " DQ " + aux1.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
-					salidaDouble="FLD const@@"+aux1.replace(',', '_') + "\n"; 
+					salidaDouble="FLD const@@"+aux1.replace(',', '_').replace('-', '_') + "\n"; 
 				}
 				else { //es una constante de tipo LONG
 					CodAux="MOV EAX," + aux1 + "\n";
@@ -148,11 +148,11 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DQ " + aux2.replace(",", ".") + "\n";
+					String aux = "const@@"+aux2.replace(',', '_').replace('-', '_') + " DQ " + aux2.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);
 					}
-					salidaDouble += "FLD const@@"+aux2.replace(',', '_') + "\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
+					salidaDouble += "FLD const@@"+aux2.replace(',', '_').replace('-', '_') + "\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}

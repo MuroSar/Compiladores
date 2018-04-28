@@ -42,8 +42,6 @@ public class TercetoDivision extends Terceto{
 				}
 				else {
 					//ES UN VALOR DOUBLE
-					//revisar esto
-					//this.generador.setDeclaracionesConst("var@@aux" + aux1 + " DD ?\n");
 					s1= "FLD var@@aux" + aux1;
 				}
 			}
@@ -75,12 +73,12 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				if (aux1.toString().contains(",")) {
-					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(',', '.') + "\n";
+					String aux = "const@@"+aux1.replace(',', '_').replace('-', '_') + " DQ " + aux1.replace(',', '.') + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
 					//ES UN VALOR DOUBLE
-					s1= "FLD const@@"+aux1.replace(',', '_');
+					s1= "FLD const@@"+aux1.replace(',', '_').replace('-', '_');
 				}
 				else { 
 					//ES UN VALOR LONG
@@ -150,12 +148,12 @@ public class TercetoDivision extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DQ " + aux2.replace(',', '.') + "\n";
+					String aux = "const@@"+aux2.replace(',', '_').replace('-', '_') + " DQ " + aux2.replace(',', '.') + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)){
 						this.generador.setDeclaracionesConst(aux);
 					}
 					//ES UN VALOR DOUBLE
-					s2= "FLD const@@"+aux2.replace(',', '_'); 
+					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_'); 
 					chequeo_div_cero ="FTST\n"+ "FSTSW AX\n" +"SAHF\n" +"JE _division_cero\n" + "FDIV";
 					s3="FST var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
