@@ -84,6 +84,20 @@ OUT("Division fn/fn = cte no anda Double").
 END_IF.
 
 a = -10,0.
+c = 2,0.
+IF (a/salida5() == c) THEN
+OUT("Division var/fn = var anda Double").
+ELSE
+OUT("Division var/fn = var no anda Double").
+END_IF.
+
+IF (-10,0/2,0 == salida5()) THEN
+OUT("Division -cte/cte = fn anda Double").
+ELSE
+OUT("Division -cte/cte = fn no anda Double").
+END_IF.
+
+a = -10,0.
 b = 0,0.
 c=a/b.
 IF (c == 2,0) THEN

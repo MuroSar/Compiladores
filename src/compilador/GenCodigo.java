@@ -135,8 +135,10 @@ public class GenCodigo {
     private String getDeclaraciones() {
         String declaracion = new String();
         declaracion += ".data\n";
-        declaracion += "__MIN DQ " + Double.MIN_NORMAL + "\n";
-        declaracion += "__MAX DQ " + Double.MAX_VALUE + "\n";
+        declaracion += "__MIN_LONG DD " + Integer.MIN_VALUE + "\n";
+        declaracion += "__MAX_LONG DD " + Integer.MAX_VALUE + "\n";
+        declaracion += "__MIN_DOUBLE DQ " + Double.MIN_NORMAL + "\n";
+        declaracion += "__MAX_DOUBLE DQ " + Double.MAX_VALUE + "\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
         declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
         for (String key : this.sintactico.getLexico().getTSKeys()) {

@@ -1,0 +1,105 @@
+a,b,c:LONG.
+
+a = 10.
+b = 3.
+c=a-b.
+IF (c == 7) THEN
+OUT("Resta var = cte anda Long").
+ELSE
+OUT("Resta var = cte no anda Long").
+END_IF.
+
+a = 10.
+b = 3.
+IF (a-b == 7) THEN
+OUT("Resta var-var = cte anda Long").
+ELSE
+OUT("Resta var-var = cte no anda Long").
+END_IF.
+
+a = 10.
+IF (a-3 == 7) THEN
+OUT("Resta var-cte = cte anda Long").
+ELSE
+OUT("Resta var-cte = cte no anda Long").
+END_IF.
+
+b = 3.
+IF (10-b == 7) THEN
+OUT("Resta cte-var = cte anda Long").
+ELSE
+OUT("Resta cte-var = cte no anda Long").
+END_IF.
+
+
+IF (10-3 == 7) THEN
+OUT("Resta cte-cte = cte anda Long").
+ELSE
+OUT("Resta cte-cte = cte no anda Long").
+END_IF.
+
+
+LONG FUNCTION salida3 {
+	aB1 : LONG.
+	aB1 = 3.
+RETURN ( aB1 ).
+}
+
+LONG FUNCTION salida10 {
+	aB1 : LONG.
+	aB1 = 10.
+RETURN ( aB1 ).
+}
+
+a = 10.
+IF (a-salida3() == 7) THEN
+OUT("Resta var-fn = cte anda Long").
+ELSE
+OUT("Resta var-fn = cte no anda Long").
+END_IF.
+
+b = 3.
+IF (salida10()-b == 7) THEN
+OUT("Resta fn-var = cte anda Long").
+ELSE
+OUT("Resta fn-var = cte no anda Long").
+END_IF.
+
+IF (10-salida3() == 7) THEN
+OUT("Resta cte-fn = cte anda Long").
+ELSE
+OUT("Resta cte-fn = cte no anda Long").
+END_IF.
+
+IF (salida10()-3 == 7) THEN
+OUT("Resta fn-cte = cte anda Long").
+ELSE
+OUT("Resta fn-cte = cte no anda Long").
+END_IF.
+
+IF (salida10()-salida3() == 7) THEN
+OUT("Resta fn-fn = cte anda Long").
+ELSE
+OUT("Resta fn-fn = cte no anda Long").
+END_IF.
+
+a = 10.
+c = 7.
+IF (a-salida3() == c) THEN
+OUT("Resta var-fn = var anda Long").
+ELSE
+OUT("Resta var-fn = var no anda Long").
+END_IF.
+
+
+LONG FUNCTION salida7 {
+	aB1 : LONG.
+	aB1 = 7.
+RETURN ( aB1 ).
+}
+
+IF (10-3 == salida7()) THEN
+OUT("Resta cte-cte = fn anda Long").
+ELSE
+OUT("Resta cte-cte = fn no anda Long").
+END_IF.

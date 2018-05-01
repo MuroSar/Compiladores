@@ -84,6 +84,20 @@ OUT("Division fn/fn = cte no anda Long").
 END_IF.
 
 a = -10.
+c = 2.
+IF (a/salida5() == c) THEN
+OUT("Division var/fn = var anda Long").
+ELSE
+OUT("Division var/fn = var no anda Long").
+END_IF.
+
+IF (10/-2 == salida5()) THEN
+OUT("Division cte/-cte = fn anda Long").
+ELSE
+OUT("Division cte/-cte = fn no anda Long").
+END_IF.
+
+a = -10.
 b = 0.
 c=a/b.
 IF (c == -2) THEN

@@ -61,12 +61,14 @@ public class TercetoComparador extends Terceto{
 				}
 			}
 			else {
+				//tipo igual a LONG
 				if (((Terceto)primero.obj).getOperador().equals("FN")) {
 					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
 					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
 				s1 = "var@@aux"+aux1;
+				CodAux = "MOV EAX,"  + s1 + "\n";
 				}
 			}
 		}
@@ -79,6 +81,7 @@ public class TercetoComparador extends Terceto{
 				}
 				else { //es una variable de tipo LONG
 					s1=aux1+ "@Variable"; //es una variable
+					CodAux="MOV EAX," + s1 + "\n";
 				}
 			}
 			else {
@@ -100,6 +103,7 @@ public class TercetoComparador extends Terceto{
 			String tipo = ((Terceto)segundo.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					//es una funcion de tipo DOUBLE
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
@@ -117,13 +121,13 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+					//es una funcion LONG
 					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
-					return label + s1 + "CMP EAX," + nombre_func + labelDesp;
+					return label + CodAux + "CMP EAX," + nombre_func + "\n" + labelDesp;
 				}
 				else {
 					s2="var@@aux"+aux2;
-					CodAux = "MOV EAX," + s2;
-					CodAux = "MOV EAX," + s2 + "\n";
+					CodAux += "MOV EAX," + s2 + "\n";
 					return label + CodAux + "CMP " + s1 + ",EAX" + "\n" + labelDesp;
 				}
 			}
