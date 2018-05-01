@@ -63,11 +63,11 @@ public class TercetoResta extends Terceto{
 			else {
 				if (aux1.toString().contains(",")) {
 					
-					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(",", ".") + "\n";
+					String aux = "const@@"+aux1.replace(',', '_').replace('-', '_') + " DQ " + aux1.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}	
-					s1= "FLD const@@"+aux1.replace(',', '_');
+					s1= "FLD const@@"+aux1.replace(',', '_').replace('-', '_');
 				}
 				else {
 					s1="MOV EAX,"+aux1;
@@ -119,11 +119,11 @@ public class TercetoResta extends Terceto{
 			}
 			else {
 				if (aux2.toString().contains(",")) {
-					String aux = "const@@"+aux2.replace(',', '_') + " DQ " + aux2.replace(",", ".") + "\n";
+					String aux = "const@@"+aux2.replace(',', '_').replace('-', '_') + " DQ " + aux2.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}	
-					s2= "FLD const@@"+aux2.replace(',', '_');
+					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
 					s3="FSUB" + "\n" + "FST var@@aux" + this.getPos(); 
 					tokenAux.setTipoDato("DOUBLE");
 				}

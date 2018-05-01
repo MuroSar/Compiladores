@@ -68,11 +68,11 @@ public class TercetoSuma extends Terceto{
 				if (aux1.toString().contains(",")) { 
 					//es una constante de tipo DOUBLE
 					
-					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(",", ".") + "\n";
+					String aux = "const@@"+aux1.replace(',', '_').replace('-', '_') + " DQ " + aux1.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
-					s1= "FLD const@@"+aux1.replace(',', '_');
+					s1= "FLD const@@"+aux1.replace(',', '_').replace('-', '_');
 					
 				}
 				else { //es una constante de tipo LONG
@@ -127,12 +127,12 @@ public class TercetoSuma extends Terceto{
 				if (aux2.toString().contains(",")) {
 					//es una constante DOUBLE
 					
-					String aux = "const@@"+aux2.replace(',', '_') + " DQ " + aux2.replace(",", ".") + "\n";
+					String aux = "const@@"+aux2.replace(',', '_').replace('-', '_') + " DQ " + aux2.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}
 					
-					s2= "FLD const@@"+aux2.replace(',', '_');
+					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
 					s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
