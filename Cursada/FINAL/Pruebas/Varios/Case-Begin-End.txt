@@ -1,0 +1,13 @@
+OUT("IMPRIME").
+d : LONG.
+d = 2 + 1.
+SWITCH (D) {
+	CASE 2 : OUT("A").
+	CASE 3 : 
+		BEGIN
+			OUT("B").
+			OUT("L").
+		END.
+}.
+
+OUT("IMPRIME Otra vez").

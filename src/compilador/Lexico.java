@@ -321,7 +321,7 @@ public class Lexico {
 			for (String key : this.tablaSimbolos.keySet()){
 				if(key.equals(lexema + "@Variable")) {
 					String ambitoVarTS = this.tablaSimbolos.get(key).getAmbito();
-					if(ambito.equals(ambitoVarTS)) {
+					if(ambito.contains(ambitoVarTS)) {
 						return true;						
 					}
 				}
