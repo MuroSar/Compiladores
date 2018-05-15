@@ -185,11 +185,10 @@ public class TercetoSuma extends Terceto{
 	public String overflowDoubleNegativo(int pos) {
 		String result;
 		result = "FLD var@@aux" + pos + "\n";
-		result += "FLD __MIN_DOUBLE\n";
-		result += "FCOM\n";
+		result += "FCOM __MIN_DOUBLE\n";
 		result += "FSTSW AX\n";
 		result += "SAHF\n";
-		result += "JLE _overflow\n";
+		result += "JBE _overflow\n";
 		
 		return result;
 	}
@@ -197,11 +196,10 @@ public class TercetoSuma extends Terceto{
 	public String overflowDoublePositivo(int pos) {
 		String result;
 		result = "FLD var@@aux" + pos + "\n";
-		result += "FLD __MAX_DOUBLE\n";
-		result += "FCOM\n";
+		result += "FCOM __MAX_DOUBLE\n";
 		result += "FSTSW AX\n";
 		result += "SAHF\n";
-		result += "JGE _overflow\n";
+		result += "JAE _overflow\n";
 		
 		return result;
 	}
