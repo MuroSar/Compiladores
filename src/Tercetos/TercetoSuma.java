@@ -94,9 +94,8 @@ public class TercetoSuma extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				//s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 				s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
-				s3 += overflowDoubleNegativo(this.getPos()) + overflowDoublePositivo(this.getPos());
+				s3 += checkOverflowDouble(this.getPos());
 				
 				tokenAux.setTipoDato("DOUBLE");
 			}
@@ -120,7 +119,7 @@ public class TercetoSuma extends Terceto{
 					s2="FLD " + aux2 + "@Variable";
 					//s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
-					s3 += overflowDoubleNegativo(this.getPos()) + overflowDoublePositivo(this.getPos());
+					s3 += checkOverflowDouble(this.getPos());
 					
 					
 					tokenAux.setTipoDato("DOUBLE");
@@ -144,7 +143,7 @@ public class TercetoSuma extends Terceto{
 					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
 					//s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
-					s3 += overflowDoubleNegativo(this.getPos()) + overflowDoublePositivo(this.getPos());
+					s3 += checkOverflowDouble(this.getPos());
 					
 					tokenAux.setTipoDato("DOUBLE");
 				}
@@ -182,24 +181,27 @@ public class TercetoSuma extends Terceto{
 		return label + s1 + "\n" + s2 + "\n" + s3 + labelDesp;
 	}
 		
-	public String overflowDoubleNegativo(int pos) {
+	public String checkOverflowDouble(int pos) {
 		String result;
-		result = "FLD var@@aux" + pos + "\n";
+		
+		result = "FLD var@@aux2\n";
+		result += "FCOM __CERO\n";
+		result += "FSTSW AX\n";
+		result += "SAHF\n";
+		result += "JE LabelCero@@" + pos + "\n";
+		result += "FLD var@@aux" + pos + "\n";
+		result += "FABS\n";
 		result += "FCOM __MIN_DOUBLE\n";
 		result += "FSTSW AX\n";
 		result += "SAHF\n";
 		result += "JBE _overflow\n";
-		
-		return result;
-	}
-	
-	public String overflowDoublePositivo(int pos) {
-		String result;
-		result = "FLD var@@aux" + pos + "\n";
+		result += "FLD var@@aux" + pos + "\n";
+		result += "FABS\n";
 		result += "FCOM __MAX_DOUBLE\n";
 		result += "FSTSW AX\n";
 		result += "SAHF\n";
 		result += "JAE _overflow\n";
+		result += "LabelCero@@"  + pos +  ":\n";
 		
 		return result;
 	}
