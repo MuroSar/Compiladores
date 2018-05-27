@@ -127,4 +127,11 @@ public abstract class Terceto {
 	public void setGenerador(GenCodigo gen) {
 		this.generador=gen;
 	}
+	
+	public boolean equals(Terceto terceto) {
+		if(this.operador.equals(terceto.operador) && this.primero.equals(terceto.getPrimero()) && this.segundo.equals(terceto.getSegundo())) {
+			return true;
+		}
+		return false;
+	}
 }

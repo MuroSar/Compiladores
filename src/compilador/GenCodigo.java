@@ -213,7 +213,7 @@ public class GenCodigo {
 			}
 		}
 	}
-	
+
 	public String getNombreFuncion(String n) {
 		return this.sintactico.funcionPosGet(n);
 	}

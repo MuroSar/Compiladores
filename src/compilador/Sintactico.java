@@ -470,6 +470,17 @@ public class Sintactico {
 		
 		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
+		//realizo la optimizacion a las listas con tercetos
+		//Optimizador.optimizacionRedundanciaSimple(this.tercetos);
+		//Optimizador.optimizacionRedundanciaSimple(this.tercetosFuncion);
+		//realizo la optimizacion a las listas con tercetos
+		
+		this.ppal.mostrarMensaje("");
+		this.ppal.mostrarMensaje("----------------TERCETOS OPTIMIZADOS----------------");
+		this.ppal.mostrarMensaje("---------------POR REDUNDANCIA SIMPLE---------------");
+		this.ppal.mostrarMensaje("");
+		this.ppal.mostrarMensaje(this.showTercetos());
+		
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("-----------------------ERRORES----------------------");
 		this.ppal.mostrarMensaje("");
