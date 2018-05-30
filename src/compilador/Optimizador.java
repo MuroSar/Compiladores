@@ -7,7 +7,7 @@ import Tercetos.Terceto;
 public class Optimizador {
 
 	
-	public static void optimizacionRedundanciaSimple(ArrayList<Terceto> tercetos) {
+	public static ArrayList<Terceto> optimizacionRedundanciaSimple(ArrayList<Terceto> tercetos) {
 		//trabajo sobre la lista de tercetos que me pasan asi modifico esa directamente..
 		ArrayList<Terceto> tercetosOptimizados = new ArrayList<Terceto>();
 		ArrayList<Terceto> tercetosAsignacion = new ArrayList<Terceto>();
@@ -28,15 +28,18 @@ public class Optimizador {
 				//consegui toda la asignacion, optimizo..
 				optimizar(tercetosAsignacion);
 				tercetosOptimizados.addAll(tercetosAsignacion);
+				tercetosOptimizados.add(ter);	
 				agregoTerceto = false;
 			}
 			
 			if(agregoTerceto) {
 				tercetosOptimizados.add(ter);	
 			}
+			
+			pos++;
 		}
 		
-		tercetos = tercetosOptimizados;
+		return tercetosOptimizados;
 	}
 
 	private static void optimizar(ArrayList<Terceto> tercetosAsignacion) {
@@ -49,7 +52,7 @@ public class Optimizador {
 			Terceto terceto = tercetosAsignacion.get(pos);
 			
 			//reviso los tercetos que quedan para ver si hay repetidos
-			for (int i=pos; i<tercetosAsignacion.size(); i++) {
+			for (int i=pos+1; i<tercetosAsignacion.size(); i++) {
 				if(terceto.equals(tercetosAsignacion.get(i))) {
 					//si hay alguno repetido, borro el terceto y actualizo las referencias
 					posicionTerceto = terceto.getPos();
@@ -58,6 +61,8 @@ public class Optimizador {
 					actualizaReferencias(tercetosAsignacion, posicionTerceto, posicionTercetoRepetido);
 				}
 			}
+			
+			pos++;
 		}
 	}
 
@@ -68,6 +73,13 @@ public class Optimizador {
 			}
 			if(t.getSegundo().equals("[" + posicionTercetoRepetido + "]")) {
 				t.setSegundo("[" + posicionTerceto + "]");
+				
+				
+				///TODO: actualizar bien todas las referencias..
+				///esta generando lineas de asm de mas porque el aux1 o aux2 
+				///(depende del cual esta repetido)
+				///lo mismo con las variables auxiliares que esta generando..
+				///creo que con modificar solamente los aux 1 o aux2 se acomodan las axiliares
 			}
 		}
 	}
