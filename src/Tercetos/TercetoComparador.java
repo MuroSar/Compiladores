@@ -5,8 +5,6 @@ import compilador.Sintactico;
 
 public class TercetoComparador extends Terceto{
 	
-	private ParserVal primero;
-	private ParserVal segundo;
 	private String aux1;
 	private String aux2;
 	private String salidaDouble;
@@ -17,8 +15,8 @@ public class TercetoComparador extends Terceto{
 
 	public TercetoComparador(ParserVal operador, ParserVal primero, ParserVal segundo, int pos) {
 		super(operador.sval, primero, segundo, pos);
-		this.primero = primero;
-		this.segundo = segundo;
+		this.primeroParserVal = primero;
+		this.segundoParserVal = segundo;
 		this.CodAux = "";
 	}
 		
@@ -48,12 +46,12 @@ public class TercetoComparador extends Terceto{
 	
 		this.generador.setComparador(this.operador);
 		
-		if(primero.obj != null) {
-			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			String tipo = ((Terceto)primero.obj).getTipoDato();
+		if(primeroParserVal.obj != null) {
+			aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos()); 
+			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
 					salidaDouble = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -62,8 +60,8 @@ public class TercetoComparador extends Terceto{
 			}
 			else {
 				//tipo igual a LONG
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
 					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
@@ -73,8 +71,8 @@ public class TercetoComparador extends Terceto{
 			}
 		}
 		else {
-			aux1 = primero.sval;
-			if(Sintactico.esVariable(primero)) {
+			aux1 = primeroParserVal.sval;
+			if(Sintactico.esVariable(primeroParserVal)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
 					salidaDouble="FLD " + aux1 + "@Variable\n";
@@ -98,13 +96,13 @@ public class TercetoComparador extends Terceto{
 				}
 			}
 		}
-		if(segundo.obj != null) {
-			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			String tipo = ((Terceto)segundo.obj).getTipoDato();
+		if(segundoParserVal.obj != null) {
+			aux2= String.valueOf(((Terceto)segundoParserVal.obj).getPos());
+			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion de tipo DOUBLE
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}
@@ -120,9 +118,9 @@ public class TercetoComparador extends Terceto{
 				}
 			}
 			else {
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
+				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion LONG
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
 					return label + CodAux + "CMP EAX," + nombre_func + "\n" + labelDesp;
 				}
 				else {
@@ -133,8 +131,8 @@ public class TercetoComparador extends Terceto{
 			}
 		}
 		else {
-			aux2 = segundo.sval;	
-			if(Sintactico.esVariable(segundo)) {
+			aux2 = segundoParserVal.sval;	
+			if(Sintactico.esVariable(segundoParserVal)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					salidaDouble +="FLD "+ aux2 + "@Variable\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";

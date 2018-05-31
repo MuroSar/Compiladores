@@ -172,27 +172,31 @@ public class GenCodigo {
 	        
 	        this.tercetosFuncion = this.sintactico.getTercetosFuncion();
 	        for (Terceto t : this.tercetosFuncion) {
-				t.setGenerador(this);
-				instrucciones += t.getCodigo();
+	        	if(!t.isDeleted()) {
+	        		t.setGenerador(this);
+					instrucciones += t.getCodigo();	
+	        	}
 			}
 
 	        instrucciones += "start:\n";
 			for (Terceto t : this.tercetos) {
-				if(!this.tercetosFuncion.contains(t)) {
-					t.setGenerador(this);
-					instrucciones += t.getCodigo();	
-				}
-				else {
-					if(t.getMarcaAntes() && this.tercetos.get(0) != t) {
-						String marca = "Label"+t.getPos()+":";
-						if(!this.ultimaLinea.equals(marca)) {
-							instrucciones += marca + "\n";	
+				if(!t.isDeleted()) {
+					if(!this.tercetosFuncion.contains(t)) {
+						t.setGenerador(this);
+						instrucciones += t.getCodigo();	
+					}
+					else {
+						if(t.getMarcaAntes() && this.tercetos.get(0) != t) {
+							String marca = "Label"+t.getPos()+":";
+							if(!this.ultimaLinea.equals(marca)) {
+								instrucciones += marca + "\n";	
+							}
 						}
 					}
+					
+					String[] aux = instrucciones.split("\n");
+					this.ultimaLinea = aux[aux.length-1];	
 				}
-				
-				String[] aux = instrucciones.split("\n");
-				this.ultimaLinea = aux[aux.length-1];
 			}
 	        asm += getDeclaraciones(); // Va despues de generar las intrucciones porque se incluyen las @aux# en la TS
 	        asm += instrucciones;

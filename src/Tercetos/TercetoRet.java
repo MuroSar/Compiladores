@@ -7,14 +7,13 @@ import complementos.Token;
 
 public class TercetoRet extends Terceto{
 
-	private ParserVal primero;
 	private String nombreFuncion;
 	private String retorno;
 	
 	public TercetoRet(String operador, ParserVal primero, ParserVal segundo, int pos, String nombreFuncion) {
 		super(operador, primero, segundo, pos);
 	
-		this.primero = primero;
+		this.primeroParserVal = primero;
 		this.nombreFuncion = nombreFuncion;
 	}
 		
@@ -27,11 +26,11 @@ public class TercetoRet extends Terceto{
 		t.setType("Identificador");
 		t.setLexema("var@@aux" + this.getPos());
 				
-		if(primero.obj != null) { //tengo un terceto..
-			String tipo = ((Terceto)primero.obj).getTipoDato();
-			String aux1 = String.valueOf(((Terceto)primero.obj).getPos());
+		if(primeroParserVal.obj != null) { //tengo un terceto..
+			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
+			String aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos());
 			if (tipo.equals("DOUBLE")) {
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
+				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
 					retorno = "ERROR";
 				}
 				else {//no es funcion
@@ -40,7 +39,7 @@ public class TercetoRet extends Terceto{
 				t.setTipoDato("DOUBLE");
 			}
 			else {
-				if (((Terceto)primero.obj).getOperador().equals("FN")) { 
+				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) { 
 					//idem arriba,nunca se da porque no hay anidamiento de funciones
 					retorno = "ERROR";
 				}
@@ -51,9 +50,9 @@ public class TercetoRet extends Terceto{
 			}
 		}
 		else {
-			String aux1 = primero.sval;
-			if(Sintactico.esVariable(primero)) { //es una variable
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getTipoDato();
+			String aux1 = primeroParserVal.sval;
+			if(Sintactico.esVariable(primeroParserVal)) { //es una variable
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
 					t.setTipoDato("DOUBLE");
 					retorno = "FLD "+ aux1 + "@Variable" + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
@@ -65,7 +64,7 @@ public class TercetoRet extends Terceto{
 				}
 			}
 			else {
-				if (primero.sval.contains(",")) { //es una constante de tipo DOUBLE 
+				if (primeroParserVal.sval.contains(",")) { //es una constante de tipo DOUBLE 
 					t.setTipoDato("DOUBLE");
 					String aux = "const@@"+aux1.replace(',', '_') + " DQ " + aux1.replace(",", ".") + "\n";
 					if(!this.generador.delcaracionesConstContains(aux)) {

@@ -13,6 +13,11 @@ public abstract class Terceto {
 	private String tipoDato;
 	protected boolean marcaAntes = false;
 	protected boolean marcaDesp = false;
+	protected ParserVal primeroParserVal;
+	protected ParserVal segundoParserVal;
+	
+	//para el borrado logico de la optimizacion
+	private boolean isDeleted = false;
 
 	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
 		this.operador = operador;
@@ -134,4 +139,30 @@ public abstract class Terceto {
 		}
 		return false;
 	}
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public ParserVal getPrimeroParserVal() {
+		return primeroParserVal;
+	}
+
+	public void setPrimeroParserVal(ParserVal primeroParserVal) {
+		this.primeroParserVal = primeroParserVal;
+	}
+
+	public ParserVal getSegundoParserVal() {
+		return segundoParserVal;
+	}
+
+	public void setSegundoParserVal(ParserVal segundoParserVal) {
+		this.segundoParserVal = segundoParserVal;
+	}
+	
+	
 }

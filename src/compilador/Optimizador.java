@@ -55,10 +55,13 @@ public class Optimizador {
 			for (int i=pos+1; i<tercetosAsignacion.size(); i++) {
 				if(terceto.equals(tercetosAsignacion.get(i))) {
 					//si hay alguno repetido, borro el terceto y actualizo las referencias
-					posicionTerceto = terceto.getPos();
-					posicionTercetoRepetido = tercetosAsignacion.get(i).getPos();
-					tercetosAsignacion.remove(i);
-					actualizaReferencias(tercetosAsignacion, posicionTerceto, posicionTercetoRepetido);
+					//posicionTerceto = terceto.getPos();
+					//posicionTercetoRepetido = tercetosAsignacion.get(i).getPos();
+					
+					//tercetosAsignacion.remove(i);
+					tercetosAsignacion.get(i).setDeleted(true);
+					
+					actualizaReferencias(tercetosAsignacion, terceto, tercetosAsignacion.get(i));
 				}
 			}
 			
@@ -66,14 +69,19 @@ public class Optimizador {
 		}
 	}
 
-	private static void actualizaReferencias(ArrayList<Terceto> tercetosAsignacion, int posicionTerceto, int posicionTercetoRepetido) {
+	private static void actualizaReferencias(ArrayList<Terceto> tercetosAsignacion, Terceto terceto, Terceto tercetoRepetido) {
 		for (Terceto t : tercetosAsignacion) {
-			if(t.getPrimero().equals("[" + posicionTercetoRepetido + "]")) {
-				t.setPrimero("[" + posicionTerceto + "]");
+			if(t.getPrimero().equals("[" + tercetoRepetido.getPos() + "]")) {
+				t.setPrimero("[" + terceto.getPos() + "]");
+				if(t.getPrimeroParserVal().obj != null) {
+					t.setPrimeroParserVal(terceto.getPrimeroParserVal());
+				}
 			}
-			if(t.getSegundo().equals("[" + posicionTercetoRepetido + "]")) {
-				t.setSegundo("[" + posicionTerceto + "]");
-				
+			if(t.getSegundo().equals("[" + tercetoRepetido.getPos() + "]")) {
+				t.setSegundo("[" + terceto.getPos() + "]");
+				if(t.getSegundoParserVal().obj != null) {
+					t.setSegundoParserVal(terceto.getSegundoParserVal());
+				}
 				
 				///TODO: actualizar bien todas las referencias..
 				///esta generando lineas de asm de mas porque el aux1 o aux2 

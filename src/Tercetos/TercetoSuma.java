@@ -7,21 +7,19 @@ import complementos.Token;
 
 public class TercetoSuma extends Terceto{
 	
-		private String aux1;
-		private String aux2;
-		private String s1;
-		private String s2;
-		private String s3;
-		private String overflowDoubleNeg;
-		private String overflowDoublePos;
-		private ParserVal primero;
-		private ParserVal segundo;
-		Token tokenAux = new Token();
+	private String aux1;
+	private String aux2;
+	private String s1;
+	private String s2;
+	private String s3;
+	private String overflowDoubleNeg;
+	private String overflowDoublePos;
+	Token tokenAux = new Token();
 
 	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
 		super("+", primero, segundo, pos);		
-		this.primero = primero;
-		this.segundo = segundo;
+		this.primeroParserVal = primero;
+		this.segundoParserVal = segundo;
 		
 		if(Sintactico.getMarcaAntes()) {
 			this.marcaAntes = true;
@@ -33,12 +31,12 @@ public class TercetoSuma extends Terceto{
 		tokenAux.setType("Identificador");
 		tokenAux.setLexema("var@@aux" + this.getPos());
 		
-		if(primero.obj != null) {
-			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
-			String tipo = ((Terceto)primero.obj).getTipoDato();
+		if(primeroParserVal.obj != null) {
+			aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos()); 
+			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto que retorna DOUBLE
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
 					s1 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -46,8 +44,8 @@ public class TercetoSuma extends Terceto{
 				}
 			}
 			else { //es un terceto que retorna LONG
-				if (((Terceto)primero.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primero.obj).getPrimero() + "@Funcion";
+				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
 					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
@@ -56,8 +54,8 @@ public class TercetoSuma extends Terceto{
 			}
 		}
 		else {
-			aux1 = primero.sval;
-			if(Sintactico.esVariable(primero)) {
+			aux1 = primeroParserVal.sval;
+			if(Sintactico.esVariable(primeroParserVal)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { 
 					s1= "FLD " + aux1 + "@Variable";
@@ -83,12 +81,12 @@ public class TercetoSuma extends Terceto{
 			}
 		}
 
-		if(segundo.obj != null) { 
-			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			String tipo = ((Terceto)segundo.obj).getTipoDato();
+		if(segundoParserVal.obj != null) { 
+			aux2= String.valueOf(((Terceto)segundoParserVal.obj).getPos());
+			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto de tipo DOUBLE
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
 					s2 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -101,8 +99,8 @@ public class TercetoSuma extends Terceto{
 			}
 			else {// es un terceto de tipo LONG
 				tokenAux.setTipoDato("LONG");		
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
 					s2= "ADD EAX," + nombre_func;				}
 				else {
 					s2="ADD EAX,var@@aux" + aux2;
@@ -111,8 +109,8 @@ public class TercetoSuma extends Terceto{
 			}
 		}
 		else {
-			aux2 = segundo.sval;	
-			if(Sintactico.esVariable(segundo)) {
+			aux2 = segundoParserVal.sval;	
+			if(Sintactico.esVariable(segundoParserVal)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE

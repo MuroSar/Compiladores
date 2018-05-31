@@ -8,36 +8,34 @@ import complementos.Token;
 public class TercetoAsignacion extends Terceto{
 	
 	private String aux1;
-	private String aux2;
+	private String aux2; 
 	private String s2;
-	private ParserVal primero;
-	private ParserVal segundo;
 	private int pos;
 
 	Token tokenAux = new Token();
 
 	public TercetoAsignacion(ParserVal primero, ParserVal segundo, int pos) {
 		super("=", primero, segundo, pos);
-		this.primero = primero;
-		this.segundo = segundo;
+		this.primeroParserVal = primero;
+		this.segundoParserVal = segundo;
 		this.pos = pos;
 	}
 		
 	public String getCodigo()
 	{
-		if(primero.obj != null) {
-			aux1 = String.valueOf(((Terceto)primero.obj).getPos()); 
+		if(primeroParserVal.obj != null) {
+			aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos()); 
 		}
 		else {
-				aux1 = primero.sval + "@Variable";
+				aux1 = primeroParserVal.sval + "@Variable";
 		}
 		
-		if(segundo.obj != null) {
-			aux2= String.valueOf(((Terceto)segundo.obj).getPos());
-			String tipo = ((Terceto)segundo.obj).getTipoDato();
+		if(segundoParserVal.obj != null) {
+			aux2= String.valueOf(((Terceto)segundoParserVal.obj).getPos());
+			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { 
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
 					s2= "FLD " + nombre_func + "\n" + "FST " + aux1;
 				}
 				else {//no es funcion
@@ -45,8 +43,8 @@ public class TercetoAsignacion extends Terceto{
 				}
 			}
 			else { //TIPO = A LONG
-				if (((Terceto)segundo.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundo.obj).getPrimero() + "@Funcion";
+				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
 					s2 = "MOV EAX,"+ nombre_func + "\nMOV " + aux1 + ",EAX" ;
 				}
 				else {//NO ES FUNCION
@@ -55,8 +53,8 @@ public class TercetoAsignacion extends Terceto{
 			}
 		}
 		else {
-			aux2 = segundo.sval;	
-			if(Sintactico.esVariable(segundo)) {//ES VARIABLE
+			aux2 = segundoParserVal.sval;	
+			if(Sintactico.esVariable(segundoParserVal)) {//ES VARIABLE
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) { //TIPO DOUBLE
 					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FST " + aux1;

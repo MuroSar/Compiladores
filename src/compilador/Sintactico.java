@@ -215,7 +215,13 @@ public class Sintactico {
 	public String showTercetos() {
 		String salida = "";
 		for(Terceto t : tercetos) {
-			salida = salida + t.getPos() + "--> " + t.toString() + "\n";
+			salida = salida + t.getPos() + "--> " + t.toString();
+			if(t.isDeleted()) {
+				salida += " ---> Borrado logico\n";
+			}
+			else {
+				salida += "\n";
+			}
 		}
 		return salida;
 	}
