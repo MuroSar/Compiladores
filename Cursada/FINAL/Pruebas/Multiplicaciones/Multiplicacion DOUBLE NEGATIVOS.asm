@@ -7,6 +7,7 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
+__CERO DQ 0.0
 __MIN_DOUBLE DQ 2.2250738585072014E-308
 __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
@@ -268,7 +269,7 @@ invoke MessageBox, NULL, addr cadena@@19, addr cadena@@19, MB_OK
 Label79:
 FLD const@@_10_0
 FST a@Variable
-FLD const@@_30_0
+FLD const@@30_0
 FST c@Variable
 CALL salida3
 FLD a@Variable

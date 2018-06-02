@@ -7,6 +7,7 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
+__CERO DQ 0.0
 __MIN_DOUBLE DQ 2.2250738585072014E-308
 __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
@@ -33,30 +34,30 @@ var@@aux89 DD ?
 var@@aux25 DD ?
 var@@aux73 DD ?
 var@@aux31 DD ?
-cadena@@48 DB "Suma var = -cte anda Long", 0
-cadena@@49 DB "Suma var = -cte no anda Long", 0
-cadena@@50 DB "Suma var+var = -cte anda Long", 0
-cadena@@51 DB "Suma var+var = -cte no anda Long", 0
-cadena@@52 DB "Suma var+-cte = -cte anda Long", 0
-cadena@@53 DB "Suma var+-cte = -cte no anda Long", 0
-cadena@@54 DB "Suma -cte+var = -cte anda Long", 0
-cadena@@55 DB "Suma -cte+var = -cte no anda Long", 0
-cadena@@56 DB "Suma -cte+-cte = -cte anda Long", 0
-cadena@@57 DB "Suma -cte+-cte = -cte no anda Long", 0
-cadena@@58 DB "Suma var+fn = -cte anda Long", 0
-cadena@@59 DB "Suma var+fn = -cte no anda Long", 0
-cadena@@60 DB "Suma fn+var = -cte anda Long", 0
-cadena@@61 DB "Suma fn+var = -cte no anda Long", 0
-cadena@@62 DB "Suma -cte+fn = -cte anda Long", 0
-cadena@@63 DB "Suma -cte+fn = -cte no anda Long", 0
-cadena@@64 DB "Suma fn+-cte = -cte anda Long", 0
-cadena@@65 DB "Suma fn+-cte = -cte no anda Long", 0
-cadena@@66 DB "Suma fn+fn = -cte anda Long", 0
-cadena@@67 DB "Suma fn+fn = -cte no anda Long", 0
-cadena@@68 DB "Suma var+fn = var anda Long", 0
-cadena@@69 DB "Suma var+fn = var no anda Long", 0
-cadena@@70 DB "Suma -cte+-cte = fn anda Long", 0
-cadena@@71 DB "Suma -cte+-cte = fn no anda Long", 0
+cadena@@618 DB "Suma var = -cte anda Long", 0
+cadena@@619 DB "Suma var = -cte no anda Long", 0
+cadena@@620 DB "Suma var+var = -cte anda Long", 0
+cadena@@621 DB "Suma var+var = -cte no anda Long", 0
+cadena@@622 DB "Suma var+-cte = -cte anda Long", 0
+cadena@@623 DB "Suma var+-cte = -cte no anda Long", 0
+cadena@@624 DB "Suma -cte+var = -cte anda Long", 0
+cadena@@625 DB "Suma -cte+var = -cte no anda Long", 0
+cadena@@626 DB "Suma -cte+-cte = -cte anda Long", 0
+cadena@@627 DB "Suma -cte+-cte = -cte no anda Long", 0
+cadena@@628 DB "Suma var+fn = -cte anda Long", 0
+cadena@@629 DB "Suma var+fn = -cte no anda Long", 0
+cadena@@630 DB "Suma fn+var = -cte anda Long", 0
+cadena@@631 DB "Suma fn+var = -cte no anda Long", 0
+cadena@@632 DB "Suma -cte+fn = -cte anda Long", 0
+cadena@@633 DB "Suma -cte+fn = -cte no anda Long", 0
+cadena@@634 DB "Suma fn+-cte = -cte anda Long", 0
+cadena@@635 DB "Suma fn+-cte = -cte no anda Long", 0
+cadena@@636 DB "Suma fn+fn = -cte anda Long", 0
+cadena@@637 DB "Suma fn+fn = -cte no anda Long", 0
+cadena@@638 DB "Suma var+fn = var anda Long", 0
+cadena@@639 DB "Suma var+fn = var no anda Long", 0
+cadena@@640 DB "Suma -cte+-cte = fn anda Long", 0
+cadena@@641 DB "Suma -cte+-cte = fn no anda Long", 0
 .code
 _division_cero:
 invoke MessageBox, NULL, addr _msjDC, addr _msjDC, MB_OK
@@ -95,10 +96,10 @@ MOV EAX,c@Variable
 MOV EDX,-13
 CMP c@Variable,EDX
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@48, addr cadena@@48, MB_OK
+invoke MessageBox, NULL, addr cadena@@618, addr cadena@@618, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@49, addr cadena@@49, MB_OK
+invoke MessageBox, NULL, addr cadena@@619, addr cadena@@619, MB_OK
 Label9:
 MOV a@Variable,-10
 MOV b@Variable,-3
@@ -110,10 +111,10 @@ MOV EAX,var@@aux11
 MOV EDX,-13
 CMP var@@aux11,EDX
 JNE Label16
-invoke MessageBox, NULL, addr cadena@@50, addr cadena@@50, MB_OK
+invoke MessageBox, NULL, addr cadena@@620, addr cadena@@620, MB_OK
 JMP Label17
 Label16:
-invoke MessageBox, NULL, addr cadena@@51, addr cadena@@51, MB_OK
+invoke MessageBox, NULL, addr cadena@@621, addr cadena@@621, MB_OK
 Label17:
 MOV a@Variable,-10
 MOV EAX,a@Variable
@@ -124,10 +125,10 @@ MOV EAX,var@@aux18
 MOV EDX,-13
 CMP var@@aux18,EDX
 JNE Label23
-invoke MessageBox, NULL, addr cadena@@52, addr cadena@@52, MB_OK
+invoke MessageBox, NULL, addr cadena@@622, addr cadena@@622, MB_OK
 JMP Label24
 Label23:
-invoke MessageBox, NULL, addr cadena@@53, addr cadena@@53, MB_OK
+invoke MessageBox, NULL, addr cadena@@623, addr cadena@@623, MB_OK
 Label24:
 MOV b@Variable,-3
 MOV EAX,-10
@@ -138,10 +139,10 @@ MOV EAX,var@@aux25
 MOV EDX,-13
 CMP var@@aux25,EDX
 JNE Label30
-invoke MessageBox, NULL, addr cadena@@54, addr cadena@@54, MB_OK
+invoke MessageBox, NULL, addr cadena@@624, addr cadena@@624, MB_OK
 JMP Label31
 Label30:
-invoke MessageBox, NULL, addr cadena@@55, addr cadena@@55, MB_OK
+invoke MessageBox, NULL, addr cadena@@625, addr cadena@@625, MB_OK
 Label31:
 MOV EAX,-10
 ADD EAX,-3
@@ -151,10 +152,10 @@ MOV EAX,var@@aux31
 MOV EDX,-13
 CMP var@@aux31,EDX
 JNE Label36
-invoke MessageBox, NULL, addr cadena@@56, addr cadena@@56, MB_OK
+invoke MessageBox, NULL, addr cadena@@626, addr cadena@@626, MB_OK
 JMP Label37
 Label36:
-invoke MessageBox, NULL, addr cadena@@57, addr cadena@@57, MB_OK
+invoke MessageBox, NULL, addr cadena@@627, addr cadena@@627, MB_OK
 Label37:
 Label39:
 MOV a@Variable,-10
@@ -166,10 +167,10 @@ MOV EAX,var@@aux43
 MOV EDX,-13
 CMP var@@aux43,EDX
 JNE Label48
-invoke MessageBox, NULL, addr cadena@@58, addr cadena@@58, MB_OK
+invoke MessageBox, NULL, addr cadena@@628, addr cadena@@628, MB_OK
 JMP Label49
 Label48:
-invoke MessageBox, NULL, addr cadena@@59, addr cadena@@59, MB_OK
+invoke MessageBox, NULL, addr cadena@@629, addr cadena@@629, MB_OK
 Label49:
 MOV b@Variable,-3
 CALL salida10
@@ -181,10 +182,10 @@ MOV EAX,var@@aux51
 MOV EDX,-13
 CMP var@@aux51,EDX
 JNE Label56
-invoke MessageBox, NULL, addr cadena@@60, addr cadena@@60, MB_OK
+invoke MessageBox, NULL, addr cadena@@630, addr cadena@@630, MB_OK
 JMP Label57
 Label56:
-invoke MessageBox, NULL, addr cadena@@61, addr cadena@@61, MB_OK
+invoke MessageBox, NULL, addr cadena@@631, addr cadena@@631, MB_OK
 Label57:
 CALL salida3
 MOV EAX,-10
@@ -194,10 +195,10 @@ MOV EAX,var@@aux58
 MOV EDX,-13
 CMP var@@aux58,EDX
 JNE Label63
-invoke MessageBox, NULL, addr cadena@@62, addr cadena@@62, MB_OK
+invoke MessageBox, NULL, addr cadena@@632, addr cadena@@632, MB_OK
 JMP Label64
 Label63:
-invoke MessageBox, NULL, addr cadena@@63, addr cadena@@63, MB_OK
+invoke MessageBox, NULL, addr cadena@@633, addr cadena@@633, MB_OK
 Label64:
 CALL salida10
 MOV EAX,salida10@Funcion
@@ -208,10 +209,10 @@ MOV EAX,var@@aux65
 MOV EDX,-13
 CMP var@@aux65,EDX
 JNE Label70
-invoke MessageBox, NULL, addr cadena@@64, addr cadena@@64, MB_OK
+invoke MessageBox, NULL, addr cadena@@634, addr cadena@@634, MB_OK
 JMP Label71
 Label70:
-invoke MessageBox, NULL, addr cadena@@65, addr cadena@@65, MB_OK
+invoke MessageBox, NULL, addr cadena@@635, addr cadena@@635, MB_OK
 Label71:
 CALL salida10
 CALL salida3
@@ -222,10 +223,10 @@ MOV EAX,var@@aux73
 MOV EDX,-13
 CMP var@@aux73,EDX
 JNE Label78
-invoke MessageBox, NULL, addr cadena@@66, addr cadena@@66, MB_OK
+invoke MessageBox, NULL, addr cadena@@636, addr cadena@@636, MB_OK
 JMP Label79
 Label78:
-invoke MessageBox, NULL, addr cadena@@67, addr cadena@@67, MB_OK
+invoke MessageBox, NULL, addr cadena@@637, addr cadena@@637, MB_OK
 Label79:
 MOV a@Variable,-10
 MOV c@Variable,-13
@@ -237,10 +238,10 @@ MOV EAX,var@@aux82
 MOV EAX,c@Variable
 CMP var@@aux82,EAX
 JNE Label87
-invoke MessageBox, NULL, addr cadena@@68, addr cadena@@68, MB_OK
+invoke MessageBox, NULL, addr cadena@@638, addr cadena@@638, MB_OK
 JMP Label88
 Label87:
-invoke MessageBox, NULL, addr cadena@@69, addr cadena@@69, MB_OK
+invoke MessageBox, NULL, addr cadena@@639, addr cadena@@639, MB_OK
 Label88:
 MOV EAX,-10
 ADD EAX,-3
@@ -250,10 +251,10 @@ CALL salida13
 MOV EAX,var@@aux90
 CMP EAX,salida13@Funcion
 JNE Label96
-invoke MessageBox, NULL, addr cadena@@70, addr cadena@@70, MB_OK
+invoke MessageBox, NULL, addr cadena@@640, addr cadena@@640, MB_OK
 JMP Label97
 Label96:
-invoke MessageBox, NULL, addr cadena@@71, addr cadena@@71, MB_OK
+invoke MessageBox, NULL, addr cadena@@641, addr cadena@@641, MB_OK
 Label97:
 invoke ExitProcess, 0
 end start

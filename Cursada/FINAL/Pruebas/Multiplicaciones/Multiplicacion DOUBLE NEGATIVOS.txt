@@ -82,7 +82,7 @@ OUT("Multiplicación fn*fn = cte no anda Double").
 END_IF.
 
 a = -10,0.
-c = -30,0.
+c = 30,0.
 IF (a*salida3() == c) THEN
 OUT("Multiplicación var*fn = var anda Double").
 ELSE

@@ -7,8 +7,7 @@ include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
 includelib \masm32\lib\user32.lib
 .data
-__MIN_LONG DD -2147483648
-__MAX_LONG DD 2147483647
+__CERO DQ 0.0
 __MIN_DOUBLE DQ 2.2250738585072014E-308
 __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
@@ -35,30 +34,30 @@ var@@aux89 DQ ?
 var@@aux25 DQ ?
 var@@aux73 DQ ?
 var@@aux31 DQ ?
-cadena@@48 DB "Resta var = -cte anda Double", 0
-cadena@@49 DB "Resta var = -cte no anda Double", 0
-cadena@@50 DB "Resta var-var = -cte anda Double", 0
-cadena@@51 DB "Resta var-var = -cte no anda Double", 0
-cadena@@52 DB "Resta var-cte = -cte anda Double", 0
-cadena@@53 DB "Resta var-cte = -cte no anda Double", 0
-cadena@@54 DB "Resta -cte-var = -cte anda Double", 0
-cadena@@55 DB "Resta -cte-var = -cte no anda Double", 0
-cadena@@56 DB "Resta -cte-cte = -cte anda Double", 0
-cadena@@57 DB "Resta -cte-cte = -cte no anda Double", 0
-cadena@@58 DB "Resta var-fn = -cte anda Double", 0
-cadena@@59 DB "Resta var-fn = -cte no anda Double", 0
-cadena@@60 DB "Resta fn-var = -cte anda Double", 0
-cadena@@61 DB "Resta fn-var = -cte no anda Double", 0
-cadena@@62 DB "Resta -cte-fn = -cte anda Double", 0
-cadena@@63 DB "Resta -cte-fn = -cte no anda Double", 0
-cadena@@64 DB "Resta fn-cte = -cte anda Double", 0
-cadena@@65 DB "Resta fn-cte = -cte no anda Double", 0
-cadena@@66 DB "Resta fn-fn = -cte anda Double", 0
-cadena@@67 DB "Resta fn-fn = -cte no anda Double", 0
-cadena@@68 DB "Resta var-fn = var anda Double", 0
-cadena@@69 DB "Resta var-fn = var no anda Double", 0
-cadena@@70 DB "Resta -cte-cte = fn anda Double", 0
-cadena@@71 DB "Resta -cte-cte = fn no anda Double", 0
+cadena@@398 DB "Resta var = -cte anda Double", 0
+cadena@@399 DB "Resta var = -cte no anda Double", 0
+cadena@@400 DB "Resta var-var = -cte anda Double", 0
+cadena@@401 DB "Resta var-var = -cte no anda Double", 0
+cadena@@402 DB "Resta var-cte = -cte anda Double", 0
+cadena@@403 DB "Resta var-cte = -cte no anda Double", 0
+cadena@@404 DB "Resta -cte-var = -cte anda Double", 0
+cadena@@405 DB "Resta -cte-var = -cte no anda Double", 0
+cadena@@406 DB "Resta -cte-cte = -cte anda Double", 0
+cadena@@407 DB "Resta -cte-cte = -cte no anda Double", 0
+cadena@@408 DB "Resta var-fn = -cte anda Double", 0
+cadena@@409 DB "Resta var-fn = -cte no anda Double", 0
+cadena@@410 DB "Resta fn-var = -cte anda Double", 0
+cadena@@411 DB "Resta fn-var = -cte no anda Double", 0
+cadena@@412 DB "Resta -cte-fn = -cte anda Double", 0
+cadena@@413 DB "Resta -cte-fn = -cte no anda Double", 0
+cadena@@414 DB "Resta fn-cte = -cte anda Double", 0
+cadena@@415 DB "Resta fn-cte = -cte no anda Double", 0
+cadena@@416 DB "Resta fn-fn = -cte anda Double", 0
+cadena@@417 DB "Resta fn-fn = -cte no anda Double", 0
+cadena@@418 DB "Resta var-fn = var anda Double", 0
+cadena@@419 DB "Resta var-fn = var no anda Double", 0
+cadena@@420 DB "Resta -cte-cte = fn anda Double", 0
+cadena@@421 DB "Resta -cte-cte = fn no anda Double", 0
 const@@3_0 DQ 3.0
 const@@_10_0 DQ -10.0
 const@@_13_0 DQ -13.0
@@ -108,10 +107,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@48, addr cadena@@48, MB_OK
+invoke MessageBox, NULL, addr cadena@@398, addr cadena@@398, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@49, addr cadena@@49, MB_OK
+invoke MessageBox, NULL, addr cadena@@399, addr cadena@@399, MB_OK
 Label9:
 FLD const@@_10_0
 FST a@Variable
@@ -127,10 +126,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label16
-invoke MessageBox, NULL, addr cadena@@50, addr cadena@@50, MB_OK
+invoke MessageBox, NULL, addr cadena@@400, addr cadena@@400, MB_OK
 JMP Label17
 Label16:
-invoke MessageBox, NULL, addr cadena@@51, addr cadena@@51, MB_OK
+invoke MessageBox, NULL, addr cadena@@401, addr cadena@@401, MB_OK
 Label17:
 FLD const@@_10_0
 FST a@Variable
@@ -144,10 +143,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label23
-invoke MessageBox, NULL, addr cadena@@52, addr cadena@@52, MB_OK
+invoke MessageBox, NULL, addr cadena@@402, addr cadena@@402, MB_OK
 JMP Label24
 Label23:
-invoke MessageBox, NULL, addr cadena@@53, addr cadena@@53, MB_OK
+invoke MessageBox, NULL, addr cadena@@403, addr cadena@@403, MB_OK
 Label24:
 FLD const@@3_0
 FST b@Variable
@@ -161,10 +160,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label30
-invoke MessageBox, NULL, addr cadena@@54, addr cadena@@54, MB_OK
+invoke MessageBox, NULL, addr cadena@@404, addr cadena@@404, MB_OK
 JMP Label31
 Label30:
-invoke MessageBox, NULL, addr cadena@@55, addr cadena@@55, MB_OK
+invoke MessageBox, NULL, addr cadena@@405, addr cadena@@405, MB_OK
 Label31:
 FLD const@@_10_0
 FLD const@@3_0
@@ -176,10 +175,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label36
-invoke MessageBox, NULL, addr cadena@@56, addr cadena@@56, MB_OK
+invoke MessageBox, NULL, addr cadena@@406, addr cadena@@406, MB_OK
 JMP Label37
 Label36:
-invoke MessageBox, NULL, addr cadena@@57, addr cadena@@57, MB_OK
+invoke MessageBox, NULL, addr cadena@@407, addr cadena@@407, MB_OK
 Label37:
 Label39:
 FLD const@@_10_0
@@ -195,10 +194,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label48
-invoke MessageBox, NULL, addr cadena@@58, addr cadena@@58, MB_OK
+invoke MessageBox, NULL, addr cadena@@408, addr cadena@@408, MB_OK
 JMP Label49
 Label48:
-invoke MessageBox, NULL, addr cadena@@59, addr cadena@@59, MB_OK
+invoke MessageBox, NULL, addr cadena@@409, addr cadena@@409, MB_OK
 Label49:
 FLD const@@3_0
 FST b@Variable
@@ -214,10 +213,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label56
-invoke MessageBox, NULL, addr cadena@@60, addr cadena@@60, MB_OK
+invoke MessageBox, NULL, addr cadena@@410, addr cadena@@410, MB_OK
 JMP Label57
 Label56:
-invoke MessageBox, NULL, addr cadena@@61, addr cadena@@61, MB_OK
+invoke MessageBox, NULL, addr cadena@@411, addr cadena@@411, MB_OK
 Label57:
 CALL salida3
 FLD const@@_10_0
@@ -230,10 +229,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label63
-invoke MessageBox, NULL, addr cadena@@62, addr cadena@@62, MB_OK
+invoke MessageBox, NULL, addr cadena@@412, addr cadena@@412, MB_OK
 JMP Label64
 Label63:
-invoke MessageBox, NULL, addr cadena@@63, addr cadena@@63, MB_OK
+invoke MessageBox, NULL, addr cadena@@413, addr cadena@@413, MB_OK
 Label64:
 CALL salida10
 FLD salida10@Funcion
@@ -247,10 +246,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label70
-invoke MessageBox, NULL, addr cadena@@64, addr cadena@@64, MB_OK
+invoke MessageBox, NULL, addr cadena@@414, addr cadena@@414, MB_OK
 JMP Label71
 Label70:
-invoke MessageBox, NULL, addr cadena@@65, addr cadena@@65, MB_OK
+invoke MessageBox, NULL, addr cadena@@415, addr cadena@@415, MB_OK
 Label71:
 CALL salida10
 CALL salida3
@@ -265,10 +264,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label78
-invoke MessageBox, NULL, addr cadena@@66, addr cadena@@66, MB_OK
+invoke MessageBox, NULL, addr cadena@@416, addr cadena@@416, MB_OK
 JMP Label79
 Label78:
-invoke MessageBox, NULL, addr cadena@@67, addr cadena@@67, MB_OK
+invoke MessageBox, NULL, addr cadena@@417, addr cadena@@417, MB_OK
 Label79:
 FLD const@@_10_0
 FST a@Variable
@@ -285,10 +284,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label87
-invoke MessageBox, NULL, addr cadena@@68, addr cadena@@68, MB_OK
+invoke MessageBox, NULL, addr cadena@@418, addr cadena@@418, MB_OK
 JMP Label88
 Label87:
-invoke MessageBox, NULL, addr cadena@@69, addr cadena@@69, MB_OK
+invoke MessageBox, NULL, addr cadena@@419, addr cadena@@419, MB_OK
 Label88:
 FLD const@@_10_0
 FLD const@@3_0
@@ -300,10 +299,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label96
-invoke MessageBox, NULL, addr cadena@@70, addr cadena@@70, MB_OK
+invoke MessageBox, NULL, addr cadena@@420, addr cadena@@420, MB_OK
 JMP Label97
 Label96:
-invoke MessageBox, NULL, addr cadena@@71, addr cadena@@71, MB_OK
+invoke MessageBox, NULL, addr cadena@@421, addr cadena@@421, MB_OK
 Label97:
 invoke ExitProcess, 0
 end start

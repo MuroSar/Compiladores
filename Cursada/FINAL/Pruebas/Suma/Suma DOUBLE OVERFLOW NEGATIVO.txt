@@ -1,0 +1,13 @@
+a,b,c:DOUBLE.
+
+a = -1,7976931348623157E308.
+b = -10,0.
+c=a+b.
+IF (c == 13,0) THEN
+OUT("Suma var = cte anda Double").
+ELSE
+OUT("Suma var = cte no anda Double").
+END_IF.
+
+
+

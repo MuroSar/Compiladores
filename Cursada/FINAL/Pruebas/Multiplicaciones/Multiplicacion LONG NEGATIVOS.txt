@@ -82,7 +82,7 @@ OUT("Multiplicación fn*fn = cte no anda Long").
 END_IF.
 
 a = -10.
-c = -30.
+c = 30.
 IF (a*salida3() == c) THEN
 OUT("Multiplicación var*fn = var anda Long").
 ELSE
@@ -91,7 +91,7 @@ END_IF.
 
 LONG FUNCTION salida30 {
 	aB1 : LONG.
-	aB1 = -30.
+	aB1 = 30.
 RETURN ( aB1 ).
 }
 
