@@ -51,18 +51,20 @@ public class Optimizador {
 			//para cada terceto de la asignacion..
 			Terceto terceto = tercetosAsignacion.get(pos);
 			
-			//reviso los tercetos que quedan para ver si hay repetidos
-			for (int i=pos+1; i<tercetosAsignacion.size(); i++) {
-				if(terceto.equals(tercetosAsignacion.get(i))) {
-					//si hay alguno repetido, borro el terceto y actualizo las referencias
-					//posicionTerceto = terceto.getPos();
-					//posicionTercetoRepetido = tercetosAsignacion.get(i).getPos();
-					
-					//tercetosAsignacion.remove(i);
-					tercetosAsignacion.get(i).setDeleted(true);
-					
-					actualizaReferencias(tercetosAsignacion, terceto, tercetosAsignacion.get(i));
-				}
+			if(!terceto.isDeleted()) {
+				//reviso los tercetos que quedan para ver si hay repetidos
+				for (int i=pos+1; i<tercetosAsignacion.size(); i++) {
+					if(terceto.equals(tercetosAsignacion.get(i))) {
+						//si hay alguno repetido, borro el terceto y actualizo las referencias
+						//posicionTerceto = terceto.getPos();
+						//posicionTercetoRepetido = tercetosAsignacion.get(i).getPos();
+						
+						//tercetosAsignacion.remove(i);
+						tercetosAsignacion.get(i).setDeleted(true);
+						
+						actualizaReferencias(tercetosAsignacion, terceto, tercetosAsignacion.get(i));
+					}
+				}	
 			}
 			
 			pos++;
