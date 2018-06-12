@@ -55,11 +55,8 @@ public class Optimizador {
 				//reviso los tercetos que quedan para ver si hay repetidos
 				for (int i=pos+1; i<tercetosAsignacion.size(); i++) {
 					if(terceto.equals(tercetosAsignacion.get(i))) {
-						//si hay alguno repetido, borro el terceto y actualizo las referencias
-						//posicionTerceto = terceto.getPos();
-						//posicionTercetoRepetido = tercetosAsignacion.get(i).getPos();
+						//si hay alguno repetido, marco el terceto como borrado y actualizo las referencias
 						
-						//tercetosAsignacion.remove(i);
 						tercetosAsignacion.get(i).setDeleted(true);
 						
 						actualizaReferencias(tercetosAsignacion, terceto, tercetosAsignacion.get(i));
@@ -76,13 +73,13 @@ public class Optimizador {
 			if(t.getPrimero().equals("[" + tercetoRepetido.getPos() + "]")) {
 				t.setPrimero("[" + terceto.getPos() + "]");
 				if(t.getPrimeroParserVal().obj != null) {
-					t.setPrimeroParserVal(terceto.getPrimeroParserVal());
+					t.setPrimeroParserVal(new ParserVal(terceto));
 				}
 			}
 			if(t.getSegundo().equals("[" + tercetoRepetido.getPos() + "]")) {
 				t.setSegundo("[" + terceto.getPos() + "]");
 				if(t.getSegundoParserVal().obj != null) {
-					t.setSegundoParserVal(terceto.getSegundoParserVal());
+					t.setSegundoParserVal(new ParserVal(terceto));
 				}
 				
 				///TODO: actualizar bien todas las referencias..
