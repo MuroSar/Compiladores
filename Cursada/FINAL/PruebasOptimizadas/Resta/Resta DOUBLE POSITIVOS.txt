@@ -1,0 +1,102 @@
+a,b,c:DOUBLE.
+
+a = 10,0.
+b = 3,0.
+c=a-b.
+IF (c == 7,0) THEN
+OUT("Resta var = cte anda Double").
+ELSE
+OUT("Resta var = cte no anda Double").
+END_IF.
+
+a = 10,0.
+b = 3,0.
+IF (a-b == 7,0) THEN
+OUT("Resta var-var = cte anda Double").
+ELSE
+OUT("Resta var-var = cte no anda Double").
+END_IF.
+
+a = 10,0.
+IF (a-3,0 == 7,0) THEN
+OUT("Resta var-cte = cte anda Double").
+ELSE
+OUT("Resta var-cte = cte no anda Double").
+END_IF.
+
+b = 3,0.
+IF (10,0-b == 7,0) THEN
+OUT("Resta cte-var = cte anda Double").
+ELSE
+OUT("Resta cte-var = cte no anda Double").
+END_IF.
+
+IF (10,0-3,0 == 7,0) THEN
+OUT("Resta cte-cte = cte anda Double").
+ELSE
+OUT("Resta cte-cte = cte no anda Double").
+END_IF.
+
+DOUBLE FUNCTION salida3 {
+	aB1 : DOUBLE.
+	aB1 = 3,0.
+RETURN ( aB1 ).
+}
+
+DOUBLE FUNCTION salida10 {
+	aB1 : DOUBLE.
+	aB1 = 10,0.
+RETURN ( aB1 ).
+}
+
+a = 10,0.
+IF (a-salida3() == 7,0) THEN
+OUT("Resta var-fn = cte anda Double").
+ELSE
+OUT("Resta var-fn = cte no anda Double").
+END_IF.
+
+b = 3,0.
+IF (salida10()-b == 7,0) THEN
+OUT("Resta fn-var = cte anda Double").
+ELSE
+OUT("Resta fn-var = cte no anda Double").
+END_IF.
+
+IF (10,0-salida3() == 7,0) THEN
+OUT("Resta cte-fn = cte anda Double").
+ELSE
+OUT("Resta cte-fn = cte no anda Double").
+END_IF.
+
+IF (salida10()-3,0 == 7,0) THEN
+OUT("Resta fn-cte = cte anda Double").
+ELSE
+OUT("Resta fn-cte = cte no anda Double").
+END_IF.
+
+IF (salida10()-salida3() == 7,0) THEN
+OUT("Resta fn-fn = cte anda Double").
+ELSE
+OUT("Resta fn-fn = cte no anda Double").
+END_IF.
+
+a = 10,0.
+c = 7,0.
+IF (a-salida3() == c) THEN
+OUT("Resta var-fn = var anda Double").
+ELSE
+OUT("Resta var-fn = var no anda Double").
+END_IF.
+
+DOUBLE FUNCTION salida7 {
+	aB1 : DOUBLE.
+	aB1 = 7,0.
+RETURN ( aB1 ).
+}
+
+IF (10,0-3,0 == salida7()) THEN
+OUT("Resta cte-cte = fn anda Double").
+ELSE
+OUT("Resta cte-cte = fn no anda Double").
+END_IF.

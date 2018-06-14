@@ -1,0 +1,13 @@
+a,b,c:LONG.
+
+a = 10.
+b = 0.
+c=a*b.
+IF (c == 0) THEN
+OUT("Multiplicación que da 0 anda Long").
+ELSE
+OUT("Multiplicación que da 0 no anda Long").
+END_IF.
+
+
+

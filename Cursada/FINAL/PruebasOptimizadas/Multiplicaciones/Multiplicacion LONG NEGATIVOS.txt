@@ -1,0 +1,102 @@
+a,b,c:LONG.
+
+a = -10.
+b = -3.
+c=a*b.
+IF (c == 30) THEN
+OUT("Multiplicación var = cte anda Long").
+ELSE
+OUT("Multiplicación var = cte no anda Long").
+END_IF.
+
+a = -10.
+b = -3.
+IF (a*b == 30) THEN
+OUT("Multiplicación var*var = cte anda Long").
+ELSE
+OUT("Multiplicación var*var = cte no anda Long").
+END_IF.
+
+a = -10.
+IF (a*-3 == 30) THEN
+OUT("Multiplicación var*-cte = cte anda Long").
+ELSE
+OUT("Multiplicación var*-cte = cte no anda Long").
+END_IF.
+
+b = -3.
+IF (-10*b == 30) THEN
+OUT("Multiplicación -cte*var = cte anda Long").
+ELSE
+OUT("Multiplicación -cte*var = cte no anda Long").
+END_IF.
+
+IF (-10*-3 == 30) THEN
+OUT("Multiplicación -cte*-cte = cte anda Long").
+ELSE
+OUT("Multiplicación -cte*-cte = cte no anda Long").
+END_IF.
+
+LONG FUNCTION salida3 {
+	aB1 : LONG.
+	aB1 = -3.
+RETURN ( aB1 ).
+}
+
+LONG FUNCTION salida10 {
+	aB1 : LONG.
+	aB1 = -10.
+RETURN ( aB1 ).
+}
+
+a = -10.
+IF (a*salida3() == 30) THEN
+OUT("Multiplicación var*fn = cte anda Long").
+ELSE
+OUT("Multiplicación var*fn = cte no anda Long").
+END_IF.
+
+b = -3.
+IF (salida10()*b == 30) THEN
+OUT("Multiplicación fn*var = cte anda Long").
+ELSE
+OUT("Multiplicación fn*var = cte no anda Long").
+END_IF.
+
+IF (-10*salida3() == 30) THEN
+OUT("Multiplicación -cte*fn = cte anda Long").
+ELSE
+OUT("Multiplicación -cte*fn = cte no anda Long").
+END_IF.
+
+IF (salida10()*-3 == 30) THEN
+OUT("Multiplicación fn*-cte = cte anda Long").
+ELSE
+OUT("Multiplicación fn*-cte = cte no anda Long").
+END_IF.
+
+IF (salida10()*salida3() == 30) THEN
+OUT("Multiplicación fn*fn = cte anda Long").
+ELSE
+OUT("Multiplicación fn*fn = cte no anda Long").
+END_IF.
+
+a = -10.
+c = 30.
+IF (a*salida3() == c) THEN
+OUT("Multiplicación var*fn = var anda Long").
+ELSE
+OUT("Multiplicación var*fn = var no anda Long").
+END_IF.
+
+LONG FUNCTION salida30 {
+	aB1 : LONG.
+	aB1 = 30.
+RETURN ( aB1 ).
+}
+
+IF (-10*-3 == salida30()) THEN
+OUT("Multiplicación -cte*-cte = fn anda Long").
+ELSE
+OUT("Multiplicación -cte*-cte = fn no anda Long").
+END_IF.

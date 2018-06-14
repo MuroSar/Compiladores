@@ -139,7 +139,6 @@ public class TercetoSuma extends Terceto{
 					}
 					
 					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
-					//s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3 += checkOverflowDouble(this.getPos());
 					
@@ -182,7 +181,8 @@ public class TercetoSuma extends Terceto{
 	public String checkOverflowDouble(int pos) {
 		String result;
 		
-		result = "FLD var@@aux2\n";
+		//result = "FLD var@@aux2\n";
+		result = "FLD var@@aux" + pos + "\n";
 		result += "FCOM __CERO\n";
 		result += "FSTSW AX\n";
 		result += "SAHF\n";

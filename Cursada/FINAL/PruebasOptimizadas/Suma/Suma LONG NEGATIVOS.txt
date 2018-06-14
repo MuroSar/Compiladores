@@ -1,0 +1,102 @@
+a,b,c:LONG.
+
+a = -10.
+b = -3.
+c=a+b.
+IF (c == -13) THEN
+OUT("Suma var = -cte anda Long").
+ELSE
+OUT("Suma var = -cte no anda Long").
+END_IF.
+
+a = -10.
+b = -3.
+IF (a+b == -13) THEN
+OUT("Suma var+var = -cte anda Long").
+ELSE
+OUT("Suma var+var = -cte no anda Long").
+END_IF.
+
+a = -10.
+IF (a+-3 == -13) THEN
+OUT("Suma var+-cte = -cte anda Long").
+ELSE
+OUT("Suma var+-cte = -cte no anda Long").
+END_IF.
+
+b = -3.
+IF (-10+b == -13) THEN
+OUT("Suma -cte+var = -cte anda Long").
+ELSE
+OUT("Suma -cte+var = -cte no anda Long").
+END_IF.
+
+IF (-10+-3 == -13) THEN
+OUT("Suma -cte+-cte = -cte anda Long").
+ELSE
+OUT("Suma -cte+-cte = -cte no anda Long").
+END_IF.
+
+LONG FUNCTION salida3 {
+	aB1 : LONG.
+	aB1 = -3.
+RETURN ( aB1 ).
+}
+
+LONG FUNCTION salida10 {
+	aB1 : LONG.
+	aB1 = -10.
+RETURN ( aB1 ).
+}
+
+a = -10.
+IF (a+salida3() == -13) THEN
+OUT("Suma var+fn = -cte anda Long").
+ELSE
+OUT("Suma var+fn = -cte no anda Long").
+END_IF.
+
+b = -3.
+IF (salida10()+b == -13) THEN
+OUT("Suma fn+var = -cte anda Long").
+ELSE
+OUT("Suma fn+var = -cte no anda Long").
+END_IF.
+
+IF (-10+salida3() == -13) THEN
+OUT("Suma -cte+fn = -cte anda Long").
+ELSE
+OUT("Suma -cte+fn = -cte no anda Long").
+END_IF.
+
+IF (salida10()+-3 == -13) THEN
+OUT("Suma fn+-cte = -cte anda Long").
+ELSE
+OUT("Suma fn+-cte = -cte no anda Long").
+END_IF.
+
+IF (salida10()+salida3() == -13) THEN
+OUT("Suma fn+fn = -cte anda Long").
+ELSE
+OUT("Suma fn+fn = -cte no anda Long").
+END_IF.
+
+a = -10.
+c = -13.
+IF (a+salida3() == c) THEN
+OUT("Suma var+fn = var anda Long").
+ELSE
+OUT("Suma var+fn = var no anda Long").
+END_IF.
+
+LONG FUNCTION salida13 {
+	aB1 : LONG.
+	aB1 = -13.
+RETURN ( aB1 ).
+}
+
+IF (-10+-3 == salida13()) THEN
+OUT("Suma -cte+-cte = fn anda Long").
+ELSE
+OUT("Suma -cte+-cte = fn no anda Long").
+END_IF.

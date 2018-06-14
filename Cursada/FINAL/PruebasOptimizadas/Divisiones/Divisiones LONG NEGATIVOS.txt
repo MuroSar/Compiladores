@@ -1,0 +1,107 @@
+a,b,c:LONG.
+
+a = -10.
+b = -5.
+c=a/b.
+IF (c == 2) THEN
+OUT("Division var = cte anda Long").
+ELSE
+OUT("Division var = cte no anda Long").
+END_IF.
+
+a = -10.
+b = -5.
+IF (a/b == 2) THEN
+OUT("Division var/var = cte anda Long").
+ELSE
+OUT("Division var/var = cte no anda Long").
+END_IF.
+
+a = -10.
+IF (a/-5 == 2) THEN
+OUT("Division var/cte = cte anda Long").
+ELSE
+OUT("Division var/cte = cte no anda Long").
+END_IF.
+
+b = -5.
+IF (-10/b == 2) THEN
+OUT("Division cte/var = cte anda Long").
+ELSE
+OUT("Division cte/var = cte no anda Long").
+END_IF.
+
+
+IF (-10/-5 == 2) THEN
+OUT("Division cte/cte = cte anda Long").
+ELSE
+OUT("Division cte/cte = cte no anda Long").
+END_IF.
+
+
+LONG FUNCTION salida5 {
+	aB1 : LONG.
+	aB1 = -5.
+RETURN ( aB1 ).
+}
+
+LONG FUNCTION salida10 {
+	aB1 : LONG.
+	aB1 = -10.
+RETURN ( aB1 ).
+}
+
+a = -10.
+IF (a/salida5() == 2) THEN
+OUT("Division var/fn = cte anda Long").
+ELSE
+OUT("Division var/fn = cte no anda Long").
+END_IF.
+
+b = -5.
+IF (salida10()/b == 2) THEN
+OUT("Division fn/var = cte anda Long").
+ELSE
+OUT("Division fn/var = cte no anda Long").
+END_IF.
+
+IF (-10/salida5() == 2) THEN
+OUT("Division cte/fn = cte anda Long").
+ELSE
+OUT("Division cte/fn = cte no anda Long").
+END_IF.
+
+IF (salida10()/-5 == 2) THEN
+OUT("Division fn/cte = cte anda Long").
+ELSE
+OUT("Division fn/cte = cte no anda Long").
+END_IF.
+
+IF (salida10()/salida5() == 2) THEN
+OUT("Division fn/fn = cte anda Long").
+ELSE
+OUT("Division fn/fn = cte no anda Long").
+END_IF.
+
+a = -10.
+c = 2.
+IF (a/salida5() == c) THEN
+OUT("Division var/fn = var anda Long").
+ELSE
+OUT("Division var/fn = var no anda Long").
+END_IF.
+
+IF (10/-2 == salida5()) THEN
+OUT("Division cte/-cte = fn anda Long").
+ELSE
+OUT("Division cte/-cte = fn no anda Long").
+END_IF.
+
+a = -10.
+b = 0.
+c=a/b.
+IF (c == -2) THEN
+OUT("Division por cero no anda Long").
+ELSE
+OUT("Division no anda Long").
+END_IF.
