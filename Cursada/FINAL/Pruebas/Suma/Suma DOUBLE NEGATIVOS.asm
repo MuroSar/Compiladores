@@ -13,51 +13,51 @@ __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
 _msjOverflow DB "Error: Overflow", 0
 salida10@Funcion DQ ?
-var@@aux58 DQ ?
-var@@aux18 DQ ?
-var@@aux2 DQ ?
-var@@aux65 DQ ?
-b@Variable DQ ?
-salida3@Funcion DQ ?
-var@@aux90 DQ ?
-c@Variable DQ ?
-var@@aux51 DQ ?
-var@@aux11 DQ ?
-var@@aux38 DQ ?
-ab1@Variable DQ ?
-a@Variable DQ ?
 salida13@Funcion DQ ?
-var@@aux82 DQ ?
-var@@aux40 DQ ?
-var@@aux43 DQ ?
-var@@aux89 DQ ?
 var@@aux25 DQ ?
 var@@aux73 DQ ?
+b@Variable DQ ?
+a@Variable DQ ?
 var@@aux31 DQ ?
-cadena@@518 DB "Suma var = -cte anda Double", 0
-cadena@@519 DB "Suma var = -cte no anda Double", 0
-cadena@@520 DB "Suma var+var = -cte anda Double", 0
-cadena@@521 DB "Suma var+var = -cte no anda Double", 0
-cadena@@522 DB "Suma var+-cte = -cte anda Double", 0
-cadena@@523 DB "Suma var+-cte = -cte no anda Double", 0
-cadena@@524 DB "Suma -cte+var = -cte anda Double", 0
-cadena@@525 DB "Suma -cte+var = -cte no anda Double", 0
-cadena@@526 DB "Suma -cte+-cte = -cte anda Double", 0
-cadena@@527 DB "Suma -cte+-cte = -cte no anda Double", 0
-cadena@@528 DB "Suma var+fn = -cte anda Double", 0
-cadena@@529 DB "Suma var+fn = -cte no anda Double", 0
-cadena@@530 DB "Suma fn+var = -cte anda Double", 0
-cadena@@531 DB "Suma fn+var = -cte no anda Double", 0
-cadena@@532 DB "Suma -cte+fn = -cte anda Double", 0
-cadena@@533 DB "Suma -cte+fn = -cte no anda Double", 0
-cadena@@534 DB "Suma fn+-cte = -cte anda Double", 0
-cadena@@535 DB "Suma fn+-cte = -cte no anda Double", 0
-cadena@@536 DB "Suma fn+fn = -cte anda Double", 0
-cadena@@537 DB "Suma fn+fn = -cte no anda Double", 0
-cadena@@538 DB "Suma var+fn = var anda Double", 0
-cadena@@539 DB "Suma var+fn = var no anda Double", 0
-cadena@@540 DB "Suma -cte+-cte = fn anda Double", 0
-cadena@@541 DB "Suma -cte+-cte = fn no anda Double", 0
+var@@aux38 DQ ?
+c@Variable DQ ?
+salida3@Funcion DQ ?
+var@@aux89 DQ ?
+var@@aux82 DQ ?
+var@@aux43 DQ ?
+var@@aux40 DQ ?
+var@@aux11 DQ ?
+var@@aux51 DQ ?
+var@@aux90 DQ ?
+var@@aux58 DQ ?
+ab1@Variable DQ ?
+var@@aux2 DQ ?
+var@@aux18 DQ ?
+var@@aux65 DQ ?
+cadena@@2 DB "Suma var = -cte anda Double", 0
+cadena@@3 DB "Suma var = -cte no anda Double", 0
+cadena@@4 DB "Suma var+var = -cte anda Double", 0
+cadena@@5 DB "Suma var+var = -cte no anda Double", 0
+cadena@@6 DB "Suma var+-cte = -cte anda Double", 0
+cadena@@7 DB "Suma var+-cte = -cte no anda Double", 0
+cadena@@8 DB "Suma -cte+var = -cte anda Double", 0
+cadena@@9 DB "Suma -cte+var = -cte no anda Double", 0
+cadena@@10 DB "Suma -cte+-cte = -cte anda Double", 0
+cadena@@11 DB "Suma -cte+-cte = -cte no anda Double", 0
+cadena@@12 DB "Suma var+fn = -cte anda Double", 0
+cadena@@13 DB "Suma var+fn = -cte no anda Double", 0
+cadena@@14 DB "Suma fn+var = -cte anda Double", 0
+cadena@@15 DB "Suma fn+var = -cte no anda Double", 0
+cadena@@16 DB "Suma -cte+fn = -cte anda Double", 0
+cadena@@17 DB "Suma -cte+fn = -cte no anda Double", 0
+cadena@@18 DB "Suma fn+-cte = -cte anda Double", 0
+cadena@@19 DB "Suma fn+-cte = -cte no anda Double", 0
+cadena@@20 DB "Suma fn+fn = -cte anda Double", 0
+cadena@@21 DB "Suma fn+fn = -cte no anda Double", 0
+cadena@@22 DB "Suma var+fn = var anda Double", 0
+cadena@@23 DB "Suma var+fn = var no anda Double", 0
+cadena@@24 DB "Suma -cte+-cte = fn anda Double", 0
+cadena@@25 DB "Suma -cte+-cte = fn no anda Double", 0
 const@@_3_0 DQ -3.0
 const@@_10_0 DQ -10.0
 const@@_13_0 DQ -13.0
@@ -125,10 +125,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@518, addr cadena@@518, MB_OK
+invoke MessageBox, NULL, addr cadena@@2, addr cadena@@2, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@519, addr cadena@@519, MB_OK
+invoke MessageBox, NULL, addr cadena@@3, addr cadena@@3, MB_OK
 Label9:
 FLD const@@_10_0
 FST a@Variable
@@ -138,7 +138,7 @@ FLD a@Variable
 FLD b@Variable
 FADD
 FST var@@aux11
-FLD var@@aux2
+FLD var@@aux11
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -162,10 +162,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label16
-invoke MessageBox, NULL, addr cadena@@520, addr cadena@@520, MB_OK
+invoke MessageBox, NULL, addr cadena@@4, addr cadena@@4, MB_OK
 JMP Label17
 Label16:
-invoke MessageBox, NULL, addr cadena@@521, addr cadena@@521, MB_OK
+invoke MessageBox, NULL, addr cadena@@5, addr cadena@@5, MB_OK
 Label17:
 FLD const@@_10_0
 FST a@Variable
@@ -173,7 +173,7 @@ FLD a@Variable
 FLD const@@_3_0
 FADD
 FST var@@aux18
-FLD var@@aux2
+FLD var@@aux18
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -197,10 +197,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label23
-invoke MessageBox, NULL, addr cadena@@522, addr cadena@@522, MB_OK
+invoke MessageBox, NULL, addr cadena@@6, addr cadena@@6, MB_OK
 JMP Label24
 Label23:
-invoke MessageBox, NULL, addr cadena@@523, addr cadena@@523, MB_OK
+invoke MessageBox, NULL, addr cadena@@7, addr cadena@@7, MB_OK
 Label24:
 FLD const@@_3_0
 FST b@Variable
@@ -208,7 +208,7 @@ FLD const@@_10_0
 FLD b@Variable
 FADD
 FST var@@aux25
-FLD var@@aux2
+FLD var@@aux25
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -232,16 +232,16 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label30
-invoke MessageBox, NULL, addr cadena@@524, addr cadena@@524, MB_OK
+invoke MessageBox, NULL, addr cadena@@8, addr cadena@@8, MB_OK
 JMP Label31
 Label30:
-invoke MessageBox, NULL, addr cadena@@525, addr cadena@@525, MB_OK
+invoke MessageBox, NULL, addr cadena@@9, addr cadena@@9, MB_OK
 Label31:
 FLD const@@_10_0
 FLD const@@_3_0
 FADD
 FST var@@aux31
-FLD var@@aux2
+FLD var@@aux31
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -265,10 +265,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label36
-invoke MessageBox, NULL, addr cadena@@526, addr cadena@@526, MB_OK
+invoke MessageBox, NULL, addr cadena@@10, addr cadena@@10, MB_OK
 JMP Label37
 Label36:
-invoke MessageBox, NULL, addr cadena@@527, addr cadena@@527, MB_OK
+invoke MessageBox, NULL, addr cadena@@11, addr cadena@@11, MB_OK
 Label37:
 Label39:
 FLD const@@_10_0
@@ -278,7 +278,7 @@ FLD a@Variable
 FLD salida3@Funcion
 FADD
 FST var@@aux43
-FLD var@@aux2
+FLD var@@aux43
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -302,10 +302,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label48
-invoke MessageBox, NULL, addr cadena@@528, addr cadena@@528, MB_OK
+invoke MessageBox, NULL, addr cadena@@12, addr cadena@@12, MB_OK
 JMP Label49
 Label48:
-invoke MessageBox, NULL, addr cadena@@529, addr cadena@@529, MB_OK
+invoke MessageBox, NULL, addr cadena@@13, addr cadena@@13, MB_OK
 Label49:
 FLD const@@_3_0
 FST b@Variable
@@ -314,7 +314,7 @@ FLD salida10@Funcion
 FLD b@Variable
 FADD
 FST var@@aux51
-FLD var@@aux2
+FLD var@@aux51
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -338,17 +338,17 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label56
-invoke MessageBox, NULL, addr cadena@@530, addr cadena@@530, MB_OK
+invoke MessageBox, NULL, addr cadena@@14, addr cadena@@14, MB_OK
 JMP Label57
 Label56:
-invoke MessageBox, NULL, addr cadena@@531, addr cadena@@531, MB_OK
+invoke MessageBox, NULL, addr cadena@@15, addr cadena@@15, MB_OK
 Label57:
 CALL salida3
 FLD const@@_10_0
 FLD salida3@Funcion
 FADD
 FST var@@aux58
-FLD var@@aux2
+FLD var@@aux58
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -372,17 +372,17 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label63
-invoke MessageBox, NULL, addr cadena@@532, addr cadena@@532, MB_OK
+invoke MessageBox, NULL, addr cadena@@16, addr cadena@@16, MB_OK
 JMP Label64
 Label63:
-invoke MessageBox, NULL, addr cadena@@533, addr cadena@@533, MB_OK
+invoke MessageBox, NULL, addr cadena@@17, addr cadena@@17, MB_OK
 Label64:
 CALL salida10
 FLD salida10@Funcion
 FLD const@@_3_0
 FADD
 FST var@@aux65
-FLD var@@aux2
+FLD var@@aux65
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -406,10 +406,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label70
-invoke MessageBox, NULL, addr cadena@@534, addr cadena@@534, MB_OK
+invoke MessageBox, NULL, addr cadena@@18, addr cadena@@18, MB_OK
 JMP Label71
 Label70:
-invoke MessageBox, NULL, addr cadena@@535, addr cadena@@535, MB_OK
+invoke MessageBox, NULL, addr cadena@@19, addr cadena@@19, MB_OK
 Label71:
 CALL salida10
 CALL salida3
@@ -417,7 +417,7 @@ FLD salida10@Funcion
 FLD salida3@Funcion
 FADD
 FST var@@aux73
-FLD var@@aux2
+FLD var@@aux73
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -441,10 +441,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label78
-invoke MessageBox, NULL, addr cadena@@536, addr cadena@@536, MB_OK
+invoke MessageBox, NULL, addr cadena@@20, addr cadena@@20, MB_OK
 JMP Label79
 Label78:
-invoke MessageBox, NULL, addr cadena@@537, addr cadena@@537, MB_OK
+invoke MessageBox, NULL, addr cadena@@21, addr cadena@@21, MB_OK
 Label79:
 FLD const@@_10_0
 FST a@Variable
@@ -455,7 +455,7 @@ FLD a@Variable
 FLD salida3@Funcion
 FADD
 FST var@@aux82
-FLD var@@aux2
+FLD var@@aux82
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -479,16 +479,16 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label87
-invoke MessageBox, NULL, addr cadena@@538, addr cadena@@538, MB_OK
+invoke MessageBox, NULL, addr cadena@@22, addr cadena@@22, MB_OK
 JMP Label88
 Label87:
-invoke MessageBox, NULL, addr cadena@@539, addr cadena@@539, MB_OK
+invoke MessageBox, NULL, addr cadena@@23, addr cadena@@23, MB_OK
 Label88:
 FLD const@@_10_0
 FLD const@@_3_0
 FADD
 FST var@@aux90
-FLD var@@aux2
+FLD var@@aux90
 FCOM __CERO
 FSTSW AX
 SAHF
@@ -512,10 +512,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label96
-invoke MessageBox, NULL, addr cadena@@540, addr cadena@@540, MB_OK
+invoke MessageBox, NULL, addr cadena@@24, addr cadena@@24, MB_OK
 JMP Label97
 Label96:
-invoke MessageBox, NULL, addr cadena@@541, addr cadena@@541, MB_OK
+invoke MessageBox, NULL, addr cadena@@25, addr cadena@@25, MB_OK
 Label97:
 invoke ExitProcess, 0
 end start

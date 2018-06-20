@@ -12,12 +12,12 @@ __MIN_DOUBLE DQ 2.2250738585072014E-308
 __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
 _msjOverflow DB "Error: Overflow", 0
-var@@aux2 DQ ?
 b@Variable DQ ?
-c@Variable DQ ?
 a@Variable DQ ?
-cadena@@542 DB "Suma var = cte anda Double", 0
-cadena@@543 DB "Suma var = cte no anda Double", 0
+c@Variable DQ ?
+var@@aux2 DQ ?
+cadena@@26 DB "Suma var = cte anda Double", 0
+cadena@@27 DB "Suma var = cte no anda Double", 0
 const@@_1_7976931348623157E308 DQ -1.7976931348623157E308
 const@@_10_0 DQ -10.0
 const@@13_0 DQ 13.0
@@ -64,10 +64,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@542, addr cadena@@542, MB_OK
+invoke MessageBox, NULL, addr cadena@@26, addr cadena@@26, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@543, addr cadena@@543, MB_OK
+invoke MessageBox, NULL, addr cadena@@27, addr cadena@@27, MB_OK
 Label9:
 invoke ExitProcess, 0
 end start

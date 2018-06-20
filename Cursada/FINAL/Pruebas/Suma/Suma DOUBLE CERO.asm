@@ -12,9 +12,9 @@ __MIN_DOUBLE DQ 2.2250738585072014E-308
 __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
 _msjOverflow DB "Error: Overflow", 0
+b@Variable DQ ?
 a@Variable DQ ?
 var@@aux2 DQ ?
-b@Variable DQ ?
 c@Variable DQ ?
 cadena@@0 DB "Suma que da 0 anda Double", 0
 cadena@@1 DB "Suma que da 0 no anda Double", 0

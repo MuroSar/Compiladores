@@ -181,7 +181,6 @@ public class TercetoSuma extends Terceto{
 	public String checkOverflowDouble(int pos) {
 		String result;
 		
-		//result = "FLD var@@aux2\n";
 		result = "FLD var@@aux" + pos + "\n";
 		result += "FCOM __CERO\n";
 		result += "FSTSW AX\n";

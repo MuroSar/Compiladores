@@ -12,12 +12,12 @@ __MIN_DOUBLE DQ 2.2250738585072014E-308
 __MAX_DOUBLE DQ 1.7976931348623157E308
 _msjDC DB "Error: Division por cero", 0
 _msjOverflow DB "Error: Overflow", 0
-var@@aux2 DD ?
 b@Variable DD ?
-c@Variable DD ?
 a@Variable DD ?
-cadena@@644 DB "Suma var = cte anda Long", 0
-cadena@@645 DB "Suma var = cte no anda Long", 0
+c@Variable DD ?
+var@@aux2 DD ?
+cadena@@106 DB "Suma var = cte anda Long", 0
+cadena@@107 DB "Suma var = cte no anda Long", 0
 .code
 _division_cero:
 invoke MessageBox, NULL, addr _msjDC, addr _msjDC, MB_OK
@@ -38,10 +38,10 @@ MOV EAX,c@Variable
 MOV EDX,13
 CMP c@Variable,EDX
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@644, addr cadena@@644, MB_OK
+invoke MessageBox, NULL, addr cadena@@106, addr cadena@@106, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@645, addr cadena@@645, MB_OK
+invoke MessageBox, NULL, addr cadena@@107, addr cadena@@107, MB_OK
 Label9:
 invoke ExitProcess, 0
 end start
