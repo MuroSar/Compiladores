@@ -16,8 +16,8 @@ var@@aux2 DQ ?
 b@Variable DQ ?
 c@Variable DQ ?
 a@Variable DQ ?
-cadena@@478 DB "Suma var = cte anda Double", 0
-cadena@@479 DB "Suma var = cte no anda Double", 0
+cadena@@50 DB "Suma var = cte anda Double", 0
+cadena@@51 DB "Suma var = cte no anda Double", 0
 const@@_1_7976931348623157E308 DQ -1.7976931348623157E308
 const@@_10_0 DQ -10.0
 const@@13_0 DQ 13.0
@@ -64,10 +64,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@478, addr cadena@@478, MB_OK
+invoke MessageBox, NULL, addr cadena@@50, addr cadena@@50, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@479, addr cadena@@479, MB_OK
+invoke MessageBox, NULL, addr cadena@@51, addr cadena@@51, MB_OK
 Label9:
 invoke ExitProcess, 0
 end start

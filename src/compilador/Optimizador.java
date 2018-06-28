@@ -1,23 +1,25 @@
 package compilador;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Tercetos.Terceto;
+import complementos.Comparador;
 
 public class Optimizador {
-
 	
 	public static ArrayList<Terceto> optimizacionRedundanciaSimple(ArrayList<Terceto> tercetos) {
 		//trabajo sobre la lista de tercetos que me pasan asi modifico esa directamente..
 		ArrayList<Terceto> tercetosOptimizados = new ArrayList<Terceto>();
-		ArrayList<Terceto> tercetosAsignacion = new ArrayList<Terceto>();
+		ArrayList<Terceto> tercetosAsignacion= new ArrayList<Terceto>();
 		
 		boolean agregoTerceto = true;
 		
-		int pos = 0;
-		while (pos < tercetos.size()) {
+		//int pos = 0;
+		//while (pos < tercetos.size()) {
+		for(Terceto ter : tercetos) {
 			agregoTerceto = true;
-			Terceto ter = tercetos.get(pos);
+			//Terceto ter = tercetos.get(pos);
 			
 			if (ter.getOperador() == "+" || ter.getOperador() == "-" || ter.getOperador() == "*" || ter.getOperador() == "/") {
 				//armo la asignacion..
@@ -30,15 +32,23 @@ public class Optimizador {
 				tercetosOptimizados.addAll(tercetosAsignacion);
 				tercetosOptimizados.add(ter);	
 				agregoTerceto = false;
+				tercetosAsignacion = new ArrayList<Terceto>();
+			}
+			else if (ter.getOperador().equals("==")){
+				tercetosOptimizados.addAll(tercetosAsignacion);
+				tercetosOptimizados.add(ter);	
+				agregoTerceto = false;
+				tercetosAsignacion = new ArrayList<Terceto>();
 			}
 			
 			if(agregoTerceto) {
 				tercetosOptimizados.add(ter);	
 			}
 			
-			pos++;
+			//pos++;
 		}
 		
+		Collections.sort(tercetosOptimizados, new Comparador());
 		return tercetosOptimizados;
 	}
 
@@ -81,12 +91,6 @@ public class Optimizador {
 				if(t.getSegundoParserVal().obj != null) {
 					t.setSegundoParserVal(new ParserVal(terceto));
 				}
-				
-				///TODO: actualizar bien todas las referencias..
-				///esta generando lineas de asm de mas porque el aux1 o aux2 
-				///(depende del cual esta repetido)
-				///lo mismo con las variables auxiliares que esta generando..
-				///creo que con modificar solamente los aux 1 o aux2 se acomodan las axiliares
 			}
 		}
 	}

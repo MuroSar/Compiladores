@@ -21,6 +21,7 @@ b@Variable DQ ?
 salida3@Funcion DQ ?
 c@Variable DQ ?
 var@@aux51 DQ ?
+var@@aux11 DQ ?
 var@@aux38 DQ ?
 ab1@Variable DQ ?
 a@Variable DQ ?
@@ -32,30 +33,30 @@ var@@aux89 DQ ?
 var@@aux25 DQ ?
 var@@aux73 DQ ?
 var@@aux31 DQ ?
-cadena@@454 DB "Suma var = -cte anda Double", 0
-cadena@@455 DB "Suma var = -cte no anda Double", 0
-cadena@@456 DB "Suma var+var = -cte anda Double", 0
-cadena@@457 DB "Suma var+var = -cte no anda Double", 0
-cadena@@458 DB "Suma var+-cte = -cte anda Double", 0
-cadena@@459 DB "Suma var+-cte = -cte no anda Double", 0
-cadena@@460 DB "Suma -cte+var = -cte anda Double", 0
-cadena@@461 DB "Suma -cte+var = -cte no anda Double", 0
-cadena@@462 DB "Suma -cte+-cte = -cte anda Double", 0
-cadena@@463 DB "Suma -cte+-cte = -cte no anda Double", 0
-cadena@@464 DB "Suma var+fn = -cte anda Double", 0
-cadena@@465 DB "Suma var+fn = -cte no anda Double", 0
-cadena@@466 DB "Suma fn+var = -cte anda Double", 0
-cadena@@467 DB "Suma fn+var = -cte no anda Double", 0
-cadena@@468 DB "Suma -cte+fn = -cte anda Double", 0
-cadena@@469 DB "Suma -cte+fn = -cte no anda Double", 0
-cadena@@470 DB "Suma fn+-cte = -cte anda Double", 0
-cadena@@471 DB "Suma fn+-cte = -cte no anda Double", 0
-cadena@@472 DB "Suma fn+fn = -cte anda Double", 0
-cadena@@473 DB "Suma fn+fn = -cte no anda Double", 0
-cadena@@474 DB "Suma var+fn = var anda Double", 0
-cadena@@475 DB "Suma var+fn = var no anda Double", 0
-cadena@@476 DB "Suma -cte+-cte = fn anda Double", 0
-cadena@@477 DB "Suma -cte+-cte = fn no anda Double", 0
+cadena@@26 DB "Suma var = -cte anda Double", 0
+cadena@@27 DB "Suma var = -cte no anda Double", 0
+cadena@@28 DB "Suma var+var = -cte anda Double", 0
+cadena@@29 DB "Suma var+var = -cte no anda Double", 0
+cadena@@30 DB "Suma var+-cte = -cte anda Double", 0
+cadena@@31 DB "Suma var+-cte = -cte no anda Double", 0
+cadena@@32 DB "Suma -cte+var = -cte anda Double", 0
+cadena@@33 DB "Suma -cte+var = -cte no anda Double", 0
+cadena@@34 DB "Suma -cte+-cte = -cte anda Double", 0
+cadena@@35 DB "Suma -cte+-cte = -cte no anda Double", 0
+cadena@@36 DB "Suma var+fn = -cte anda Double", 0
+cadena@@37 DB "Suma var+fn = -cte no anda Double", 0
+cadena@@38 DB "Suma fn+var = -cte anda Double", 0
+cadena@@39 DB "Suma fn+var = -cte no anda Double", 0
+cadena@@40 DB "Suma -cte+fn = -cte anda Double", 0
+cadena@@41 DB "Suma -cte+fn = -cte no anda Double", 0
+cadena@@42 DB "Suma fn+-cte = -cte anda Double", 0
+cadena@@43 DB "Suma fn+-cte = -cte no anda Double", 0
+cadena@@44 DB "Suma fn+fn = -cte anda Double", 0
+cadena@@45 DB "Suma fn+fn = -cte no anda Double", 0
+cadena@@46 DB "Suma var+fn = var anda Double", 0
+cadena@@47 DB "Suma var+fn = var no anda Double", 0
+cadena@@48 DB "Suma -cte+-cte = fn anda Double", 0
+cadena@@49 DB "Suma -cte+-cte = fn no anda Double", 0
 const@@_3_0 DQ -3.0
 const@@_10_0 DQ -10.0
 const@@_13_0 DQ -13.0
@@ -123,58 +124,13 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@454, addr cadena@@454, MB_OK
+invoke MessageBox, NULL, addr cadena@@26, addr cadena@@26, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@455, addr cadena@@455, MB_OK
-Label9:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
+invoke MessageBox, NULL, addr cadena@@27, addr cadena@@27, MB_OK
 Label9:
 FLD const@@_10_0
 FST a@Variable
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
 FLD const@@_3_0
 FST b@Variable
 FLD var@@aux11
@@ -183,33 +139,33 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label16
-invoke MessageBox, NULL, addr cadena@@456, addr cadena@@456, MB_OK
+invoke MessageBox, NULL, addr cadena@@28, addr cadena@@28, MB_OK
 JMP Label17
 Label16:
-invoke MessageBox, NULL, addr cadena@@457, addr cadena@@457, MB_OK
+invoke MessageBox, NULL, addr cadena@@29, addr cadena@@29, MB_OK
 Label17:
 FLD a@Variable
 FLD b@Variable
 FADD
-FST var@@aux2
-FLD var@@aux2
+FST var@@aux11
+FLD var@@aux11
 FCOM __CERO
 FSTSW AX
 SAHF
-JE LabelCero@@2
-FLD var@@aux2
+JE LabelCero@@11
+FLD var@@aux11
 FABS
 FCOM __MIN_DOUBLE
 FSTSW AX
 SAHF
 JBE _overflow
-FLD var@@aux2
+FLD var@@aux11
 FABS
 FCOM __MAX_DOUBLE
 FSTSW AX
 SAHF
 JAE _overflow
-LabelCero@@2:
+LabelCero@@11:
 Label17:
 FLD const@@_10_0
 FST a@Variable
@@ -219,33 +175,11 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label23
-invoke MessageBox, NULL, addr cadena@@458, addr cadena@@458, MB_OK
+invoke MessageBox, NULL, addr cadena@@30, addr cadena@@30, MB_OK
 JMP Label24
 Label23:
-invoke MessageBox, NULL, addr cadena@@459, addr cadena@@459, MB_OK
+invoke MessageBox, NULL, addr cadena@@31, addr cadena@@31, MB_OK
 Label24:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
 FLD a@Variable
 FLD const@@_3_0
 FADD
@@ -277,10 +211,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label30
-invoke MessageBox, NULL, addr cadena@@460, addr cadena@@460, MB_OK
+invoke MessageBox, NULL, addr cadena@@32, addr cadena@@32, MB_OK
 JMP Label31
 Label30:
-invoke MessageBox, NULL, addr cadena@@461, addr cadena@@461, MB_OK
+invoke MessageBox, NULL, addr cadena@@33, addr cadena@@33, MB_OK
 Label31:
 FLD var@@aux31
 FLD const@@_13_0
@@ -288,55 +222,11 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label36
-invoke MessageBox, NULL, addr cadena@@462, addr cadena@@462, MB_OK
+invoke MessageBox, NULL, addr cadena@@34, addr cadena@@34, MB_OK
 JMP Label37
 Label36:
-invoke MessageBox, NULL, addr cadena@@463, addr cadena@@463, MB_OK
+invoke MessageBox, NULL, addr cadena@@35, addr cadena@@35, MB_OK
 Label37:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
 FLD const@@_10_0
 FLD b@Variable
 FADD
@@ -383,185 +273,7 @@ SAHF
 JAE _overflow
 LabelCero@@31:
 Label37:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
-FLD const@@_10_0
-FLD b@Variable
-FADD
-FST var@@aux25
-FLD var@@aux25
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@25
-FLD var@@aux25
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux25
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@25:
-Label31:
-FLD const@@_10_0
-FLD const@@_3_0
-FADD
-FST var@@aux31
-FLD var@@aux31
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@31
-FLD var@@aux31
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux31
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@31:
 Label39:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
-FLD const@@_10_0
-FLD b@Variable
-FADD
-FST var@@aux25
-FLD var@@aux25
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@25
-FLD var@@aux25
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux25
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@25:
-Label31:
-FLD const@@_10_0
-FLD const@@_3_0
-FADD
-FST var@@aux31
-FLD var@@aux31
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@31
-FLD var@@aux31
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux31
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@31:
 FLD const@@_10_0
 FST a@Variable
 CALL salida3
@@ -571,100 +283,11 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label48
-invoke MessageBox, NULL, addr cadena@@464, addr cadena@@464, MB_OK
+invoke MessageBox, NULL, addr cadena@@36, addr cadena@@36, MB_OK
 JMP Label49
 Label48:
-invoke MessageBox, NULL, addr cadena@@465, addr cadena@@465, MB_OK
+invoke MessageBox, NULL, addr cadena@@37, addr cadena@@37, MB_OK
 Label49:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
-FLD const@@_10_0
-FLD b@Variable
-FADD
-FST var@@aux25
-FLD var@@aux25
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@25
-FLD var@@aux25
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux25
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@25:
-Label31:
-FLD const@@_10_0
-FLD const@@_3_0
-FADD
-FST var@@aux31
-FLD var@@aux31
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@31
-FLD var@@aux31
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux31
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@31:
 FLD a@Variable
 FLD salida3@Funcion
 FADD
@@ -697,10 +320,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label56
-invoke MessageBox, NULL, addr cadena@@466, addr cadena@@466, MB_OK
+invoke MessageBox, NULL, addr cadena@@38, addr cadena@@38, MB_OK
 JMP Label57
 Label56:
-invoke MessageBox, NULL, addr cadena@@467, addr cadena@@467, MB_OK
+invoke MessageBox, NULL, addr cadena@@39, addr cadena@@39, MB_OK
 Label57:
 CALL salida3
 FLD var@@aux58
@@ -709,10 +332,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label63
-invoke MessageBox, NULL, addr cadena@@468, addr cadena@@468, MB_OK
+invoke MessageBox, NULL, addr cadena@@40, addr cadena@@40, MB_OK
 JMP Label64
 Label63:
-invoke MessageBox, NULL, addr cadena@@469, addr cadena@@469, MB_OK
+invoke MessageBox, NULL, addr cadena@@41, addr cadena@@41, MB_OK
 Label64:
 CALL salida10
 FLD var@@aux65
@@ -721,10 +344,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label70
-invoke MessageBox, NULL, addr cadena@@470, addr cadena@@470, MB_OK
+invoke MessageBox, NULL, addr cadena@@42, addr cadena@@42, MB_OK
 JMP Label71
 Label70:
-invoke MessageBox, NULL, addr cadena@@471, addr cadena@@471, MB_OK
+invoke MessageBox, NULL, addr cadena@@43, addr cadena@@43, MB_OK
 Label71:
 CALL salida10
 CALL salida3
@@ -734,122 +357,11 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label78
-invoke MessageBox, NULL, addr cadena@@472, addr cadena@@472, MB_OK
+invoke MessageBox, NULL, addr cadena@@44, addr cadena@@44, MB_OK
 JMP Label79
 Label78:
-invoke MessageBox, NULL, addr cadena@@473, addr cadena@@473, MB_OK
+invoke MessageBox, NULL, addr cadena@@45, addr cadena@@45, MB_OK
 Label79:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
-FLD const@@_10_0
-FLD b@Variable
-FADD
-FST var@@aux25
-FLD var@@aux25
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@25
-FLD var@@aux25
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux25
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@25:
-Label31:
-FLD const@@_10_0
-FLD const@@_3_0
-FADD
-FST var@@aux31
-FLD var@@aux31
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@31
-FLD var@@aux31
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux31
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@31:
-FLD a@Variable
-FLD salida3@Funcion
-FADD
-FST var@@aux43
-FLD var@@aux43
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@43
-FLD var@@aux43
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux43
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@43:
 FLD salida10@Funcion
 FLD b@Variable
 FADD
@@ -941,205 +453,6 @@ LabelCero@@73:
 Label79:
 FLD const@@_10_0
 FST a@Variable
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
-FLD const@@_10_0
-FLD b@Variable
-FADD
-FST var@@aux25
-FLD var@@aux25
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@25
-FLD var@@aux25
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux25
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@25:
-Label31:
-FLD const@@_10_0
-FLD const@@_3_0
-FADD
-FST var@@aux31
-FLD var@@aux31
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@31
-FLD var@@aux31
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux31
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@31:
-FLD a@Variable
-FLD salida3@Funcion
-FADD
-FST var@@aux43
-FLD var@@aux43
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@43
-FLD var@@aux43
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux43
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@43:
-FLD salida10@Funcion
-FLD b@Variable
-FADD
-FST var@@aux51
-FLD var@@aux51
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@51
-FLD var@@aux51
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux51
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@51:
-FLD const@@_10_0
-FLD salida3@Funcion
-FADD
-FST var@@aux58
-FLD var@@aux58
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@58
-FLD var@@aux58
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux58
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@58:
-FLD salida10@Funcion
-FLD const@@_3_0
-FADD
-FST var@@aux65
-FLD var@@aux65
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@65
-FLD var@@aux65
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux65
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@65:
-FLD salida10@Funcion
-FLD salida3@Funcion
-FADD
-FST var@@aux73
-FLD var@@aux73
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@73
-FLD var@@aux73
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux73
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@73:
 FLD const@@_13_0
 FST c@Variable
 CALL salida3
@@ -1149,210 +462,11 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label87
-invoke MessageBox, NULL, addr cadena@@474, addr cadena@@474, MB_OK
+invoke MessageBox, NULL, addr cadena@@46, addr cadena@@46, MB_OK
 JMP Label88
 Label87:
-invoke MessageBox, NULL, addr cadena@@475, addr cadena@@475, MB_OK
+invoke MessageBox, NULL, addr cadena@@47, addr cadena@@47, MB_OK
 Label88:
-FLD a@Variable
-FLD b@Variable
-FADD
-FST var@@aux2
-FLD var@@aux2
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@2
-FLD var@@aux2
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux2
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@2:
-FLD a@Variable
-FLD const@@_3_0
-FADD
-FST var@@aux18
-FLD var@@aux18
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@18
-FLD var@@aux18
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux18
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@18:
-FLD const@@_10_0
-FLD b@Variable
-FADD
-FST var@@aux25
-FLD var@@aux25
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@25
-FLD var@@aux25
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux25
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@25:
-Label31:
-FLD const@@_10_0
-FLD const@@_3_0
-FADD
-FST var@@aux31
-FLD var@@aux31
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@31
-FLD var@@aux31
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux31
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@31:
-FLD a@Variable
-FLD salida3@Funcion
-FADD
-FST var@@aux43
-FLD var@@aux43
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@43
-FLD var@@aux43
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux43
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@43:
-FLD salida10@Funcion
-FLD b@Variable
-FADD
-FST var@@aux51
-FLD var@@aux51
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@51
-FLD var@@aux51
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux51
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@51:
-FLD const@@_10_0
-FLD salida3@Funcion
-FADD
-FST var@@aux58
-FLD var@@aux58
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@58
-FLD var@@aux58
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux58
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@58:
-FLD salida10@Funcion
-FLD const@@_3_0
-FADD
-FST var@@aux65
-FLD var@@aux65
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@65
-FLD var@@aux65
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux65
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@65:
-FLD salida10@Funcion
-FLD salida3@Funcion
-FADD
-FST var@@aux73
-FLD var@@aux73
-FCOM __CERO
-FSTSW AX
-SAHF
-JE LabelCero@@73
-FLD var@@aux73
-FABS
-FCOM __MIN_DOUBLE
-FSTSW AX
-SAHF
-JBE _overflow
-FLD var@@aux73
-FABS
-FCOM __MAX_DOUBLE
-FSTSW AX
-SAHF
-JAE _overflow
-LabelCero@@73:
 FLD a@Variable
 FLD salida3@Funcion
 FADD
@@ -1382,10 +496,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label96
-invoke MessageBox, NULL, addr cadena@@476, addr cadena@@476, MB_OK
+invoke MessageBox, NULL, addr cadena@@48, addr cadena@@48, MB_OK
 JMP Label97
 Label96:
-invoke MessageBox, NULL, addr cadena@@477, addr cadena@@477, MB_OK
+invoke MessageBox, NULL, addr cadena@@49, addr cadena@@49, MB_OK
 Label97:
 invoke ExitProcess, 0
 end start

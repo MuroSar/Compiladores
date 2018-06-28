@@ -3,7 +3,7 @@ package Tercetos;
 import compilador.GenCodigo;
 import compilador.ParserVal;
 
-public abstract class Terceto {
+public abstract class Terceto implements Comparable<Terceto>{
 
 	protected String operador;
 	protected String primero;
@@ -164,5 +164,15 @@ public abstract class Terceto {
 		this.segundoParserVal = segundoParserVal;
 	}
 	
+	@Override
+    public int compareTo(Terceto t) {
+        if (this.pos > t.getPos()) {
+        	return 1;
+        }
+        else if (this.pos < t.getPos()) {
+        	return -1;
+        }
+        else return 0;
+    }
 	
 }
