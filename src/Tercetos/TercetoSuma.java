@@ -105,7 +105,7 @@ public class TercetoSuma extends Terceto{
 				else {
 					s2="ADD EAX,var@@aux" + aux2;
 				}
-				s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
+				s3="JO _overflow\n" + "MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 			}
 		}
 		else {
@@ -115,7 +115,6 @@ public class TercetoSuma extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux2 + "@Variable";
-					//s3="FADD" + "\n" + "JO _overflow\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3 += checkOverflowDouble(this.getPos());
 					
