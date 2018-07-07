@@ -16,8 +16,8 @@ var@@aux2 DD ?
 b@Variable DD ?
 c@Variable DD ?
 a@Variable DD ?
-cadena@@102 DB "Suma que da 0 anda Long", 0
-cadena@@103 DB "Suma que da 0 no anda Long", 0
+cadena@@398 DB "Suma que da 0 anda Long", 0
+cadena@@399 DB "Suma que da 0 no anda Long", 0
 .code
 _division_cero:
 invoke MessageBox, NULL, addr _msjDC, addr _msjDC, MB_OK
@@ -38,10 +38,10 @@ MOV EAX,c@Variable
 MOV EDX,0
 CMP c@Variable,EDX
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@102, addr cadena@@102, MB_OK
+invoke MessageBox, NULL, addr cadena@@398, addr cadena@@398, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@103, addr cadena@@103, MB_OK
+invoke MessageBox, NULL, addr cadena@@399, addr cadena@@399, MB_OK
 Label9:
 invoke ExitProcess, 0
 end start
