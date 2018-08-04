@@ -20,8 +20,10 @@ public abstract class Terceto implements Comparable<Terceto>{
 	//para el borrado logico de la optimizacion
 	private boolean isDeleted = false;
 
-	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos) {
+	public Terceto(String operador, ParserVal primero, ParserVal segundo, int pos, GenCodigo generador) {
 		this.operador = operador;
+		this.generador = generador;
+		this.ambitoReal = generador.getSintactico().getNameManglingForAmbito(generador.getSintactico().getAmbito());
 				
 		if(primero != null) {
 			if(primero.obj != null) {
@@ -163,14 +165,6 @@ public abstract class Terceto implements Comparable<Terceto>{
 
 	public void setSegundoParserVal(ParserVal segundoParserVal) {
 		this.segundoParserVal = segundoParserVal;
-	}
-	
-	public String getAmbitoReal() {
-		return ambitoReal;
-	}
-
-	public void setAmbitoReal(String ambitoReal) {
-		this.ambitoReal = ambitoReal;
 	}
 
 	@Override

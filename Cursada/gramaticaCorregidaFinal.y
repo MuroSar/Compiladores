@@ -39,7 +39,7 @@ bloque_comun : bloque_control
 		| declaracion
 		;
 		
-bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size(), this.funcionActual.pop());
+bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size(), this.funcionActual.pop(), this.sintactico.getGenerador());
 												   								if(this.sintactico.getMarcaAntes()){
 																					ret.setMarcaAntes(true);
 																					this.sintactico.setMarcaAntes(false);
@@ -111,7 +111,7 @@ declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declara
 		;
 		
 sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
-									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
+									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 										   this.sintactico.addTerceto(bFalse);
 										   if(!this.sintactico.getAmbito().equals("A")){
 										   	   this.sintactico.addTercetoFuncion(bFalse);
@@ -131,7 +131,7 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 			   							Terceto bFalse = this.sintactico.pilaPop();
 										bFalse.setSegundo(this.sintactico.getTercetos().size());
 			   						  }
-		| bloque_control {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
+		| bloque_control {	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 							this.sintactico.addTerceto(bIncondicional);
 							if(!this.sintactico.getAmbito().equals("A")){
 						   	   this.sintactico.addTercetoFuncion(bIncondicional);
@@ -157,7 +157,7 @@ sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { if(this.sintactico.existeVaria
  												  {
 													  this.sintactico.showMessage("Sentencia: SWITCH");
 													  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
-										  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
+										  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1, this.sintactico.getGenerador());
 													  this.tercetoAux = bFalse;
 								               		  this.sintactico.pilaPush(bFalse);
 								               		  this.sintactico.setIDSwitch($3.sval);
@@ -185,7 +185,7 @@ cuerpo_switch : '{' rep_switch '}''.'
 		;
 		
 rep_switch : CASE CONSTANTE { if(this.sintactico.mismoTipo(new ParserVal(this.sintactico.getIDSwitch()), $2) != null) {
-								  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $2, this.sintactico.getTercetos().size());
+								  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $2, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 								  this.sintactico.addTerceto(comp);
 								  if(!this.sintactico.getAmbito().equals("A")){
 							   	  	  this.sintactico.addTercetoFuncion(comp);
@@ -198,14 +198,14 @@ rep_switch : CASE CONSTANTE { if(this.sintactico.mismoTipo(new ParserVal(this.si
 							  }
 							}
 						  ':' bloque_control { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
-									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
+									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1, this.sintactico.getGenerador());
 											   this.tercetoAux = bFalse;
 											   Terceto bFalse2 = this.sintactico.pilaPop();
 											   this.sintactico.pilaPush(bFalse);
 											   bFalse2.setSegundo(this.sintactico.getTercetos().size()); //Set linea donde termina el THEN
 										   	 }
 		| rep_switch CASE CONSTANTE { if(this.sintactico.mismoTipo(new ParserVal(this.sintactico.getIDSwitch()), $3) != null) {
-										  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $3, this.sintactico.getTercetos().size());
+										  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 										  this.sintactico.addTerceto(comp);
 										  if(!this.sintactico.getAmbito().equals("A")){
 									   	  	  this.sintactico.addTercetoFuncion(comp);
@@ -240,7 +240,7 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
  												{
 		 											if(this.sintactico.ambitoCorrecto($1, $3)) {
 		 												if(this.sintactico.mismoTipo($1, $3) != null) {
-		 													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size());
+		 													Terceto t =  new TercetoAsignacion($1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 		 													if(this.sintactico.getMarcaAntes()){
 		 														t.setMarcaAntes(true);
 		 														this.sintactico.setMarcaAntes(false);
@@ -276,7 +276,7 @@ asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asigna
 		;
 		
 salida : OUT '(' CADENA ')''.' { this.sintactico.showMessage("Sentencia: OUT");
-							   	 Terceto t =  new TercetoOut($3, this.sintactico.getTercetos().size());
+							   	 Terceto t =  new TercetoOut($3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 							   	 if(this.sintactico.getMarcaAntes()){
 								 	 t.setMarcaAntes(true);
 								 	 this.sintactico.setMarcaAntes(false);
@@ -311,7 +311,7 @@ condicion : condicion operador expresion
 									     	if(this.sintactico.existeVariable($3), false){
 									     		if(this.sintactico.ambitoCorrecto($1, $3)) {
 										     		if(this.sintactico.mismoTipo($1, $3) != null) {
-														Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size());
+														Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 														if(this.sintactico.getMarcaAntes()){
 															t.setMarcaAntes(true);
 															this.sintactico.setMarcaAntes(false);
@@ -355,7 +355,7 @@ expresion : expresion '+' termino { if(this.sintactico.existeVariable($1), false
 										if(this.sintactico.existeVariable($3), false){
 											if(this.sintactico.ambitoCorrecto($1, $3)) {	
 		 										if(this.sintactico.mismoTipo($1, $3) != null) {
-													Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size());
+													Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 													this.sintactico.setTipoDatoTerceto(t, $1, $3);
 													if(this.sintactico.getMarcaAntes()){
 														t.setMarcaAntes(true);
@@ -387,7 +387,7 @@ expresion : expresion '+' termino { if(this.sintactico.existeVariable($1), false
 										if(this.sintactico.existeVariable($3), false){
 		 									if(this.sintactico.ambitoCorrecto($1, $3)) {
 		 										if(this.sintactico.mismoTipo($1, $3) != null) {
-													Terceto t =  new TercetoResta($1, $3, this.sintactico.getTercetos().size());
+													Terceto t =  new TercetoResta($1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 													this.sintactico.setTipoDatoTerceto(t, $1, $3);
 													if(this.sintactico.getMarcaAntes()){
 														t.setMarcaAntes(true);
@@ -421,7 +421,7 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1), false){
 									if(this.sintactico.existeVariable($3), false){
 										if(this.sintactico.ambitoCorrecto($1, $3)) {
 											if(this.sintactico.mismoTipo($1, $3) != null) {
-												Terceto t =  new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size());
+												Terceto t =  new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 												this.sintactico.setTipoDatoTerceto(t, $1, $3);
 												if(this.sintactico.getMarcaAntes()){
 													t.setMarcaAntes(true);
@@ -453,7 +453,7 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1), false){
 									if(this.sintactico.existeVariable($3), false){
 										if(this.sintactico.ambitoCorrecto($1, $3)) {
 		 									if(this.sintactico.mismoTipo($1, $3) != null) {
-												Terceto t =  new TercetoDivision($1, $3, this.sintactico.getTercetos().size());
+												Terceto t =  new TercetoDivision($1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 												this.sintactico.setTipoDatoTerceto(t, $1, $3);
 												if(this.sintactico.getMarcaAntes()){
 													t.setMarcaAntes(true);

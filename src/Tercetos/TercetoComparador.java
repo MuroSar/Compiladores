@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.ParserVal;
 import compilador.Sintactico;
 
@@ -13,8 +14,8 @@ public class TercetoComparador extends Terceto{
 	private String s3;
 	private String CodAux;
 
-	public TercetoComparador(ParserVal operador, ParserVal primero, ParserVal segundo, int pos) {
-		super(operador.sval, primero, segundo, pos);
+	public TercetoComparador(ParserVal operador, ParserVal primero, ParserVal segundo, int pos, GenCodigo generador) {
+		super(operador.sval, primero, segundo, pos, generador);
 		this.primeroParserVal = primero;
 		this.segundoParserVal = segundo;
 		this.CodAux = "";

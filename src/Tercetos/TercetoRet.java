@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
@@ -10,8 +11,8 @@ public class TercetoRet extends Terceto{
 	private String nombreFuncion;
 	private String retorno;
 	
-	public TercetoRet(String operador, ParserVal primero, ParserVal segundo, int pos, String nombreFuncion) {
-		super(operador, primero, segundo, pos);
+	public TercetoRet(String operador, ParserVal primero, ParserVal segundo, int pos, String nombreFuncion, GenCodigo generador) {
+		super(operador, primero, segundo, pos, generador);
 	
 		this.primeroParserVal = primero;
 		this.nombreFuncion = nombreFuncion;

@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.ParserVal;
 
 public class TercetoBFalse extends Terceto {
@@ -7,8 +8,8 @@ public class TercetoBFalse extends Terceto {
 	private int s1;
 	private String operador;
 
-	public TercetoBFalse(ParserVal primero, int pos) {
-		super("BF", primero, null, pos);
+	public TercetoBFalse(ParserVal primero, int pos, GenCodigo generador) {
+		super("BF", primero, null, pos, generador);
 		setPrimero(Integer.valueOf(primero.sval));
 	}
 		

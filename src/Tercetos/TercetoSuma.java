@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
@@ -16,8 +17,8 @@ public class TercetoSuma extends Terceto{
 	private String overflowDoublePos;
 	Token tokenAux = new Token();
 
-	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos) {
-		super("+", primero, segundo, pos);		
+	public TercetoSuma(ParserVal primero, ParserVal segundo, int pos, GenCodigo generador) {
+		super("+", primero, segundo, pos, generador);		
 		this.primeroParserVal = primero;
 		this.segundoParserVal = segundo;
 		

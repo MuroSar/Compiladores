@@ -172,7 +172,6 @@ public class GenCodigo {
 	        for (Terceto t : this.tercetosFuncion) {
 	        	if(!t.isDeleted()) {
 	        		t.setGenerador(this);
-	        		t.setAmbitoReal(sintactico.getNameManglingForAmbito(sintactico.getAmbito()));
 					instrucciones += t.getCodigo();	
 	        	}
 			}
@@ -182,7 +181,6 @@ public class GenCodigo {
 				if(!t.isDeleted()) {
 					if(!this.tercetosFuncion.contains(t)) {
 						t.setGenerador(this);
-						t.setAmbitoReal(sintactico.getNameManglingForAmbito(sintactico.getAmbito()));
 						instrucciones += t.getCodigo();	
 					}
 					else {

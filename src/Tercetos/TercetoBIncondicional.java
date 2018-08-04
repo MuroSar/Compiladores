@@ -1,11 +1,12 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.ParserVal;
 
 public class TercetoBIncondicional extends Terceto {
 
-	public TercetoBIncondicional(int pos) {
-		super("BI", null, null, pos);
+	public TercetoBIncondicional(int pos, GenCodigo generador) {
+		super("BI", null, null, pos, generador);
 	}
 		
 	public String getCodigo()

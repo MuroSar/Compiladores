@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
@@ -14,8 +15,8 @@ public class TercetoAsignacion extends Terceto{
 
 	Token tokenAux = new Token();
 
-	public TercetoAsignacion(ParserVal primero, ParserVal segundo, int pos) {
-		super("=", primero, segundo, pos);
+	public TercetoAsignacion(ParserVal primero, ParserVal segundo, int pos, GenCodigo generador) {
+		super("=", primero, segundo, pos, generador);
 		this.primeroParserVal = primero;
 		this.segundoParserVal = segundo;
 		this.pos = pos;

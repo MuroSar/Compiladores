@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
@@ -17,10 +18,12 @@ public class TercetoDivision extends Terceto{
 	private String chequeo_div_cero;
 	String nombre_func;
 
-	public TercetoDivision(ParserVal primero, ParserVal segundo, int pos) {
-		super("/", primero, segundo, pos);
+	public TercetoDivision(ParserVal primero, ParserVal segundo, int pos, GenCodigo generador) {
+		super("/", primero, segundo, pos, generador);
 		this.primeroParserVal = primero;
 		this.segundoParserVal = segundo;
+		
+		
 	}
 		
 	public String getCodigo()

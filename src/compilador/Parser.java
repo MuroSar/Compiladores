@@ -684,7 +684,7 @@ boolean doaction;
 //########## USER-SUPPLIED ACTIONS ##########
 case 8:
 //#line 42 "gramaticaCorregidaFinal.y"
-{	Terceto ret = new TercetoRet("RET", val_peek(3), null, this.sintactico.getTercetos().size(), this.funcionActual.pop());
+{	Terceto ret = new TercetoRet("RET", val_peek(3), null, this.sintactico.getTercetos().size(), this.funcionActual.pop(), this.sintactico.getGenerador());
 												   								if(this.sintactico.getMarcaAntes()){
 																					ret.setMarcaAntes(true);
 																					this.sintactico.setMarcaAntes(false);
@@ -743,7 +743,7 @@ break;
 case 29:
 //#line 113 "gramaticaCorregidaFinal.y"
 { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
-									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size());
+									  	   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 										   this.sintactico.addTerceto(bFalse);
 										   if(!this.sintactico.getAmbito().equals("A")){
 										   	   this.sintactico.addTercetoFuncion(bFalse);
@@ -780,7 +780,7 @@ case 35:
 break;
 case 36:
 //#line 134 "gramaticaCorregidaFinal.y"
-{	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size());
+{	Terceto bIncondicional = new TercetoBIncondicional(this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 							this.sintactico.addTerceto(bIncondicional);
 							if(!this.sintactico.getAmbito().equals("A")){
 						   	   this.sintactico.addTercetoFuncion(bIncondicional);
@@ -816,7 +816,7 @@ case 41:
  												  {
 													  this.sintactico.showMessage("Sentencia: SWITCH");
 													  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
-										  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
+										  	  	 	  Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1, this.sintactico.getGenerador());
 													  this.tercetoAux = bFalse;
 								               		  this.sintactico.pilaPush(bFalse);
 								               		  this.sintactico.setIDSwitch(val_peek(1).sval);
@@ -866,7 +866,7 @@ break;
 case 52:
 //#line 187 "gramaticaCorregidaFinal.y"
 { if(this.sintactico.mismoTipo(new ParserVal(this.sintactico.getIDSwitch()), val_peek(0)) != null) {
-								  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), val_peek(0), this.sintactico.getTercetos().size());
+								  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 								  this.sintactico.addTerceto(comp);
 								  if(!this.sintactico.getAmbito().equals("A")){
 							   	  	  this.sintactico.addTercetoFuncion(comp);
@@ -882,7 +882,7 @@ break;
 case 53:
 //#line 200 "gramaticaCorregidaFinal.y"
 { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
-									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1);
+									  		   Terceto bFalse = new TercetoBFalse(aux, this.sintactico.getTercetos().size()+1, this.sintactico.getGenerador());
 											   this.tercetoAux = bFalse;
 											   Terceto bFalse2 = this.sintactico.pilaPop();
 											   this.sintactico.pilaPush(bFalse);
@@ -892,7 +892,7 @@ break;
 case 54:
 //#line 207 "gramaticaCorregidaFinal.y"
 { if(this.sintactico.mismoTipo(new ParserVal(this.sintactico.getIDSwitch()), val_peek(0)) != null) {
-										  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), val_peek(0), this.sintactico.getTercetos().size());
+										  Terceto comp = new TercetoComparador( new ParserVal("=="), new ParserVal(this.sintactico.getIDSwitch()), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 										  this.sintactico.addTerceto(comp);
 										  if(!this.sintactico.getAmbito().equals("A")){
 									   	  	  this.sintactico.addTercetoFuncion(comp);
@@ -938,7 +938,7 @@ case 59:
  												{
 		 											if(this.sintactico.ambitoCorrecto(val_peek(3), val_peek(1))) {
 		 												if(this.sintactico.mismoTipo(val_peek(3), val_peek(1)) != null) {
-		 													Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size());
+		 													Terceto t =  new TercetoAsignacion(val_peek(3), val_peek(1), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 		 													if(this.sintactico.getMarcaAntes()){
 		 														t.setMarcaAntes(true);
 		 														this.sintactico.setMarcaAntes(false);
@@ -979,7 +979,7 @@ break;
 case 62:
 //#line 278 "gramaticaCorregidaFinal.y"
 { this.sintactico.showMessage("Sentencia: OUT");
-							   	 Terceto t =  new TercetoOut(val_peek(2), this.sintactico.getTercetos().size());
+							   	 Terceto t =  new TercetoOut(val_peek(2), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 							   	 if(this.sintactico.getMarcaAntes()){
 								 	 t.setMarcaAntes(true);
 								 	 this.sintactico.setMarcaAntes(false);
@@ -1025,7 +1025,7 @@ case 70:
 									     	if(this.sintactico.existeVariable(val_peek(0), false)){
 									     		if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 										     		if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-														Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+														Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 														if(this.sintactico.getMarcaAntes()){
 															t.setMarcaAntes(true);
 															this.sintactico.setMarcaAntes(false);
@@ -1063,7 +1063,7 @@ case 78:
 										if(this.sintactico.existeVariable(val_peek(0), false)){
 											if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {	
 		 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-													Terceto t =  new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+													Terceto t =  new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 													this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
 													if(this.sintactico.getMarcaAntes()){
 														t.setMarcaAntes(true);
@@ -1097,7 +1097,7 @@ case 79:
 										if(this.sintactico.existeVariable(val_peek(0), false)){
 		 									if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 		 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-													Terceto t =  new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+													Terceto t =  new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 													this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
 													if(this.sintactico.getMarcaAntes()){
 														t.setMarcaAntes(true);
@@ -1131,7 +1131,7 @@ case 81:
 									if(this.sintactico.existeVariable(val_peek(0), false)){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 											if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-												Terceto t =  new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+												Terceto t =  new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 												this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
 												if(this.sintactico.getMarcaAntes()){
 													t.setMarcaAntes(true);
@@ -1165,7 +1165,7 @@ case 82:
 									if(this.sintactico.existeVariable(val_peek(0), false)){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 		 									if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
-												Terceto t =  new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
+												Terceto t =  new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
 												this.sintactico.setTipoDatoTerceto(t, val_peek(2), val_peek(0));
 												if(this.sintactico.getMarcaAntes()){
 													t.setMarcaAntes(true);

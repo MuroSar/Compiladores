@@ -10,11 +10,9 @@ public class TercetoFuncion extends Terceto {
 	private Token tokenAux = new Token();
 
 	public TercetoFuncion(ParserVal primero, int pos, GenCodigo generador) {
-		super("FN", primero, null, pos);
+		super("FN", primero, null, pos, generador);
 		
-		String ambitoReal = generador.getSintactico().getNameManglingForAmbito(generador.getSintactico().getAmbito());
-		
-		this.setTipoDato(Lexico.getTokenFromTS(primero.sval + "@Funcion" + ambitoReal).getTipoDato());
+		this.setTipoDato(Lexico.getTokenFromTS(primero.sval + "@Funcion" + this.ambitoReal).getTipoDato());
 		
 	}
 		
