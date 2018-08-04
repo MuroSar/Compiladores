@@ -83,7 +83,7 @@ public class TercetoMultiplicacion extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2 + "\n";
 				}
-				s3="FMUL" + "\n" + "FST var@@aux" + this.getPos() + "\n";
+				s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {
@@ -104,7 +104,7 @@ public class TercetoMultiplicacion extends Terceto{
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					s2="FLD " + aux2 + "@Variable";
-					s3="FMUL" + "\n" + "FST var@@aux" + this.getPos() + "\n";
+					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
@@ -121,7 +121,7 @@ public class TercetoMultiplicacion extends Terceto{
 						this.generador.setDeclaracionesConst(aux);	
 					}					
 					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
-					s3="FMUL" + "\n" + "FST var@@aux" + this.getPos() + "\n"; 
+					s3="FMUL" + "\n" + "FSTP var@@aux" + this.getPos() + "\n"; 
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {

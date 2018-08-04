@@ -54,7 +54,7 @@ public class Sintactico {
 		this.ambito = "A";
 		this.maxAmbito = this.ambito.charAt(0);
 		this.ambitos = new HashMap<String, String>();
-		this.ambitos.put("general", this.ambito);
+		this.ambitos.put("main", this.ambito);
 		
 		this.marcaAntes = false;
 		this.marcaDesp = false;
@@ -72,7 +72,7 @@ public class Sintactico {
 		this.ambito = "A";
 		this.maxAmbito = this.ambito.charAt(0);
 		this.ambitos.clear();
-		this.ambitos.put("general", this.ambito);
+		this.ambitos.put("main", this.ambito);
 		this.marcaAntes = false;
 		this.marcaDesp = false;
 		this.nombreMarca = new ArrayList<String>();
@@ -237,16 +237,18 @@ public class Sintactico {
 			if(!this.existeVariable(var))
 			{
 				
+				String ambitoReal = this.getNameManglingForAmbito(this.ambito);
+				
 				Token aux = this.lexico.getTokenFromTS(var.sval);
 				this.lexico.removeTokenFromTS(var.sval);
 				
 				String lexema = aux.getLexema();
-				lexema = lexema + "@Variable";
+				lexema = lexema + "@Variable" + ambitoReal;
 				
 				aux.setLexema(lexema);
 				aux.setTipoDato(tipo.sval);		
 				
-				aux.setAmbito(this.ambito);
+				aux.setAmbito(ambitoReal);
 				
 				this.lexico.putSimbolo(aux);	
 			}
@@ -260,14 +262,17 @@ public class Sintactico {
 		
 		if(!this.existeFuncion(nombre))
 		{
+			String ambitoReal = this.getNameManglingForAmbito(this.ambito);
+			
 			Token aux = this.lexico.getTokenFromTS(nombre.sval);
 			this.lexico.removeTokenFromTS(nombre.sval);
 			
 			String lexema = aux.getLexema();
-			lexema = lexema + "@Funcion";
+			lexema = lexema + "@Funcion" + ambitoReal;
 			
 			aux.setLexema(lexema);
-			aux.setTipoDato(tipo.sval);		
+			aux.setTipoDato(tipo.sval);
+			aux.setAmbito(ambitoReal);
 			
 			this.lexico.putSimbolo(aux);	
 		}
@@ -276,54 +281,78 @@ public class Sintactico {
 		}
 	}
 	
+	public String getNameManglingForAmbito(String ambitoValue) {
+		String result = "";
+		int i = 0;
+		String[] individuales = new String[2];
+		individuales[0] = ambitoValue;
+		if(ambitoValue.length() > 1) {
+			individuales[1] = ambitoValue.substring(0, ambitoValue.length()-2);
+			i++;
+		}
+		
+		
+		ArrayList<String> keys = new ArrayList<String>(this.ambitos.keySet());
+		while(i >= 0) {
+			for(String key : keys) {
+				if(this.ambitos.get(key).equals(individuales[i])) {
+					result += "@" + key;
+				}
+			}
+			i--;
+		}
+		return result;
+	}
+	
 	public boolean ambitoCorrecto(ParserVal op1, ParserVal op2) {
 		String ambito1 = "";
 		String ambito2 = "";
+		String ambitoReal = this.getNameManglingForAmbito(this.ambito);
 		
 		if(op1.obj == null) {
 			if(esVariable(op1)) {
-				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getAmbito();
+				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable" + ambitoReal).getAmbito();
 			}
 			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
 				Token aux = this.lexico.getTokenFromTS(op1.sval);
 				this.lexico.removeTokenFromTS(op1.sval);
 											
-				aux.setAmbito(this.ambito);
+				aux.setAmbito(ambitoReal);
 				
 				this.lexico.putSimbolo(aux);
 				
-				ambito1 = this.ambito;
+				ambito1 = ambitoReal;
 			}
 		}
 		
 		if(op2.obj == null) {
 			if(esVariable(op2)) {
-				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getAmbito();
+				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable" + ambitoReal).getAmbito();
 			}
 			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
 				Token aux = this.lexico.getTokenFromTS(op2.sval);
 				this.lexico.removeTokenFromTS(op2.sval);
 											
-				aux.setAmbito(this.ambito);
+				aux.setAmbito(ambitoReal);
 				
 				this.lexico.putSimbolo(aux);
 				
-				ambito2 = this.ambito;
+				ambito2 = ambitoReal;
 			}
 		}
 		
 		if(this.fnMOVE == false) { //si no estoy en una funcion MOVE
-			if((this.ambito.contains(ambito1) && this.ambito.contains(ambito2)) //este caso es por si tengo dos variables.. a+b 
-					|| (op1.obj != null && this.ambito.contains(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
-					|| (this.ambito.contains(ambito1) && op2.obj != null)
+			if((ambitoReal.contains(ambito1) && ambitoReal.contains(ambito2)) //este caso es por si tengo dos variables.. a+b 
+					|| (op1.obj != null && ambitoReal.contains(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
+					|| (ambitoReal.contains(ambito1) && op2.obj != null)
 					|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
 				return true;
 			}
 		}
 		else { //si estoy en una funcion MOVE
-			if((this.ambito.equals(ambito1) && this.ambito.equals(ambito2))
-					|| (op1.obj != null && this.ambito.equals(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
-					|| (this.ambito.equals(ambito1) && op2.obj != null)
+			if((ambitoReal.equals(ambito1) && ambitoReal.equals(ambito2))
+					|| (op1.obj != null && ambitoReal.equals(ambito2)) //etos dos casos, por si tengo un terceto y una variable..
+					|| (ambitoReal.equals(ambito1) && op2.obj != null)
 					|| (op1.obj != null && op2.obj != null)) { //este caso es solo para las operaciones ejemplo.. 2*3 + 5*6 
 				return true;
 			}
@@ -336,9 +365,12 @@ public class Sintactico {
 	public String mismoTipo(ParserVal op1, ParserVal op2) {
 		String tipoDato1;
 		String tipoDato2;
+		String ambitoReal = this.getNameManglingForAmbito(this.ambito);
+		
+		
 		if(op1.obj == null) {
 			if(esVariable(op1)) {
-				tipoDato1 = this.lexico.getTokenFromTS(op1.sval + "@Variable").getTipoDato();	
+				tipoDato1 = this.lexico.getTokenFromTS(op1.sval + "@Variable" + ambitoReal).getTipoDato();	
 			}
 			else {
 				tipoDato1 = this.lexico.getTokenFromTS(op1.sval).getTipoDato();
@@ -350,7 +382,7 @@ public class Sintactico {
 		
 		if(op2.obj == null) {
 			if(esVariable(op2)) {
-				tipoDato2 = this.lexico.getTokenFromTS(op2.sval + "@Variable").getTipoDato();
+				tipoDato2 = this.lexico.getTokenFromTS(op2.sval + "@Variable" + ambitoReal).getTipoDato();
 			}
 			else {
 				tipoDato2 = this.lexico.getTokenFromTS(op2.sval).getTipoDato();
@@ -393,8 +425,11 @@ public class Sintactico {
 	public boolean existeVariable(ParserVal variable)
 	{
 		if(esVariable(variable)) {
-			if(this.lexico.estaDeclarada(variable.sval, "variable", this.ambito)) {
-				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable");
+			
+			String ambitoReal = this.getNameManglingForAmbito(this.ambito);
+			
+			if(this.lexico.estaDeclarada(variable.sval, "variable", ambitoReal)) {
+				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable" + ambitoReal);
 				if(t.getAmbito().equals(this.ambito)) {
 					return true;
 				}
@@ -428,13 +463,14 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("----------------------------------------------------");
 	}
 	
-	public  void aumentarAmbito(ParserVal nomFuncion) {
+	public void aumentarAmbito(ParserVal nomFuncion) {
 		if(this.ambitos.containsKey(nomFuncion.sval)) {
 			this.ambito = this.ambitos.get(nomFuncion.sval);
 		}
 		else {
 			this.maxAmbito = (char)(this.maxAmbito+1); 
 			this.ambito = this.ambito + ":" + this.maxAmbito;
+			this.ambitos.put(nomFuncion.sval, this.ambito);
 		}
 		
 	}
@@ -474,10 +510,10 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
 		
-		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
+		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		//realizo la optimizacion a las listas con tercetos
-		this.tercetos = Optimizador.optimizacionRedundanciaSimple(this.tercetos);
+//		this.tercetos = Optimizador.optimizacionRedundanciaSimple(this.tercetos);
 //		Optimizador.optimizacionRedundanciaSimple(this.tercetosFuncion);
 		//realizo la optimizacion a las listas con tercetos
 		

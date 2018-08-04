@@ -92,7 +92,8 @@ public class TercetoSuma extends Terceto{
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
-				s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
+				s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+				//s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 				s3 += checkOverflowDouble(this.getPos());
 				
 				tokenAux.setTipoDato("DOUBLE");
@@ -115,7 +116,8 @@ public class TercetoSuma extends Terceto{
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
 					s2="FLD " + aux2 + "@Variable";
-					s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					//s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3 += checkOverflowDouble(this.getPos());
 					
 					
@@ -138,7 +140,8 @@ public class TercetoSuma extends Terceto{
 					}
 					
 					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
-					s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
+					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
+					//s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3 += checkOverflowDouble(this.getPos());
 					
 					tokenAux.setTipoDato("DOUBLE");

@@ -319,7 +319,7 @@ public class Lexico {
 		
 		if(dato.equals("variable")) {
 			for (String key : this.tablaSimbolos.keySet()){
-				if(key.equals(lexema + "@Variable")) {
+				if(key.equals(lexema + "@Variable" + ambito)) {
 					String ambitoVarTS = this.tablaSimbolos.get(key).getAmbito();
 					if(ambito.contains(ambitoVarTS)) {
 						return true;						
@@ -329,7 +329,7 @@ public class Lexico {
 		}
 		else if(dato.equals("funcion")) {
 			for (String key : this.tablaSimbolos.keySet()){
-				if(key.equals(lexema + "@Funcion")) {
+				if(key.equals(lexema + "@Funcion" + ambito)) {
 					return true;
 				}
 			}

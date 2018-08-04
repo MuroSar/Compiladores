@@ -103,7 +103,7 @@ public class TercetoDivision extends Terceto{
 					s2="FLD var@@aux" + aux2;
 				}
 				chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
-				s3="FST var@@aux" + this.getPos() + "\n";
+				s3="FSTP var@@aux" + this.getPos() + "\n";
 				tokenAux.setTipoDato("DOUBLE");
 			}
 			else {
@@ -132,7 +132,7 @@ public class TercetoDivision extends Terceto{
 					//ES UNA VARIABLE DOUBLE
 					s2="FLD " + aux2 + "@Variable";
 					chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
-					s3= "FST var@@aux" + this.getPos() + "\n";
+					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {
@@ -153,7 +153,7 @@ public class TercetoDivision extends Terceto{
 					//ES UN VALOR DOUBLE
 					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_'); 
 					chequeo_div_cero ="FTST\n"+ "FSTSW AX\n" +"SAHF\n" +"JE _division_cero\n" + "FDIV";
-					s3="FST var@@aux" + this.getPos() + "\n";
+					s3="FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else {
