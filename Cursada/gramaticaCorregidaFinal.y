@@ -90,7 +90,7 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 												   this.sintactico.addNombreMarca($3.sval);
 												   this.sintactico.funcionPosPut($3, $3.sval);												   
 												   
-												   this.sintactico.actualizaFuncion($3, $1);
+												   this.sintactico.actualizaFuncion($3, $1, true);
 												   this.sintactico.aumentarAmbito($3);
 												   this.funcionActual.push($3.sval);}
 												   
@@ -100,14 +100,14 @@ encabezado_funcion : tipo FUNCTION IDENTIFICADOR { this.sintactico.showMessage("
 											 this.sintactico.addNombreMarca($4.sval);
 											 this.sintactico.funcionPosPut($4, $4.sval);
 											 
-											 this.sintactico.actualizaFuncion($4, $1);
+											 this.sintactico.actualizaFuncion($4, $1, true);
 											 this.sintactico.aumentarAmbito($4);
 											 this.sintactico.setFnMOVE(true);
 											 this.funcionActual.push($4.sval);} 
 		;
 				
 declaracion : lista_variables ':' tipo'.' { this.sintactico.showMessage("Declaraci\u00f3n de variable");
-											this.sintactico.actualizaVariables($1, $3);}
+											this.sintactico.actualizaVariables($1, $3, true);}
 		;
 		
 sentencia_if : IF '(' condicion ')' THEN { ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size()-1)));
@@ -153,7 +153,7 @@ cuerpo_if :  bloque_control END_IF'.' { this.sintactico.showMessage("Sentencia: 
 	/* ERRORES */
 		;
 				
-sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { if(this.sintactico.existeVariable($3))
+sentencia_switch : SWITCH '(' IDENTIFICADOR ')' { if(this.sintactico.existeVariable($3), false)
  												  {
 													  this.sintactico.showMessage("Sentencia: SWITCH");
 													  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
@@ -234,9 +234,9 @@ rep_switch : CASE CONSTANTE { if(this.sintactico.mismoTipo(new ParserVal(this.si
 		
 asignacion : IDENTIFICADOR '=' expresion'.' {this.sintactico.showMessage("Asignaci\u00f3n");
 
-											if(this.sintactico.existeVariable($1))
+											if(this.sintactico.existeVariable($1), false)
  											{
- 												if(this.sintactico.existeVariable($3))
+ 												if(this.sintactico.existeVariable($3), false)
  												{
 		 											if(this.sintactico.ambitoCorrecto($1, $3)) {
 		 												if(this.sintactico.mismoTipo($1, $3) != null) {
@@ -307,8 +307,8 @@ lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>();
 		
 condicion : condicion operador expresion
 		| expresion operador expresion {this.sintactico.showMessage("Condici\u00f3n");
-										if(this.sintactico.existeVariable($1)){
-									     	if(this.sintactico.existeVariable($3)){
+										if(this.sintactico.existeVariable($1), false){
+									     	if(this.sintactico.existeVariable($3), false){
 									     		if(this.sintactico.ambitoCorrecto($1, $3)) {
 										     		if(this.sintactico.mismoTipo($1, $3) != null) {
 														Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size());
@@ -351,8 +351,8 @@ operador : '<'
 		| '=='
 		;
 
-expresion : expresion '+' termino { if(this.sintactico.existeVariable($1)){
-										if(this.sintactico.existeVariable($3)){
+expresion : expresion '+' termino { if(this.sintactico.existeVariable($1), false){
+										if(this.sintactico.existeVariable($3), false){
 											if(this.sintactico.ambitoCorrecto($1, $3)) {	
 		 										if(this.sintactico.mismoTipo($1, $3) != null) {
 													Terceto t =  new TercetoSuma($1, $3, this.sintactico.getTercetos().size());
@@ -383,8 +383,8 @@ expresion : expresion '+' termino { if(this.sintactico.existeVariable($1)){
 										this.sintactico.addError("variable", $1);
 									}}
 									
-		| expresion '-' termino { 	if(this.sintactico.existeVariable($1)){
-										if(this.sintactico.existeVariable($3)){
+		| expresion '-' termino { 	if(this.sintactico.existeVariable($1), false){
+										if(this.sintactico.existeVariable($3), false){
 		 									if(this.sintactico.ambitoCorrecto($1, $3)) {
 		 										if(this.sintactico.mismoTipo($1, $3) != null) {
 													Terceto t =  new TercetoResta($1, $3, this.sintactico.getTercetos().size());
@@ -417,8 +417,8 @@ expresion : expresion '+' termino { if(this.sintactico.existeVariable($1)){
 		| termino
 		;
 
-termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
-									if(this.sintactico.existeVariable($3)){
+termino : termino '*' factor { 	if(this.sintactico.existeVariable($1), false){
+									if(this.sintactico.existeVariable($3), false){
 										if(this.sintactico.ambitoCorrecto($1, $3)) {
 											if(this.sintactico.mismoTipo($1, $3) != null) {
 												Terceto t =  new TercetoMultiplicacion($1, $3, this.sintactico.getTercetos().size());
@@ -449,8 +449,8 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
 									this.sintactico.addError("variable", $1);
 								}}
 							   
-		| termino '/' factor { if(this.sintactico.existeVariable($1)){
-									if(this.sintactico.existeVariable($3)){
+		| termino '/' factor { if(this.sintactico.existeVariable($1), false){
+									if(this.sintactico.existeVariable($3), false){
 										if(this.sintactico.ambitoCorrecto($1, $3)) {
 		 									if(this.sintactico.mismoTipo($1, $3) != null) {
 												Terceto t =  new TercetoDivision($1, $3, this.sintactico.getTercetos().size());
@@ -484,9 +484,9 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1)){
 		;
 
 llamado_funcion : IDENTIFICADOR '('')' { this.sintactico.showMessage("Llamado a funci\u00f3n");
-											if(this.sintactico.existeFuncion($1))
+											if(this.sintactico.existeFuncion($1), false)
  											{
- 												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size());
+ 												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
  												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
  												if(this.sintactico.getMarcaAntes()){
 													t.setMarcaAntes(true);

@@ -27,7 +27,7 @@ public class TercetoAsignacion extends Terceto{
 			aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos()); 
 		}
 		else {
-				aux1 = primeroParserVal.sval + "@Variable";
+				aux1 = primeroParserVal.sval + "@Variable" + this.ambitoReal;
 		}
 		
 		if(segundoParserVal.obj != null) {
@@ -35,7 +35,7 @@ public class TercetoAsignacion extends Terceto{
 			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { 
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s2= "FLD " + nombre_func + "\n" + "FSTP " + aux1;
 				}
 				else {//no es funcion
@@ -44,7 +44,7 @@ public class TercetoAsignacion extends Terceto{
 			}
 			else { //TIPO = A LONG
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s2 = "MOV EAX,"+ nombre_func + "\nMOV " + aux1 + ",EAX" ;
 				}
 				else {//NO ES FUNCION
@@ -55,12 +55,12 @@ public class TercetoAsignacion extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {//ES VARIABLE
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { //TIPO DOUBLE
-					s2 = "FLD " + aux2 + "@Variable" + "\n" + "FSTP " + aux1;
+					s2 = "FLD " + aux2 + "@Variable" + this.ambitoReal + "\n" + "FSTP " + aux1;
 				}
 				else {//TIPO LONG
-					s2 = "MOV EAX," + aux2 + "@Variable" + "\n" + "MOV " + aux1 + ",EAX";
+					s2 = "MOV EAX," + aux2 + "@Variable" + this.ambitoReal + "\n" + "MOV " + aux1 + ",EAX";
 				}
 			}
 			else {	//ES UNA CONSTANTE

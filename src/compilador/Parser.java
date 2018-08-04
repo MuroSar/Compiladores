@@ -718,7 +718,7 @@ case 26:
 												   this.sintactico.addNombreMarca(val_peek(0).sval);
 												   this.sintactico.funcionPosPut(val_peek(0), val_peek(0).sval);												   
 												   
-												   this.sintactico.actualizaFuncion(val_peek(0), val_peek(2));
+												   this.sintactico.actualizaFuncion(val_peek(0), val_peek(2), true);
 												   this.sintactico.aumentarAmbito(val_peek(0));
 												   this.funcionActual.push(val_peek(0).sval);}
 break;
@@ -730,7 +730,7 @@ case 27:
 											 this.sintactico.addNombreMarca(val_peek(0).sval);
 											 this.sintactico.funcionPosPut(val_peek(0), val_peek(0).sval);
 											 
-											 this.sintactico.actualizaFuncion(val_peek(0), val_peek(3));
+											 this.sintactico.actualizaFuncion(val_peek(0), val_peek(3), true);
 											 this.sintactico.aumentarAmbito(val_peek(0));
 											 this.sintactico.setFnMOVE(true);
 											 this.funcionActual.push(val_peek(0).sval);}
@@ -738,7 +738,7 @@ break;
 case 28:
 //#line 109 "gramaticaCorregidaFinal.y"
 { this.sintactico.showMessage("Declaraci\u00f3n de variable");
-											this.sintactico.actualizaVariables(val_peek(3), val_peek(1));}
+											this.sintactico.actualizaVariables(val_peek(3), val_peek(1), true);}
 break;
 case 29:
 //#line 113 "gramaticaCorregidaFinal.y"
@@ -812,7 +812,7 @@ case 40:
 break;
 case 41:
 //#line 156 "gramaticaCorregidaFinal.y"
-{ if(this.sintactico.existeVariable(val_peek(1)))
+{ if(this.sintactico.existeVariable(val_peek(1), false))
  												  {
 													  this.sintactico.showMessage("Sentencia: SWITCH");
 													  ParserVal aux = new ParserVal((String.valueOf(this.sintactico.getTercetos().size())));
@@ -932,9 +932,9 @@ case 59:
 //#line 235 "gramaticaCorregidaFinal.y"
 {this.sintactico.showMessage("Asignaci\u00f3n");
 
-											if(this.sintactico.existeVariable(val_peek(3)))
+											if(this.sintactico.existeVariable(val_peek(3), false))
  											{
- 												if(this.sintactico.existeVariable(val_peek(1)))
+ 												if(this.sintactico.existeVariable(val_peek(1), false))
  												{
 		 											if(this.sintactico.ambitoCorrecto(val_peek(3), val_peek(1))) {
 		 												if(this.sintactico.mismoTipo(val_peek(3), val_peek(1)) != null) {
@@ -1021,8 +1021,8 @@ break;
 case 70:
 //#line 309 "gramaticaCorregidaFinal.y"
 {this.sintactico.showMessage("Condici\u00f3n");
-										if(this.sintactico.existeVariable(val_peek(2))){
-									     	if(this.sintactico.existeVariable(val_peek(0))){
+										if(this.sintactico.existeVariable(val_peek(2), false)){
+									     	if(this.sintactico.existeVariable(val_peek(0), false)){
 									     		if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 										     		if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
 														Terceto t =  new TercetoComparador(val_peek(1), val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
@@ -1059,8 +1059,8 @@ case 71:
 break;
 case 78:
 //#line 354 "gramaticaCorregidaFinal.y"
-{ if(this.sintactico.existeVariable(val_peek(2))){
-										if(this.sintactico.existeVariable(val_peek(0))){
+{ if(this.sintactico.existeVariable(val_peek(2), false)){
+										if(this.sintactico.existeVariable(val_peek(0), false)){
 											if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {	
 		 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
 													Terceto t =  new TercetoSuma(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
@@ -1093,8 +1093,8 @@ case 78:
 break;
 case 79:
 //#line 386 "gramaticaCorregidaFinal.y"
-{ 	if(this.sintactico.existeVariable(val_peek(2))){
-										if(this.sintactico.existeVariable(val_peek(0))){
+{ 	if(this.sintactico.existeVariable(val_peek(2), false)){
+										if(this.sintactico.existeVariable(val_peek(0), false)){
 		 									if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 		 										if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
 													Terceto t =  new TercetoResta(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
@@ -1127,8 +1127,8 @@ case 79:
 break;
 case 81:
 //#line 420 "gramaticaCorregidaFinal.y"
-{ 	if(this.sintactico.existeVariable(val_peek(2))){
-									if(this.sintactico.existeVariable(val_peek(0))){
+{ 	if(this.sintactico.existeVariable(val_peek(2), false)){
+									if(this.sintactico.existeVariable(val_peek(0), false)){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 											if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
 												Terceto t =  new TercetoMultiplicacion(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
@@ -1161,8 +1161,8 @@ case 81:
 break;
 case 82:
 //#line 452 "gramaticaCorregidaFinal.y"
-{ if(this.sintactico.existeVariable(val_peek(2))){
-									if(this.sintactico.existeVariable(val_peek(0))){
+{ if(this.sintactico.existeVariable(val_peek(2), false)){
+									if(this.sintactico.existeVariable(val_peek(0), false)){
 										if(this.sintactico.ambitoCorrecto(val_peek(2), val_peek(0))) {
 		 									if(this.sintactico.mismoTipo(val_peek(2), val_peek(0)) != null) {
 												Terceto t =  new TercetoDivision(val_peek(2), val_peek(0), this.sintactico.getTercetos().size());
@@ -1196,9 +1196,9 @@ break;
 case 84:
 //#line 486 "gramaticaCorregidaFinal.y"
 { this.sintactico.showMessage("Llamado a funci\u00f3n");
-											if(this.sintactico.existeFuncion(val_peek(2)))
+											if(this.sintactico.existeFuncion(val_peek(2), false))
  											{
- 												Terceto t =  new TercetoFuncion(val_peek(2), this.sintactico.getTercetos().size());
+ 												Terceto t =  new TercetoFuncion(val_peek(2), this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
  												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
  												if(this.sintactico.getMarcaAntes()){
 													t.setMarcaAntes(true);

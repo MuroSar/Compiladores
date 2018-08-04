@@ -1,5 +1,6 @@
 package Tercetos;
 
+import compilador.GenCodigo;
 import compilador.Lexico;
 import compilador.ParserVal;
 import complementos.Token;
@@ -8,17 +9,19 @@ public class TercetoFuncion extends Terceto {
 	
 	private Token tokenAux = new Token();
 
-	public TercetoFuncion(ParserVal primero, int pos) {
+	public TercetoFuncion(ParserVal primero, int pos, GenCodigo generador) {
 		super("FN", primero, null, pos);
 		
-		this.setTipoDato(Lexico.getTokenFromTS(primero.sval + "@Funcion").getTipoDato());
+		String ambitoReal = generador.getSintactico().getNameManglingForAmbito(generador.getSintactico().getAmbito());
+		
+		this.setTipoDato(Lexico.getTokenFromTS(primero.sval + "@Funcion" + ambitoReal).getTipoDato());
 		
 	}
 		
 	public String getCodigo()
 	{
 		String s=this.generador.getNombreFuncion(this.primero);
-		tokenAux.setLexema(s+"@Funcion");
+		tokenAux.setLexema(s + "@Funcion" + this.ambitoReal);
 		tokenAux.setTipoDato(this.getTipoDato());
 		tokenAux.setType("Identificador");
 		

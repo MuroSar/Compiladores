@@ -15,6 +15,7 @@ public abstract class Terceto implements Comparable<Terceto>{
 	protected boolean marcaDesp = false;
 	protected ParserVal primeroParserVal;
 	protected ParserVal segundoParserVal;
+	protected String ambitoReal;
 	
 	//para el borrado logico de la optimizacion
 	private boolean isDeleted = false;
@@ -164,6 +165,14 @@ public abstract class Terceto implements Comparable<Terceto>{
 		this.segundoParserVal = segundoParserVal;
 	}
 	
+	public String getAmbitoReal() {
+		return ambitoReal;
+	}
+
+	public void setAmbitoReal(String ambitoReal) {
+		this.ambitoReal = ambitoReal;
+	}
+
 	@Override
     public int compareTo(Terceto t) {
         if (this.pos > t.getPos()) {

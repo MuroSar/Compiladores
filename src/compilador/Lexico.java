@@ -213,7 +213,18 @@ public class Lexico {
 	
 	public static Token getTokenFromTS(String key)
 	{
-		return tablaSimbolos.get(key);
+		Token result = tablaSimbolos.get(key);
+		String auxKey = "";
+		if(result == null) {
+			 String[] aux = key.split("@");
+			 auxKey = aux[0];
+			 
+			 for(int i=1; i<aux.length-1; i++) {
+				 auxKey = auxKey + "@" + aux[i];
+			 }
+			 result = tablaSimbolos.get(auxKey);
+		 }
+		 return result;
 	}
 
 	public static void removeTokenFromTS(String key) 
@@ -315,25 +326,46 @@ public class Lexico {
 		return result;
 	}
 	
-	public boolean estaDeclarada(String lexema, String dato, String ambito) {
-		
-		if(dato.equals("variable")) {
-			for (String key : this.tablaSimbolos.keySet()){
-				if(key.equals(lexema + "@Variable" + ambito)) {
-					String ambitoVarTS = this.tablaSimbolos.get(key).getAmbito();
-					if(ambito.contains(ambitoVarTS)) {
-						return true;						
+	public boolean estaDeclarada(String lexema, String dato, String ambito, boolean esDeclaracion) {
+		if(esDeclaracion) {
+			if(dato.equals("variable")) {
+				for (String key : this.tablaSimbolos.keySet()){
+					if(key.equals(lexema + "@Variable" + ambito)) {
+						String ambitoVarTS = this.tablaSimbolos.get(key).getAmbito();
+						if(ambito.contains(ambitoVarTS)) {
+							return true;						
+						}
+					}
+				}
+			}
+			else if(dato.equals("funcion")) {
+				for (String key : this.tablaSimbolos.keySet()){
+					if(key.equals(lexema + "@Funcion" + ambito)) {
+						return true;
+					}
+				}
+			}	
+		}
+		else {
+			if(dato.equals("variable")) {
+				for (String key : this.tablaSimbolos.keySet()){
+					if((lexema + "@Variable" + ambito).contains(key)) {
+						String ambitoVarTS = this.tablaSimbolos.get(key).getAmbito();
+						if(ambito.contains(ambitoVarTS)) {
+							return true;						
+						}
+					}
+				}
+			}
+			else if(dato.contains("funcion")) {
+				for (String key : this.tablaSimbolos.keySet()){
+					if(key.equals(lexema + "@Funcion" + ambito)) {
+						return true;
 					}
 				}
 			}
 		}
-		else if(dato.equals("funcion")) {
-			for (String key : this.tablaSimbolos.keySet()){
-				if(key.equals(lexema + "@Funcion" + ambito)) {
-					return true;
-				}
-			}
-		}
+		
 		return false;
 	}
 	

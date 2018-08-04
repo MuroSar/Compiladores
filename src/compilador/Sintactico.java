@@ -1,6 +1,7 @@
 package compilador;
 
 import compilador.Parser;
+import complementos.ErrorToken;
 import complementos.Token;
 
 import java.lang.reflect.Array;
@@ -61,6 +62,7 @@ public class Sintactico {
 		this.nombreMarca = new ArrayList<String>();
 		
 		this.tercetosFuncion = new ArrayList<Terceto>();
+		this.generador.setSintactico(this);
 	}
 	
 	public void nuevo() {
@@ -77,6 +79,7 @@ public class Sintactico {
 		this.marcaDesp = false;
 		this.nombreMarca = new ArrayList<String>();
 		this.tercetosFuncion.clear();
+		this.generador.setSintactico(this);
 	}
 	
 	public String getIDSwitch() {
@@ -87,6 +90,10 @@ public class Sintactico {
 		this.IDSwitch = id;
 	}
 	
+	public GenCodigo getGenerador() {
+		return generador;
+	}
+
 	public static boolean getMarcaAntes() {
 		return marcaAntes;
 	}
@@ -184,6 +191,7 @@ public class Sintactico {
 	
 	public String showErrores() {
 		String errors = "";
+		
 		for (String error : this.errores)
 		{
 			errors = errors + error + "\n";
@@ -230,11 +238,11 @@ public class Sintactico {
 		return this.tercetos;
 	}
 	
-	public void actualizaVariables(ParserVal PVvariables, ParserVal tipo) {
+	public void actualizaVariables(ParserVal PVvariables, ParserVal tipo, boolean esDeclaracion) {
 		ArrayList<ParserVal> variables = new ArrayList<ParserVal>(((ArrayList<ParserVal>)PVvariables.obj));
 		
 		for(ParserVal var : variables) {
-			if(!this.existeVariable(var))
+			if(!this.existeVariable(var, esDeclaracion))
 			{
 				
 				String ambitoReal = this.getNameManglingForAmbito(this.ambito);
@@ -258,9 +266,9 @@ public class Sintactico {
 		}
 	}
 	
-	public void actualizaFuncion(ParserVal nombre, ParserVal tipo) {
+	public void actualizaFuncion(ParserVal nombre, ParserVal tipo, boolean esDeclaracion) {
 		
-		if(!this.existeFuncion(nombre))
+		if(!this.existeFuncion(nombre, esDeclaracion))
 		{
 			String ambitoReal = this.getNameManglingForAmbito(this.ambito);
 			
@@ -422,18 +430,18 @@ public class Sintactico {
 		t.setTipoDato(mismoTipo(val1, val2));
 	}
 	
-	public boolean existeVariable(ParserVal variable)
+	public boolean existeVariable(ParserVal variable, boolean esDeclaracion)
 	{
 		if(esVariable(variable)) {
 			
 			String ambitoReal = this.getNameManglingForAmbito(this.ambito);
 			
-			if(this.lexico.estaDeclarada(variable.sval, "variable", ambitoReal)) {
+			if(this.lexico.estaDeclarada(variable.sval, "variable", ambitoReal, esDeclaracion)) {
 				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable" + ambitoReal);
-				if(t.getAmbito().equals(this.ambito)) {
+				if(t.getAmbito().equals(ambitoReal)) {
 					return true;
 				}
-				else if(t.getAmbito().contains(this.ambito)) {
+				else if(t.getAmbito().contains(ambitoReal)) {
 					return false;
 				}
 			}
@@ -444,9 +452,9 @@ public class Sintactico {
 		return true;
 	}
 	
-	public boolean existeFuncion(ParserVal funcion)
+	public boolean existeFuncion(ParserVal funcion, boolean esDeclaracion)
 	{
-		return this.lexico.estaDeclarada(funcion.sval, "funcion", null);
+		return this.lexico.estaDeclarada(funcion.sval, "funcion", this.getNameManglingForAmbito(this.ambito), esDeclaracion);
 	}
 	
 	public void showMessage(String mensaje)
@@ -487,10 +495,10 @@ public class Sintactico {
 		return lexico;
 	}
 	
-	public void start() {
-		this.ppal.mostrarMensaje("------------------LISTADO DE TOKENS------------------");
-		this.ppal.mostrarMensaje("");
-		this.lexico.showAllTokens();
+	public void start() {		
+//		this.ppal.mostrarMensaje("------------------LISTADO DE TOKENS------------------");
+//		this.ppal.mostrarMensaje("");
+//		this.lexico.showAllTokens();
 		
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("----------------------GRAMATICA----------------------");
@@ -510,10 +518,8 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
 		
-		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
-		
 		//realizo la optimizacion a las listas con tercetos
-//		this.tercetos = Optimizador.optimizacionRedundanciaSimple(this.tercetos);
+		this.tercetos = Optimizador.optimizacionRedundanciaSimple(this.tercetos);
 //		Optimizador.optimizacionRedundanciaSimple(this.tercetosFuncion);
 		//realizo la optimizacion a las listas con tercetos
 		
@@ -523,10 +529,12 @@ public class Sintactico {
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje(this.showTercetos());
 		
-		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje("-----------------------ERRORES----------------------");
-		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje(this.showErrores());
+		if(this.huboErrores()) {
+			this.ppal.mostrarMensaje("");
+			this.ppal.mostrarMensaje("-----------------------ERRORES----------------------");
+			this.ppal.mostrarMensaje("");
+			this.ppal.mostrarMensaje(this.showErrores());	
+		}
 
 		this.ppal.mostrarMensaje("");
 		this.ppal.mostrarMensaje("-----------------------CODIGO-----------------------");
@@ -534,10 +542,9 @@ public class Sintactico {
 		
 		this.lexico.depurarTS();
 		
-		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
+		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.generador.setListaTercetos(this.getAllTercetos()); 
-		this.generador.setSintactico(this);
 		this.generador.generarCodigo();
 		
 		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());

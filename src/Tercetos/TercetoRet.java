@@ -33,8 +33,8 @@ public class TercetoRet extends Terceto{
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
 					retorno = "ERROR";
 				}
-				else {//no es funcion
-					retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
+				else {
+					retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + this.ambitoReal + "\n";
 				}
 				t.setTipoDato("DOUBLE");
 			}
@@ -44,7 +44,7 @@ public class TercetoRet extends Terceto{
 					retorno = "ERROR";
 				}
 				else {
-					retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + this.nombreFuncion + "@Funcion,EAX" + "\n";
+					retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + this.nombreFuncion + "@Funcion" + this.ambitoReal  + ",EAX" + "\n";
 				}
 				t.setTipoDato("LONG");
 			}
@@ -52,15 +52,14 @@ public class TercetoRet extends Terceto{
 		else {
 			String aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) { //es una variable
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
 					t.setTipoDato("DOUBLE");
-					retorno = "FLD "+ aux1 + "@Variable" + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + "\n";
+					retorno = "FLD "+ aux1 + "@Variable" + this.ambitoReal + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + this.ambitoReal + "\n";
 				}
 				else { //es una variable de tipo LONG
 					t.setTipoDato("LONG");
-					retorno = "MOV EAX,"+ aux1 + "@Variable" + "\n" + "MOV " + this.nombreFuncion + "@Funcion,EAX" + "\n";
-					//t.setDestino(this.generador.getSintactico().getLexico().getTokenFromTS(primero.sval+"@Variable").getDestino());
+					retorno = "MOV EAX,"+ aux1 + "@Variable" + this.ambitoReal + "\n" + "MOV " + this.nombreFuncion + "@Funcion" + this.ambitoReal + ",EAX" + "\n";
 				}
 			}
 			else {
@@ -70,11 +69,11 @@ public class TercetoRet extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}					
-					retorno = "FLD const@@"+aux1.replace(',', '_') + "\n" + "FSTP " + this.nombreFuncion  + "@Funcion" +"\n";
+					retorno = "FLD const@@"+aux1.replace(',', '_') + "\n" + "FSTP " + this.nombreFuncion  + "@Funcion" + this.ambitoReal +"\n";
 				}
 				else { //es una constante de tipo LONG
 					t.setTipoDato("LONG");
-					retorno = "MOV EAX," + aux1 + "\n" + "MOV " + this.nombreFuncion  + "@Funcion,EAX" +"\n";
+					retorno = "MOV EAX," + aux1 + "\n" + "MOV " + this.nombreFuncion  + "@Funcion" + this.ambitoReal + ",EAX" +"\n";
 				}
 			}
 		}

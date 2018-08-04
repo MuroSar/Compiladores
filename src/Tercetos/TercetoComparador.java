@@ -51,7 +51,7 @@ public class TercetoComparador extends Terceto{
 			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					salidaDouble = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -61,7 +61,7 @@ public class TercetoComparador extends Terceto{
 			else {
 				//tipo igual a LONG
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
@@ -73,12 +73,12 @@ public class TercetoComparador extends Terceto{
 		else {
 			aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
-					salidaDouble="FLD " + aux1 + "@Variable\n";
+					salidaDouble="FLD " + aux1 + "@Variable" + this.ambitoReal + "\n";
 				}
 				else { //es una variable de tipo LONG
-					s1=aux1+ "@Variable"; //es una variable
+					s1=aux1+ "@Variable" + this.ambitoReal; //es una variable
 					CodAux="MOV EAX," + s1 + "\n";
 				}
 			}
@@ -102,7 +102,7 @@ public class TercetoComparador extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion de tipo DOUBLE
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}
@@ -120,7 +120,7 @@ public class TercetoComparador extends Terceto{
 			else {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion LONG
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					return label + CodAux + "CMP EAX," + nombre_func + "\n" + labelDesp;
 				}
 				else {
@@ -133,9 +133,9 @@ public class TercetoComparador extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					salidaDouble +="FLD "+ aux2 + "@Variable\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
+					salidaDouble +="FLD "+ aux2 + "@Variable"+ this.ambitoReal + "\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}
@@ -143,7 +143,7 @@ public class TercetoComparador extends Terceto{
 				}
 				else
 				{
-					s2=aux2+ "@Variable"; 
+					s2=aux2 + "@Variable" + this.ambitoReal; 
 					s3 = "MOV EAX," + s2 + "\n";
 					return label + CodAux + s3 + "CMP " + s1 + ",EAX" + "\n" + labelDesp;
 				}

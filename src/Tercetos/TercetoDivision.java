@@ -35,7 +35,7 @@ public class TercetoDivision extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
 					//ES UNA FUNCION DOUBLE
-					nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
+					nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s1= "FLD " + nombre_func ;
 				}
 				else {
@@ -46,7 +46,7 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
 					//ES UNA FUNCION LONG
-					nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
+					nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s1= "MOV EAX," + nombre_func + "\n" + "CDQ" ;
 				}
 				else {
@@ -59,14 +59,14 @@ public class TercetoDivision extends Terceto{
 		else {
 			aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { 
 					//ES UNA VARIABLE DOUBLE
-					s1= "FLD " + aux1 + "@Variable";
+					s1= "FLD " + aux1 + "@Variable" + this.ambitoReal;
 				}
 				else {
 					//ES UNA VARIABLE LONG
-					s1="MOV EAX,"+aux1+ "@Variable" + "\n" + "CDQ";
+					s1="MOV EAX,"+aux1+ "@Variable" + this.ambitoReal + "\n" + "CDQ";
 				}
 			}
 			else {
@@ -76,11 +76,11 @@ public class TercetoDivision extends Terceto{
 						this.generador.setDeclaracionesConst(aux);	
 					}
 					//ES UN VALOR DOUBLE
-					s1= "FLD const@@"+aux1.replace(',', '_').replace('-', '_');
+					s1= "FLD const@@" + aux1.replace(',', '_').replace('-', '_');
 				}
 				else { 
 					//ES UN VALOR LONG
-					s1="MOV EAX,"+aux1 + "\n" + "CDQ";
+					s1="MOV EAX," + aux1 + "\n" + "CDQ";
 				}
 			}
 		}
@@ -93,13 +93,11 @@ public class TercetoDivision extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//ES UNA FUNCION DOUBLE
-					nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s2= "FLD " + nombre_func;
 				}
 				else {
 					//ES UN VALOR DOUBLE
-					//revisar
-					//this.generador.setDeclaracionesConst("var@@aux" + aux2 + " DD ?\n");
 					s2="FLD var@@aux" + aux2;
 				}
 				chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "\n" + "JE _division_cero\n" + "FDIV";
@@ -109,7 +107,7 @@ public class TercetoDivision extends Terceto{
 			else {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) { 
 					//ES UNA FUNCION LONG
-					nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s2 = ""; 
 					op2=nombre_func;
 				}
@@ -127,10 +125,10 @@ public class TercetoDivision extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					//ES UNA VARIABLE DOUBLE
-					s2="FLD " + aux2 + "@Variable";
+					s2="FLD " + aux2 + "@Variable" + this.ambitoReal;
 					chequeo_div_cero = "FTST\n" + "FSTSW AX\n" + "SAHF\n" + "JE _division_cero\n" + "FDIV";
 					s3= "FSTP var@@aux" + this.getPos() + "\n";
 					tokenAux.setTipoDato("DOUBLE");
@@ -138,7 +136,7 @@ public class TercetoDivision extends Terceto{
 				else {
 					//ES UNA VARIABLE LONG
 					s2= "";
-					op2=aux2+ "@Variable";
+					op2=aux2 + "@Variable" + this.ambitoReal;
 					chequeo_div_cero = "CMP " + op2 + ",0" + "\n" + "JE _division_cero" + "\n" + "MOV EBX," + op2 + "\n" + "CDQ" + "\n" + "IDIV EBX";
 					s3="MOV var@@aux"+ this.getPos()+ ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");

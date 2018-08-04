@@ -36,7 +36,7 @@ public class TercetoSuma extends Terceto{
 			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto que retorna DOUBLE
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s1 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -45,7 +45,7 @@ public class TercetoSuma extends Terceto{
 			}
 			else { //es un terceto que retorna LONG
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s1 = "MOV EAX," + nombre_func;
 				}
 				else {
@@ -56,12 +56,12 @@ public class TercetoSuma extends Terceto{
 		else {
 			aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable").getTipoDato();
+				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1+"@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { 
-					s1= "FLD " + aux1 + "@Variable";
+					s1= "FLD " + aux1 + "@Variable" + this.ambitoReal;
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV EAX," + aux1 + "@Variable";  
+					s1="MOV EAX," + aux1 + "@Variable" + this.ambitoReal;  
 				}
 			}
 			else {
@@ -86,14 +86,13 @@ public class TercetoSuma extends Terceto{
 			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { //es un terceto de tipo DOUBLE
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s2 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
 					s2="FLD var@@aux" + aux2;
 				}
 				s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-				//s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 				s3 += checkOverflowDouble(this.getPos());
 				
 				tokenAux.setTipoDato("DOUBLE");
@@ -101,7 +100,7 @@ public class TercetoSuma extends Terceto{
 			else {// es un terceto de tipo LONG
 				tokenAux.setTipoDato("LONG");		
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion";
+					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					s2= "ADD EAX," + nombre_func;				}
 				else {
 					s2="ADD EAX,var@@aux" + aux2;
@@ -112,20 +111,18 @@ public class TercetoSuma extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2+"@Variable").getTipoDato();
+				String tipo = this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					//es una variable de tipo DOUBLE
-					s2="FLD " + aux2 + "@Variable";
+					s2="FLD " + aux2 + "@Variable" + this.ambitoReal;
 					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-					//s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3 += checkOverflowDouble(this.getPos());
-					
 					
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
 				{ //es una variable de tipo LONG
-					s2="ADD EAX," + aux2 + "@Variable";
+					s2="ADD EAX," + aux2 + "@Variable" + this.ambitoReal;
 					s3="JO _overflow\n" + "MOV var@@aux" + this.getPos() + ",EAX" + "\n";
 					tokenAux.setTipoDato("LONG");
 				}
@@ -141,7 +138,6 @@ public class TercetoSuma extends Terceto{
 					
 					s2= "FLD const@@"+aux2.replace(',', '_').replace('-', '_');
 					s3="FADD" + "\n" + "FSTP var@@aux" + this.getPos() + "\n";
-					//s3="FADD" + "\n" + "FST var@@aux" + this.getPos() + "\n";
 					s3 += checkOverflowDouble(this.getPos());
 					
 					tokenAux.setTipoDato("DOUBLE");

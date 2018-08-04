@@ -138,8 +138,6 @@ public class GenCodigo {
         declaracion += "__CERO DQ 0.0\n";
         declaracion += "__MIN_DOUBLE DQ " + Double.MIN_NORMAL + "\n";
         declaracion += "__MAX_DOUBLE DQ " + Double.MAX_VALUE + "\n";
-        //declaracion += "__MIN_DOUBLE_NEGATIVO DQ -" + Double.MIN_NORMAL + "\n";
-        //declaracion += "__MAX_DOUBLE_NEGATIVO DQ -" + Double.MAX_VALUE + "\n";
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
         declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
         for (String key : this.sintactico.getLexico().getTSKeys()) {
@@ -174,6 +172,7 @@ public class GenCodigo {
 	        for (Terceto t : this.tercetosFuncion) {
 	        	if(!t.isDeleted()) {
 	        		t.setGenerador(this);
+	        		t.setAmbitoReal(sintactico.getNameManglingForAmbito(sintactico.getAmbito()));
 					instrucciones += t.getCodigo();	
 	        	}
 			}
@@ -183,6 +182,7 @@ public class GenCodigo {
 				if(!t.isDeleted()) {
 					if(!this.tercetosFuncion.contains(t)) {
 						t.setGenerador(this);
+						t.setAmbitoReal(sintactico.getNameManglingForAmbito(sintactico.getAmbito()));
 						instrucciones += t.getCodigo();	
 					}
 					else {
