@@ -28,7 +28,8 @@ public class TercetoAsignacion extends Terceto{
 			aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos()); 
 		}
 		else {
-				aux1 = primeroParserVal.sval + "@Variable" + this.ambitoReal;
+			Token token = this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval + "@Variable" + this.ambitoReal);
+			aux1 = token.getLexema();
 		}
 		
 		if(segundoParserVal.obj != null) {
@@ -36,7 +37,9 @@ public class TercetoAsignacion extends Terceto{
 			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { 
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					s2= "FLD " + nombre_func + "\n" + "FSTP " + aux1;
 				}
 				else {//no es funcion
@@ -45,7 +48,9 @@ public class TercetoAsignacion extends Terceto{
 			}
 			else { //TIPO = A LONG
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					s2 = "MOV EAX,"+ nombre_func + "\nMOV " + aux1 + ",EAX" ;
 				}
 				else {//NO ES FUNCION

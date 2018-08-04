@@ -3,6 +3,7 @@ package Tercetos;
 import compilador.GenCodigo;
 import compilador.ParserVal;
 import compilador.Sintactico;
+import complementos.Token;
 
 public class TercetoComparador extends Terceto{
 	
@@ -52,7 +53,9 @@ public class TercetoComparador extends Terceto{
 			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					salidaDouble = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -62,12 +65,16 @@ public class TercetoComparador extends Terceto{
 			else {
 				//tipo igual a LONG
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
-					s1 = "MOV EAX," + nombre_func;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
+					//s1 = "MOV EAX," + nombre_func;
+					s1 = "EAX";
+					CodAux = "MOV EAX," + nombre_func + "\n";
 				}
 				else {
-				s1 = "var@@aux"+aux1;
-				CodAux = "MOV EAX,"  + s1 + "\n";
+					s1 = "var@@aux"+aux1;
+					CodAux = "MOV EAX,"  + s1 + "\n";
 				}
 			}
 		}
@@ -103,7 +110,9 @@ public class TercetoComparador extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion de tipo DOUBLE
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}
@@ -121,7 +130,9 @@ public class TercetoComparador extends Terceto{
 			else {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion LONG
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					return label + CodAux + "CMP EAX," + nombre_func + "\n" + labelDesp;
 				}
 				else {

@@ -31,7 +31,9 @@ public class TercetoResta extends Terceto{
 			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					s1 = "FLD " + nombre_func + "\n";
 				}
 				else {//no es funcion
@@ -40,7 +42,9 @@ public class TercetoResta extends Terceto{
 			}
 			else {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					s1 = "MOV EAX," + nombre_func + "\n";
 				}
 				else {
@@ -51,12 +55,13 @@ public class TercetoResta extends Terceto{
 		else {
 			aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1 + "@Variable" + this.ambitoReal).getTipoDato();
+				Token token = this.generador.getSintactico().getLexico().getTokenFromTS(aux1 + "@Variable" + this.ambitoReal);
+				String tipo = token.getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
-					s1= "FLD " + aux1 + "@Variable" + this.ambitoReal;
+					s1= "FLD " + aux1 + "@Variable" + token.getAmbito();
 				}
 				else { //es una variable de tipo LONG
-					s1="MOV EAX,"+aux1+"@Variable" + this.ambitoReal; 
+					s1="MOV EAX,"+aux1+"@Variable" + token.getAmbito(); 
 				}
 			}
 			else {
@@ -79,7 +84,9 @@ public class TercetoResta extends Terceto{
 			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					s2 = "FLD " + nombre_func;
 				}
 				else {//no es funcion
@@ -90,7 +97,9 @@ public class TercetoResta extends Terceto{
 			}
 			else {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					String nombre_func = token.getLexema();
 					s2 = "SUB EAX," + nombre_func;
 				}
 				else {
@@ -103,15 +112,16 @@ public class TercetoResta extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
+				Token token = this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal);
+				String tipo = token.getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					s2="FLD " + aux2 + "@Variable" + this.ambitoReal;
+					s2="FLD " + aux2 + "@Variable" + token.getAmbito();
 					s3="FSUB" + "\n" + "FSTP var@@aux" + this.getPos();
 					tokenAux.setTipoDato("DOUBLE");
 				}
 				else
 				{
-					s2="SUB EAX," + aux2 + "@Variable" + this.ambitoReal;
+					s2="SUB EAX," + aux2 + "@Variable" + token.getAmbito();
 					s3="MOV var@@aux"+ this.getPos() + ",EAX";
 					tokenAux.setTipoDato("LONG");
 				}

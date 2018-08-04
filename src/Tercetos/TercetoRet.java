@@ -35,7 +35,9 @@ public class TercetoRet extends Terceto{
 					retorno = "ERROR";
 				}
 				else {
-					retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + this.ambitoReal + "\n";
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(this.nombreFuncion + "@Funcion" + this.ambitoReal);
+					//retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + this.ambitoReal + "\n";
+					retorno = "FLD var@@aux" + aux1 + "\n" + "FSTP " + token.getLexema() + "\n";
 				}
 				t.setTipoDato("DOUBLE");
 			}
@@ -45,22 +47,25 @@ public class TercetoRet extends Terceto{
 					retorno = "ERROR";
 				}
 				else {
-					retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + this.nombreFuncion + "@Funcion" + this.ambitoReal  + ",EAX" + "\n";
+					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(this.nombreFuncion + "@Funcion" + this.ambitoReal);
+					retorno = "MOV EAX,var@@aux" + aux1 + "\n" + "MOV " + token.getLexema() + ",EAX" + "\n";
 				}
 				t.setTipoDato("LONG");
 			}
 		}
 		else {
+			Token tokenFuncion = this.generador.getSintactico().getLexico().getTokenFromTS(this.nombreFuncion + "@Funcion" + this.ambitoReal);
 			String aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) { //es una variable
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval + "@Variable" + this.ambitoReal).getTipoDato();
+				Token token = this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval + "@Variable" + this.ambitoReal);
+				String tipo = token.getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
 					t.setTipoDato("DOUBLE");
-					retorno = "FLD "+ aux1 + "@Variable" + this.ambitoReal + "\n" + "FSTP " + this.nombreFuncion + "@Funcion" + this.ambitoReal + "\n";
+					retorno = "FLD "+ aux1 + "@Variable" + token.getAmbito() + "\n" + "FSTP " + tokenFuncion.getLexema() + "\n";
 				}
 				else { //es una variable de tipo LONG
 					t.setTipoDato("LONG");
-					retorno = "MOV EAX,"+ aux1 + "@Variable" + this.ambitoReal + "\n" + "MOV " + this.nombreFuncion + "@Funcion" + this.ambitoReal + ",EAX" + "\n";
+					retorno = "MOV EAX,"+ aux1 + "@Variable" + token.getAmbito() + "\n" + "MOV " + tokenFuncion.getLexema() + ",EAX" + "\n";
 				}
 			}
 			else {
@@ -70,11 +75,11 @@ public class TercetoRet extends Terceto{
 					if(!this.generador.delcaracionesConstContains(aux)) {
 						this.generador.setDeclaracionesConst(aux);	
 					}					
-					retorno = "FLD const@@"+aux1.replace(',', '_') + "\n" + "FSTP " + this.nombreFuncion  + "@Funcion" + this.ambitoReal +"\n";
+					retorno = "FLD const@@"+aux1.replace(',', '_') + "\n" + "FSTP " + tokenFuncion.getLexema() +"\n";
 				}
 				else { //es una constante de tipo LONG
 					t.setTipoDato("LONG");
-					retorno = "MOV EAX," + aux1 + "\n" + "MOV " + this.nombreFuncion  + "@Funcion" + this.ambitoReal + ",EAX" +"\n";
+					retorno = "MOV EAX," + aux1 + "\n" + "MOV " + tokenFuncion.getLexema() + ",EAX" +"\n";
 				}
 			}
 		}
