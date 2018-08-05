@@ -441,7 +441,7 @@ public class Sintactico {
 				if(t.getAmbito().equals(ambitoReal)) {
 					return true;
 				}
-				else if(t.getAmbito().contains(ambitoReal)) {
+				else if(ambitoReal.contains(t.getAmbito())) {
 					return false;
 				}
 			}
