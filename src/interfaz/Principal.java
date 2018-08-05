@@ -252,7 +252,13 @@ public class Principal extends JFrame {
 		buscador.setVisible(true);
 		FileNameExtensionFilter filtro = new FileNameExtensionFilter("txt", "txt");
 		buscador.setFileFilter(filtro);
-		int valorRetorno = buscador.showOpenDialog(null);
+		
+		if(archivoACargar != null ) {
+			//para cargar el último path usado
+			buscador.setCurrentDirectory(archivoACargar.getParentFile());	
+		}
+		
+		int valorRetorno = buscador.showOpenDialog(null);			
 		if (valorRetorno == JFileChooser.APPROVE_OPTION) {
 			archivoACargar = buscador.getSelectedFile();
 			lexico.cargar(archivoACargar);		
