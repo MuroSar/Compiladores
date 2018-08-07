@@ -56,7 +56,7 @@ public class TercetoComparador extends Terceto{
 					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					String nombre_func = token.getLexema();
-					salidaDouble = "FLD " + nombre_func;
+					salidaDouble = "FLD " + nombre_func + "\n";
 				}
 				else {//no es funcion
 					salidaDouble = "FLD var@@aux" + aux1 + "\n"; //es un terceto y el resultado es un DOUBLE

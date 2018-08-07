@@ -438,12 +438,12 @@ public class Sintactico {
 			
 			if(this.lexico.estaDeclarada(variable.sval, "variable", ambitoReal, esDeclaracion)) {
 				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable" + ambitoReal);
-				if(t.getAmbito().equals(ambitoReal)) {
+				if(t.getAmbito().equals(ambitoReal) || ambitoReal.contains(t.getAmbito())) {
 					return true;
 				}
-				else if(t.getAmbito().contains(ambitoReal)) {
-					return false;
-				}
+//				else if(t.getAmbito().contains(ambitoReal)) {
+//					return false;
+//				}
 			}
 			else {
 				return false;
