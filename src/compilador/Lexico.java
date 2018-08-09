@@ -146,7 +146,7 @@ public class Lexico {
 				if(pos < this.locs.get(fila).length())
 				{
 					char loQueLee = this.locs.get(fila).charAt(pos);
-					if(loQueLee != ' ')
+					if(loQueLee != ' ' && loQueLee != '\t')
 					{
 						while (estado != this.FINAL && !terminoArchivo)
 						{
