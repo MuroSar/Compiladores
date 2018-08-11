@@ -1,0 +1,102 @@
+a,b,c:DOUBLE.
+
+a = -10,0.
+b = -3,0.
+c=a+b.
+IF (c == -13,0) THEN
+OUT("Suma var = -cte anda Double").
+ELSE
+OUT("Suma var = -cte no anda Double").
+END_IF.
+
+a = -10,0.
+b = -3,0.
+IF (a+b == -13,0) THEN
+OUT("Suma var+var = -cte anda Double").
+ELSE
+OUT("Suma var+var = -cte no anda Double").
+END_IF.
+
+a = -10,0.
+IF (a+-3,0 == -13,0) THEN
+OUT("Suma var+-cte = -cte anda Double").
+ELSE
+OUT("Suma var+-cte = -cte no anda Double").
+END_IF.
+
+b = -3,0.
+IF (-10,0+b == -13,0) THEN
+OUT("Suma -cte+var = -cte anda Double").
+ELSE
+OUT("Suma -cte+var = -cte no anda Double").
+END_IF.
+
+IF (-10,0+-3,0 == -13,0) THEN
+OUT("Suma -cte+-cte = -cte anda Double").
+ELSE
+OUT("Suma -cte+-cte = -cte no anda Double").
+END_IF.
+
+DOUBLE FUNCTION salida3 {
+	aB1 : DOUBLE.
+	aB1 = -3,0.
+RETURN ( aB1 ).
+}
+
+DOUBLE FUNCTION salida10 {
+	aB1 : DOUBLE.
+	aB1 = -10,0.
+RETURN ( aB1 ).
+}
+
+a = -10,0.
+IF (a+salida3() == -13,0) THEN
+OUT("Suma var+fn = -cte anda Double").
+ELSE
+OUT("Suma var+fn = -cte no anda Double").
+END_IF.
+
+b = -3,0.
+IF (salida10()+b == -13,0) THEN
+OUT("Suma fn+var = -cte anda Double").
+ELSE
+OUT("Suma fn+var = -cte no anda Double").
+END_IF.
+
+IF (-10,0+salida3() == -13,0) THEN
+OUT("Suma -cte+fn = -cte anda Double").
+ELSE
+OUT("Suma -cte+fn = -cte no anda Double").
+END_IF.
+
+IF (salida10()+-3,0 == -13,0) THEN
+OUT("Suma fn+-cte = -cte anda Double").
+ELSE
+OUT("Suma fn+-cte = -cte no anda Double").
+END_IF.
+
+IF (salida10()+salida3() == -13,0) THEN
+OUT("Suma fn+fn = -cte anda Double").
+ELSE
+OUT("Suma fn+fn = -cte no anda Double").
+END_IF.
+
+a = -10,0.
+c = -13,0.
+IF (a+salida3() == c) THEN
+OUT("Suma var+fn = var anda Double").
+ELSE
+OUT("Suma var+fn = var no anda Double").
+END_IF.
+
+DOUBLE FUNCTION salida13 {
+	aB1 : DOUBLE.
+	aB1 = -13,0.
+RETURN ( aB1 ).
+}
+
+IF (-10,0+-3,0 == salida13()) THEN
+OUT("Suma -cte+-cte = fn anda Double").
+ELSE
+OUT("Suma -cte+-cte = fn no anda Double").
+END_IF.

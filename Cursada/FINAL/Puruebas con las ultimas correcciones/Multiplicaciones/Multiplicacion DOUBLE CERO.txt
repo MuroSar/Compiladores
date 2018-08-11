@@ -1,0 +1,13 @@
+a,b,c:DOUBLE.
+
+a = 10,0.
+b = 0,0.
+c=a*b.
+IF (c == 0,0) THEN
+OUT("Multiplicación que da 0 anda Double").
+ELSE
+OUT("Multiplicación que da 0 no anda Double").
+END_IF.
+
+
+

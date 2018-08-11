@@ -1,0 +1,107 @@
+a,b,c:DOUBLE.
+
+a = -10,0.
+b = -5,0.
+c=a/b.
+IF (c == 2,0) THEN
+OUT("Division var = cte anda Double").
+ELSE
+OUT("Division var = cte no anda Double").
+END_IF.
+
+a = -10,0.
+b = -5,0.
+IF (a/b == 2,0) THEN
+OUT("Division var/var = cte anda Double").
+ELSE
+OUT("Division var/var = cte no anda Double").
+END_IF.
+
+a = -10,0.
+IF (a/-5,0 == 2,0) THEN
+OUT("Division var/cte = cte anda Double").
+ELSE
+OUT("Division var/cte = cte no anda Double").
+END_IF.
+
+b = -5,0.
+IF (-10,0/b == 2,0) THEN
+OUT("Division cte/var = cte anda Double").
+ELSE
+OUT("Division cte/var = cte no anda Double").
+END_IF.
+
+
+IF (-10,0/-5,0 == 2,0) THEN
+OUT("Division cte/cte = cte anda Double").
+ELSE
+OUT("Division cte/cte = cte no anda Double").
+END_IF.
+
+
+DOUBLE FUNCTION salida5 {
+	aB1 : DOUBLE.
+	aB1 = -5,0.
+RETURN ( aB1 ).
+}
+
+DOUBLE FUNCTION salida10 {
+	aB1 : DOUBLE.
+	aB1 = -10,0.
+RETURN ( aB1 ).
+}
+
+a = -10,0.
+IF (a/salida5() == 2,0) THEN
+OUT("Division var/fn = cte anda Double").
+ELSE
+OUT("Division var/fn = cte no anda Double").
+END_IF.
+
+b = -5,0.
+IF (salida10()/b == 2,0) THEN
+OUT("Division fn/var = cte anda Double").
+ELSE
+OUT("Division fn/var = cte no anda Double").
+END_IF.
+
+IF (-10,0/salida5() == 2,0) THEN
+OUT("Division cte/fn = cte anda Double").
+ELSE
+OUT("Division cte/fn = cte no anda Double").
+END_IF.
+
+IF (salida10()/-5,0 == 2,0) THEN
+OUT("Division fn/cte = cte anda Double").
+ELSE
+OUT("Division fn/cte = cte no anda Double").
+END_IF.
+
+IF (salida10()/salida5() == 2,0) THEN
+OUT("Division fn/fn = cte anda Double").
+ELSE
+OUT("Division fn/fn = cte no anda Double").
+END_IF.
+
+a = -10,0.
+c = 2,0.
+IF (a/salida5() == c) THEN
+OUT("Division var/fn = var anda Double").
+ELSE
+OUT("Division var/fn = var no anda Double").
+END_IF.
+
+IF (-10,0/2,0 == salida5()) THEN
+OUT("Division -cte/cte = fn anda Double").
+ELSE
+OUT("Division -cte/cte = fn no anda Double").
+END_IF.
+
+a = -10,0.
+b = 0,0.
+c=a/b.
+IF (c == 2,0) THEN
+OUT("Division por cero no anda Double").
+ELSE
+OUT("Division no anda Double").
+END_IF.

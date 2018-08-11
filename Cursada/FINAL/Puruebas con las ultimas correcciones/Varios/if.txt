@@ -1,0 +1,10 @@
+var, pepe : LONG.
+var = 8.
+pepe = 7.
+
+IF (var < pepe) THEN 
+	OUT("var").
+END_IF.
+
+
+OUT("Imprime").

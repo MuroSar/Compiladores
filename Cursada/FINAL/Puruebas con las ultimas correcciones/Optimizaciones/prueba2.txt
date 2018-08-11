@@ -1,0 +1,53 @@
+a,b,c,d:LONG.
+
+a=10.
+b=10.
+c=10.
+
+
+LONG FUNCTION salida1 {
+	aB1 : LONG.
+	aB1 = 1.
+RETURN ( aB1 ).
+}
+
+d=a+b*c+a+b*c-salida1().
+
+IF (d == 219) THEN
+	OUT("Optimiza 1").
+ELSE
+	OUT("Error 1").
+END_IF.
+
+d=a-b*c+salida1()+a-b*c+a.
+
+IF (d == -169) THEN
+	OUT("Optimiza 2").
+ELSE
+	OUT("Error 2").
+END_IF.
+
+d=a-b/c+a*salida1()+b/c.
+
+IF (d == 20) THEN
+	OUT("Optimiza 3").
+ELSE
+	OUT("Error 3").
+END_IF.
+
+d=a+b/c+b/c+a.
+
+IF (d == 22/salida1()) THEN
+	OUT("Optimiza 4").
+ELSE
+	OUT("Error 4").
+END_IF.
+
+c=0.
+d=a+b/c+b/c+a.
+
+IF (d == 0) THEN
+	OUT("Nunca llega if").
+ELSE
+	OUT("nunca llega else").
+END_IF.
