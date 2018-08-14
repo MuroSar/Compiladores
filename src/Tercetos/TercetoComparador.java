@@ -116,7 +116,7 @@ public class TercetoComparador extends Terceto{
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}
-					salidaDouble = "FLD " + nombre_func +"\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
+					salidaDouble += "FLD " + nombre_func +"\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
 					return label + salidaDouble + labelDesp;
 				}
 				else {//no es funcion
@@ -147,7 +147,7 @@ public class TercetoComparador extends Terceto{
 			if(Sintactico.esVariable(segundoParserVal)) {
 				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) {
-					salidaDouble +="FLD "+ aux2 + "@Variable"+ this.ambitoReal + "\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
+					salidaDouble += "FLD "+ aux2 + "@Variable"+ this.ambitoReal + "\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
 					}
