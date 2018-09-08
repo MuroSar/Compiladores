@@ -141,7 +141,7 @@ public class GenCodigo {
         declaracion += "_msjDC DB \"Error: Division por cero\", 0\n";
         declaracion += "_msjOverflow DB \"Error: Overflow\", 0\n";
         for (String key : this.sintactico.getLexico().getTSKeys()) {
-        	Token t = this.sintactico.getLexico().getTokenFromTS(key);
+        	Token t = Lexico.getTokenFromTS(key);
         	if(t.getType().equals("Identificador")) {
         		if(t.getTipoDato().equals("LONG")) {
         			declaracion = declaracion + t.getLexema() + " DD ?\n"; 

@@ -13,7 +13,6 @@ public class TercetoFuncion extends Terceto {
 		super("FN", primero, null, pos, generador);
 		
 		this.setTipoDato(Lexico.getTokenFromTS(primero.sval + "@Funcion" + this.ambitoReal).getTipoDato());
-		
 	}
 		
 	public String getCodigo()
