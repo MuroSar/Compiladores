@@ -111,8 +111,7 @@ public class TercetoComparador extends Terceto{
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion de tipo DOUBLE
-					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = Lexico.getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					String nombre_func = token.getLexema();
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {
 						this.generador.setDeclaracionesConst("aux_mem_2bytes DW ?\n");	
@@ -131,7 +130,7 @@ public class TercetoComparador extends Terceto{
 			else {
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion LONG
-					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
+					Token token = Lexico.getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					String nombre_func = token.getLexema();
 					return label + CodAux + "CMP EAX," + nombre_func + "\n" + labelDesp;
 				}
@@ -145,7 +144,7 @@ public class TercetoComparador extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
+				String tipo = Lexico.getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) {
 					salidaDouble += "FLD "+ aux2 + "@Variable"+ this.ambitoReal + "\nFCOM\n" + "FSTSW AX\n" + "SAHF" + "\n";
 					if(!this.generador.delcaracionesConstContains("aux_mem_2bytes DW ?\n")) {

@@ -563,7 +563,7 @@ public class Sintactico {
 		}
 
 		this.ppal.mostrarMensaje("");
-		this.ppal.mostrarMensaje("-----------------------CODIGO-----------------------");
+		this.ppal.mostrarMensaje("------------------TABLA DE SIMBOLOS-----------------");
 		this.ppal.mostrarMensaje("");
 		
 		this.lexico.depurarTS();

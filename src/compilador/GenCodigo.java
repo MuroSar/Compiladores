@@ -158,7 +158,7 @@ public class GenCodigo {
 		String asm = "";
 		if (!this.sintactico.getLexico().getErrores().isEmpty() || this.sintactico.huboErrores())
 		{
-			this.sintactico.showError("No se puede generar el Assembler porque la gramática contiene errores");
+			this.sintactico.showError("No se puede generar el Assembler porque se encontraron errores");
 		}
 		else
 		{
