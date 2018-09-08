@@ -116,13 +116,10 @@ public class Lexico {
 				if(Character.isDigit(prox) || Character.isLetter(prox)) {
 					Token tokenAux = this.getTokenParcial();
 					
-					//this.removeTokenFromTS(token.getLexema());
-					//this.removeTokenFromTS(tokenAux.getLexema());
-					
 					tokenAux.setLexema("-" + tokenAux.getLexema());
 					token = tokenAux;
 					
-					this.putSimbolo(token);
+					putSimbolo(token);
 				}
 			}
 		}

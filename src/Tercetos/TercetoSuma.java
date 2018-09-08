@@ -39,7 +39,6 @@ public class TercetoSuma extends Terceto{
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
 					this.generador.getSintactico().getLexico();
 					Token token = Lexico.getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					String nombre_func = token.getLexema();
 					s1 = "FLD " + nombre_func;
 				}
@@ -51,7 +50,6 @@ public class TercetoSuma extends Terceto{
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
 					this.generador.getSintactico().getLexico();
 					Token token = Lexico.getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					String nombre_func = token.getLexema();
 					s1 = "MOV EAX," + nombre_func;
 				}

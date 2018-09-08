@@ -1,7 +1,6 @@
 package Tercetos;
 
 import compilador.GenCodigo;
-import compilador.ParserVal;
 
 public class TercetoBIncondicional extends Terceto {
 

@@ -54,8 +54,6 @@ public class Optimizador {
 
 	private static void optimizar(ArrayList<Terceto> tercetosAsignacion) {
 		int pos = 0;
-		int posicionTerceto;
-		int posicionTercetoRepetido;
 		
 		while (pos < tercetosAsignacion.size()) {
 			//para cada terceto de la asignacion..

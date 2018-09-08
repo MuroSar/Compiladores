@@ -28,7 +28,7 @@ public class TercetoAsignacion extends Terceto{
 			aux1 = String.valueOf(((Terceto)primeroParserVal.obj).getPos()); 
 		}
 		else {
-			Token token = this.generador.getSintactico().getLexico().getTokenFromTS(primeroParserVal.sval + "@Variable" + this.ambitoReal);
+			Token token = Lexico.getTokenFromTS(primeroParserVal.sval + "@Variable" + this.ambitoReal);
 			aux1 = token.getLexema();
 		}
 		
@@ -37,8 +37,7 @@ public class TercetoAsignacion extends Terceto{
 			String tipo = ((Terceto)segundoParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) { 
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = Lexico.getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					String nombre_func = token.getLexema();
 					s2= "FLD " + nombre_func + "\n" + "FSTP " + aux1;
 				}
@@ -48,8 +47,7 @@ public class TercetoAsignacion extends Terceto{
 			}
 			else { //TIPO = A LONG
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
-					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					Token token = Lexico.getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					String nombre_func = token.getLexema();
 					s2 = "MOV EAX,"+ nombre_func + "\nMOV " + aux1 + ",EAX" ;
 				}
@@ -61,7 +59,7 @@ public class TercetoAsignacion extends Terceto{
 		else {
 			aux2 = segundoParserVal.sval;	
 			if(Sintactico.esVariable(segundoParserVal)) {//ES VARIABLE
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
+				String tipo = Lexico.getTokenFromTS(aux2 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { //TIPO DOUBLE
 					s2 = "FLD " + aux2 + "@Variable" + this.ambitoReal + "\n" + "FSTP " + aux1;
 				}
