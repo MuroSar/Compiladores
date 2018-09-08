@@ -1,4 +1,4 @@
-a,b:LONG.
+b:LONG.
 
 a=1.
 b=1.
@@ -10,30 +10,3 @@ LONG FUNCTION f1 {
 	d=a*b+c+2*b+a*b+c.
 	RETURN (d).
 }
-
-IF (f1() == 42) THEN
-OUT ("Anda 1").
-ELSE 
-OUT("Error 1").
-END_IF.
-
-IF (f1() == 10) THEN
-OUT ("Error 2").
-ELSE 
-OUT("Anda 2").
-END_IF.
-
-LONG MOVE FUNCTION f2 {
-	a,b,c,d:LONG.
-	a=30.
-	b=10.
-	c=1.
-	d=a*b+c+2*b+a*b+c.
-	RETURN (d).
-}
-
-IF (f2() == 622) THEN
-OUT ("MOVE: bien").
-ELSE 
-OUT("MOVE: mal").
-END_IF.
