@@ -1,6 +1,7 @@
 package Tercetos;
 
 import compilador.GenCodigo;
+import compilador.Lexico;
 import compilador.ParserVal;
 import compilador.Sintactico;
 import complementos.Token;
@@ -53,8 +54,8 @@ public class TercetoComparador extends Terceto{
 			String tipo = ((Terceto)primeroParserVal.obj).getTipoDato();
 			if (tipo.equals("DOUBLE")) {
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					this.generador.getSintactico().getLexico();
+					Token token = Lexico.getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					String nombre_func = token.getLexema();
 					salidaDouble = "FLD " + nombre_func + "\n";
 				}
@@ -65,10 +66,9 @@ public class TercetoComparador extends Terceto{
 			else {
 				//tipo igual a LONG
 				if (((Terceto)primeroParserVal.obj).getOperador().equals("FN")) {
-					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
+					this.generador.getSintactico().getLexico();
+					Token token = Lexico.getTokenFromTS(((Terceto)primeroParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
 					String nombre_func = token.getLexema();
-					//s1 = "MOV EAX," + nombre_func;
 					s1 = "EAX";
 					CodAux = "MOV EAX," + nombre_func + "\n";
 				}
@@ -81,7 +81,8 @@ public class TercetoComparador extends Terceto{
 		else {
 			aux1 = primeroParserVal.sval;
 			if(Sintactico.esVariable(primeroParserVal)) {
-				String tipo=this.generador.getSintactico().getLexico().getTokenFromTS(aux1 + "@Variable" + this.ambitoReal).getTipoDato();
+				this.generador.getSintactico().getLexico();
+				String tipo = Lexico.getTokenFromTS(aux1 + "@Variable" + this.ambitoReal).getTipoDato();
 				if (tipo.equals("DOUBLE")) { //es una variable de tipo DOUBLE
 					salidaDouble="FLD " + aux1 + "@Variable" + this.ambitoReal + "\n";
 				}
@@ -131,7 +132,6 @@ public class TercetoComparador extends Terceto{
 				if (((Terceto)segundoParserVal.obj).getOperador().equals("FN")) {
 					//es una funcion LONG
 					Token token = this.generador.getSintactico().getLexico().getTokenFromTS(((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal);
-					//String nombre_func = ((Terceto)segundoParserVal.obj).getPrimero() + "@Funcion" + this.ambitoReal;
 					String nombre_func = token.getLexema();
 					return label + CodAux + "CMP EAX," + nombre_func + "\n" + labelDesp;
 				}

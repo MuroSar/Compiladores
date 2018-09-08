@@ -1,13 +1,18 @@
 package Tercetos;
 
 import compilador.GenCodigo;
+import compilador.Lexico;
 import compilador.ParserVal;
+import compilador.Sintactico;
+import complementos.Token;
 
 public abstract class Terceto implements Comparable<Terceto>{
 
 	protected String operador;
 	protected String primero;
 	protected String segundo;
+	protected String nombrePrimero;
+	protected String nombreSegundo;
 	protected GenCodigo generador;
 	private int pos;
 	private String tipoDato;
@@ -31,7 +36,22 @@ public abstract class Terceto implements Comparable<Terceto>{
 				this.primero = "[" + referencia + "]";
 			}
 			else {
-				this.primero = primero.sval;	
+				this.primero = primero.sval;
+				
+				//esto es para imprimir los nombres en los tercetos nomas..
+				if (Sintactico.esVariable(primero)) {
+					Token t = Lexico.getTokenFromTS(primero.sval + "@Variable" + ambitoReal);
+					if (t == null) {
+						t = Lexico.getTokenFromTS(primero.sval + "@Funcion" + ambitoReal);
+					}
+					
+					String ambito = t.getAmbito();
+					this.nombrePrimero = primero.sval + ambito;
+				}
+				else {
+					this.nombrePrimero = primero.sval;	
+				}
+				//esto es para imprimir los nombres en los tercetos nomas..
 			}
 		}
 		else { //significa que viene de un BIncondificonal
@@ -44,7 +64,17 @@ public abstract class Terceto implements Comparable<Terceto>{
 				this.segundo = "[" + referencia + "]";
 			}
 			else {
-				this.segundo = segundo.sval;	
+				this.segundo = segundo.sval;
+				
+				//esto es para imprimir los nombres en los tercetos nomas..
+				if (Sintactico.esVariable(segundo)) {
+					String ambito = Lexico.getTokenFromTS(segundo.sval + "@Variable" + ambitoReal).getAmbito();
+					this.nombreSegundo = segundo.sval + ambito;
+				}
+				else {
+					this.nombreSegundo = segundo.sval;
+				}
+				//esto es para imprimir los nombres en los tercetos nomas..
 			}
 		}
 		else { //significa que viene de un BFalse
@@ -129,7 +159,7 @@ public abstract class Terceto implements Comparable<Terceto>{
 	
 	@Override
 	public String toString() {
-		return "(" + this.operador + ", " + this.primero + ", " + this.segundo + ")";
+		return "(" + this.operador + ", " + this.nombrePrimero + ", " + this.nombreSegundo + ")";
 	}
 	
 	public void setGenerador(GenCodigo gen) {

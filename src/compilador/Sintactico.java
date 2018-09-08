@@ -1,10 +1,8 @@
 package compilador;
 
 import compilador.Parser;
-import complementos.ErrorToken;
 import complementos.Token;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,9 +157,22 @@ public class Sintactico {
 		return !this.errores.isEmpty();
 	}
 	
+	public String getFirstElement(Terceto terceto) {
+		if (terceto.getPrimero() == null) {
+			return getFirstElement(((Terceto)terceto.getPrimeroParserVal().obj));
+		} else {
+			return terceto.getPrimero();
+		}
+	}
+	
 	public void addError(String error, ParserVal val)
 	{
-		Token t = this.lexico.getTokenFromTS(val.sval);
+		Token t;
+		if (val.obj == null) {
+			t = Lexico.getTokenFromTS(val.sval);	
+		} else {
+			t = Lexico.getTokenFromTS(getFirstElement((Terceto)val.obj));
+		}
 		
 		if(error.equals("variable"))
 		{
@@ -190,6 +201,8 @@ public class Sintactico {
 	}
 	
 	public String showErrores() {
+		this.depurarErrores();
+		
 		String errors = "";
 		
 		for (String error : this.errores)
@@ -197,6 +210,17 @@ public class Sintactico {
 			errors = errors + error + "\n";
 		}
 		return errors;
+	}
+	
+	private void depurarErrores() {
+		ArrayList<String> auxErrors = new ArrayList<>(this.errores);
+		this.errores = new ArrayList<>();
+		
+		for (String error : auxErrors) {
+			if (!this.errores.contains(error)) {
+				this.errores.add(error);
+			}
+		}
 	}
 
 	public void addTerceto(Terceto t) {
@@ -247,8 +271,8 @@ public class Sintactico {
 				
 				String ambitoReal = this.getNameManglingForAmbito(this.ambito);
 				
-				Token aux = this.lexico.getTokenFromTS(var.sval);
-				this.lexico.removeTokenFromTS(var.sval);
+				Token aux = Lexico.getTokenFromTS(var.sval);
+				Lexico.removeTokenFromTS(var.sval);
 				
 				String lexema = aux.getLexema();
 				lexema = lexema + "@Variable" + ambitoReal;
@@ -258,7 +282,7 @@ public class Sintactico {
 				
 				aux.setAmbito(ambitoReal);
 				
-				this.lexico.putSimbolo(aux);	
+				Lexico.putSimbolo(aux);	
 			}
 			else {
 				this.addError("variableDeclarada", var);
@@ -272,8 +296,8 @@ public class Sintactico {
 		{
 			String ambitoReal = this.getNameManglingForAmbito(this.ambito);
 			
-			Token aux = this.lexico.getTokenFromTS(nombre.sval);
-			this.lexico.removeTokenFromTS(nombre.sval);
+			Token aux = Lexico.getTokenFromTS(nombre.sval);
+			Lexico.removeTokenFromTS(nombre.sval);
 			
 			String lexema = aux.getLexema();
 			lexema = lexema + "@Funcion" + ambitoReal;
@@ -282,7 +306,7 @@ public class Sintactico {
 			aux.setTipoDato(tipo.sval);
 			aux.setAmbito(ambitoReal);
 			
-			this.lexico.putSimbolo(aux);	
+			Lexico.putSimbolo(aux);	
 		}
 		else {
 			this.addError("funcionDeclarada", nombre);
@@ -319,15 +343,15 @@ public class Sintactico {
 		
 		if(op1.obj == null) {
 			if(esVariable(op1)) {
-				ambito1 = this.lexico.getTokenFromTS(op1.sval + "@Variable" + ambitoReal).getAmbito();
+				ambito1 = Lexico.getTokenFromTS(op1.sval + "@Variable" + ambitoReal).getAmbito();
 			}
 			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
-				Token aux = this.lexico.getTokenFromTS(op1.sval);
-				this.lexico.removeTokenFromTS(op1.sval);
+				Token aux = Lexico.getTokenFromTS(op1.sval);
+				Lexico.removeTokenFromTS(op1.sval);
 											
 				aux.setAmbito(ambitoReal);
 				
-				this.lexico.putSimbolo(aux);
+				Lexico.putSimbolo(aux);
 				
 				ambito1 = ambitoReal;
 			}
@@ -335,15 +359,15 @@ public class Sintactico {
 		
 		if(op2.obj == null) {
 			if(esVariable(op2)) {
-				ambito2 = this.lexico.getTokenFromTS(op2.sval + "@Variable" + ambitoReal).getAmbito();
+				ambito2 = Lexico.getTokenFromTS(op2.sval + "@Variable" + ambitoReal).getAmbito();
 			}
 			else {//si entra aca es porque es una constante.. por lo que no tiene ambito todavia
-				Token aux = this.lexico.getTokenFromTS(op2.sval);
-				this.lexico.removeTokenFromTS(op2.sval);
+				Token aux = Lexico.getTokenFromTS(op2.sval);
+				Lexico.removeTokenFromTS(op2.sval);
 											
 				aux.setAmbito(ambitoReal);
 				
-				this.lexico.putSimbolo(aux);
+				Lexico.putSimbolo(aux);
 				
 				ambito2 = ambitoReal;
 			}
@@ -378,10 +402,10 @@ public class Sintactico {
 		
 		if(op1.obj == null) {
 			if(esVariable(op1)) {
-				tipoDato1 = this.lexico.getTokenFromTS(op1.sval + "@Variable" + ambitoReal).getTipoDato();	
+				tipoDato1 = Lexico.getTokenFromTS(op1.sval + "@Variable" + ambitoReal).getTipoDato();	
 			}
 			else {
-				tipoDato1 = this.lexico.getTokenFromTS(op1.sval).getTipoDato();
+				tipoDato1 = Lexico.getTokenFromTS(op1.sval).getTipoDato();
 			}	
 		}
 		else {
@@ -390,10 +414,10 @@ public class Sintactico {
 		
 		if(op2.obj == null) {
 			if(esVariable(op2)) {
-				tipoDato2 = this.lexico.getTokenFromTS(op2.sval + "@Variable" + ambitoReal).getTipoDato();
+				tipoDato2 = Lexico.getTokenFromTS(op2.sval + "@Variable" + ambitoReal).getTipoDato();
 			}
 			else {
-				tipoDato2 = this.lexico.getTokenFromTS(op2.sval).getTipoDato();
+				tipoDato2 = Lexico.getTokenFromTS(op2.sval).getTipoDato();
 			}
 		}
 		else {
@@ -437,13 +461,15 @@ public class Sintactico {
 			String ambitoReal = this.getNameManglingForAmbito(this.ambito);
 			
 			if(this.lexico.estaDeclarada(variable.sval, "variable", ambitoReal, esDeclaracion)) {
-				Token t = this.lexico.getTokenFromTS(variable.sval + "@Variable" + ambitoReal);
-				if(t.getAmbito().equals(ambitoReal) || ambitoReal.contains(t.getAmbito())) {
-					return true;
+				Token t = Lexico.getTokenFromTS(variable.sval + "@Variable" + ambitoReal);
+				if (t != null) {
+					if(t.getAmbito().equals(ambitoReal) || ambitoReal.contains(t.getAmbito())) {
+						return true;
+					}	
+				} else {
+					return false;
 				}
-//				else if(t.getAmbito().contains(ambitoReal)) {
-//					return false;
-//				}
+				
 			}
 			else {
 				return false;
