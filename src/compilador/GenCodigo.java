@@ -154,11 +154,12 @@ public class GenCodigo {
         return declaracion + declaraciones_out + declaraciones_const; 
     }
 	
-	public void generarCodigo() {
+	public boolean generarCodigo() {
 		String asm = "";
 		if (!this.sintactico.getLexico().getErrores().isEmpty() || this.sintactico.huboErrores())
 		{
 			this.sintactico.showError("No se puede generar el Assembler porque se encontraron errores");
+			return false;
 		}
 		else
 		{
@@ -214,6 +215,7 @@ public class GenCodigo {
 				e.printStackTrace();
 			}
 		}
+		return true;
 	}
 
 	public String getNombreFuncion(String n) {

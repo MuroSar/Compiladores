@@ -2,23 +2,9 @@ TO DO:
 
 ------------------------------------------------------------------------------------------------------------------------
 
---revisar overflow en sumas
-
---divisiones:********************
-	--revisar el CDQ en las divisiones
-	
-	--FTST
-	--FSTSW AX
-	--SAHF
-	--JE _division_cero
-	revisar si sirve para el chequeo de division por cero
-	
-	
-	
-	
-	
-	JE _division_cero
-	esta luego de la division!!! 
-	
+09/09/2018
+	1- ver que hacer con las funciones sin cuerpo..
+	2- ver errores generales de gramaticas.. los que tenes vos y los que encontremos
+	3- volver a probar todas las pruebas que tenemos..
 	
 ------------------------------------------------------------------------------------------------------------------------
