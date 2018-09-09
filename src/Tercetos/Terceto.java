@@ -34,6 +34,7 @@ public abstract class Terceto implements Comparable<Terceto>{
 			if(primero.obj != null) {
 				int referencia = ((Terceto)primero.obj).getPos(); 
 				this.primero = "[" + referencia + "]";
+				this.nombrePrimero = "[" + referencia + "]";
 			}
 			else {
 				this.primero = primero.sval;
@@ -56,12 +57,14 @@ public abstract class Terceto implements Comparable<Terceto>{
 		}
 		else { //significa que viene de un BIncondificonal
 			this.primero = "";
+			this.nombrePrimero = "";
 		}
 		
 		if(segundo != null) {
 			if(segundo.obj != null) {
 				int referencia = ((Terceto)segundo.obj).getPos(); 
 				this.segundo = "[" + referencia + "]";
+				this.nombreSegundo = "[" + referencia + "]";
 			}
 			else {
 				this.segundo = segundo.sval;
@@ -79,6 +82,7 @@ public abstract class Terceto implements Comparable<Terceto>{
 		}
 		else { //significa que viene de un BFalse
 			this.segundo = "";
+			this.nombreSegundo = "";
 		}
 			
 		this.pos = pos;
@@ -158,8 +162,9 @@ public abstract class Terceto implements Comparable<Terceto>{
 	}
 	
 	@Override
-	public String toString() {
+	public String toString() {		
 		return "(" + this.operador + ", " + this.nombrePrimero + ", " + this.nombreSegundo + ")";
+		//return "(" + this.operador + ", " + this.primero + ", " + this.segundo + ")";
 	}
 	
 	public void setGenerador(GenCodigo gen) {
