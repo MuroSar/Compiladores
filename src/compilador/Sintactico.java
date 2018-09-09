@@ -152,6 +152,10 @@ public class Sintactico {
 		return this.pila.pop();
 	}
 	
+	public boolean pilaVacia() {
+		return this.pila.empty();
+	}
+	
 	public boolean huboErrores()
 	{
 		return !this.errores.isEmpty();
@@ -196,7 +200,11 @@ public class Sintactico {
 		}
 		else if(error.equals("ambito"))
 		{
-			this.errores.add("Ambitos no compatibles. Linea " + t.getLinea());
+			if (fnMOVE) {
+				this.errores.add("Variable no declarada en la funci\u00f3n MOVE. Linea " + t.getLinea());	
+			} else {
+				this.errores.add("Ambitos no compatibles. Linea " + t.getLinea());	
+			}
 		}
 	}
 	
