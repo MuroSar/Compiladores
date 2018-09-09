@@ -579,7 +579,11 @@ public class Sintactico {
 		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.generador.setListaTercetos(this.getAllTercetos()); 
-		this.generador.generarCodigo();
+		if (this.generador.generarCodigo()) {
+			this.ppal.mostrarMensaje("----------------------------------------------------");
+			this.ppal.mostrarMensaje("Se gener\u00f3 el Assembler");
+			this.ppal.mostrarMensaje("----------------------------------------------------");
+		}
 		
 		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 	}
