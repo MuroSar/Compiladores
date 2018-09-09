@@ -102,10 +102,12 @@ public abstract class Terceto implements Comparable<Terceto>{
 
 	public void setPrimero(String primero) {
 		this.primero = primero;
+		this.nombrePrimero = primero;
 	}
 
 	public void setPrimero(int primero) {
 		this.primero = "[" + primero + "]";
+		this.nombrePrimero = "[" + primero + "]";
 	}
 	
 	public String getSegundo() {
@@ -114,10 +116,12 @@ public abstract class Terceto implements Comparable<Terceto>{
 
 	public void setSegundo(String segundo) {
 		this.segundo = segundo;
+		this.nombreSegundo = segundo;
 	}
 	
 	public void setSegundo(int segundo) {
 		this.segundo = "[" + segundo + "]";
+		this.nombreSegundo = "[" + segundo + "]";
 	}
 	
 	public int getPos() {
