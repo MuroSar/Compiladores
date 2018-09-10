@@ -47,6 +47,14 @@ bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	
 												   								this.sintactico.addTerceto(ret);
 												   								this.sintactico.addTercetoFuncion(ret);
 																			   }
+		| '{' RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $5, null, this.sintactico.getTercetos().size(), this.funcionActual.pop(), this.sintactico.getGenerador());
+				   								if(this.sintactico.getMarcaAntes()){
+													ret.setMarcaAntes(true);
+													this.sintactico.setMarcaAntes(false);
+												}
+				   								this.sintactico.addTerceto(ret);
+				   								this.sintactico.addTercetoFuncion(ret);
+											   }
 
 bloque_sentencias_funcion : sentencias
 		| declaracion
@@ -308,7 +316,7 @@ lista_variables : IDENTIFICADOR { $$.obj = new ArrayList<ParserVal>();
 condicion : condicion operador expresion
 		| expresion operador expresion {this.sintactico.showMessage("Condici\u00f3n");
 										if(this.sintactico.existeVariable($1, false)){
-									     	if(this.sintactico.existeVariable($3), false){
+									     	if(this.sintactico.existeVariable($3, false)){
 									     		if(this.sintactico.ambitoCorrecto($1, $3)) {
 										     		if(this.sintactico.mismoTipo($1, $3) != null) {
 														Terceto t =  new TercetoComparador($2, $1, $3, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
@@ -484,7 +492,7 @@ termino : termino '*' factor { 	if(this.sintactico.existeVariable($1, false)){
 		;
 
 llamado_funcion : IDENTIFICADOR '('')' { this.sintactico.showMessage("Llamado a funci\u00f3n");
-											if(this.sintactico.existeFuncion($1), false)
+											if(this.sintactico.existeFuncion($1, false))
  											{
  												Terceto t =  new TercetoFuncion($1, this.sintactico.getTercetos().size(), this.sintactico.getGenerador());
  												t.setSegundo("[" + Integer.valueOf(this.sintactico.getTercetos().size()+1) + "]");
