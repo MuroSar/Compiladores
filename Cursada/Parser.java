@@ -701,7 +701,7 @@ case 8:
 break;
 case 9:
 //#line 50 "gramaticaCorregidaFinal.y"
-{	Terceto ret = new TercetoRet("RET", val_peek(2), null, this.sintactico.getTercetos().size(), this.funcionActual.pop(), this.sintactico.getGenerador());
+{	Terceto ret = new TercetoRet("RET", val_peek(3), null, this.sintactico.getTercetos().size(), this.funcionActual.pop(), this.sintactico.getGenerador());
 				   								if(this.sintactico.getMarcaAntes()){
 													ret.setMarcaAntes(true);
 													this.sintactico.setMarcaAntes(false);
