@@ -194,7 +194,17 @@ public class Sintactico {
 		}
 		else if(error.equals("variableDeclarada"))
 		{
-			this.errores.add("La variable " + t.getLexema() + " ya se encuentra declarada. Linea " + t.getLinea());
+			boolean mostrar = true;
+			String nombreCompletoVariable = val.sval + "@Variable"+ this.getNameManglingForAmbito(this.ambito);
+			for(String err : this.errores) {
+				if (err.contains("La funci\u00f3n " + nombreCompletoVariable.split("@")[3] + " ya se encuentra declarada. Linea ")) {
+					mostrar = false;	
+					break;
+				}	
+			}
+			if(mostrar) {
+				this.errores.add("La variable " + t.getLexema() + " ya se encuentra declarada. Linea " + t.getLinea());
+			}
 		}
 		else if(error.equals("funcionDeclarada"))
 		{
