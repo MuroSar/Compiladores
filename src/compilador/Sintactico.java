@@ -181,7 +181,13 @@ public class Sintactico {
 		if(error.equals("variable"))
 		{
 			if (!this.errores.contains("La funci\u00f3n " + t.getLexema() + " no fue declarada. Linea " + t.getLinea())) {
-				this.errores.add("La variable " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());	
+				String nombreCompletoFuncion = val.sval + "@Funcion@main";
+				if (Lexico.getTokenFromTS(nombreCompletoFuncion) == null) {
+					this.errores.add("La variable " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());	
+				}
+				else {
+					this.errores.add("Faltan los parentesis en la funci\u00f3n " + t.getLexema() + " Linea " + t.getLinea());
+				}	
 			}	
 		}
 		else if(error.equals("funcion"))
