@@ -180,11 +180,13 @@ public class Sintactico {
 		
 		if(error.equals("variable"))
 		{
-			this.errores.add("La variable " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());	
+			if (!this.errores.contains("La funci\u00f3n " + t.getLexema() + " no fue declarada. Linea " + t.getLinea())) {
+				this.errores.add("La variable " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());	
+			}	
 		}
 		else if(error.equals("funcion"))
 		{
-			this.errores.add("La funcion " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());
+			this.errores.add("La funci\u00f3n " + t.getLexema() + " no fue declarada. Linea " + t.getLinea());
 		}
 		else if(error.equals("tipos"))
 		{
