@@ -47,9 +47,9 @@ bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	
 												   								this.sintactico.addTerceto(ret);
 												   								this.sintactico.addTercetoFuncion(ret);
 																			   }
-		| '{' RETURN '(' expresion ')''.''}' { this.sintactico.showError("ERROR Linea "+ token.getLinea() +": El cuerpo de una funci\u00f3n no puede estar vac\u00EDo");
-											   }
-
+		| '{' RETURN '(' expresion ')''.''}' { this.sintactico.showError("ERROR Linea "+ token.getLinea() +": El cuerpo de una funci\u00f3n no puede estar vac\u00EDo");}
+		;
+		
 bloque_sentencias_funcion : sentencias
 		| declaracion
 		| bloque_sentencias_funcion sentencias
