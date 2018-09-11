@@ -455,7 +455,7 @@ public class Sintactico {
 			return tipoDato1;
 		}
 		return null;
-	}
+	}	
 	
 	public static boolean esVariable(ParserVal val) {
 		if(val.obj != null) {

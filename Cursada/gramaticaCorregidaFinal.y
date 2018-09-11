@@ -47,13 +47,7 @@ bloque_funcion : '{' bloque_sentencias_funcion RETURN '(' expresion ')''.''}' {	
 												   								this.sintactico.addTerceto(ret);
 												   								this.sintactico.addTercetoFuncion(ret);
 																			   }
-		| '{' RETURN '(' expresion ')''.''}' {	Terceto ret = new TercetoRet("RET", $4, null, this.sintactico.getTercetos().size(), this.funcionActual.pop(), this.sintactico.getGenerador());
-				   								if(this.sintactico.getMarcaAntes()){
-													ret.setMarcaAntes(true);
-													this.sintactico.setMarcaAntes(false);
-												}
-				   								this.sintactico.addTerceto(ret);
-				   								this.sintactico.addTercetoFuncion(ret);
+		| '{' RETURN '(' expresion ')''.''}' { this.sintactico.showError("ERROR Linea "+ token.getLinea() +": El cuerpo de una funci\u00f3n no puede estar vac\u00EDo");
 											   }
 
 bloque_sentencias_funcion : sentencias
