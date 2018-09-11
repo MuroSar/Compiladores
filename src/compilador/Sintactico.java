@@ -203,7 +203,7 @@ public class Sintactico {
 			boolean mostrar = true;
 			String nombreCompletoVariable = val.sval + "@Variable"+ this.getNameManglingForAmbito(this.ambito);
 			for(String err : this.errores) {
-				if (err.contains("La funci\u00f3n " + nombreCompletoVariable.split("@")[3] + " ya se encuentra declarada. Linea ")) {
+				if (err.contains("La funci\u00f3n " + nombreCompletoVariable.split("@")[nombreCompletoVariable.split("@").length-1] + " ya se encuentra declarada. Linea ")) {
 					mostrar = false;	
 					break;
 				}	
@@ -559,7 +559,7 @@ public class Sintactico {
 		int result = parser.yyparse();
 		switch (result) {
 		case 0:
-			this.ppal.mostrarMensaje("----SE OBTUVE LA LISTA DE REGLAS CORRECTAMENTE---");
+			this.ppal.mostrarMensaje("----SE OBTUVO LA LISTA DE REGLAS CORRECTAMENTE---");
 			break;
 		default:
 			this.ppal.mostrarMensaje("------NO SE PUDO OBTENER LA LISTA DE REGLAS------");
