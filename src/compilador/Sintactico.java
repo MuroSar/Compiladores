@@ -455,7 +455,7 @@ public class Sintactico {
 			return tipoDato1;
 		}
 		return null;
-	}
+	}	
 	
 	public static boolean esVariable(ParserVal val) {
 		if(val.obj != null) {
@@ -559,10 +559,10 @@ public class Sintactico {
 		int result = parser.yyparse();
 		switch (result) {
 		case 0:
-			this.ppal.mostrarMensaje("--------------------Gramatica: OK-------------------");
+			this.ppal.mostrarMensaje("----SE OBTUVE LA LISTA DE REGLAS CORRECTAMENTE---");
 			break;
 		default:
-			this.ppal.mostrarMensaje("------------------Gramatica: ERROR-----------------");
+			this.ppal.mostrarMensaje("------NO SE PUDO OBTENER LA LISTA DE REGLAS------");
 		}
 		
 		this.ppal.mostrarMensaje("");
