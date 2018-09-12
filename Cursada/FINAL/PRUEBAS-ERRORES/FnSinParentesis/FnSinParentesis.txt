@@ -1,0 +1,12 @@
+a:DOUBLE.
+DOUBLE FUNCTION fn{
+OUT ("funcion sin parentesis").
+RETURN (a).
+}
+
+b,d:DOUBLE.
+b=fn.
+
+c=funcion2().
+
+d=fun3.

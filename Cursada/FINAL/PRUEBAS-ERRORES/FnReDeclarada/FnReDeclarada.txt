@@ -1,0 +1,11 @@
+DOUBLE FUNCTION funcion1{
+a:DOUBLE.
+a=10,0.
+RETURN (a).
+}
+
+b:DOUBLE.
+DOUBLE FUNCTION funcion1{
+OUT("funcion redeclarada").
+RETURN (b).
+}

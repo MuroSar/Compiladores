@@ -1,0 +1,5 @@
+a:DOUBLE.
+
+DOUBLE MOVE FUNCTION func {
+RETURN ( a ).
+}

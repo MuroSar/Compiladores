@@ -1,0 +1,14 @@
+a:DOUBLE.
+a=10,0.
+
+
+DOUBLE FUNCTION funcion {
+RETURN (a+b*c).
+}
+
+
+DOUBLE FUNCTION func {
+a:DOUBLE.
+a=10,02.
+(a).
+}

@@ -1,0 +1,12 @@
+a:LONG.
+b:DOUBLE.
+
+LONG FUNCTION funcion {
+a:LONG.
+a=3.
+RETURN (a).
+}
+
+a,b:LONG.
+c:DOUBLE.
+c=a.

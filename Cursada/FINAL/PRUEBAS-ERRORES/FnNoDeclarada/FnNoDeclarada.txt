@@ -1,0 +1,3 @@
+a:DOUBLE.
+
+a=funcion1().

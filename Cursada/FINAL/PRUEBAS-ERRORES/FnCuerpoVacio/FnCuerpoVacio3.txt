@@ -1,0 +1,27 @@
+a,b,c:DOUBLE.
+
+DOUBLE FUNCTION funcion {
+a=10,0.
+b=2,0.
+c=6,0.
+RETURN ( a+b*c+a ).
+}
+
+IF (funcion() == 1145,0) THEN
+OUT ("Error en el IF").
+ELSE
+OUT("Anda el IF").
+END_IF.
+
+
+j:DOUBLE.
+j=funcion().
+
+SWITCH (j) {
+	CASE 32,0 : OUT(" Es un 32,0").
+	CASE 82,0 : 
+		BEGIN
+			OUT("Error").
+			OUT("En el Switch").
+		END.
+}.

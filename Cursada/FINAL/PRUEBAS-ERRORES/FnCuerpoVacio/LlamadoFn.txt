@@ -1,0 +1,20 @@
+DOUBLE FUNCTION fn {
+a:DOUBLE.
+a=10,0.
+RETURN ( a ).
+}
+
+b,c:DOUBLE.
+b=fn().
+
+IF (fn() == 11,0) THEN
+OUT("Error 1").
+ELSE
+OUT("ANDA").
+END_IF.
+
+IF (fn() == 10,0) THEN
+OUT("ANDAAAA").
+ELSE
+OUT("nada2").
+END_IF.
