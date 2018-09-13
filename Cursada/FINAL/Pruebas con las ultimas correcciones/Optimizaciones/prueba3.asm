@@ -55,16 +55,16 @@ var@@aux33 DD ?
 var@@aux32 DD ?
 var@@aux35 DD ?
 k@Variable@main@salida1 DD ?
-cadena@@324 DB "Optimiza 1", 0
-cadena@@325 DB "Error 1", 0
-cadena@@326 DB "Optimiza 2", 0
-cadena@@327 DB "Error 2", 0
-cadena@@328 DB "Optimiza 3", 0
-cadena@@329 DB "Error 3", 0
-cadena@@330 DB "Optimiza 4", 0
-cadena@@331 DB "Error 4", 0
-cadena@@332 DB "Nunca llega if", 0
-cadena@@333 DB "nunca llega else", 0
+cadena@@0 DB "Optimiza 1", 0
+cadena@@1 DB "Error 1", 0
+cadena@@2 DB "Optimiza 2", 0
+cadena@@3 DB "Error 2", 0
+cadena@@4 DB "Optimiza 3", 0
+cadena@@5 DB "Error 3", 0
+cadena@@6 DB "Optimiza 4", 0
+cadena@@7 DB "Error 4", 0
+cadena@@8 DB "Nunca llega if", 0
+cadena@@9 DB "nunca llega else", 0
 .code
 _division_cero:
 invoke MessageBox, NULL, addr _msjDC, addr _msjDC, MB_OK
@@ -136,10 +136,10 @@ MOV EAX,d@Variable@main
 MOV EDX,210
 CMP d@Variable@main,EDX
 JNE Label28
-invoke MessageBox, NULL, addr cadena@@324, addr cadena@@324, MB_OK
+invoke MessageBox, NULL, addr cadena@@0, addr cadena@@0, MB_OK
 JMP Label29
 Label28:
-invoke MessageBox, NULL, addr cadena@@325, addr cadena@@325, MB_OK
+invoke MessageBox, NULL, addr cadena@@1, addr cadena@@1, MB_OK
 Label29:
 MOV EAX,b@Variable@main
 MOV EDX,c@Variable@main
@@ -170,10 +170,10 @@ MOV EAX,d@Variable@main
 MOV EDX,-160
 CMP d@Variable@main,EDX
 JNE Label42
-invoke MessageBox, NULL, addr cadena@@326, addr cadena@@326, MB_OK
+invoke MessageBox, NULL, addr cadena@@2, addr cadena@@2, MB_OK
 JMP Label43
 Label42:
-invoke MessageBox, NULL, addr cadena@@327, addr cadena@@327, MB_OK
+invoke MessageBox, NULL, addr cadena@@3, addr cadena@@3, MB_OK
 Label43:
 MOV EAX,b@Variable@main
 CDQ
@@ -205,10 +205,10 @@ MOV EAX,d@Variable@main
 MOV EDX,110
 CMP d@Variable@main,EDX
 JNE Label55
-invoke MessageBox, NULL, addr cadena@@328, addr cadena@@328, MB_OK
+invoke MessageBox, NULL, addr cadena@@4, addr cadena@@4, MB_OK
 JMP Label56
 Label55:
-invoke MessageBox, NULL, addr cadena@@329, addr cadena@@329, MB_OK
+invoke MessageBox, NULL, addr cadena@@5, addr cadena@@5, MB_OK
 Label56:
 MOV EAX,b@Variable@main
 CDQ
@@ -249,10 +249,10 @@ MOV EAX,d@Variable@main
 MOV EAX,var@@aux64
 CMP d@Variable@main,EAX
 JNE Label69
-invoke MessageBox, NULL, addr cadena@@330, addr cadena@@330, MB_OK
+invoke MessageBox, NULL, addr cadena@@6, addr cadena@@6, MB_OK
 JMP Label70
 Label69:
-invoke MessageBox, NULL, addr cadena@@331, addr cadena@@331, MB_OK
+invoke MessageBox, NULL, addr cadena@@7, addr cadena@@7, MB_OK
 Label70:
 MOV c@Variable@main,0
 MOV EAX,b@Variable@main
@@ -281,10 +281,10 @@ MOV EAX,d@Variable@main
 MOV EDX,0
 CMP d@Variable@main,EDX
 JNE Label81
-invoke MessageBox, NULL, addr cadena@@332, addr cadena@@332, MB_OK
+invoke MessageBox, NULL, addr cadena@@8, addr cadena@@8, MB_OK
 JMP Label82
 Label81:
-invoke MessageBox, NULL, addr cadena@@333, addr cadena@@333, MB_OK
+invoke MessageBox, NULL, addr cadena@@9, addr cadena@@9, MB_OK
 Label82:
 invoke ExitProcess, 0
 end start

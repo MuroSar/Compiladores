@@ -36,32 +36,33 @@ b@Variable@main DQ ?
 salida30@Funcion@main DQ ?
 var@@aux73 DQ ?
 var@@aux31 DQ ?
-cadena@@0 DB "Multiplicación var = cte anda Double", 0
-cadena@@1 DB "Multiplicación var = cte no anda Double", 0
-cadena@@2 DB "Multiplicación var*var = cte anda Double", 0
-cadena@@3 DB "Multiplicación var*var = cte no anda Double", 0
-cadena@@4 DB "Multiplicación var*-cte = cte anda Double", 0
-cadena@@5 DB "Multiplicación var*-cte = cte no anda Double", 0
-cadena@@6 DB "Multiplicación -cte*var = cte anda Double", 0
-cadena@@7 DB "Multiplicación -cte*var = cte no anda Double", 0
-cadena@@8 DB "Multiplicación -cte*-cte = cte anda Double", 0
-cadena@@9 DB "Multiplicación -cte*-cte = cte no anda Double", 0
-cadena@@10 DB "Multiplicación var*fn = cte anda Double", 0
-cadena@@11 DB "Multiplicación var*fn = cte no anda Double", 0
-cadena@@12 DB "Multiplicación fn*var = cte anda Double", 0
-cadena@@13 DB "Multiplicación fn*var = cte no anda Double", 0
-cadena@@14 DB "Multiplicación -cte*fn = cte anda Double", 0
-cadena@@15 DB "Multiplicación -cte*fn = cte no anda Double", 0
-cadena@@16 DB "Multiplicación fn*-cte = cte anda Double", 0
-cadena@@17 DB "Multiplicación fn*-cte = cte no anda Double", 0
-cadena@@18 DB "Multiplicación fn*fn = cte anda Double", 0
-cadena@@19 DB "Multiplicación fn*fn = cte no anda Double", 0
-cadena@@20 DB "Multiplicación var*fn = var anda Double", 0
-cadena@@21 DB "Multiplicación var*fn = var no anda Double", 0
-cadena@@22 DB "Multiplicación -cte*-cte = fn anda Double", 0
-cadena@@23 DB "Multiplicación -cte*-cte = fn no anda Double", 0
+cadena@@39 DB "Multiplicación var = cte anda Double", 0
+cadena@@40 DB "Multiplicación var = cte no anda Double", 0
+cadena@@41 DB "Multiplicación var*var = cte anda Double", 0
+cadena@@42 DB "Multiplicación var*var = cte no anda Double", 0
+cadena@@43 DB "Multiplicación var*-cte = cte anda Double", 0
+cadena@@44 DB "Multiplicación var*-cte = cte no anda Double", 0
+cadena@@45 DB "Multiplicación -cte*var = cte anda Double", 0
+cadena@@46 DB "Multiplicación -cte*var = cte no anda Double", 0
+cadena@@47 DB "Multiplicación -cte*-cte = cte anda Double", 0
+cadena@@48 DB "Multiplicación -cte*-cte = cte no anda Double", 0
+cadena@@49 DB "Multiplicación var*fn = cte anda Double", 0
+cadena@@50 DB "Multiplicación var*fn = cte no anda Double", 0
+cadena@@51 DB "Multiplicación fn*var = cte anda Double", 0
+cadena@@52 DB "Multiplicación fn*var = cte no anda Double", 0
+cadena@@53 DB "Multiplicación -cte*fn = cte anda Double", 0
+cadena@@54 DB "Multiplicación -cte*fn = cte no anda Double", 0
+cadena@@55 DB "Multiplicación fn*-cte = cte anda Double", 0
+cadena@@56 DB "Multiplicación fn*-cte = cte no anda Double", 0
+cadena@@57 DB "Multiplicación fn*fn = cte anda Double", 0
+cadena@@58 DB "Multiplicación fn*fn = cte no anda Double", 0
+cadena@@59 DB "Multiplicación var*fn = var anda Double", 0
+cadena@@60 DB "Multiplicación var*fn = var no anda Double", 0
+cadena@@61 DB "Multiplicación -cte*-cte = fn anda Double", 0
+cadena@@62 DB "Multiplicación -cte*-cte = fn no anda Double", 0
 const@@_3_0 DQ -3.0
 const@@_10_0 DQ -10.0
+const@@_30_0 DQ -30.0
 const@@30_0 DQ 30.0
 aux_mem_2bytes DW ?
 .code
@@ -86,7 +87,7 @@ FSTP salida10@Funcion@main
 RET
 salida10 endp
 salida30 proc
-FLD const@@30_0
+FLD const@@_30_0
 FSTP ab1@Variable@main@salida30
 FLD ab1@Variable@main@salida30
 FSTP salida30@Funcion@main
@@ -109,10 +110,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@0, addr cadena@@0, MB_OK
+invoke MessageBox, NULL, addr cadena@@39, addr cadena@@39, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@1, addr cadena@@1, MB_OK
+invoke MessageBox, NULL, addr cadena@@40, addr cadena@@40, MB_OK
 Label9:
 FLD const@@_10_0
 FSTP a@Variable@main
@@ -128,10 +129,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label16
-invoke MessageBox, NULL, addr cadena@@2, addr cadena@@2, MB_OK
+invoke MessageBox, NULL, addr cadena@@41, addr cadena@@41, MB_OK
 JMP Label17
 Label16:
-invoke MessageBox, NULL, addr cadena@@3, addr cadena@@3, MB_OK
+invoke MessageBox, NULL, addr cadena@@42, addr cadena@@42, MB_OK
 Label17:
 FLD const@@_10_0
 FSTP a@Variable@main
@@ -145,10 +146,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label23
-invoke MessageBox, NULL, addr cadena@@4, addr cadena@@4, MB_OK
+invoke MessageBox, NULL, addr cadena@@43, addr cadena@@43, MB_OK
 JMP Label24
 Label23:
-invoke MessageBox, NULL, addr cadena@@5, addr cadena@@5, MB_OK
+invoke MessageBox, NULL, addr cadena@@44, addr cadena@@44, MB_OK
 Label24:
 FLD const@@_3_0
 FSTP b@Variable@main
@@ -162,10 +163,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label30
-invoke MessageBox, NULL, addr cadena@@6, addr cadena@@6, MB_OK
+invoke MessageBox, NULL, addr cadena@@45, addr cadena@@45, MB_OK
 JMP Label31
 Label30:
-invoke MessageBox, NULL, addr cadena@@7, addr cadena@@7, MB_OK
+invoke MessageBox, NULL, addr cadena@@46, addr cadena@@46, MB_OK
 Label31:
 FLD const@@_10_0
 FLD const@@_3_0
@@ -177,10 +178,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label36
-invoke MessageBox, NULL, addr cadena@@8, addr cadena@@8, MB_OK
+invoke MessageBox, NULL, addr cadena@@47, addr cadena@@47, MB_OK
 JMP Label37
 Label36:
-invoke MessageBox, NULL, addr cadena@@9, addr cadena@@9, MB_OK
+invoke MessageBox, NULL, addr cadena@@48, addr cadena@@48, MB_OK
 Label37:
 Label39:
 FLD const@@_10_0
@@ -196,10 +197,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label48
-invoke MessageBox, NULL, addr cadena@@10, addr cadena@@10, MB_OK
+invoke MessageBox, NULL, addr cadena@@49, addr cadena@@49, MB_OK
 JMP Label49
 Label48:
-invoke MessageBox, NULL, addr cadena@@11, addr cadena@@11, MB_OK
+invoke MessageBox, NULL, addr cadena@@50, addr cadena@@50, MB_OK
 Label49:
 FLD const@@_3_0
 FSTP b@Variable@main
@@ -214,10 +215,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label56
-invoke MessageBox, NULL, addr cadena@@12, addr cadena@@12, MB_OK
+invoke MessageBox, NULL, addr cadena@@51, addr cadena@@51, MB_OK
 JMP Label57
 Label56:
-invoke MessageBox, NULL, addr cadena@@13, addr cadena@@13, MB_OK
+invoke MessageBox, NULL, addr cadena@@52, addr cadena@@52, MB_OK
 Label57:
 CALL salida3
 FLD const@@_10_0
@@ -230,10 +231,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label63
-invoke MessageBox, NULL, addr cadena@@14, addr cadena@@14, MB_OK
+invoke MessageBox, NULL, addr cadena@@53, addr cadena@@53, MB_OK
 JMP Label64
 Label63:
-invoke MessageBox, NULL, addr cadena@@15, addr cadena@@15, MB_OK
+invoke MessageBox, NULL, addr cadena@@54, addr cadena@@54, MB_OK
 Label64:
 CALL salida10
 FLD salida10@Funcion@main
@@ -246,10 +247,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label70
-invoke MessageBox, NULL, addr cadena@@16, addr cadena@@16, MB_OK
+invoke MessageBox, NULL, addr cadena@@55, addr cadena@@55, MB_OK
 JMP Label71
 Label70:
-invoke MessageBox, NULL, addr cadena@@17, addr cadena@@17, MB_OK
+invoke MessageBox, NULL, addr cadena@@56, addr cadena@@56, MB_OK
 Label71:
 CALL salida10
 CALL salida3
@@ -263,10 +264,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label78
-invoke MessageBox, NULL, addr cadena@@18, addr cadena@@18, MB_OK
+invoke MessageBox, NULL, addr cadena@@57, addr cadena@@57, MB_OK
 JMP Label79
 Label78:
-invoke MessageBox, NULL, addr cadena@@19, addr cadena@@19, MB_OK
+invoke MessageBox, NULL, addr cadena@@58, addr cadena@@58, MB_OK
 Label79:
 FLD const@@_10_0
 FSTP a@Variable@main
@@ -283,10 +284,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label87
-invoke MessageBox, NULL, addr cadena@@20, addr cadena@@20, MB_OK
+invoke MessageBox, NULL, addr cadena@@59, addr cadena@@59, MB_OK
 JMP Label88
 Label87:
-invoke MessageBox, NULL, addr cadena@@21, addr cadena@@21, MB_OK
+invoke MessageBox, NULL, addr cadena@@60, addr cadena@@60, MB_OK
 Label88:
 FLD const@@_10_0
 FLD const@@_3_0
@@ -299,10 +300,10 @@ FCOM
 FSTSW AX
 SAHF
 JNE Label96
-invoke MessageBox, NULL, addr cadena@@22, addr cadena@@22, MB_OK
+invoke MessageBox, NULL, addr cadena@@61, addr cadena@@61, MB_OK
 JMP Label97
 Label96:
-invoke MessageBox, NULL, addr cadena@@23, addr cadena@@23, MB_OK
+invoke MessageBox, NULL, addr cadena@@62, addr cadena@@62, MB_OK
 Label97:
 invoke ExitProcess, 0
 end start

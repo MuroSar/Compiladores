@@ -36,30 +36,30 @@ b@Variable@main DD ?
 salida30@Funcion@main DD ?
 var@@aux73 DD ?
 var@@aux31 DD ?
-cadena@@280 DB "Multiplicación var = -cte anda Long", 0
-cadena@@281 DB "Multiplicación var = -cte no anda Long", 0
-cadena@@282 DB "Multiplicación var*var = -cte anda Long", 0
-cadena@@283 DB "Multiplicación var*var = -cte no anda Long", 0
-cadena@@284 DB "Multiplicación var*cte = -cte anda Long", 0
-cadena@@285 DB "Multiplicación var*cte = -cte no anda Long", 0
-cadena@@286 DB "Multiplicación -cte*var = -cte anda Long", 0
-cadena@@287 DB "Multiplicación -cte*var = -cte no anda Long", 0
-cadena@@288 DB "Multiplicación cte*-cte = -cte anda Long", 0
-cadena@@289 DB "Multiplicación cte*-cte = -cte no anda Long", 0
-cadena@@290 DB "Multiplicación var*fn = -cte anda Long", 0
-cadena@@291 DB "Multiplicación var*fn = -cte no anda Long", 0
-cadena@@292 DB "Multiplicación fn*var = -cte anda Long", 0
-cadena@@293 DB "Multiplicación fn*var = -cte no anda Long", 0
-cadena@@294 DB "Multiplicación cte*fn = -cte anda Long", 0
-cadena@@295 DB "Multiplicación cte*fn = -cte no anda Long", 0
-cadena@@296 DB "Multiplicación fn*-cte = -cte anda Long", 0
-cadena@@297 DB "Multiplicación fn*-cte = -cte no anda Long", 0
-cadena@@298 DB "Multiplicación fn*fn = -cte anda Long", 0
-cadena@@299 DB "Multiplicación fn*fn = -cte no anda Long", 0
-cadena@@300 DB "Multiplicación var*fn = var anda Long", 0
-cadena@@301 DB "Multiplicación var*fn = var no anda Long", 0
-cadena@@302 DB "Multiplicación cte*-cte = fn anda Long", 0
-cadena@@303 DB "Multiplicación cte*-cte = fn no anda Long", 0
+cadena@@15 DB "Multiplicación var = -cte anda Long", 0
+cadena@@16 DB "Multiplicación var = -cte no anda Long", 0
+cadena@@17 DB "Multiplicación var*var = -cte anda Long", 0
+cadena@@18 DB "Multiplicación var*var = -cte no anda Long", 0
+cadena@@19 DB "Multiplicación var*cte = -cte anda Long", 0
+cadena@@20 DB "Multiplicación var*cte = -cte no anda Long", 0
+cadena@@21 DB "Multiplicación -cte*var = -cte anda Long", 0
+cadena@@22 DB "Multiplicación -cte*var = -cte no anda Long", 0
+cadena@@23 DB "Multiplicación cte*-cte = -cte anda Long", 0
+cadena@@24 DB "Multiplicación cte*-cte = -cte no anda Long", 0
+cadena@@25 DB "Multiplicación var*fn = -cte anda Long", 0
+cadena@@26 DB "Multiplicación var*fn = -cte no anda Long", 0
+cadena@@27 DB "Multiplicación fn*var = -cte anda Long", 0
+cadena@@28 DB "Multiplicación fn*var = -cte no anda Long", 0
+cadena@@29 DB "Multiplicación cte*fn = -cte anda Long", 0
+cadena@@30 DB "Multiplicación cte*fn = -cte no anda Long", 0
+cadena@@31 DB "Multiplicación fn*-cte = -cte anda Long", 0
+cadena@@32 DB "Multiplicación fn*-cte = -cte no anda Long", 0
+cadena@@33 DB "Multiplicación fn*fn = -cte anda Long", 0
+cadena@@34 DB "Multiplicación fn*fn = -cte no anda Long", 0
+cadena@@35 DB "Multiplicación var*fn = var anda Long", 0
+cadena@@36 DB "Multiplicación var*fn = var no anda Long", 0
+cadena@@37 DB "Multiplicación cte*-cte = fn anda Long", 0
+cadena@@38 DB "Multiplicación cte*-cte = fn no anda Long", 0
 .code
 _division_cero:
 invoke MessageBox, NULL, addr _msjDC, addr _msjDC, MB_OK
@@ -98,10 +98,10 @@ MOV EAX,c@Variable@main
 MOV EDX,-30
 CMP c@Variable@main,EDX
 JNE Label8
-invoke MessageBox, NULL, addr cadena@@280, addr cadena@@280, MB_OK
+invoke MessageBox, NULL, addr cadena@@15, addr cadena@@15, MB_OK
 JMP Label9
 Label8:
-invoke MessageBox, NULL, addr cadena@@281, addr cadena@@281, MB_OK
+invoke MessageBox, NULL, addr cadena@@16, addr cadena@@16, MB_OK
 Label9:
 MOV a@Variable@main,-10
 MOV b@Variable@main,3
@@ -113,10 +113,10 @@ MOV EAX,var@@aux11
 MOV EDX,-30
 CMP var@@aux11,EDX
 JNE Label16
-invoke MessageBox, NULL, addr cadena@@282, addr cadena@@282, MB_OK
+invoke MessageBox, NULL, addr cadena@@17, addr cadena@@17, MB_OK
 JMP Label17
 Label16:
-invoke MessageBox, NULL, addr cadena@@283, addr cadena@@283, MB_OK
+invoke MessageBox, NULL, addr cadena@@18, addr cadena@@18, MB_OK
 Label17:
 MOV a@Variable@main,-10
 MOV EAX,a@Variable@main
@@ -127,10 +127,10 @@ MOV EAX,var@@aux18
 MOV EDX,-30
 CMP var@@aux18,EDX
 JNE Label23
-invoke MessageBox, NULL, addr cadena@@284, addr cadena@@284, MB_OK
+invoke MessageBox, NULL, addr cadena@@19, addr cadena@@19, MB_OK
 JMP Label24
 Label23:
-invoke MessageBox, NULL, addr cadena@@285, addr cadena@@285, MB_OK
+invoke MessageBox, NULL, addr cadena@@20, addr cadena@@20, MB_OK
 Label24:
 MOV b@Variable@main,3
 MOV EAX,-10
@@ -141,10 +141,10 @@ MOV EAX,var@@aux25
 MOV EDX,-30
 CMP var@@aux25,EDX
 JNE Label30
-invoke MessageBox, NULL, addr cadena@@286, addr cadena@@286, MB_OK
+invoke MessageBox, NULL, addr cadena@@21, addr cadena@@21, MB_OK
 JMP Label31
 Label30:
-invoke MessageBox, NULL, addr cadena@@287, addr cadena@@287, MB_OK
+invoke MessageBox, NULL, addr cadena@@22, addr cadena@@22, MB_OK
 Label31:
 MOV EAX,10
 MOV EDX,-3
@@ -154,10 +154,10 @@ MOV EAX,var@@aux31
 MOV EDX,-30
 CMP var@@aux31,EDX
 JNE Label36
-invoke MessageBox, NULL, addr cadena@@288, addr cadena@@288, MB_OK
+invoke MessageBox, NULL, addr cadena@@23, addr cadena@@23, MB_OK
 JMP Label37
 Label36:
-invoke MessageBox, NULL, addr cadena@@289, addr cadena@@289, MB_OK
+invoke MessageBox, NULL, addr cadena@@24, addr cadena@@24, MB_OK
 Label37:
 Label39:
 MOV a@Variable@main,10
@@ -170,10 +170,10 @@ MOV EAX,var@@aux43
 MOV EDX,-30
 CMP var@@aux43,EDX
 JNE Label48
-invoke MessageBox, NULL, addr cadena@@290, addr cadena@@290, MB_OK
+invoke MessageBox, NULL, addr cadena@@25, addr cadena@@25, MB_OK
 JMP Label49
 Label48:
-invoke MessageBox, NULL, addr cadena@@291, addr cadena@@291, MB_OK
+invoke MessageBox, NULL, addr cadena@@26, addr cadena@@26, MB_OK
 Label49:
 MOV b@Variable@main,-3
 CALL salida10
@@ -185,10 +185,10 @@ MOV EAX,var@@aux51
 MOV EDX,-30
 CMP var@@aux51,EDX
 JNE Label56
-invoke MessageBox, NULL, addr cadena@@292, addr cadena@@292, MB_OK
+invoke MessageBox, NULL, addr cadena@@27, addr cadena@@27, MB_OK
 JMP Label57
 Label56:
-invoke MessageBox, NULL, addr cadena@@293, addr cadena@@293, MB_OK
+invoke MessageBox, NULL, addr cadena@@28, addr cadena@@28, MB_OK
 Label57:
 CALL salida3
 MOV EAX,10
@@ -199,10 +199,10 @@ MOV EAX,var@@aux58
 MOV EDX,-30
 CMP var@@aux58,EDX
 JNE Label63
-invoke MessageBox, NULL, addr cadena@@294, addr cadena@@294, MB_OK
+invoke MessageBox, NULL, addr cadena@@29, addr cadena@@29, MB_OK
 JMP Label64
 Label63:
-invoke MessageBox, NULL, addr cadena@@295, addr cadena@@295, MB_OK
+invoke MessageBox, NULL, addr cadena@@30, addr cadena@@30, MB_OK
 Label64:
 CALL salida10
 MOV EAX,salida10@Funcion@main
@@ -213,10 +213,10 @@ MOV EAX,var@@aux65
 MOV EDX,-30
 CMP var@@aux65,EDX
 JNE Label70
-invoke MessageBox, NULL, addr cadena@@296, addr cadena@@296, MB_OK
+invoke MessageBox, NULL, addr cadena@@31, addr cadena@@31, MB_OK
 JMP Label71
 Label70:
-invoke MessageBox, NULL, addr cadena@@297, addr cadena@@297, MB_OK
+invoke MessageBox, NULL, addr cadena@@32, addr cadena@@32, MB_OK
 Label71:
 CALL salida10
 CALL salida3
@@ -228,10 +228,10 @@ MOV EAX,var@@aux73
 MOV EDX,-30
 CMP var@@aux73,EDX
 JNE Label78
-invoke MessageBox, NULL, addr cadena@@298, addr cadena@@298, MB_OK
+invoke MessageBox, NULL, addr cadena@@33, addr cadena@@33, MB_OK
 JMP Label79
 Label78:
-invoke MessageBox, NULL, addr cadena@@299, addr cadena@@299, MB_OK
+invoke MessageBox, NULL, addr cadena@@34, addr cadena@@34, MB_OK
 Label79:
 MOV a@Variable@main,10
 MOV c@Variable@main,-30
@@ -244,10 +244,10 @@ MOV EAX,var@@aux82
 MOV EAX,c@Variable@main
 CMP var@@aux82,EAX
 JNE Label87
-invoke MessageBox, NULL, addr cadena@@300, addr cadena@@300, MB_OK
+invoke MessageBox, NULL, addr cadena@@35, addr cadena@@35, MB_OK
 JMP Label88
 Label87:
-invoke MessageBox, NULL, addr cadena@@301, addr cadena@@301, MB_OK
+invoke MessageBox, NULL, addr cadena@@36, addr cadena@@36, MB_OK
 Label88:
 MOV EAX,10
 MOV EDX,-3
@@ -257,10 +257,10 @@ CALL salida30
 MOV EAX,var@@aux90
 CMP EAX,salida30@Funcion@main
 JNE Label96
-invoke MessageBox, NULL, addr cadena@@302, addr cadena@@302, MB_OK
+invoke MessageBox, NULL, addr cadena@@37, addr cadena@@37, MB_OK
 JMP Label97
 Label96:
-invoke MessageBox, NULL, addr cadena@@303, addr cadena@@303, MB_OK
+invoke MessageBox, NULL, addr cadena@@38, addr cadena@@38, MB_OK
 Label97:
 invoke ExitProcess, 0
 end start
