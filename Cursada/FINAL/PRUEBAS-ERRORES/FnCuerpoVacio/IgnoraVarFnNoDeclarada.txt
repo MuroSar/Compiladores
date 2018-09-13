@@ -1,0 +1,18 @@
+DOUBLE MOVE FUNCTION fun {
+**en esta funcion se detectan las dos "a"
+a:DOUBLE.
+a=10,0.
+a:DOUBLE.
+RETURN (a).
+}
+
+
+DOUBLE FUNCTION fun {
+**en esta funcion no se detectan las dos "b" porque 
+**la funcion esta mal definida o esta redefinida, e
+**ntonces ignora las variables de adentro
+b:DOUBLE.
+b=12,0.
+b:LONG.
+RETURN (b).
+}

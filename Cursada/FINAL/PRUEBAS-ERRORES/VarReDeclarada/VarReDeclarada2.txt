@@ -1,0 +1,20 @@
+a:DOUBLE.
+
+DOUBLE FUNCTION fun {
+a,b:DOUBLE.
+a=10,0.
+RETURN (a).
+}
+
+DOUBLE FUNCTION fun2 {
+a:LONG.
+a=10.
+RETURN (a).
+}
+
+DOUBLE FUNCTION fun3 {
+b:DOUBLE.
+b=11,0.
+RETURN (b).
+}
+

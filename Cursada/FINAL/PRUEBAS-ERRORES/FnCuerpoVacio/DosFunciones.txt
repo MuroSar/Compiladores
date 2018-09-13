@@ -1,0 +1,11 @@
+DOUBLE FUNCTION fn1 {
+a:DOUBLE.
+
+	DOUBLE FUNCTION fn2 {
+	b:DOUBLE.
+	RETURN (b).
+	}
+a=10,0.
+RETURN (a).
+}
+
