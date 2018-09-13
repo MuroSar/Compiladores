@@ -548,6 +548,7 @@ public class Sintactico {
 	}
 	
 	public void start() {		
+		boolean seGeneraronReglas;
 //		this.ppal.mostrarMensaje("------------------LISTADO DE TOKENS------------------");
 //		this.ppal.mostrarMensaje("");
 //		this.lexico.showAllTokens();
@@ -560,9 +561,11 @@ public class Sintactico {
 		switch (result) {
 		case 0:
 			this.ppal.mostrarMensaje("----SE OBTUVO LA LISTA DE REGLAS CORRECTAMENTE---");
+			seGeneraronReglas = true;
 			break;
 		default:
 			this.ppal.mostrarMensaje("------NO SE PUDO OBTENER LA LISTA DE REGLAS------");
+			seGeneraronReglas = false;
 		}
 		
 		this.ppal.mostrarMensaje("");
@@ -597,11 +600,18 @@ public class Sintactico {
 		this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 		
 		this.generador.setListaTercetos(this.getAllTercetos()); 
-		if (this.generador.generarCodigo()) {
+		if (seGeneraronReglas && this.getLexico().getErrores().isEmpty() && !this.huboErrores()) {
+			this.generador.generarCodigo();
 			this.ppal.mostrarMensaje("----------------------------------------------------");
 			this.ppal.mostrarMensaje("Se gener\u00f3 el Assembler");
 			this.ppal.mostrarMensaje("----------------------------------------------------");
 		}
+		else {
+			this.ppal.mostrarMensaje("----------------------------------------------------");
+			this.ppal.mostrarMensaje("No se puede generar el Assembler porque se encontraron errores");
+			this.ppal.mostrarMensaje("----------------------------------------------------");
+		}
+		
 		
 		//this.ppal.mostrarMensaje(this.lexico.printTSimbolos());
 	}
